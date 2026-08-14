@@ -1,0 +1,87 @@
+# ---------------------------------------------------------------------------
+# Third-party literature, guidance and reports: never committed.
+#
+# Copyrighted PDFs are not redistributed; 04.references/README.md records
+# provenance and retrieval for each. Markdown conversions of copyrighted
+# sources are excluded too: converting a format does not change the copyright.
+# ---------------------------------------------------------------------------
+04.references/literature/
+04.references/reports/
+04.references/standards/
+
+# macOS resource forks
+._*
+**/._*
+.DS_Store
+.Rproj.user
+
+# ---------------------------------------------------------------------------
+# Raw input data: NEVER committed.
+#
+# Large third-party data (imagery, reanalysis grids, model checkpoints) lives
+# on the external drive; git carries only a manifest of provenance plus the
+# small derived CSVs the manuscript actually cites. GitHub hard-rejects any
+# file over 100 MB, so an accidental `git add 02.inputs` would wedge the repo.
+#
+# Everything under 02.inputs is ignored by default; the exceptions below
+# re-admit the documentation, the scripts and the derived outputs.
+# ---------------------------------------------------------------------------
+02.inputs/**
+!02.inputs/
+!02.inputs/**/
+!02.inputs/**/*.md
+!02.inputs/**/*.R
+!02.inputs/**/*.py
+
+# Derived CSVs written by saved scripts ARE committed: they are the numbers
+# the manuscript cites, under the rule that no figure may be quoted from
+# code that was not saved.
+!02.inputs/derived/**
+!02.inputs/derived/*.csv
+
+# The derived/** re-admission above would otherwise let macOS resource forks
+# back in; re-exclude them last so the ._* rule wins.
+02.inputs/**/._*
+
+# Integrity manifests are the reproducible record of what was downloaded.
+!02.inputs/**/SHA256SUMS.txt
+
+# Python bytecode and environments
+__pycache__/
+*.py[cod]
+.venv/
+
+# Quarto render sidecar: regenerable JS/CSS libraries.
+01.manuscript/*_files/
+01.manuscript/manuscript/
+01.manuscript/Rplots.pdf
+
+# Word lock files
+~$*.docx
+**/~$*
+
+# Private notes and working files, per the library convention. Unlike the
+# sibling project, .gitignore itself IS tracked here.
+/docs/
+/tasks/
+/05.tasks/
+/attachments/
+CLAUDE.md
+INDEX.md
+
+# Claude/agent working files: never committed, never on GitHub.
+# Claude Code local state, except the shared project memory store
+.claude.json
+**/.claude/*
+!**/.claude/memory/
+CLAUDE.local.md
+**/CLAUDE.md
+
+# API credentials. The NASA ADS token lives at ~/.ads/dev_key, outside every git
+# tree; these patterns are a second line of defence in case a copy is ever made
+# inside the repo by accident. Added 2026-08-14.
+.ads/
+dev_key
+*.token
+.Renviron
+.env
