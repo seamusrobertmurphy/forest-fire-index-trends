@@ -1,0 +1,1 @@
+# forest-fire-index-trends
