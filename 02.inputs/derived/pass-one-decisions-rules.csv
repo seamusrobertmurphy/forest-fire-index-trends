@@ -1,0 +1,742 @@
+bibcode,batch,screen_decision,screen_reason,decided_by
+2001AGUFM.B22C0159P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2001AGUFM.B31B0088B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2001nsf....0107406G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2001nsf....0107465F,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2002AGUSMGC42A..05S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2002EGSGA..27..602R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2002nsf....0216471H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2003AGUFM.A22C1085I,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2003EAEJA.....4833A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2003EAEJA.....5059G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2003nsf....0302469A,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2003nsf....0330384Q,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2003nsf....0330466H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2004AGUFM.A13B0102S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004AGUFM.A13B0116L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004AGUFM.B41B0111D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004AGUFM.B43E..03B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004AGUFM.B43E..04W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004AGUFM.B51F..06G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004AGUFMGC51D1080C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004cosp...35.2875M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2004cosp...35.4140R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2005AGUFM.A21B0851M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2005AGUFM.A32B..05S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2005AGUFM.A51D0109L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2005AGUFM.H21A1324P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2005AGUFM.H33B1390G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2005AGUFM.H51I..04B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUFM.B41E0230B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUFM.H11B1250T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUFMGC41A1047K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUFMOS23E..03K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUFMPA23A..04O,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUFMPA31A0801M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006AGUSM.B43A..02H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2006nsf....0604229H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2006nsf....0622677M,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2007AGUFM.A33A0837S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFM.A33E1640T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFM.A52A..02P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFM.B11D0781H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFM.B14C..04M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFMGC13B..08A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFMGC24A..07T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFMGC33A0953K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007AGUFMGC43A0946K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2007nsf....0623442S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2008AGUFM.B31E0345T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2008AGUFM.B42B..02T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2008AGUFM.C21A0492K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2008AGUFM.H21A0816M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2008AGUFM.H31J..03P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2008AGUFMIN54A..04D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009AGUFM.H41G0989Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009AGUFM.U13B0057K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009AGUFMEP51B0591S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009AGUSMCG11B..03M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009AGUSMGC21A..06B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..11.5722V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..11.6544F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..11.7334G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..11.8247S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..1111181V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..1112100P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009EGUGA..1113330B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2009nsf....0837860Z,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2009nsf....0837870W,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2009nsf....0905561F,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2009nsf....0927949G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2010AGUFM.A11D0089K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFM.A21B0054C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFM.A24B..01I,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFM.B23G0464H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFM.B41K..08B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMED21C0689J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMEP41B0702D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMGC53C..04C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMNH33A1366S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMNH33B..04Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMNH34A..01G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMNH41A1484C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010AGUFMOS21F1558G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..12..530B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..12.3012S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..12.5437A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..12.7145R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..12.7149S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..1213010V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..1213037V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010EGUGA..1214485S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2010nsf....0952599M,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2010nsf....0956552V,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2010nsf....0960300C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2010nsf....0960348O,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2010nsf....1002479G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2011AGUFM.A33A0160J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011AGUFM.A33H..03J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011AGUFMGC14B..01S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011AGUFMGC23C0957K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011AGUFMGC34C..05L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011AGUFMGC51B0966S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011AGUFMNG43C..03H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2011nsf....1062202Z,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2011nsf....1065790M,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2012AGUFM.A53P0407B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012AGUFM.B13B0499C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012AGUFM.H52A..07W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012AGUFMEP51E..06C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012AGUFMGC11B1003W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012AGUFMGC14C..04L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..14.2419C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..14.4776F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..14.9558A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..1411226A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..1411871G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..1412172B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012EGUGA..1412737P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2012nsf....1151930C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2012nsf....1160730W,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2012nsf....1160737C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013AGUFM.A41N..04H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFM.B31H..07B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFM.B33D0506I,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFM.B53G..06B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMGC21C0852T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMGC24B..01S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMGC42B..07L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMGC51B0965L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMGC51B0966S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMGC53D..04S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013AGUFMNH33C..01J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..15.1892H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..15.3510C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..15.9565K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..1510913L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..1512113M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..1512161M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013EGUGA..1513737T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2013nsf....1243102C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1243107O,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1243204S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1243270B,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1252315H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1262231T,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1302346O,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1311605D,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2013nsf....1331615A,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2014AGUFM.A33P..01W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFM.A33P..04F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFM.A43D3316B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFM.B51H0119F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFM.G21B0440P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFM.H13C1120T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFMGC23B0628A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFMGC32B..06A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFMGC33E0570L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFMGC43B0699F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AGUFMOS32B..08B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014AMS....9439929A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014EGUGA..16.4647H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014EGUGA..16.5580S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014EGUGA..16.5795P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2014inca.prop...25L,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2014nsf....1343904N,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2014nsf....1349847M,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2014nsf....1353740D,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2014nsf....1419267K,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2014nsf....1419558H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2015AGUFM.A21F0206B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFM.A44E..04F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFM.A52C..05W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFM.B52B..05M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFM.G43B1047C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC23C1148A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC23C1149L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC31D1217B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC33E1341C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC41A1066S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC42B..01S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMGC53B1201K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMNH31A1872S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMNH31A1874H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMNH31A1880K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMNH31A1885S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMNH54A..03L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AGUFMPP23A2275R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AMS....9556085Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015AMS....9570996F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..17..292P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..17.1735M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..17.2496P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..1711806B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..1712788H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..1714419F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015EGUGA..1715101F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2015nsf....1600016T,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2016AGUFM.A43J..07F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFM.A51C0047Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFM.A53G..06M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFM.B13F0682N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFM.B42A..06R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFM.B53A0518R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFMGC13G1260S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFMGC42C..08M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFMGC51E1235F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFMGC51E1239M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFMGC51E1244Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUFMNH33A1918S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUOS.PC41A.07H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUOS.PO13E.03C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUOSPC41A..07H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AGUOSPO13E..03C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AMS....9688549B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AMS....9689761P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016AMS....9690306M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.1308S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.1643M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.3242V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.4309C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.6271E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.7594C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..18.7613R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..1810560D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..1812619C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..1813670Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016EGUGA..1814421S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2016nsf....1635465D,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2016slct.prop....8S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.A12E..05P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.A31H2283S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.A33E2402U,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.A43L..08R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.B21I..01R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.H34D..02F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.H42C..02W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFM.H51I1388D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMGC43E1102J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMGC43F1116O,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMGC43F1118L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMGC44C..02F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMGC51A0797K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMGC52B..05L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMNH41C0164M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMNH41C0168K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMNH42B..02E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AGUFMPP54B..02B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9707825W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9709837F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9712181T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9714532S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9715267B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9716308R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017AMS....9716610W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..19.3955W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..19.4242N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..19.4660L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..19.6788H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..1911236M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..1913515D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..1917158P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017EGUGA..1917461S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2017nsf....1602633G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017nsf....1602751W,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017nsf....1602828B,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017nsf....1701380S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017oco..prop...24S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017oco..prop...27R,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2017tasn.prop..159G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.A23H2937T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.A24F..07N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.A32D..07C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.A43J..06G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.A54C..05H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.B21J2470P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.B51E1990O,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.H42C..08F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFM.H51L1458S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMGC21E1135K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMGC33J1494L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMGC33J1504S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMNH23E0903H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMNH31C0997Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMNH34C..07T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUFMPA11D0821H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUOSOC11A..08C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUOSOM42A..03S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AGUOSOM42A..08R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AMS....9826771H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AMS....9829551D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AMS....9835513S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018AMS....9838228S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..20.5236K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..20.5802K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..20.8555D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..2010058B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..2012833P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..2014239F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..2016713C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018EGUGA..2019481S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018cosp...42E3689W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2018disa.prop...15H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1756958A,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1805141K,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1805143S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1805480C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1808869G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1811657C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1811745W,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1829803Z,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1829893J,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1830047G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018nsf....1855628B,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2018serv.prop...38M,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A14C..01T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A21U2666V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A23C..05F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A23L2964T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A23L2974L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A24L..07T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A31S2828S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A41P2869D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.A51O2866G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.B52C..02R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.B53H2479T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.C21E1504M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.H12G..08M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFM.H51S1769K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC11F1154S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC11F1157K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC11F1160D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC13B..02D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC23D..05T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC24C..07S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC31G1267Q,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC31L1372F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC43F1329Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AGUFMGC43I1458D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9949784F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9949812C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9951133Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9951567S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9953876B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9953930H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9954795F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9955994F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AMS....9956310M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019AbICA...1..301P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21..570T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21.2296L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21.5168C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21.5499B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21.8074V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21.8082N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..21.8502B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2112238R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2113218K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2114503M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2114779N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2114980P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2115167N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2117125P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2117837F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2117910N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019EGUGA..2117937F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2019nsf....1805490S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA087.0006C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA104...09L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA143.0005J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA143.0010V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA143.0011T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA144.0007A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA160...08J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMA224.0017S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMAE011..05L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMB067...05I,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMB107...01O,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMB128...07X,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMC021.0004G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMGC020..07L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMGC0580001M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMGC0820012Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMGC0830001S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMNH0080014G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMNH010..03S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMNH011..01B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMPP0170002K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMPP0470004G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUFMPP0470007L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUOS..IS52A04C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AGUOSPC14C1738A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10061919E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10062816B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10064683M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10065781E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10067352H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10068394R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10069557W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020AMS...10071922B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..22.4196M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..22.5777B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..22.7719G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..22.8323Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2211610C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2214820V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2216144W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2217947D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2218274B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2218380B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2220245C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2220907S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2221533Q,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020EGUGA..2222686H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2020nsf....1921546F,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....1921554F,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2013461S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2014636K,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2025106G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2026410D,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2029098S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2041281C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020nsf....2101885R,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2020tasn.prop..133W,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A12D..02R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A15L1804W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A22D..03S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A43F..04C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A43F..08G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A45F1918H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A45H1937B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A53G..01B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.A55N1589B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.C35D0911G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.U13B..10G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFM.U13B..13M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFMGC35B0700B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFMGC45G0878B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFMGC53D..01S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFMNH13B..03C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFMNH15F0516S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AGUFMPP52A..06F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10179954R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10180133Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10180356K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10180645F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10182187A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10184257M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10184686Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10184705H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10185180P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10185192D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021AMS...10185328T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23..610D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.1893P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.1930S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.3404K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.5389R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.7045Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.8471S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..23.9611S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2310830F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2311117S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2312208G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2312863A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2314231B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2314575C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021EGUGA..2314602G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2021nsf....2117971F,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.A15N1430S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.A22F1717B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.A26E..02P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.A36F..06L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.A52N1161B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.A52N1170G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.B51F..01M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.B55D1007P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.B56D..04N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFM.H42I1403K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMGC22I0694W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMGC23C..04C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMGC23C..07J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMGC26G..06C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMGC52F0224Q,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMGC52F0234X,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMNH31B..01G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMNH45F0492S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMNH45F0502J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AGUFMNV44B..08L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10200266A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10290127F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10290698C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10291210R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10292043G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10293742M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10294740R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10295791F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022AMS...10297738S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24..696H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.1500S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.4619E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.4831Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.5193S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.7515M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.8088R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.9651D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..24.9781A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2410005B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2410164C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2410763D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2411239D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2411616S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2411629F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2413097B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022EGUGA..2413358J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2022meas.prop...64G,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2022nsf....2214697F,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.A11P2209N,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.A21F2334T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.A23U..06D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.A33J2673H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.A33K26.9H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.A33L2709T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.B13G1983M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.B31M2251W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFM.H33I1896J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC04...06D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC12B..03F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC13D..05S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC31J1159T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC34D..01J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC34D..05W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC41K1237L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC51J0731W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMGC53C..05B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMNH33B..11T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMNH43C0801H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AGUFMNH44A..07G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10310930M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10310976S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10311725B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10314548D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10315414M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10315648J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10316642T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10317447F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10319373E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10320888W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10322738G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023AMS...10323180C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25..271M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.1004P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.1296H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.1404Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.1550P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.6286K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.7687E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.8136L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.8564S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..25.9426S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2510846F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2510927R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2511800S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2513877C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2514441L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2515385W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2516190K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2516258R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2516986K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023EGUGA..2517451R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2023cygn.prop....4C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023jpl..data.1771W,rule,exclude,"ineligible record type: dataset record, not a bibliographic source",05.scripts/screen_pass_one_prepare.py
+2023nsf....2244272H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023nsf....2303467B,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023nsf....2303468W,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023nsf....2335846C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023nsf....2335847B,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2023nsf....2345296T,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024AGUFM.A03...48K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFM.A07...45P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA11J.1743D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA23G.2064R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA32B...08K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA32C...09C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA41U.1918C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA43T...04B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMA53J.2223R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMB11D...02M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMB13I.1645K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMB13I.1657J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMB21E...06C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMB31H.1367V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC01...32T,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC12B..01L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC13G0277D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC23J..03D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC23J..06H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC31O0021A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC31V0108J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC32D..01H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGC53J..02B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGH32B..06J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGH41B2698C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMGH52A..03L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMNH01...02S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMOS23D0737M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUFMOS23E.076R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AGUOSCB34B1084B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10429328L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10429464J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10431288L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10431846L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10431888V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10432954K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10433293D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10433307K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10433682R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10434594B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10435129M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10438694B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10438810S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10438828H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10439551H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10439665W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024AMS...10440563A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26..708S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26..795P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.1092P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.1627F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.4071Q,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.4127C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.5070V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.5196D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.5527S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.5532L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..26.7224S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2610200W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2610974G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2611331S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2611962K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2612223L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2613497M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2614202L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2614667R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2614686B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2616616A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2616842L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2616870H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2617121D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2618355H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2618953A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024EGUGA..2619934F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2024insp.prop...39S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024jpl..data.2500M,rule,exclude,"ineligible record type: dataset record, not a bibliographic source",05.scripts/screen_pass_one_prepare.py
+2024nsf....2331728C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024nsf....2331729D,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024nsf....2409315S,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024osts.prop...10T,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024usgs.data.1490P,rule,exclude,"ineligible record type: dataset record, not a bibliographic source",05.scripts/screen_pass_one_prepare.py
+2024wf...prop...27H,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2024wf...prop...29M,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2025AGUFMA21L.2162Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMA32E...05C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMA42G...01H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMA51B...04M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMA51J.0834P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMB13B...05K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMB21J.1769F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMB23J.1886I,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMC31E.0974K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMC33F.1024S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMC41A...05C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC13E.071C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC23D..02J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC31A..05L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC33A..07L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC34A..02A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC43O0974L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC43O0985D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMGC51H0286W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMNH21C0441K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMNH44B..07S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMNH51E0221Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMOS33E1161W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AGUFMOS34B..01S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10546265J,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10548184B,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10549138A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10549448M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10550026X,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10550848H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10551968H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10552116K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10552257M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10552353D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10552471S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10553465S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10553750K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10553932M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10553946L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10554071K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10554279W,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10554756M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10554768M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10555345L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10555350L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10556238F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10556378K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10556843R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10557550S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025AMS...10558533P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.2188F,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.2350L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.3083A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.4719K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.5094S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.6284P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.6292M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.6955P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.7263R,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..27.9043V,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2710006G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2712639G,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2713372Y,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2715192C,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2715504D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2715531S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2715676K,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2716229E,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2716744A,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2716962P,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2717162D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2717607M,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2717617L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025EGUGA..2718003S,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2025nsf....2513456C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2025nsf....2523484C,rule,exclude,"ineligible record type: funding proposal, not a research output",05.scripts/screen_pass_one_prepare.py
+2025usgs.data...39B,rule,exclude,"ineligible record type: dataset record, not a bibliographic source",05.scripts/screen_pass_one_prepare.py
+2026AGUOSMCC13C.02D,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2026AGUOSMCC42B.08L,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2026AGUOSMCC53B.06H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2026AGUOSMHE24B117Z,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py
+2026AGUOSMOB43B.02H,rule,exclude,"ineligible record type: meeting abstract, not a full record; no method to extract",05.scripts/screen_pass_one_prepare.py

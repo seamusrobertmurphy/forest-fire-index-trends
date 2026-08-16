@@ -1,0 +1,10 @@
+"Series","Component","Threshold","Percentile of threshold","Days per season above","Reference median"
+"S1: FWI1987, 13:00 observation","FFMC",91,65.1,57.2,89.3
+"S2: FWI2025, 13:00 observation","FFMC",91,66.2,55.4,89.5
+"S3: FWI2025, hourly observation","FFMC",91,62.5,61.9,89.8
+"S1: FWI1987, 13:00 observation","FWI",19,52.5,78.1,19.3
+"S2: FWI2025, 13:00 observation","FWI",19,47.6,85.4,21.4
+"S3: FWI2025, hourly observation","FWI",19,52.6,77.8,19.5
+"S1: FWI1987, 13:00 observation","FWI",30,74.8,43,19.3
+"S2: FWI2025, 13:00 observation","FWI",30,72.4,46.7,21.4
+"S3: FWI2025, hourly observation","FWI",30,75.2,42.9,19.5

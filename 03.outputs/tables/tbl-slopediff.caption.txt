@@ -1,0 +1,1 @@
+Difference in Theil-Sen slope between series, by metric and contrast, with paired bootstrap intervals.

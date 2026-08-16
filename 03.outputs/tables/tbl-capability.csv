@@ -1,0 +1,3 @@
+"Series","Mean peak hour (LST)","Mean burning window (h)","Days per season with window >= 6 h"
+"S2: FWI2025, 13:00 observation",16.02,7.26,87.2
+"S3: FWI2025, hourly observation",16.26,11,96

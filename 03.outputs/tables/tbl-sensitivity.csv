@@ -1,0 +1,4 @@
+"Series","Days FFMC >= 91, fixed hour","Days FFMC >= 91, daily maximum","Days FWI >= 19, fixed hour","Days FWI >= 19, daily maximum"
+"S1: FWI1987, 13:00 observation",57.2,NA,78.1,NA
+"S2: FWI2025, 13:00 observation",55.4,56.3,85.4,86.5
+"S3: FWI2025, hourly observation",61.9,72.7,77.8,92.7

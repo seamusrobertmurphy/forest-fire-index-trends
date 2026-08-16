@@ -1,0 +1,6 @@
+"Station","Elevation (m)","First season","Last season","Seasons kept","Seasons dropped","Not reporting","Median coverage"
+"PENTICTON RS",492,1991,2025,27,11,0,1
+"MCCUDDY",1023,1994,2025,26,11,1,1
+"FINTRY",526,1996,2025,25,7,6,1
+"BRENDA MINES",1463,1998,2025,20,17,1,0.999
+"WEST KELOWNA",650,2017,2024,6,3,28,0.998

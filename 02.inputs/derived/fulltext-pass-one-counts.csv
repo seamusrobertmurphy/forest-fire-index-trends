@@ -1,0 +1,22 @@
+measure,level,n
+fulltext_sought,total,758
+verify_status,verified,744
+verify_status,"no doi, hand entry",13
+verify_status,title mismatch,1
+record_class,article,723
+record_class,preprint,14
+record_class,thesis,12
+record_class,conference,7
+record_class,report,2
+fulltext_route,open access,473
+fulltext_route,request,265
+fulltext_route,hand entry,12
+fulltext_route,arxiv,8
+obtainable,yes,481
+obtainable,unknown,277
+oa_status,gold,280
+oa_status,closed,262
+oa_status,bronze,78
+oa_status,hybrid,70
+oa_status,green,45
+oa_status,(blank),23

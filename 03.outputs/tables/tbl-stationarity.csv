@@ -1,0 +1,7 @@
+"Response","Series","Interaction","Standard error","p"
+"Lightning, no size limit","S1: FWI1987, 13:00 observation",-0.0000337,0.000512,0.947
+"Lightning, no size limit","S2: FWI2025, 13:00 observation",0.000193,0.000537,0.72
+"Lightning, no size limit","S3: FWI2025, hourly observation",-0.0000706,0.000466,0.88
+"All causes, no size limit","S1: FWI1987, 13:00 observation",-0.0000276,0.000217,0.899
+"All causes, no size limit","S2: FWI2025, 13:00 observation",0.0000828,0.000227,0.715
+"All causes, no size limit","S3: FWI2025, hourly observation",0.0000213,0.000196,0.913

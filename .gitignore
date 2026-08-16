@@ -85,3 +85,16 @@ dev_key
 *.token
 .Renviron
 .env
+
+# The retrieved hourly weather record. Roughly 200 MB uncompressed and
+# reproducible from 05.scripts/fetch_fire_weather.py, so it is not committed;
+# 02.inputs/README.md records its provenance and derived/ carries every number
+# taken from it.
+02.inputs/weather/
+
+# Vendored third-party source. 05.scripts/vendor/cffdrs-ng is the Canadian
+# Forest Service reference implementation of FWI2025, kept in the tree so that
+# the analysis runs from one place and the exact code that produced the results
+# is on the record. It IS committed, under its Mozilla Public License 2.0, with
+# the upstream commit recorded in COMMIT.txt.
+!05.scripts/vendor/

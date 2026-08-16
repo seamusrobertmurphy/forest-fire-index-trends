@@ -1,0 +1,39 @@
+Almost every published Canadian fire danger trend is expressed in the units of
+the 1987 Fire Weather Index System, which Natural Resources Canada replaced in
+2025. The successor changes the version of the calculation and the resolution of
+the weather driving it at the same time, so a straight comparison of the two
+cannot attribute a difference to either. Three danger series were therefore
+computed from a single hourly weather record for the Canadian portion of the
+Okanagan basin, British Columbia, over 31 fire seasons from 1991 to 2025 at 5
+stations, 104 station-seasons in all: FWI1987 from the 13:00 observation, FWI2025
+from the same observation through the specification's legacy pathway, and FWI2025
+from the observed hourly weather. FWI2025 was computed with the Canadian Forest
+Service reference implementation; the FWI1987 implementation reproduces the CRAN
+package cffdrs to machine precision and correlates 0.986 with the FWI1987 codes BC
+Wildfire Service computed operationally at these stations.
+
+The comparability the 2025 report claims holds for levels and fails for tails. A
+Fine Fuel Moisture Code of 91, the value that report names, sits at the 65.1th
+percentile of the legacy series and the 62.5th of the hourly FWI2025 series,
+which is 57 days per season above it against 62. Trends were estimated with
+the Theil-Sen slope and Mann-Kendall tested with the Hamed and Rao correction for
+serial correlation, corrected within each metric family for false discovery rate.
+Differences between series were bootstrapped by resampling whole seasons, which
+preserves the dependence of three series that share one weather record. Of the
+12 station-metric combinations under absolute thresholds, 0 gave a migration
+slope difference whose corrected interval excluded zero; under thresholds set as
+percentiles of each series' own reference distribution, 0 of 8 did. The
+resolution of that test is about 13.5 days over the window, so the version change
+is established here as a shift in level rather than in slope, which is enough to
+break a comparison between a value published under the old system and a value
+computed under the new one.
+
+Daily ignition counts were modelled as negative binomial with season as a fixed
+effect, so the danger coefficient is identified from within-season variation
+alone and cannot be moved by the record keeping: a quarter of the basin's
+incidents carry no ignition date at all and both dating and cause attribution
+fall sharply after 2000. On held-out seasons the three series differed by 0.0005 in
+mean log likelihood per day, with S1: FWI1987, 13:00 observation ranking first.
+
+These results are exploratory: the project's framing, prior-work, design and pre-registration gates were overridden to produce a complete draft, so decisions a pre-registration would have fixed in advance were made with the data in view. The comparison between series is the part the design protects, because all three run on one record through the same decisions.
+

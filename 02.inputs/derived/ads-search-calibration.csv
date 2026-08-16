@@ -1,0 +1,123 @@
+kind,strand,label,query,n_found
+stopword,,trend,"abs:""trend""",0
+stopword,,trends,"abs:""trends""",0
+stopword,,detection,"abs:""detection""",2587124
+stopword,,estimation,"abs:""estimation""",2657271
+stopword,,monotonic,"abs:""monotonic""",105738
+stopword,,linear,"abs:""linear""",2552930
+stopword,,Mann-Kendall,"abs:""Mann-Kendall""",9564
+stopword,,Theil-Sen,"abs:""Theil-Sen""",1195
+stopword,,slope,"abs:""slope""",323552
+stopword,,quantile,"abs:""quantile""",19935
+stopword,,regression,"abs:""regression""",484955
+stopword,,generalized,"abs:""generalized""",804587
+stopword,,squares,"abs:""squares""",623004
+stopword,,autocorrelation,"abs:""autocorrelation""",59176
+stopword,,serial,"abs:""serial""",66915
+stopword,,correlation,"abs:""correlation""",1931528
+stopword,,prewhitening,"abs:""prewhitening""",1177
+stopword,,pre-whitening,"abs:""pre-whitening""",1649
+stopword,,prewhitened,"abs:""prewhitened""",266
+stopword,,effective,"abs:""effective""",3298868
+stopword,,sample,"abs:""sample""",2508242
+stopword,,size,"abs:""size""",2071153
+stopword,,bootstrap,"abs:""bootstrap""",33810
+stopword,,block,"abs:""block""",594032
+stopword,,memory,"abs:""memory""",501955
+stopword,,persistence,"abs:""persistence""",325843
+stopword,,Hurst,"abs:""Hurst""",7035
+stopword,,breakpoint,"abs:""breakpoint""",655253
+stopword,,segmentation,"abs:""segmentation""",475258
+stopword,,structural,"abs:""structural""",5326524
+stopword,,significance,"abs:""significance""",4504801
+stopword,,discovery,"abs:""discovery""",611338
+stopword,,multiple,"abs:""multiple""",1698569
+stopword,,testing,"abs:""testing""",3301245
+stopword,,nonparametric,"abs:""nonparametric""",3431763
+stopword,,nonstationarity,"abs:""nonstationarity""",263023
+stopword,,ENSO,"abs:""ENSO""",28170
+stopword,,Nino,"abs:""Nino""",38559
+stopword,,Oscillation,"abs:""Oscillation""",469493
+stopword,,teleconnection,"abs:""teleconnection""",7717
+stopword,,removal,"abs:""removal""",776370
+stopword,,adjustment,"abs:""adjustment""",541158
+stopword,,dynamical,"abs:""dynamical""",3254079
+stopword,,compositing,"abs:""compositing""",543673
+stopword,,stratification,"abs:""stratification""",905494
+stopword,,hiatus,"abs:""hiatus""",6155
+stopword,,slowdown,"abs:""slowdown""",527309
+stopword,,endpoint,"abs:""endpoint""",2067355
+stopword,,wildfire,"abs:""wildfire""",27400
+stopword,,burned,"abs:""burned""",155411
+stopword,,danger,"abs:""danger""",121587
+stopword,,season,"abs:""season""",606868
+stopword,,Columbia,"abs:""Columbia""",39900
+stopword,,Pacific,"abs:""Pacific""",193550
+stopword,,Northwest,"abs:""Northwest""",162199
+stopword,,interior,"abs:""interior""",156731
+stopword,,attribution,"abs:""attribution""",657119
+stopword,,fingerprinting,"abs:""fingerprinting""",66099
+stopword,,emergence,"abs:""emergence""",840811
+stopword,,signal,"abs:""signal""",1957925
+stopword,,noise,"abs:""noise""",1079243
+stopword,,climate,"abs:""climate""",1054193
+stopword,,variability,"abs:""variability""",1848917
+stopword,,ensemble,"abs:""ensemble""",220082
+stopword,,storyline,"abs:""storyline""",1245
+stopword,,probabilistic,"abs:""probabilistic""",1138807
+stopword,,MODIS,"abs:""MODIS""",48254
+stopword,,VIIRS,"abs:""VIIRS""",7413
+stopword,,Landsat,"abs:""Landsat""",55986
+stopword,,Sentinel,"abs:""Sentinel""",47242
+stopword,,MCD64,"abs:""MCD64""",43
+stopword,,FireCCI,"abs:""FireCCI""",72
+stopword,,intercalibration,"abs:""intercalibration""",472829
+stopword,,consistency,"abs:""consistency""",2334838
+stopword,,homogenisation,"abs:""homogenisation""",549740
+stopword,,homogenization,"abs:""homogenization""",549745
+stopword,,artefact,"abs:""artefact""",114406
+stopword,,artifact,"abs:""artifact""",114409
+stopword,,reanalysis,"abs:""reanalysis""",9092513
+stopword,,ERA5,"abs:""ERA5""",16606
+stopword,,evaluation,"abs:""evaluation""",3281475
+stopword,,validation,"abs:""validation""",1500436
+stopword,,bias,"abs:""bias""",489396
+stopword,,terrain,"abs:""terrain""",111213
+stopword,,mountain,"abs:""mountain""",265797
+stopword,,satellite,"abs:""satellite""",672620
+stopword,,sensor,"abs:""sensor""",1688203
+stopword,,record,"abs:""record""",1071896
+stopword,,length,"abs:""length""",993293
+stopword,,detectability,"abs:""detectability""",2585881
+stopword,,power,"abs:""power""",2857178
+stopword,,variance,"abs:""variance""",861091
+stopword,,minimum,"abs:""minimum""",953364
+stopword,,fire,"abs:""fire""",209059
+stopword,,weather,"abs:""weather""",378104
+stopword,,index,"abs:""index""",1029593
+string-pass2,S1,"core, estimators and autocorrelation","(abs:""Mann-Kendall"" OR abs:""Theil-Sen"" OR abs:""Sen slope"" OR abs:""Kendall tau"" OR abs:""quantile regression"") AND (abs:autocorrelation OR abs:""serial correlation"" OR abs:prewhitening OR abs:""pre-whitening"" OR abs:""effective sample size"" OR abs:""block bootstrap"" OR abs:""long memory"" OR abs:Hurst)",1069
+string-pass0,S1,"core, refereed only","(abs:""Mann-Kendall"" OR abs:""Theil-Sen"" OR abs:""Sen slope"" OR abs:""Kendall tau"" OR abs:""quantile regression"") AND (abs:autocorrelation OR abs:""serial correlation"" OR abs:prewhitening OR abs:""pre-whitening"" OR abs:""effective sample size"" OR abs:""block bootstrap"" OR abs:""long memory"" OR abs:Hurst) AND property:refereed",896
+string-pass2,S1,change point and structural break,"(abs:""Mann-Kendall"" OR abs:""Theil-Sen"" OR abs:""Sen slope"" OR abs:""Kendall tau"" OR abs:""quantile regression"") AND (abs:""change point"" OR abs:breakpoint OR abs:""structural break"" OR abs:segmentation)",1285
+string-pass1,S1,field significance and multiplicity,"(abs:""Mann-Kendall"" OR abs:""Theil-Sen"" OR abs:""Sen slope"" OR abs:""Kendall tau"" OR abs:""quantile regression"") AND (abs:""field significance"" OR abs:""false discovery rate"" OR abs:""multiple testing"" OR abs:""multiple comparisons"")",127
+string-pass1,S2,ENSO with a named adjustment method,"(abs:ENSO OR abs:""El Nino"" OR abs:""Southern Oscillation"" OR abs:""Pacific Decadal Oscillation"" OR abs:""Interdecadal Pacific Oscillation"") AND (abs:""dynamical adjustment"" OR abs:""phase compositing"" OR abs:""phase stratification"" OR abs:""regression removal"" OR abs:""ENSO removal"" OR abs:""ENSO adjustment"") AND year:1990-2026",82
+string-pass2,S2,window choice and endpoint sensitivity,"(abs:ENSO OR abs:""El Nino"" OR abs:""Southern Oscillation"" OR abs:""Pacific Decadal Oscillation"" OR abs:""Interdecadal Pacific Oscillation"") AND (abs:hiatus OR abs:slowdown OR abs:""endpoint sensitivity"") AND year:1990-2026",1790
+string-pass1,S2,ENSO and fire teleconnection,"(abs:ENSO OR abs:""El Nino"" OR abs:""Southern Oscillation"" OR abs:""Pacific Decadal Oscillation"" OR abs:""Interdecadal Pacific Oscillation"") AND (abs:wildfire OR abs:""area burned"" OR abs:""burned area"" OR abs:""fire danger"" OR abs:""fire weather"" OR abs:""fire season"") AND year:1990-2026",591
+string-pass1,S2,"ENSO, fire, western North America","(abs:ENSO OR abs:""El Nino"" OR abs:""Southern Oscillation"" OR abs:""Pacific Decadal Oscillation"" OR abs:""Interdecadal Pacific Oscillation"") AND (abs:wildfire OR abs:""area burned"" OR abs:""burned area"" OR abs:""fire danger"" OR abs:""fire weather"" OR abs:""fire season"") AND (abs:""British Columbia"" OR abs:""western North America"" OR abs:""Pacific Northwest"" OR abs:Canada) AND year:1990-2026",82
+string-pass2,S3,"detection and attribution, climate-anchored","(abs:""detection and attribution"" OR abs:""optimal fingerprinting"" OR abs:""time of emergence"") AND (abs:climate OR abs:climatic OR abs:atmospheric OR abs:warming OR abs:meteorological OR abs:hydrological) AND property:refereed",1222
+string-pass1,S3,with internal variability or large ensemble,"(abs:""detection and attribution"" OR abs:""optimal fingerprinting"" OR abs:""time of emergence"") AND (abs:""internal variability"" OR abs:""large ensemble"")",404
+string-pass2,S3,"storyline debate, climate-anchored","(abs:storyline OR abs:""conditional attribution"" OR abs:""probabilistic event attribution"") AND (abs:climate OR abs:climatic OR abs:atmospheric OR abs:warming OR abs:meteorological OR abs:hydrological)",943
+string-pass2,S4,"sensor record consistency, fire-anchored","(abs:MODIS OR abs:VIIRS OR abs:Landsat OR abs:""Sentinel-2"" OR abs:""active fire"" OR abs:MCD64 OR abs:FireCCI) AND (abs:intercalibration OR abs:consistency OR abs:homogenisation OR abs:homogenization OR abs:""climate data record"" OR abs:artefact OR abs:artifact) AND (abs:wildfire OR abs:""area burned"" OR abs:""burned area"" OR abs:""fire danger"" OR abs:""fire weather"" OR abs:""fire season"") AND year:1990-2026",1063
+string-pass1,S4,"sensor record length framing, fire-anchored","(abs:MODIS OR abs:VIIRS OR abs:Landsat OR abs:""Sentinel-2"" OR abs:""active fire"" OR abs:MCD64 OR abs:FireCCI) AND (abs:""record length"" OR abs:""satellite era"" OR abs:""climate data record"") AND (abs:wildfire OR abs:""area burned"" OR abs:""burned area"" OR abs:""fire danger"" OR abs:""fire weather"" OR abs:""fire season"") AND year:1990-2026",10
+string-pass2,S4,reanalysis as fire weather input,"(abs:ERA5 OR abs:""ERA5-Land"" OR abs:reanalysis) AND (abs:""fire weather"" OR abs:""fire danger"" OR abs:""fire weather index"") AND year:1990-2026",1632
+string-pass1,S4,reanalysis fire weather in complex terrain,"(abs:ERA5 OR abs:""ERA5-Land"" OR abs:reanalysis) AND (abs:""fire weather"" OR abs:""fire danger"" OR abs:""fire weather index"") AND (abs:""complex terrain"" OR abs:mountain OR abs:validation OR abs:evaluation) AND year:1990-2026",608
+string-pass2,S5,"record length and autocorrelation, climate-anchored","(abs:""record length"" OR abs:""number of years"" OR abs:detectability OR abs:""statistical power"" OR abs:""minimum length"") AND (abs:autocorrelation OR abs:""serial correlation"") AND (abs:climate OR abs:climatic OR abs:atmospheric OR abs:warming OR abs:meteorological OR abs:hydrological) AND year:1990-2026",968
+string-pass1,S5,"detectability, citation-led from Weatherhead","citations(bibcode:1998JGR...10317149W) AND (abs:autocorrelation OR abs:""record length"" OR abs:detectability)",159
+string-pass1,S5,time of emergence applied to fire,"abs:""time of emergence"" AND (abs:""fire weather"" OR abs:""fire danger"" OR abs:""fire weather index"") AND year:1990-2026",6
+citations,S1,"Yue et al. 2002, trend-free prewhitening",citations(2002HyPr...16.1807Y),1569
+citations-fire,S1,"Yue et al. 2002, trend-free prewhitening",citations(2002HyPr...16.1807Y) AND fire block,13
+citations,S1,"Hamed and Rao 1998, modified Mann-Kendall",citations(1998JHyd..204..182H),2697
+citations-fire,S1,"Hamed and Rao 1998, modified Mann-Kendall",citations(1998JHyd..204..182H) AND fire block,39
+citations,S5,"Weatherhead et al. 1998, detection factors",citations(1998JGR...10317149W),617
+citations-fire,S5,"Weatherhead et al. 1998, detection factors",citations(1998JGR...10317149W) AND fire block,4
+citations,S1+S5,union of seeds,union,4528
+citations-fire,S1+S5,"union of seeds, fire only",union AND fire block,55

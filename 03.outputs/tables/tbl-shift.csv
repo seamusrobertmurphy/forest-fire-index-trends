@@ -1,0 +1,3 @@
+"Metric","Version change","Input resolution change","Migration, both"
+"Days FFMC >= 91","-1.8","+6.5","+4.7"
+"Days FWI >= 19","+7.3","-7.6","-0.3"
