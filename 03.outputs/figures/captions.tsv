@@ -1,0 +1,6 @@
+fig-study-area	Study area, ignition record and weather record. Points are the wildfire incidents recorded inside the basin, coloured by reported cause; triangles are the five BC Wildfire Service fire weather stations, which are the entire weather record used here. Coordinate reference system NAD83 / BC Albers, EPSG:3005.
+fig-distributions	Distribution of the daily Fine Fuel Moisture Code and the daily Fire Weather Index over all kept station-days under the three series, with the absolute thresholds marked.
+fig-mechanism	Ten days of the hourly Fine Fuel Moisture Code at Penticton RS in August 2003 under FWI2025 driven by observed hourly weather and by the 13:00 observation alone. Both are the same system on the same days.
+fig-trends	Seasonal metrics by season under the three series, pooled across stations, with the Theil-Sen line for each.
+fig-slopediff	Difference in Theil-Sen slope between series for the five extreme-day counts. Points are station estimates, bars are paired bootstrap 95 per cent intervals.
+fig-ignition	Observed and fitted daily lightning ignition rate against daily basin Fire Weather Index under the three series.

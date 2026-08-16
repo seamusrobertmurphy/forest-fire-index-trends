@@ -1,0 +1,415 @@
+% references.bib for forest-fire-index-trends
+%
+% Verification rule, from the project conventions: every entry is taken from
+% Crossref by DOI content negotiation, never from memory. Where no DOI exists,
+% the entry is hand-entered and flagged HERE with the source it was transcribed
+% from and the date, so a reader can tell a registry-verified entry from a
+% transcribed one without leaving the file.
+%
+% Canadian Forest Service report series carries no DOIs and is not indexed by
+% ADS or Crossref, so every CFS entry below is hand-entered.
+
+% HAND-ENTERED. Transcribed 2026-08-14 from the report itself, held at
+% 04.references/standards/CFS-FireDangerGroup-2025-GLC-X-42-FWI2025.pdf,
+% SHA-256 552a01deb0fb4a7676e916e84e67f2c434f39644a25860928f79b3513d8bdc6c.
+% No DOI. ISBN and catalogue number read from the title verso.
+@techreport{cffdg2025fwi2025,
+  author      = {{Canadian Forest Service Fire Danger Group}},
+  title       = {The 2025 Update to the {FWI} System: Structure, Changes and
+                 Interpretation},
+  institution = {Natural Resources Canada, Canadian Forest Service,
+                 Great Lakes Forestry Centre},
+  type        = {Information Report},
+  number      = {GLC-X-42},
+  year        = {2025},
+  pages       = {58},
+  isbn        = {978-0-660-77629-3},
+  issn        = {2562-0738},
+  note        = {Cat. no. Fo123-2/42-2025E-PDF},
+  url         = {https://publications.gc.ca/collections/collection_2026/rncan-nrcan/Fo123-2-42-2025-eng.pdf},
+  urldate     = {2026-08-13}
+}
+
+% HAND-ENTERED, AND NOT FROM THE REPORT ITSELF. Transcribed 2026-08-14 from the
+% reference list of GLC-X-42, page 45, because the report has not been
+% retrieved: the Canadian Forest Service PDF warehouse now redirects to the
+% NRCan Open S&T Repository handle below, which serves no reachable document to
+% a command-line client, and the Wayback capture truncates at 1,048,576 bytes.
+% NOTHING IN THIS PROJECT MAY QUOTE FTR-35 UNTIL THE REPORT IS IN HAND. It is
+% cited here only as the specification of record for FWI1987.
+@techreport{vanwagner1987fwi,
+  author      = {Van Wagner, C. E.},
+  title       = {The Development and Structure of the {Canadian Forest Fire
+                 Weather Index System}},
+  institution = {Canadian Forest Service, Petawawa National Forestry Institute},
+  type        = {Forestry Technical Report},
+  number      = {35},
+  year        = {1987},
+  url         = {https://ostrnrcan-dostrncan.canada.ca/handle/1845/228434},
+  note        = {Citation transcribed from the reference list of
+                 \textcite{cffdg2025fwi2025}; report not retrieved}
+}
+
+% HAND-ENTERED. Transcribed 2026-08-14 from the reference list of GLC-X-42.
+% Report not retrieved; cited only as the source GLC-X-42 gives for the
+% System's primary weather inputs.
+@techreport{lawson2008weather,
+  author      = {Lawson, B. D. and Armitage, O. B.},
+  title       = {Weather Guide for the {Canadian Forest Fire Danger Rating
+                 System}},
+  institution = {Natural Resources Canada, Canadian Forest Service,
+                 Northern Forestry Centre},
+  address     = {Edmonton, Alberta},
+  year        = {2008},
+  url         = {https://ostrnrcan-dostrncan.canada.ca/handle/1845/219568},
+  note        = {Citation transcribed from the reference list of
+                 \textcite{cffdg2025fwi2025}; report not retrieved}
+}
+
+% HAND-ENTERED. Transcribed 2026-08-14 from the reference list of GLC-X-42.
+% Report not retrieved; cited as the origin of the modified Initial Spread
+% Index that FWI2025 adopts and FWI1987 does not carry.
+@techreport{fcfdg1992fbp,
+  author      = {{Forestry Canada Fire Danger Group}},
+  title       = {Development and Structure of the {Canadian Forest Fire
+                 Behaviour Prediction System}},
+  institution = {Forestry Canada, Science and Sustainable Development
+                 Directorate},
+  type        = {Information Report},
+  number      = {ST-X-3},
+  year        = {1992},
+  url         = {https://ostrnrcan-dostrncan.canada.ca/handle/1845/235421},
+  note        = {Citation transcribed from the reference list of
+                 \textcite{cffdg2025fwi2025}; report not retrieved}
+}
+
+% ===========================================================================
+% Registry-verified entries.
+%
+% Every entry below was taken from Crossref on 2026-08-15 by
+% 05.scripts/verify_references.py, which resolves the DOI, compares the title
+% Crossref returns against the title claimed, and independently searches
+% Crossref for that title. An entry appears here only where both agree. The
+% audit trail is 02.inputs/derived/reference-verification.csv.
+%
+% The check earned its keep. The DOI 10.1139/x89-121, recalled from memory for
+% Beck and Trevitt (1989), resolves to a paper on soil nitrogen mineralization
+% in Douglas-fir. The correct DOI is 10.1139/x89-120 and was found by title
+% search. The script also initially selected the ESSOAr preprint of Jain et al.
+% (2024) over the Nature Communications version of record, and was changed to
+% prefer journal articles.
+% ===========================================================================
+
+@article{sen1968slope,
+  title   = {Estimates of the Regression Coefficient Based on {Kendall}'s Tau},
+  author  = {Sen, Pranab Kumar},
+  journal = {Journal of the American Statistical Association},
+  volume  = {63}, number = {324}, pages = {1379--1389}, year = {1968},
+  doi     = {10.1080/01621459.1968.10480934}
+}
+
+@article{mann1945nonparametric,
+  title   = {Nonparametric Tests Against Trend},
+  author  = {Mann, Henry B.},
+  journal = {Econometrica},
+  volume  = {13}, number = {3}, pages = {245--259}, year = {1945},
+  doi     = {10.2307/1907187}
+}
+
+@article{hamed1998mmk,
+  title   = {A modified {Mann-Kendall} trend test for autocorrelated data},
+  author  = {Hamed, Khaled H. and Rao, A. Ramachandra},
+  journal = {Journal of Hydrology},
+  volume  = {204}, number = {1-4}, pages = {182--196}, year = {1998},
+  doi     = {10.1016/S0022-1694(97)00125-X}
+}
+
+@article{yue2002prewhitening,
+  title   = {Applicability of prewhitening to eliminate the influence of serial
+             correlation on the {Mann-Kendall} test},
+  author  = {Yue, Sheng and Wang, Chun Yuan},
+  journal = {Water Resources Research},
+  volume  = {38}, number = {6}, year = {2002},
+  doi     = {10.1029/2001WR000861}
+}
+
+@article{benjamini1995fdr,
+  title   = {Controlling the False Discovery Rate: A Practical and Powerful
+             Approach to Multiple Testing},
+  author  = {Benjamini, Yoav and Hochberg, Yosef},
+  journal = {Journal of the Royal Statistical Society Series B},
+  volume  = {57}, number = {1}, pages = {289--300}, year = {1995},
+  doi     = {10.1111/j.2517-6161.1995.tb02031.x}
+}
+
+@article{beck1989diurnal,
+  title   = {Forecasting diurnal variations in meteorological parameters for
+             predicting fire behaviour},
+  author  = {Beck, J. A. and Trevitt, A. C. F.},
+  journal = {Canadian Journal of Forest Research},
+  volume  = {19}, number = {6}, pages = {791--797}, year = {1989},
+  doi     = {10.1139/x89-120}
+}
+
+@article{wang2017cffdrs,
+  title   = {cffdrs: an {R} package for the {Canadian Forest Fire Danger Rating
+             System}},
+  author  = {Wang, Xianli and Wotton, B. Mike and Cantin, Alan S. and
+             Parisien, Marc-Andr\'e and Anderson, Kerry and Moore, Brett and
+             Flannigan, Mike D.},
+  journal = {Ecological Processes},
+  volume  = {6}, number = {1}, year = {2017},
+  doi     = {10.1186/s13717-017-0070-z}
+}
+
+@article{wotton2008interpreting,
+  title   = {Interpreting and using outputs from the {Canadian Forest Fire
+             Danger Rating System} in research applications},
+  author  = {Wotton, B. Mike},
+  journal = {Environmental and Ecological Statistics},
+  volume  = {16}, number = {2}, pages = {107--131}, year = {2008},
+  doi     = {10.1007/s10651-007-0084-2}
+}
+
+@article{wotton2010occurrence,
+  title   = {Forest fire occurrence and climate change in {Canada}},
+  author  = {Wotton, B. M. and Nock, C. A. and Flannigan, M. D.},
+  journal = {International Journal of Wildland Fire},
+  volume  = {19}, number = {3}, pages = {253--271}, year = {2010},
+  doi     = {10.1071/WF09002}
+}
+
+@article{wotton1993seasonlength,
+  title   = {Length of the fire season in a changing climate},
+  author  = {Wotton, B. M. and Flannigan, M. D.},
+  journal = {The Forestry Chronicle},
+  volume  = {69}, number = {2}, pages = {187--192}, year = {1993},
+  doi     = {10.5558/tfc69187-2}
+}
+
+@article{girardin2009summer,
+  title   = {Summer Moisture and Wildfire Risks across {Canada}},
+  author  = {Girardin, Martin P. and Wotton, B. Mike},
+  journal = {Journal of Applied Meteorology and Climatology},
+  volume  = {48}, number = {3}, pages = {517--533}, year = {2009},
+  doi     = {10.1175/2008JAMC1996.1}
+}
+
+@article{woolford2014lightning,
+  title   = {Lightning-caused forest fire risk in {Northwestern Ontario},
+             {Canada}, is increasing and associated with anomalies in fire
+             weather},
+  author  = {Woolford, Douglas G. and Dean, C. B. and Martell, David L. and
+             Cao, Jiguo and Wotton, B. M.},
+  journal = {Environmetrics},
+  volume  = {25}, number = {6}, pages = {406--416}, year = {2014},
+  doi     = {10.1002/env.2278}
+}
+
+@article{flannigan2009implications,
+  title   = {Implications of changing climate for global wildland fire},
+  author  = {Flannigan, Mike D. and Krawchuk, Meg A. and de Groot, William J.
+             and Wotton, B. Mike and Gowman, Lynn M.},
+  journal = {International Journal of Wildland Fire},
+  volume  = {18}, number = {5}, pages = {483--507}, year = {2009},
+  doi     = {10.1071/WF08187}
+}
+
+@article{flannigan2015fuelmoisture,
+  title   = {Fuel moisture sensitivity to temperature and precipitation:
+             climate change implications},
+  author  = {Flannigan, M. D. and Wotton, B. M. and Marshall, G. A. and
+             de Groot, W. J. and Johnston, J. and Jurko, N. and Cantin, A. S.},
+  journal = {Climatic Change},
+  volume  = {134}, number = {1-2}, pages = {59--71}, year = {2015},
+  doi     = {10.1007/s10584-015-1521-0}
+}
+
+@article{wang2015extreme,
+  title   = {Increasing frequency of extreme fire weather in {Canada} with
+             climate change},
+  author  = {Wang, Xianli and Thompson, Dan K. and Marshall, Ginny A. and
+             Tymstra, Cordy and Carr, Richard and Flannigan, Mike D.},
+  journal = {Climatic Change},
+  volume  = {130}, number = {4}, pages = {573--586}, year = {2015},
+  doi     = {10.1007/s10584-015-1375-5}
+}
+
+@article{hanes2019regime,
+  title   = {Fire-regime changes in {Canada} over the last half century},
+  author  = {Hanes, Chelene C. and Wang, Xianli and Jain, Piyush and
+             Parisien, Marc-Andr\'e and Little, John M. and Flannigan, Mike D.},
+  journal = {Canadian Journal of Forest Research},
+  volume  = {49}, number = {3}, pages = {256--269}, year = {2019},
+  doi     = {10.1139/cjfr-2018-0293}
+}
+
+@article{coogan2019warning,
+  title   = {Scientists' warning on wildfire: a {Canadian} perspective},
+  author  = {Coogan, Sean C. P. and Robinne, Fran\c{c}ois-Nicolas and
+             Jain, Piyush and Flannigan, Mike D.},
+  journal = {Canadian Journal of Forest Research},
+  volume  = {49}, number = {9}, pages = {1015--1023}, year = {2019},
+  doi     = {10.1139/cjfr-2019-0094}
+}
+
+@article{parisien2023abrupt,
+  title   = {Abrupt, climate-induced increase in wildfires in {British Columbia}
+             since the mid-2000s},
+  author  = {Parisien, Marc-Andr\'e and Barber, Quinn E. and
+             Bourbonnais, Mathieu L. and Daniels, Lori D. and
+             Flannigan, Mike D. and Gray, Robert W. and Hoffman, Kira M. and
+             Jain, Piyush and Stephens, Scott L. and Taylor, Steve W. and
+             Whitman, Ellen},
+  journal = {Communications Earth \& Environment},
+  volume  = {4}, number = {1}, year = {2023},
+  doi     = {10.1038/s43247-023-00977-1}
+}
+
+@article{meyn2010oscillations,
+  title   = {Relationship between fire, climate oscillations, and drought in
+             {British Columbia}, {Canada}, 1920--2000},
+  author  = {Meyn, Andrea and Taylor, Stephen W. and Flannigan, Mike D. and
+             Thonicke, Kirsten and Cramer, Wolfgang},
+  journal = {Global Change Biology},
+  volume  = {16}, number = {3}, pages = {977--989}, year = {2010},
+  doi     = {10.1111/j.1365-2486.2009.02061.x}
+}
+
+@article{jain2024canada2023,
+  title   = {Drivers and Impacts of the Record-Breaking 2023 Wildfire Season in
+             {Canada}},
+  author  = {Jain, Piyush and Barber, Quinn E. and Taylor, Stephen W. and
+             Whitman, Ellen and Castellanos Acuna, Dante and Boulanger, Yan and
+             Chavard\`es, Rapha\"el D. and Chen, Jack and Englefield, Peter and
+             Flannigan, Mike and Girardin, Martin P. and Hanes, Chelene C. and
+             Little, John and Morrison, Kimberly and Skakun, Rob S. and
+             Thompson, Dan K. and Wang, Xianli and Parisien, Marc-Andr\'e},
+  journal = {Nature Communications},
+  volume  = {15}, number = {1}, year = {2024},
+  doi     = {10.1038/s41467-024-51154-7}
+}
+
+@article{kirchmeieryoung2019attribution,
+  title   = {Attribution of the Influence of Human-Induced Climate Change on an
+             Extreme Fire Season},
+  author  = {Kirchmeier-Young, M. C. and Gillett, N. P. and Zwiers, F. W. and
+             Cannon, A. J. and Anslow, F. S.},
+  journal = {Earth's Future},
+  volume  = {7}, number = {1}, pages = {2--10}, year = {2019},
+  doi     = {10.1029/2018EF001050}
+}
+
+@article{westerling2006warming,
+  title   = {Warming and Earlier Spring Increase Western {U.S.} Forest Wildfire
+             Activity},
+  author  = {Westerling, A. L. and Hidalgo, H. G. and Cayan, D. R. and
+             Swetnam, T. W.},
+  journal = {Science},
+  volume  = {313}, number = {5789}, pages = {940--943}, year = {2006},
+  doi     = {10.1126/science.1128834}
+}
+
+@article{abatzoglou2016anthropogenic,
+  title   = {Impact of anthropogenic climate change on wildfire across western
+             {US} forests},
+  author  = {Abatzoglou, John T. and Williams, A. Park},
+  journal = {Proceedings of the National Academy of Sciences},
+  volume  = {113}, number = {42}, pages = {11770--11775}, year = {2016},
+  doi     = {10.1073/pnas.1607171113}
+}
+
+@article{barbero2015verylarge,
+  title   = {Climate change presents increased potential for very large fires in
+             the contiguous {United States}},
+  author  = {Barbero, R. and Abatzoglou, J. T. and Larkin, N. K. and
+             Kolden, C. A. and Stocks, B.},
+  journal = {International Journal of Wildland Fire},
+  volume  = {24}, number = {7}, pages = {892--899}, year = {2015},
+  doi     = {10.1071/WF15083}
+}
+
+@article{gutierrez2021sierra,
+  title   = {Wildfire response to changing daily temperature extremes in
+             {California}'s {Sierra Nevada}},
+  author  = {Gutierrez, Aurora A. and Hantson, Stijn and Langenbrunner, Baird
+             and Chen, Bin and Jin, Yufang and Goulden, Michael L. and
+             Randerson, James T.},
+  journal = {Science Advances},
+  volume  = {7}, number = {47}, year = {2021},
+  doi     = {10.1126/sciadv.abe6417}
+}
+
+% ===========================================================================
+% Hand-entered. No DOI exists for these; each is a Canadian Forest Service
+% report series item or a software repository, neither of which Crossref or
+% DataCite indexes. Transcribed 2026-08-15 from the source named in each note.
+% ===========================================================================
+
+% Transcribed from the reference list of GLC-X-42, page 45, and from the
+% NG-CFFDRS source code header, which names Van Wagner (1977) as the origin of
+% the hourly FFMC that FWI2025 modifies. Report not retrieved.
+@techreport{vanwagner1977hourly,
+  author      = {Van Wagner, C. E.},
+  title       = {A Method of Computing Fine Fuel Moisture Content Throughout the
+                 Diurnal Cycle},
+  institution = {Canadian Forestry Service, Petawawa Forest Experiment Station},
+  type        = {Information Report},
+  number      = {PS-X-69},
+  year        = {1977},
+  note        = {Citation transcribed from the reference list of
+                 \textcite{cffdg2025fwi2025}; report not retrieved}
+}
+
+% Transcribed from the reference list of GLC-X-42. This is the FORTRAN program
+% listing whose constants this study's FWI1987 implementation follows, in
+% preference to the rounded constants printed in FTR-35. Report not retrieved;
+% the constants were taken from the CRAN package cffdrs, which implements the
+% listing, and the agreement is reported in the manuscript.
+@techreport{vanwagner1985fortran,
+  author      = {Van Wagner, C. E. and Pickett, T. L.},
+  title       = {Equations and {FORTRAN} Program for the {Canadian Forest Fire
+                 Weather Index System}},
+  institution = {Canadian Forestry Service},
+  type        = {Forestry Technical Report},
+  number      = {33},
+  year        = {1985},
+  note        = {Citation transcribed from the reference list of
+                 \textcite{cffdg2025fwi2025}; report not retrieved}
+}
+
+% The reference implementation of FWI2025, named at page 8 of GLC-X-42 as the
+% System's open-source code repository. Cloned 2026-08-15 at commit
+% ed143d739c9ab4bda896efcb47a84ff1d5c21e39, dated 2026-08-13, and vendored to
+% 05.scripts/vendor/cffdrs-ng under its Mozilla Public License 2.0.
+@misc{nrcan2026cffdrsng,
+  author       = {{Canadian Forest Service Fire Danger Group}},
+  title        = {cffdrs-ng: Revisions to the {Canadian Forest Fire Danger
+                  Rating System}},
+  howpublished = {Software repository, Natural Resources Canada},
+  year         = {2026},
+  url          = {https://github.com/nrcan-cfs-fire/cffdrs-ng},
+  note         = {Commit ed143d7, 2026-08-13; retrieved 2026-08-15}
+}
+
+% The weather record. Public directory published by the BC Ministry of Forests.
+@misc{bcws2026datamart,
+  author       = {{BC Wildfire Service}},
+  title        = {{BCWS} Weather Data Mart: hourly fire weather station
+                  observations},
+  howpublished = {BC Ministry of Forests public file directory},
+  year         = {2026},
+  url          = {https://www.for.gov.bc.ca/ftp/HPR/external/!publish/BCWS_DATA_MART/},
+  note         = {Retrieved 2026-08-15 by 05.scripts/fetch_fire_weather.py}
+}
+
+% The ignition record.
+@misc{bcws2026incidents,
+  author       = {{BC Wildfire Service}},
+  title        = {Fire Incident Locations, Historical
+                  ({WHSE\_LAND\_AND\_NATURAL\_RESOURCE.PROT\_HISTORICAL\_INCIDENTS\_SP})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-fire-incident-locations-historical},
+  note         = {Retrieved 2026-08-14 by 05.scripts/fetch\_study\_area.R}
+}

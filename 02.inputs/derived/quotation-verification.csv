@@ -1,0 +1,10 @@
+quotation,attributed_to,found_verbatim,pdf_page
+Using hourly weather to better reflect maximum burning conditions,"section 1, executive summary, first key update",True,8
+the time lag function used in the FWI2025 for the FFMC has been cut in half,section 4.1.1,True,25
+an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025,section 4.1,True,24
+should reflect meaningful differences in fuel moisture content,section 4.1,True,24
+calculations always use hourly weather,section 3.1.1.1,True,14
+a single daily weather observation from approximately solar noon,section 3.1,True,12
+numerical weather model outputs are not strictly the same as point observations of weather from a weather station,Appendix C-1,True,53
+"At the grid cell scale, outputs from numerical models typically represent what can be thought of as average conditions across that cell",Appendix C-1,True,53
+start calculation three days after the disappearance of snow cover,Appendix C-2.3,True,55

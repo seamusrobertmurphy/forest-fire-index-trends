@@ -1,0 +1,1 @@
+Verification of the FWI1987 implementation against the CRAN package cffdrs and against the codes BC Wildfire Service computed operationally.

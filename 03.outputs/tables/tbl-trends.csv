@@ -1,0 +1,25 @@
+"Series","Metric","Stations","Median slope","Slope range","Stations q < 0.05","Min detectable"
+"S1: FWI1987, 13:00 observation","Mean FWI",4,0.176,"0.07 to 0.37",1,0.265
+"S2: FWI2025, 13:00 observation","Mean FWI",4,0.166,"0.09 to 0.36",1,0.257
+"S3: FWI2025, hourly observation","Mean FWI",4,0.181,"0.04 to 0.38",1,0.266
+"S1: FWI1987, 13:00 observation","Seasonal severity rating",4,13.376,"7.29 to 28.06",1,22.329
+"S2: FWI2025, 13:00 observation","Seasonal severity rating",4,13.884,"5.24 to 29.93",1,22.988
+"S3: FWI2025, hourly observation","Seasonal severity rating",4,14.817,"7.17 to 29.85",1,23.332
+"S1: FWI1987, 13:00 observation","Peak BUI",4,1.606,"0.78 to 2.76",0,4.291
+"S2: FWI2025, 13:00 observation","Peak BUI",4,1.671,"0.91 to 3.05",0,4.828
+"S3: FWI2025, hourly observation","Peak BUI",4,1.918,"1.32 to 3.20",0,5.15
+"S1: FWI1987, 13:00 observation","Days FFMC >= 91",4,0.761,"0.28 to 1.33",1,0.981
+"S2: FWI2025, 13:00 observation","Days FFMC >= 91",4,0.715,"0.33 to 1.23",2,0.883
+"S3: FWI2025, hourly observation","Days FFMC >= 91",4,0.741,"0.26 to 1.22",1,0.899
+"S1: FWI1987, 13:00 observation","Days FWI >= 19",4,0.798,"0.45 to 1.50",1,1.316
+"S2: FWI2025, 13:00 observation","Days FWI >= 19",4,0.71,"0.47 to 1.70",2,1.318
+"S3: FWI2025, hourly observation","Days FWI >= 19",4,0.696,"0.40 to 1.35",1,1.273
+"S1: FWI1987, 13:00 observation","Days FWI >= 30",4,0.711,"0.20 to 1.43",1,1.147
+"S2: FWI2025, 13:00 observation","Days FWI >= 30",4,0.654,"0.10 to 1.44",2,1.103
+"S3: FWI2025, hourly observation","Days FWI >= 30",4,0.606,"0.36 to 1.25",1,1.089
+"S1: FWI1987, 13:00 observation","Days above own 90th percentile",4,0.353,"0.15 to 0.72",1,0.82
+"S2: FWI2025, 13:00 observation","Days above own 90th percentile",4,0.461,"0.09 to 0.79",2,0.695
+"S3: FWI2025, hourly observation","Days above own 90th percentile",4,0.327,"0.15 to 0.80",1,0.684
+"S1: FWI1987, 13:00 observation","Days above own 95th percentile",4,0.146,"0.10 to 0.37",1,0.55
+"S2: FWI2025, 13:00 observation","Days above own 95th percentile",4,0.174,"0.11 to 0.43",1,0.449
+"S3: FWI2025, hourly observation","Days above own 95th percentile",4,0.143,"0.12 to 0.25",1,0.464

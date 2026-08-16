@@ -1,0 +1,85 @@
+strand,string,n_found,year,citations,bibstem,title
+S5,"current, record length AND estimator AND domain",2499,1998,2697,JHyd,A modified Mann-Kendall trend test for autocorrelated data
+S5,"current, record length AND estimator AND domain",2499,2002,1569,HyPr,The influence of autocorrelation on the ability to detect trend in hydrological series
+S5,"current, record length AND estimator AND domain",2499,2002,1367,JHyd,Power of the Mann Kendall and Spearman's rho tests for detecting monotonic trends in hydrological series
+S5,"current, record length AND estimator AND domain",2499,2013,1273,GPC,Analysis of changes in meteorological variables using Mann-Kendall and Sen's slope estimator statistical tests in Serbia
+S5,"current, record length AND estimator AND domain",2499,2008,997,JHyd,Trend detection in hydrologic data: The Mann Kendall trend test under the scaling hypothesis
+S5,"current, record length AND estimator AND domain",2499,2004,888,WatRM,The Mann-Kendall Test Modified by Effective Sample Size to Detect Trend in Serially Correlated Hydrological Series
+S5,"current, record length AND estimator AND domain",2499,2002,790,JHyd,Detection of hydrologic trends and variability
+S5,"current, record length AND estimator AND domain",2499,2002,559,WRR,Applicability of prewhitening to eliminate the influence of serial correlation on the Mann-Kendall test
+S5,"current, record length AND estimator AND domain",2499,2019,492,JOSS,pyMannKendall: a python package for non parametric Mann Kendall family of trend tests.
+S5,"current, record length AND estimator AND domain",2499,2017,483,AgFM,Spatiotemporal change and trend analysis of potential evapotranspiration over the Loess Plateau of China during 2011-2100
+S5,"current, record length AND estimator AND domain",2499,2018,414,WCE,Variability and time series trend analysis of rainfall and temperature in northcentral Ethiopia: A case study in Woleka sub-basin
+S5,"current, record length AND estimator AND domain",2499,2004,351,JHyd,Trend analysis of streamflow in Turkey
+S5,"candidate, detection-length phrasing only",7623,1998,2697,JHyd,A modified Mann-Kendall trend test for autocorrelated data
+S5,"candidate, detection-length phrasing only",7623,2018,1923,MNRAS,First results from the IllustrisTNG simulations: matter and galaxy clustering
+S5,"candidate, detection-length phrasing only",7623,2002,1569,HyPr,The influence of autocorrelation on the ability to detect trend in hydrological series
+S5,"candidate, detection-length phrasing only",7623,2015,898,A&A,Baryon acoustic oscillations in the Lyα forest of BOSS DR11 quasars
+S5,"candidate, detection-length phrasing only",7623,2004,888,WatRM,The Mann-Kendall Test Modified by Effective Sample Size to Detect Trend in Serially Correlated Hydrological Series
+S5,"candidate, detection-length phrasing only",7623,1996,766,PhRvL,Improved Surrogate Data for Nonlinearity Tests
+S5,"candidate, detection-length phrasing only",7623,2014,758,ApJS,"Rotation Periods of 34,030 Kepler Main-sequence Stars: The Full Autocorrelation Sample"
+S5,"candidate, detection-length phrasing only",7623,2008,673,PNAS,Slowing down as an early warning signal for abrupt climate change
+S5,"candidate, detection-length phrasing only",7623,2006,645,HyPr,Trend analysis in Turkish precipitation data
+S5,"candidate, detection-length phrasing only",7623,2003,621,GloEB,Spatial autocorrelation and red herrings in geographical ecology
+S5,"candidate, detection-length phrasing only",7623,1998,617,JGR,Factors affecting the detection of trends: Statistical considerations and applications to environmental data
+S5,"candidate, detection-length phrasing only",7623,2012,582,BGeo,Basin-wide variations in Amazon forest structure and function are mediated by both soils and climate
+S5,"candidate, citation-led from Weatherhead",159,2010,345,BGeo,Detection of anthropogenic climate change in satellite records of ocean chlorophyll and productivity
+S5,"candidate, citation-led from Weatherhead",159,2015,253,JArEn,Trend analysis of MODIS NDVI time series for detecting land degradation and regeneration in Mongolia
+S5,"candidate, citation-led from Weatherhead",159,2005,205,Sci,The Radiative Signature of Upper Tropospheric Moistening
+S5,"candidate, citation-led from Weatherhead",159,2006,187,JGRD,Detection of the trend and seasonal variation in tropospheric NO<SUB>2</SUB> over China
+S5,"candidate, citation-led from Weatherhead",159,2011,175,AtmEn,Spatio-temporal variation trends of satellite-based aerosol optical depth in China during 1980-2008
+S5,"candidate, citation-led from Weatherhead",159,2014,148,ACP,Recent trends in aerosol optical properties derived from AERONET measurements
+S5,"candidate, citation-led from Weatherhead",159,2020,143,Natur,A pause in Southern Hemisphere circulation trends due to the Montreal Protocol
+S5,"candidate, citation-led from Weatherhead",159,2019,129,ACP,Trends and trend reversal detection in 2 decades of tropospheric NO<SUB>2</SUB> satellite observations
+S5,"candidate, citation-led from Weatherhead",159,2016,126,GCBio,Observing climate change trends in ocean biogeochemistry: when and where
+S5,"candidate, citation-led from Weatherhead",159,2005,113,JGRD,Trend analysis of total ozone data for turnaround and dynamical contributions
+S5,"candidate, citation-led from Weatherhead",159,2013,112,NatGe,Limits in detecting acceleration of ice sheet mass loss due to climate variability
+S5,"candidate, citation-led from Weatherhead",159,2018,112,NatSR,Global patterns of change and variation in sea surface temperature and chlorophyll a
+S2,"window choice, hiatus, endpoint sensitivity",1790,2000,2543,JCli,Pacific-East Asian Teleconnection: How Does ENSO Affect East Asian Climate?*.
+S2,"window choice, hiatus, endpoint sensitivity",1790,2005,1652,RvGeo,Madden-Julian Oscillation
+S2,"window choice, hiatus, endpoint sensitivity",1790,1992,1582,QJRMS,Monsoon and Enso: Selectively Interactive Systems
+S2,"window choice, hiatus, endpoint sensitivity",1790,1997,1298,JAtS,An Equatorial Ocean Recharge Paradigm for ENSO. Part I: Conceptual Model.
+S2,"window choice, hiatus, endpoint sensitivity",1790,1995,846,Natur,Interannual extremes in the rate of rise of atmospheric carbon dioxide since 1980
+S2,"window choice, hiatus, endpoint sensitivity",1790,2016,734,ESSD,Global Carbon Budget 2016
+S2,"window choice, hiatus, endpoint sensitivity",1790,2015,673,Sci,Slow adaptation in the face of rapid warming leads to collapse of the Gulf of Maine cod fishery
+S2,"window choice, hiatus, endpoint sensitivity",1790,2000,664,JCli,Interannual and Interdecadal Variations of the East Asian Summer Monsoon and Tropical Pacific SSTs. Part I: Roles of the Subtropical Ridge.
+S2,"window choice, hiatus, endpoint sensitivity",1790,2013,501,EaFut,An apparent hiatus in global warming?
+S2,"window choice, hiatus, endpoint sensitivity",1790,2014,416,HESS,A review of droughts on the African continent: a geospatial and long-term perspective
+S2,"window choice, hiatus, endpoint sensitivity",1790,2009,398,GeoRL,Are historical records sufficient to constrain ENSO simulations?
+S2,"window choice, hiatus, endpoint sensitivity",1790,1997,390,JAtS,An Equatorial Ocean Recharge Paradigm for ENSO. Part II: A Stripped-Down Coupled Model.
+S4,reanalysis AND fire weather,1632,2022,710,RvGeo,Global and Regional Trends and Drivers of Fire Under Climate Change
+S4,reanalysis AND fire weather,1632,2005,580,ClCh,Future Area Burned in Canada
+S4,reanalysis AND fire weather,1632,2012,540,IJCli,A comparison of statistical downscaling methods suited for wildfire applications
+S4,reanalysis AND fire weather,1632,2018,472,ClDy,Multivariate quantile mapping bias correction: an N-dimensional probability density function transform for climate model simulations of multiple variables
+S4,reanalysis AND fire weather,1632,1998,395,ClCh,Climate Change and Forest Fire Potential in Russian and Canadian Boreal Forests
+S4,reanalysis AND fire weather,1632,2020,377,ERL,Climate change is increasing the likelihood of extreme autumn wildfire conditions across California
+S4,reanalysis AND fire weather,1632,2022,335,NatCC,Observed increases in extreme fire weather driven by atmospheric humidity and temperature
+S4,reanalysis AND fire weather,1632,2015,335,NatGe,Influence of tree species on continental differences in boreal fires and climate feedbacks
+S4,reanalysis AND fire weather,1632,2013,313,ForEM,Analysis of large fires in European Mediterranean landscapes: Lessons learned and perspectives
+S4,reanalysis AND fire weather,1632,2015,284,ERL,Projections of rapidly rising surface temperatures over Africa under low mitigation
+S4,reanalysis AND fire weather,1632,1993,260,JApMe,Developing Satellite-derived Estimates of Surface Moisture Status.
+S4,reanalysis AND fire weather,1632,2004,252,RSEnv,Combining NDVI and surface temperature for the estimation of live fuel moisture content in forest fire danger rating
+S1,estimators AND change point or structural break,1285,2008,997,JHyd,Trend detection in hydrologic data: The Mann Kendall trend test under the scaling hypothesis
+S1,estimators AND change point or structural break,1285,2009,331,WRR,On the stationarity of annual flood peaks in the continental United States during the 20th century
+S1,estimators AND change point or structural break,1285,2014,321,JHyd,"Quantifying the impact of climate variability and human activities on streamflow in the middle reaches of the Yellow River basin, China"
+S1,estimators AND change point or structural break,1285,2008,294,WRR,"Responses of streamflow to changes in climate and land use/cover in the Loess Plateau, China"
+S1,estimators AND change point or structural break,1285,2016,261,JGRB,MIDAS robust trend estimator for accurate GPS station velocities without step detection
+S1,estimators AND change point or structural break,1285,2013,246,HyPr,"Quantitative assessment of the impact of climate variability and human activities on runoff changes: a case study in four catchments of the Haihe River basin, China"
+S1,estimators AND change point or structural break,1285,2020,243,NatSR,Analyzing trend and forecasting of rainfall changes in India using non-parametrical and machine learning approaches
+S1,estimators AND change point or structural break,1285,2001,227,IJCli,Regional temperature variability in the European Alps: 1760-1998 from homogenized instrumental time series
+S1,estimators AND change point or structural break,1285,2015,202,ThApC,Spatial and temporal analysis of rainfall and temperature trend of India
+S1,estimators AND change point or structural break,1285,2015,199,EProc,Statistical Analysis for Change Detection and Trend Assessment in Climatological Parameters
+S1,estimators AND change point or structural break,1285,2000,192,ApJ,"The L<SUB>X</SUB>-T, L<SUB>X</SUB>-σ, and σ-T Relations for Groups and Clusters of Galaxies"
+S1,estimators AND change point or structural break,1285,2013,189,AtmRe,"Statistical analysis of long term spatial and temporal trends of precipitation during 1901-2002 at Madhya Pradesh, India"
+S1,estimators AND autocorrelation,1069,1998,2697,JHyd,A modified Mann-Kendall trend test for autocorrelated data
+S1,estimators AND autocorrelation,1069,2002,1569,HyPr,The influence of autocorrelation on the ability to detect trend in hydrological series
+S1,estimators AND autocorrelation,1069,1984,1061,WRR,A Nonparametric Trend Test for Seasonal Data With Serial Dependence
+S1,estimators AND autocorrelation,1069,2004,888,WatRM,The Mann-Kendall Test Modified by Effective Sample Size to Detect Trend in Serially Correlated Hydrological Series
+S1,estimators AND autocorrelation,1069,2006,645,HyPr,Trend analysis in Turkish precipitation data
+S1,estimators AND autocorrelation,1069,2002,559,WRR,Applicability of prewhitening to eliminate the influence of serial correlation on the Mann-Kendall test
+S1,estimators AND autocorrelation,1069,2011,509,RSEnv,Analysis of monotonic greening and browning trends from global NDVI time-series
+S1,estimators AND autocorrelation,1069,2019,492,JOSS,pyMannKendall: a python package for non parametric Mann Kendall family of trend tests.
+S1,estimators AND autocorrelation,1069,2015,353,EcInd,Spatio-temporal analysis of vegetation variation in the Yellow River Basin
+S1,estimators AND autocorrelation,1069,2009,331,WRR,On the stationarity of annual flood peaks in the continental United States during the 20th century
+S1,estimators AND autocorrelation,1069,2008,324,WatRe,"Spatial analysis of water quality trends in the Han River basin, South Korea"
+S1,estimators AND autocorrelation,1069,2020,315,FrEaS,Re-evaluation of the Power of the Mann-Kendall Test for Detecting Monotonic Trends in Hydrometeorological Time Series

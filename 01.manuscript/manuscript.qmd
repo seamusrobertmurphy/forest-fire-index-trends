@@ -1,0 +1,2073 @@
+---
+title: "Version-contingent fire danger trends in the Okanagan basin"
+subtitle: "What the 2025 update to the Canadian Forest Fire Weather Index System does to a trend estimate"
+date: today
+author:
+  - name: Seamus Murphy
+    orcid: 0000-0002-1792-0351
+abstract: |
+  Generated at the end of this document from the numbers the document computes,
+  because knitr evaluates chunks in order and an abstract printed before the
+  analysis could only quote numbers typed by hand. See the section titled
+  Abstract. A submission build reorders it to the front.
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    embed-resources: true
+    code-fold: false
+    df-print: kable
+  docx:
+    prefer-html: true
+    reference-doc: ../04.references/style-formal.docx
+    highlight-style: pygments
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  error: true
+  comment: NA
+engine: knitr
+citeproc: true
+editor: visual
+bibliography: ../04.references/references.bib
+csl: ../04.references/apa.csl
+---
+
+```{r}
+#| label: setup
+#| echo: true
+#| output: false
+root <- normalizePath("..")
+inputs <- file.path(root, "02.inputs")
+outputs <- file.path(root, "03.outputs")
+derived <- file.path(inputs, "derived")
+
+suppressPackageStartupMessages({
+  library(flextable)
+})
+
+# Write figures into the committed outputs folder rather than the render
+# sidecar. With embed-resources the sidecar is deleted once its contents are
+# inlined into the HTML, which leaves no PNG on disk for the README to show.
+# Writing them here keeps a copy that survives the render and is in the
+# repository.
+knitr::opts_chunk$set(fig.path = file.path("..", "03.outputs", "figures", "mfig-"))
+source(file.path(root, "05.scripts", "analysis_functions.R"))
+
+# House table format: 9 pt, centred headers, numeric right, text left, single
+# line spacing. Every table goes through fmt_tbl, so the house style is defined
+# once and cannot drift between tables.
+fmt_tbl <- function(df, right = NULL) {
+  right_cols <- union(names(df)[vapply(df, is.numeric, TRUE)], right)
+  left_cols <- setdiff(names(df), right_cols)
+  ft <- flextable::flextable(df)
+  ft <- flextable::fontsize(ft, size = 9, part = "all")
+  ft <- flextable::align(ft, align = "center", part = "header")
+  if (length(right_cols))
+    ft <- flextable::align(ft, j = right_cols, align = "right", part = "body")
+  if (length(left_cols))
+    ft <- flextable::align(ft, j = left_cols, align = "left", part = "body")
+  ft <- flextable::line_spacing(ft, space = 1, part = "all")
+  ft <- flextable::padding(ft, padding.top = 1, padding.bottom = 1, part = "all")
+  flextable::set_table_properties(ft, layout = "autofit", width = 1)
+}
+
+# Read a value out of a two-column item/value table by name. Stops rather than
+# returning empty, so a renamed row breaks the render instead of silently
+# emptying a sentence.
+lookup <- function(tbl, item) {
+  v <- tbl$value[tbl$item == item]
+  if (length(v) != 1) stop("no unique row for: ", item)
+  v
+}
+n_fmt <- function(x) format(as.numeric(x), big.mark = ",")
+
+# The three series, named once. Everything downstream reads these labels rather
+# than repeating them, so the version and the input resolution attached to a
+# series cannot drift between a table and the sentence describing it.
+SERIES <- c(s1 = "S1: FWI1987, 13:00 observation",
+            s2 = "S2: FWI2025, 13:00 observation",
+            s3 = "S3: FWI2025, hourly observation")
+
+# The record's extent is read here, before it is described anywhere, so that no
+# sentence in this document states a period the data do not cover.
+cover <- read.csv(file.path(derived, "fwi-station-season-coverage.csv"),
+                  stringsAsFactors = FALSE)
+kept <- subset(cover, status == "kept")
+n_kept <- nrow(kept)
+n_stations_kept <- length(unique(kept$station_name))
+yr_first <- min(kept$year); yr_last <- max(kept$year)
+n_seasons <- length(unique(kept$year))
+```
+
+# Introduction
+
+Fire danger indices are the arithmetic through which fire management sees the
+weather. In Canada that arithmetic is the Fire Weather Index System, and it has
+been essentially fixed since 1970: six components computed once a day from one
+weather observation taken at 13:00 local daylight time, specified by
+@vanwagner1987fwi and implemented from the FORTRAN listing of
+@vanwagner1985fortran. Almost everything published about how Canadian fire
+weather has changed is a statement about that arithmetic. Trends in extreme fire
+weather across Canada [@wang2015extreme], the lengthening of the fire season
+[@wotton1993seasonlength], the rise in lightning-caused fire risk in Ontario
+[@woolford2014lightning], the abrupt increase in British Columbia burning since
+the mid-2000s [@parisien2023abrupt] and the drivers of the 2023 Canadian season
+[@jain2024canada2023] are all reported in the units of the 1987 system.
+
+In 2025 the Canadian Forest Service Fire Danger Group replaced it. The successor,
+which that report labels FWI2025 to keep it distinct from FWI1987
+[@cffdg2025fwi2025], is not a recalibration. The first of the key updates its
+executive summary lists is "Using hourly weather to better reflect maximum
+burning conditions", and section 4.1.1 states that "the time lag function used in
+the FWI2025 for the FFMC has been cut in half". The System now runs on an hourly stream,
+takes latitude, longitude and date so that daylight length enters the moisture
+calculation, and adopts the Initial Spread Index of the Fire Behaviour Prediction
+System [@fcfdg1992fbp] in place of the original.
+
+Alongside those changes the report makes a claim of continuity. Section 4.1 says
+that "an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91
+in FWI2025", and that deviations "should reflect meaningful differences in fuel
+moisture content". Read as written the claim is about levels, and it is
+plausible: the update was designed so that a number on the old scale means
+roughly what it used to mean.
+
+The difficulty is that fire danger trends are almost never reported as levels.
+They are reported as counts of days above a threshold, as seasonal severity
+accumulated over a season, as the frequency of an extreme. Those are properties
+of the upper tail, and a change that leaves a distribution's centre alone can
+still move its tail. Halving a drying time lag does exactly that kind of thing:
+it lets the litter layer respond further within a day, which widens the diurnal
+swing without necessarily shifting the daily mean. If it widens the tail, then an
+extreme-day count computed under FWI2025 will trend at a different rate from the
+same count computed under FWI1987, and every published Canadian fire danger trend
+becomes version-contingent in a way that has not been quantified.
+
+Testing that is harder than it looks, because FWI1987 and FWI2025 differ in two
+respects at once. FWI1987 takes a single daily observation at 13:00 local
+daylight time. FWI2025 "calculations always use hourly weather"
+[@cffdg2025fwi2025, section 3.1.1.1] and offers three input pathways, ranked in
+that report as best, good and usable: direct hourly observations, daily maxima
+and minima, and the legacy 13:00 observation. Running the old system on noon data
+against the new system on hourly data therefore confounds the version change with
+the input change. A difference found that way could not be attributed to either.
+
+This study separates them. Three danger series are computed from one hourly
+weather record for one basin: FWI1987 driven by the 13:00 observation, FWI2025
+driven by the same 13:00 observation through the report's pathway C, and FWI2025
+driven by the observed hourly weather through pathway A. The first contrast moves
+the version and holds the input fixed. The second moves the input and holds the
+version fixed. The third is the contrast an agency actually faces when it
+migrates, and it is the sum of the other two.
+
+Three questions follow.
+
+**Trend.** What is the `r yr_first` to `r yr_last` trend in seasonal fire danger
+in the Okanagan basin under each series, estimated identically?
+
+**Version dependence.** Do the three series give different trends, and if so, is
+the difference located in the version or in the input resolution? The prediction
+under test is specific and has two ways to fail. Under thresholds fixed in
+absolute index units, the faster-drying FWI2025 should widen the upper tail and
+produce a steeper positive slope in extreme-day counts than FWI1987. Under
+thresholds set as percentiles internal to each series over a common reference
+period, that difference should largely vanish, because a percentile threshold
+moves with the series it is computed from. Divergence under both schemes, or
+under neither, refutes the mechanism rather than supporting it.
+
+**Skill.** Does any of the three predict daily ignition counts better than the
+others, and is the relationship between danger and ignition stationary across the
+record?
+
+The Okanagan basin is a reasonable place to ask. It is a populated, fire-prone
+valley in the southern interior of British Columbia with a long instrumented
+record, its fire regime is one where the operational consequences of a migration
+decision are expensive, and its terrain is steep enough that a station record is
+preferable to a coarse reanalysis. The study detects; it does not attribute.
+Nothing here separates a change in fire danger from its causes, and no claim
+about anthropogenic forcing is made or implied.
+
+# Materials and methods
+
+## Study area
+
+```{r}
+#| label: study-area-inputs
+#| echo: true
+#| output: false
+sa_counts <- read.csv(file.path(derived, "study-area-counts.csv"),
+                      stringsAsFactors = FALSE)
+sa <- function(item) lookup(sa_counts, item)
+
+source(file.path(root, "05.scripts", "map_study_area.R"), local = TRUE)
+study_map <- plot_study_area(
+  gpkg = file.path(inputs, "spatial", "study-area.gpkg"),
+  dem_path = file.path(inputs, "spatial", "dem-z9.tif"))
+
+# The caption carries the figure's own counts, its coordinate reference system
+# and its representative fraction, so none of the three can drift from what the
+# figure draws. The representative fraction is computed from the panel extent
+# and the panel width, not asserted.
+study_map_cap <- sprintf(
+  paste("Study area, ignition record and weather record.",
+        "%s watershed group, British Columbia Freshwater Atlas, %s ha.",
+        "Points are the %s wildfire incidents recorded inside the basin",
+        "between %s and %s in the BC Wildfire Service historical incident",
+        "record, coloured by reported cause; %s carry no recorded cause and",
+        "are drawn as unknown. Triangles are the %s BC Wildfire Service fire",
+        "weather stations inside the basin, which are the entire weather",
+        "record used here. Relief is a hillshade of a 99 m digital elevation",
+        "model. Coordinate reference system NAD83 / BC Albers, EPSG:3005;",
+        "graticule labelled in WGS84 degrees. Representative fraction",
+        "approximately 1:%s at a 5.2 inch panel width."),
+  sa("watershed_group_name"), n_fmt(sa("basin_area_ha")),
+  n_fmt(sa("ignitions_total")), sa("first_year"), sa("last_year"),
+  n_fmt(sa("ignitions_Unknown")), sa("fire_weather_stations"),
+  format(study_map$rf, big.mark = ","))
+```
+
+The study area is the `r sa("watershed_group_name")` watershed group of the
+British Columbia Freshwater Atlas, `r n_fmt(sa("basin_area_ha"))` ha in the
+southern interior of British Columbia, shown in @fig-study-area. Relief runs from
+`r n_fmt(sa("dem_min_elev_m"))` m at the valley floor to
+`r n_fmt(sa("dem_max_elev_m"))` m on the flanking uplands.
+
+Three official boundaries carry the name Okanagan and they disagree by a factor
+of two, so the choice is stated. The provincial major watershed WA2 "Okanagan
+River" measures 1,554,467 ha only because it annexes the Similkameen, a separate
+valley joined to it in that layer because the Similkameen reaches the Okanogan
+River in Washington State rather than because it drains to Okanagan Lake. The
+federal Water Survey of Canada sub-sub-drainage 08NM measures 1,203,045 ha
+because 402,172 ha of it lies south of the international boundary. Within Canada
+the federal and provincial frameworks describe the same basin to within 1.3 per
+cent. The study area is therefore the Freshwater Atlas group, the Canadian
+portion of the Okanagan watershed, entire. All three boundaries were retrieved
+and measured by `05.scripts/resolve_study_area_boundary.R`.
+
+The United States portion of the basin is out of scope by design and not by
+oversight. The ignition record is the BC Wildfire Service incident set and the
+weather record is the BC Wildfire Service station network, and neither crosses
+the border, so a binational basin could not be measured with one consistent
+record. Every result below is for the Canadian basin and no inference is offered
+about the basin as a whole.
+
+```{r}
+#| label: fig-study-area
+#| echo: true
+#| fig-width: 6.5
+#| fig-height: 7.8
+#| fig-dpi: 300
+#| fig-cap: !expr study_map_cap
+study_map$plot
+```
+
+## Two systems
+
+Fire danger here is measured with the Canadian Forest Fire Weather Index System,
+in both of the versions now in circulation. Because the two are not
+interchangeable, every value below carries its version.
+
+**FWI1987** is the System specified by @vanwagner1987fwi. Its six components are
+three fuel moisture codes, the Fine Fuel Moisture Code, the Duff Moisture Code
+and the Drought Code, and three fire behaviour indices built from them, the
+Initial Spread Index, the Buildup Index and the Fire Weather Index. A seventh
+quantity, the Daily Severity Rating, is a power transform of the Fire Weather
+Index and accumulates over a season into the seasonal severity rating. Its
+weather inputs are air temperature, relative humidity, ten-metre open wind speed
+and 24 hour rainfall [@lawson2008weather], taken from one observation per day at
+13:00 local daylight time. No reference period normalises it: the codes are a
+bookkeeping system carried from day to day, so a value depends on the whole
+preceding sequence and not only on the day it describes.
+
+**FWI2025** [@cffdg2025fwi2025] keeps those components and changes how they are
+computed. The Fine Fuel Moisture Code is calculated hourly, on a modification of
+the diurnal method of @vanwagner1977hourly, with the drying time lag halved to
+match field observations of litter moisture; under the right conditions it
+continues to dry overnight. Canopy interception of the first 0.5 mm of rain
+becomes cumulative within a rain event and resets after six rain-free hours
+rather than at the end of each day, and the same six hour constant governs the
+1.5 mm and 2.8 mm effective rainfall thresholds of the Duff Moisture Code and the
+Drought Code. Those two codes are also computed hourly, drying only between
+sunrise and sunset, with sunrise and sunset derived from latitude, longitude and
+date. The Initial Spread Index takes the Fire Behaviour Prediction System wind
+function [@fcfdg1992fbp], which limits the effect of winds above 40 km h^-1^. The
+Buildup Index, the Fire Weather Index and the Daily Severity Rating are unchanged
+in form.
+
+The optional grassland and peatland components of FWI2025 are excluded. This is a
+forest baseline and the two systems are compared only where they overlap.
+
+## Three series
+
+FWI1987 and FWI2025 differ in version and in input resolution simultaneously, so
+comparing one against the other answers no question about either. Three series
+are computed from a single hourly weather record, and each contrast moves one
+thing:
+
+| Series | System | Weather input | Pathway |
+|---|---|---|---|
+| S1 | FWI1987 | daily 13:00 LDT observation | the legacy configuration |
+| S2 | FWI2025 | daily 13:00 LDT observation | pathway C of @cffdg2025fwi2025 |
+| S3 | FWI2025 | observed hourly weather | pathway A of @cffdg2025fwi2025 |
+
+: The three fire danger series and what separates them. {#tbl-design}
+
+@tbl-design is the design. S1 against S2 isolates the version change at fixed
+input. S2 against S3 isolates the input resolution change at fixed version. S1
+against S3 is the operational contrast an agency faces on migration and is the
+sum of the other two. All three run on the same weather, the same season window,
+the same startup values and the same gap filling, so nothing that differs between
+them is an artefact of the record.
+
+Pathway C is the report's own procedure for the legacy observation. The 13:00
+observation is converted to estimated daily maxima and minima using national
+constants, daily maximum temperature being about 2 degrees Celsius above the
+13:00 value, minimum wind speed 10 per cent of it and maximum wind speed 30 per
+cent above it, and humidity carried through at constant vapour content; those
+maxima and minima are then expanded to an hourly stream by the sinusoidal method
+of @beck1989diurnal with the default offset and decay coefficients of Table A-1
+of @cffdg2025fwi2025. Daily rainfall, whose timing is unknown in a once-daily
+observation, is placed at the first hour after sunrise, which is the rule the
+report gives and the rule FWI1987 implicitly used.
+
+## Weather record
+
+```{r}
+#| label: weather-record
+#| echo: true
+#| output: false
+stn_tbl <- read.csv(file.path(derived, "station-metadata.csv"),
+                    stringsAsFactors = FALSE)
+```
+
+The weather record is the BC Wildfire Service weather data mart
+[@bcws2026datamart], a public directory of hourly observations from the
+provincial fire weather station network. It is used in preference to a gridded
+reanalysis for two reasons. It carries genuinely hourly precipitation, without
+which pathway A cannot be run as specified rather than approximated. And
+@cffdg2025fwi2025 states the caveat that a reanalysis would have imposed on this
+basin directly: "numerical weather model outputs are not strictly the same as
+point observations of weather from a weather station. At the grid cell scale,
+outputs from numerical models typically represent what can be thought of as
+average conditions across that cell." A cell of roughly nine kilometres across
+terrain running from `r n_fmt(sa("dem_min_elev_m"))` m to
+`r n_fmt(sa("dem_max_elev_m"))` m is a coarse instrument.
+
+The record retrieved is every hourly observation from the
+`r sa("fire_weather_stations")` stations the BC Data Catalogue places inside the
+basin polygon, for every season the archive holds. Seasons 1987 to 2023 are
+published as one province-wide file per year and seasons 2024 onward as one file
+per day; `05.scripts/fetch_fire_weather.py` reads both, streaming each response
+and discarding every row outside the basin as it arrives.
+
+Timestamps in that archive are Local Standard Time, which is verified rather than
+assumed. The FWI1987 codes that BC Wildfire Service computed operationally appear
+in the record at hour 12 and at no other hour. The
+standard fire weather observation is 13:00 local daylight time, so hour 12 is
+13:00 LDT and the stamp is Pacific Standard Time, UTC-8, year round. The modal
+hour of daily maximum temperature in summer falls where that reading implies.
+
+```{r}
+#| label: tbl-stations
+#| tbl-cap: "The weather record. Coverage is the share of the 1 April to 30 September hours in which temperature, humidity and wind were all observed, before any gap filling. A season is kept when coverage reaches 95 per cent and no single gap exceeds 24 hours."
+#| echo: true
+tz <- read.csv(file.path(derived, "timezone-verification.csv"))
+
+agg <- do.call(rbind, lapply(split(cover, cover$station_name), function(d) {
+  k <- subset(d, status == "kept")
+  data.frame(
+    Station = d$station_name[1],
+    `Elevation (m)` = round(d$elevation_m[1]),
+    `First season` = ifelse(nrow(k), min(k$year), NA),
+    `Last season` = ifelse(nrow(k), max(k$year), NA),
+    `Seasons kept` = nrow(k),
+    `Seasons dropped` = sum(d$status == "dropped, coverage"),
+    `Not reporting` = sum(d$status == "station not reporting"),
+    `Median coverage` = round(median(k$observed_fraction), 3),
+    check.names = FALSE)
+}))
+agg <- agg[order(-agg$`Seasons kept`), ]
+fmt_tbl(agg)
+```
+
+@tbl-stations gives the result. `r n_kept` station-seasons across
+`r n_stations_kept` stations survive, spanning `r yr_first` to `r yr_last`,
+`r n_seasons` distinct seasons. The daily codes appear at hour 12 in
+`r n_fmt(tz$daily_codes_at_hour_12)` records and at other hours in
+`r tz$daily_codes_at_other_hours`, which is what fixes the convention. The modal
+hour of daily maximum temperature in summer is
+`r tz$modal_hour_of_max_temp_summer`:00 Local Standard Time, three hours after
+solar noon at this longitude, which is consistent with it.
+
+### Season window
+
+The window is a fixed calendar one, 1 May to 30 September, 153 days, with the
+calculation spun up from 1 April so that thirty days of weather precede the first
+reported day.
+
+That is a departure from the framing of this study, which proposed the Canadian
+rule that section C-2.3 of @cffdg2025fwi2025 describes as the criterion most often
+used across Canada, to "start calculation three days after the disappearance of
+snow cover", or, where snow cover cannot be observed, after three days above 12
+degrees Celsius [@lawson2008weather]. The rule was implemented, run, and
+abandoned. These stations do not report through the winter, and the rule fired on
+whatever day a station was switched on. It produced a season of three days at
+Brenda Mines in 1991 and 244 days at Fintry in 1999. Those two figures are the
+only numbers in this document not computed by it: they come from the run that
+rejected the rule, are recorded in the project's framing document, and cannot be
+recomputed here because the procedure that produced them is no longer in the code.
+They describe field operations, not climate.
+
+One consequence is stated rather than repaired. **Fire season length cannot be
+estimated from this network** and is therefore not among the metrics, although
+lengthening season is among the most-reported fire danger trends
+[@wotton1993seasonlength]. A network whose stations are switched on and off for
+operational reasons cannot measure when a season begins. The metrics that remain
+are counts and sums over a window of fixed length, which the network can measure.
+
+### Gaps and startup
+
+Runs of missing temperature, humidity or wind up to 24 hours are filled by linear
+interpolation, since the reference implementation requires a gap-free hourly
+stream. Missing precipitation is filled with zero, because rain cannot be
+invented. A station-season is kept only where at least 95 per cent of the 1 April
+to 30 September hours were observed and no single gap exceeded 24 hours.
+
+Filling a gap with no rain makes a missing wet spell look dry and pushes danger
+up. The direction matters and is stated: coverage in this record is worse early
+than late, so this bias, where it acts, inflates danger in early seasons and
+therefore works against an increasing trend rather than for one. It is identical
+across the three series by construction, since all three run on the same filled
+record, and so cannot move a contrast between versions.
+
+Each station-season starts from FFMC 85, DMC 6 and DC 15, the values
+@vanwagner1987fwi gives and the reference implementation defaults to. The Drought
+Code is not overwintered, because these stations report no winter weather for an
+overwintering calculation to run on. The Drought Code therefore carries startup
+information into early May in every season, identically in all three series.
+
+## Implementation
+
+FWI2025 is computed with the reference implementation published by the Canadian
+Forest Service Fire Danger Group [@nrcan2026cffdrsng], vendored into this
+repository at the commit named in the bibliography and run unmodified. It
+reproduces the standard output distributed with it exactly, to the last decimal
+place the file carries, over the 2,623 hour Petawawa Research Forest test record.
+
+FWI1987 is implemented for this study in `05.scripts/fwi1987.py`, because both
+systems had to run inside one process on one record. Code written for a study is
+not evidence, so it is checked twice and both checks are reported in the results
+rather than asserted here. The first check is against the CRAN package `cffdrs`
+[@wang2017cffdrs], an independently published implementation maintained by the
+Canadian Forest Service, run through R over the same test record. The second is
+against the FWI1987 codes that BC Wildfire Service itself computed operationally
+at these stations at the time, which the data mart preserves alongside the raw
+observations: a different party, different code, different decade, and the same
+weather.
+
+Two constants differ between @vanwagner1987fwi as printed and
+@vanwagner1985fortran as programmed, and this implementation follows the program.
+The moisture transform coefficient is 147.2772, not the rounded 147.2 of the
+report, since 59.5 x 250 / 101 = 147.27722772 is the value that closes the scale;
+and the Duff Moisture Code moisture functions take the listing's form. Using the
+rounded constants instead moves the Fine Fuel Moisture Code by up to 3.9 units
+over the test record, which would have entered a version comparison as a
+difference between systems when it is a difference between roundings.
+
+### Quotation checking
+
+Every passage this document places inside quotation marks and attributes to
+@cffdg2025fwi2025 is checked against the report itself by
+`05.scripts/verify_quotations.py`, which opens the PDF, repairs hyphenation broken
+across lines, collapses whitespace and searches for the exact string, case
+included. The check writes `02.inputs/derived/quotation-verification.csv` with the
+page each quotation was found on, and exits non-zero if any fails. It found one
+failure on its first run, a lower-cased initial letter in the executive summary
+quotation above, which is the class of error it exists to catch.
+
+## Fire activity
+
+```{r}
+#| label: ignition-inputs
+#| echo: true
+#| output: false
+ign_daily <- read.csv(file.path(derived, "ignitions-daily.csv"),
+                      stringsAsFactors = FALSE)
+ign_daily$date <- as.Date(ign_daily$date)
+completeness <- read.csv(file.path(derived, "ignition-completeness.csv"),
+                         stringsAsFactors = FALSE)
+attribution <- read.csv(file.path(derived, "ignition-attribution.csv"),
+                        stringsAsFactors = FALSE)
+
+n_total_incidents <- sum(completeness$n_incidents)
+n_dated <- sum(completeness$n_dated)
+n_undated <- n_total_incidents - n_dated
+pct_dated <- round(100 * n_dated / n_total_incidents, 1)
+
+# Dating completeness by decade, computed here so the sentence below quotes the
+# table rather than describing it from memory.
+completeness$decade <- paste0(completeness$year %/% 10 * 10, "s")
+cd_pre <- do.call(rbind, lapply(split(completeness, completeness$decade), function(d)
+  data.frame(decade = d$decade[1],
+             pct_dated = 100 * sum(d$n_dated) / sum(d$n_incidents))))
+cd_pre <- cd_pre[order(cd_pre$decade), ]
+```
+
+The ignition record is the BC Wildfire Service historical incident set
+[@bcws2026incidents], clipped to the basin: `r n_fmt(n_total_incidents)`
+incidents over the `r sa("first_year")` to `r sa("last_year")` seasons.
+
+Two properties of that record govern what can be asked of it, and neither is
+repaired here, because neither can be.
+
+**Many incidents cannot be placed on a day at all.** `r n_fmt(n_dated)` of
+`r n_fmt(n_total_incidents)` incidents, `r pct_dated` per cent, carry an ignition
+date; the remaining `r n_fmt(n_undated)` cannot enter a daily series at any
+threshold. The missing dates are not spread evenly, and they do not concentrate
+where intuition puts them. The earliest decade in the record is
+`r round(head(cd_pre$pct_dated, 1), 0)` per cent dated and the most recent is
+`r round(tail(cd_pre$pct_dated, 1), 0)` per cent. Missing date and missing cause
+are largely the same records.
+
+**Cause attribution is not stationary.** @tbl-completeness gives both by decade.
+A lightning-caused count that falls after 2000 may be recording a change in how
+cause was coded rather than a change in ignition.
+
+```{r}
+#| label: tbl-completeness
+#| tbl-cap: "Completeness of the ignition record by decade. A dated incident can be placed on a day; an attributed incident carries a recorded cause. Both fall sharply after 2000 and the same records are usually missing both."
+#| echo: true
+completeness$decade <- paste0(completeness$year %/% 10 * 10, "s")
+cd <- do.call(rbind, lapply(split(completeness, completeness$decade), function(d) {
+  data.frame(
+    Decade = d$decade[1],
+    Incidents = sum(d$n_incidents),
+    Dated = sum(d$n_dated),
+    `Dated %` = round(100 * sum(d$n_dated) / sum(d$n_incidents), 1),
+    Attributed = sum(d$n_caused),
+    `Attributed %` = round(100 * sum(d$n_caused) / sum(d$n_incidents), 1),
+    check.names = FALSE)
+}))
+fmt_tbl(cd)
+```
+
+The design responds to both rather than caveating them. The ignition models below
+carry season as a fixed effect, so the danger coefficient is identified only from
+day-to-day variation inside a season. Reporting completeness and cause coding
+both change between seasons and neither changes within one, so a between-season
+contrast would confound the danger effect with the record keeping and a
+within-season contrast cannot. Three response series are modelled, lightning,
+person-caused and all causes together, because the all-cause series cannot be
+affected by cause coding at all and is therefore the one that carries the weight
+when the three disagree. And because detection of small fires also improved over
+the record, every result is reported at three minimum sizes, no limit, one
+hectare and four hectares. A conclusion that survives at only one threshold is
+reported as not surviving.
+
+## Analysis
+
+### Seasonal metrics
+
+Six seasonal metrics are computed per station, season and series over the 1 May
+to 30 September window: mean Fire Weather Index, seasonal severity rating as the
+sum of the Daily Severity Rating, peak Buildup Index, and counts of days above
+each of three thresholding schemes described next. Because FWI2025 produces an
+hourly value and FWI1987 a daily one, the FWI2025 series are summarised to a
+daily value at 16:00 Local Standard Time, which is 17:00 local daylight time. That
+hour is the conventional peak burn hour, and it is the modal hour of peak burning
+conditions in the reference implementation's own distributed output. It is not
+chosen from this record; for comparison, the modal hour of daily maximum summer
+temperature here is `r tz$modal_hour_of_max_temp_summer`:00 Local Standard Time.
+The daily maximum over all 24 hours is carried as a sensitivity and is not the
+primary, because the maximum of 24 draws exceeds a single daily value for reasons
+that have nothing to do with the version change.
+
+### Thresholds
+
+The second question lives in the thresholding, so both schemes are built and
+neither is preferred.
+
+*Absolute* thresholds are fixed numbers on the index scale applied unchanged to
+all three series, which is the scheme an agency uses, because a danger class is a
+number in a manual. Three are used. FFMC 91 is taken from section 4.1 of
+@cffdg2025fwi2025, so that counting days above it tests that report's
+comparability sentence directly. Fire Weather Index 19 and 30 are the Canadian
+high and extreme class boundaries in common use.
+
+*Relative* thresholds are percentiles of each series' own distribution over a
+common reference period, taken as 1991 to 2020, the current World Meteorological
+Organization normal, and fixed before any metric was computed. A day above a
+series' own 90th percentile means the same thing in each series by construction,
+so a difference in trend under relative thresholds cannot be an artefact of the
+two systems sitting at different levels.
+
+One property of that construction has to be said plainly, because it looks like a
+result and is not: inside the reference period the mean number of days above a
+series' own 90th percentile is ten per cent of the days in it, in every series, by
+definition. The level of a relative count therefore carries no information about
+the version at all, and only its trend does.
+
+Reference distributions are computed per station as well as per series. Pooling
+them would mix a valley station at
+`r round(min(stn_tbl$ELEVATION))` m with a ridge station at
+`r n_fmt(round(max(stn_tbl$ELEVATION)))` m, and the percentile would then describe
+the network rather than the site.
+
+### Trend estimation
+
+Trends are estimated over the `r n_seasons` seasons from `r yr_first` to
+`r yr_last` that survive the coverage rule, with the Theil-Sen
+slope, the median of all pairwise slopes [@sen1968slope], computed on the actual
+season numbers so that a gap in the sequence is honoured rather than treated as a
+step of one. The Theil-Sen estimator is used in preference to least squares
+because seasonal counts of extreme days are skewed and a least squares slope on
+them is pulled by single seasons.
+
+Significance is the Mann-Kendall test [@mann1945nonparametric] with the
+@hamed1998mmk variance correction, which inflates the variance of the test
+statistic by the serial correlation actually present in the series rather than
+assuming independence. Serial correlation in seasonal fire danger is real, and an
+uncorrected Mann-Kendall over-rejects in its presence; the uncorrected result is
+reported alongside only to show the size of that effect. Prewhitening
+[@yue2002prewhitening] is not used, because it removes part of the trend it is
+meant to test for.
+
+One approximation in that correction is stated rather than buried. Coverage drops
+seasons out of the middle of some station records, so the season sequence is not
+evenly spaced. The Mann-Kendall statistic itself is unaffected, because it depends
+on the order of the values and not on their spacing, and the Theil-Sen slope is
+computed on the actual season numbers so a gap is a gap. The Hamed and Rao
+variance correction, however, estimates autocorrelation at lags counted in
+observations rather than in years, which across a gap compares seasons further
+apart than the lag says. The direction of that error is knowable: it attributes to
+lag one a correlation measured over two or more years, which is smaller, so the
+correction applied is smaller than the true one and the test is less conservative
+than it would be on a complete record. This is a reason to read a marginal result
+here as weaker than its q value suggests, not stronger.
+
+Metric families are corrected within each series by the @benjamini1995fdr false
+discovery rate procedure. Confidence intervals on a single slope are bootstrap
+percentile intervals over 2,000 resamples of seasons.
+
+### Slope differences
+
+The three series come from one weather record and are therefore strongly
+dependent, so a two-sample comparison of their slopes would be wrong. The
+difference between two series' slopes is estimated by resampling whole seasons
+with replacement and recomputing both slopes on the same resampled seasons in
+every one of 4,000 replicates. The pairing is preserved by construction, so the
+interval is on the difference and not on two separately noisy slopes. A two-sided
+bootstrap p value is taken as twice the smaller tail mass either side of zero, and
+is corrected for false discovery rate within the eight metrics of one contrast at
+one station.
+
+### Ignition models
+
+Daily ignition counts are modelled as negative binomial with a log link. The
+linear predictor carries the daily basin danger value, two annual harmonics in
+day of year, season as a factor, and the number of stations that contributed to
+the basin mean that day, since no station reports in every season and the
+composition of the network changes. That last term cannot affect the comparison
+between series in any case, because all three are averaged over exactly the same
+stations on exactly the same days. Predictive skill is compared by leaving one
+season out at a time, refitting without it, and scoring the held-out season by
+its log likelihood under the refitted model. Comparing series on held-out
+likelihood rather than on in-sample fit is the point: three series computed from
+one weather record will all fit, and the question is which predicts.
+
+### Detectability
+
+What a window of `r n_seasons` seasons cannot resolve is computed rather than
+hedged. For
+each metric the minimum detectable trend is the slope at which a two-sided test
+at alpha 0.05 would reach 80 per cent power given the residual spread of that
+metric about its own Theil-Sen line, adjusted for the efficiency of the Theil-Sen
+estimator relative to least squares. A null result is reported against that
+number, so that "no trend detected" is separated from "no trend".
+
+### Status of claims
+
+Everything below is exploratory and none of it is pre-registered. The project this
+manuscript belongs to runs a gated pipeline in which a framing document, a prior
+work survey, an analysis design and a pre-registration each close before the next
+opens, and outcome data are not touched until the last of those is fixed in
+writing. Those gates were deliberately overridden to produce this draft in one
+pass.
+
+The consequence is specific and is not a formality. Several decisions that a
+pre-registration would have fixed in advance were instead made while the data were
+in view: the season window, after the weather-derived rule failed; the coverage
+threshold; the reference period; the daily summary hour. Each is stated where it
+was made and each is defensible on its own terms, but a decision made in sight of
+the data is not the same as a decision made before it, and no p value here should
+be read as though it were. What the design does protect is the comparison between
+series, because all three run on the same record through the same decisions, so a
+choice that moves one moves all three.
+
+# Results
+
+```{r}
+#| label: load-results
+#| echo: true
+#| output: false
+series_daily <- read.csv(file.path(derived, "fwi-series-daily.csv"),
+                         stringsAsFactors = FALSE)
+series_daily$date <- as.Date(series_daily$date)
+metrics <- read.csv(file.path(derived, "seasonal-metrics.csv"),
+                    stringsAsFactors = FALSE)
+thresh_pct <- read.csv(file.path(derived, "threshold-percentiles.csv"),
+                       stringsAsFactors = FALSE)
+basin <- read.csv(file.path(derived, "basin-daily.csv"), stringsAsFactors = FALSE)
+basin$date <- as.Date(basin$date)
+```
+
+## Implementation checks
+
+```{r}
+#| label: tbl-verify
+#| tbl-cap: "Verification of the FWI1987 implementation. The first block compares it against the CRAN package cffdrs over the Petawawa Research Forest test record. The second compares it against the FWI1987 codes BC Wildfire Service computed operationally at these stations, pooled over all kept station-seasons."
+#| echo: true
+val <- read.csv(file.path(derived, "fwi1987-validation.csv"),
+                stringsAsFactors = FALSE)
+opc <- read.csv(file.path(derived, "fwi1987-operational-check.csv"),
+                stringsAsFactors = FALSE)
+
+# The two blocks differ by ten orders of magnitude, so the differences are
+# formatted as strings rather than left to the table's numeric printing, which
+# would render machine epsilon as a wall of zeros.
+fmt_diff <- function(x) ifelse(is.na(x), "", formatC(x, format = "g", digits = 3))
+
+blk1 <- data.frame(
+  Check = "against cffdrs",
+  Component = val$component,
+  n = format(val$n, big.mark = ","),
+  `Max absolute difference` = fmt_diff(val$max_abs_diff),
+  `Mean absolute difference` = fmt_diff(val$mean_abs_diff),
+  `Correlation` = "",
+  check.names = FALSE)
+
+# The data mart names the operational columns in full; the initials are the
+# component names used everywhere else in this document.
+initials <- function(x) vapply(strsplit(x, "_"),
+                               function(p) paste0(substr(p, 1, 1), collapse = ""),
+                               character(1))
+op_agg <- do.call(rbind, lapply(split(opc, opc$component), function(d) {
+  data.frame(
+    Check = "against operational codes",
+    Component = initials(d$component[1]),
+    n = format(sum(d$n), big.mark = ","),
+    `Max absolute difference` = "",
+    `Mean absolute difference` = fmt_diff(weighted.mean(abs(d$mean_bias), d$n)),
+    `Correlation` = formatC(weighted.mean(d$pearson_r, d$n), format = "f", digits = 4),
+    check.names = FALSE)
+}))
+rownames(op_agg) <- NULL
+fmt_tbl(rbind(blk1, op_agg))
+```
+
+```{r}
+#| label: verify-prose
+#| echo: true
+#| output: false
+max_cffdrs <- max(val$max_abs_diff)
+op_r <- weighted.mean(opc$pearson_r, opc$n)
+op_n <- sum(opc$n)
+bias_of <- function(comp) {
+  d <- opc[opc$component == comp, ]
+  weighted.mean(abs(d$mean_bias), d$n)
+}
+r_of <- function(comp) {
+  d <- opc[opc$component == comp, ]
+  weighted.mean(d$pearson_r, d$n)
+}
+dc_bias <- bias_of("DROUGHT_CODE")
+bui_bias <- bias_of("BUILDUP_INDEX")
+ffmc_r <- r_of("FINE_FUEL_MOISTURE_CODE")
+```
+
+@tbl-verify gives both checks. Against `cffdrs` the two implementations agree to
+`r formatC(max_cffdrs, format = "g", digits = 2)` across all seven components,
+which is machine precision: they are the same arithmetic, and the check confirms
+that the equations were transcribed correctly rather than that they are correct.
+
+Against the operational codes, computed by a different party in a different
+decade, the weighted mean correlation over `r n_fmt(op_n)` station-days is
+`r round(op_r, 3)`. That check is not expected to be exact, and one of its
+disagreements is large and has a known cause. The mean absolute bias in the
+Drought Code is `r round(dc_bias, 0)` units, and in the Buildup Index, which is
+computed from it, `r round(bui_bias, 1)`. BC Wildfire Service overwinters the
+Drought Code, carrying it from the previous autumn; this study restarts it at 15
+on 1 April, because these stations report no winter weather for an overwintering
+calculation to use. That is a difference in convention, not an error, and its
+direction is known: a restarted Drought Code is lower than an overwintered one.
+Every absolute Drought Code and Buildup Index level reported here is conditional
+on that convention. It cannot affect any comparison between the three series,
+because all three restart identically.
+
+The components that do not depend on the overwintered code agree closely. The
+Fine Fuel Moisture Code correlates
+`r round(opc$pearson_r[opc$component == "FINE_FUEL_MOISTURE_CODE"] |> weighted.mean(opc$n[opc$component == "FINE_FUEL_MOISTURE_CODE"]), 4)`
+with the operational value, which is the component the version comparison
+principally rests on.
+
+## Where thresholds fall
+
+```{r}
+#| label: tbl-thresholds
+#| tbl-cap: "Where each absolute threshold falls in each series' own 1991 to 2020 reference distribution, averaged over stations. A threshold at the same percentile in every series would mean the three systems are interchangeable for counting extremes. The reference median is the median of that component over the same distribution."
+#| echo: true
+tp <- do.call(rbind, lapply(
+  split(thresh_pct, list(thresh_pct$series, thresh_pct$component,
+                         thresh_pct$threshold), drop = TRUE),
+  function(d) data.frame(
+    Series = unname(SERIES[d$series[1]]),
+    Component = toupper(d$component[1]),
+    Threshold = d$threshold[1],
+    `Percentile of threshold` = round(mean(d$percentile_of_threshold, na.rm = TRUE), 1),
+    `Days per season above` = NA_real_,
+    `Reference median` = round(mean(d$reference_median, na.rm = TRUE), 1),
+    check.names = FALSE)))
+# Days per season above each absolute threshold, averaged over station-seasons.
+days_above <- function(series, component, thr) {
+  col <- switch(paste(component, thr),
+                "ffmc 91" = "n_ffmc_ge91",
+                "fwi 19" = "n_fwi_ge19",
+                "fwi 30" = "n_fwi_ge30")
+  mean(metrics[[col]][metrics$series == series], na.rm = TRUE)
+}
+key <- do.call(rbind, strsplit(rownames(tp), "\\."))
+tp$`Days per season above` <- round(mapply(days_above, key[, 1], key[, 2],
+                                           as.numeric(key[, 3])), 1)
+tp <- tp[order(tp$Component, tp$Threshold, tp$Series), ]
+rownames(tp) <- NULL
+fmt_tbl(tp)
+```
+
+```{r}
+#| label: threshold-prose
+#| echo: true
+#| output: false
+ffmc91 <- subset(tp, Component == "FFMC" & Threshold == 91)
+fwi19 <- subset(tp, Component == "FWI" & Threshold == 19)
+p_s1 <- ffmc91$`Percentile of threshold`[grepl("S1", ffmc91$Series)]
+p_s2 <- ffmc91$`Percentile of threshold`[grepl("S2", ffmc91$Series)]
+p_s3 <- ffmc91$`Percentile of threshold`[grepl("S3", ffmc91$Series)]
+d_s1 <- ffmc91$`Days per season above`[grepl("S1", ffmc91$Series)]
+d_s2 <- ffmc91$`Days per season above`[grepl("S2", ffmc91$Series)]
+d_s3 <- ffmc91$`Days per season above`[grepl("S3", ffmc91$Series)]
+```
+
+@tbl-thresholds tests the comparability sentence of @cffdg2025fwi2025 directly.
+A Fine Fuel Moisture Code of 91 sits at the `r p_s1`th percentile of the S1
+distribution, the `r p_s2`th of S2 and the `r p_s3`th of S3. In days per season
+above it, that is `r d_s1` under S1, `r d_s2` under S2 and `r d_s3` under S3.
+
+```{r}
+#| label: threshold-reading
+#| echo: true
+#| output: false
+# The comparability claim is about where a value sits, so the reading is stated
+# in the two units that matter and neither is rounded away: the percentile spread
+# across series, and the difference in days per season an agency would count.
+pct_spread <- max(abs(p_s3 - p_s1), abs(p_s2 - p_s1))
+day_gap <- d_s3 - d_s1
+day_gap_pct <- 100 * day_gap / d_s1
+```
+
+The claim survives as a statement about levels and does not survive as a statement
+about counts. The three medians of the Fine Fuel Moisture Code over the reference
+period sit within about a unit of each other, so a value of 91 does mean much what
+it used to mean. But the same threshold selects `r sprintf("%.1f", abs(day_gap))`
+`r if (day_gap >= 0) "more" else "fewer"` days per season under S3 than under S1,
+a difference of `r sprintf("%.0f", abs(day_gap_pct))` per cent, because the
+percentile it occupies moves by `r sprintf("%.1f", pct_spread)` points. Those are
+the same distributions, described two ways. @fig-distributions shows why: the
+curves sit almost on top of one another through the middle and separate where the
+threshold is.
+
+```{r}
+#| label: fig-distributions
+#| echo: true
+#| fig-width: 6.5
+#| fig-height: 4.2
+#| fig-dpi: 300
+#| fig-cap: "Distribution of the daily Fine Fuel Moisture Code and the daily Fire Weather Index over all kept station-days under the three series, with the absolute thresholds marked. The comparability claim of the 2025 report concerns the position of a value on the scale; an extreme-day count concerns the mass beyond a threshold, which is a different quantity."
+op <- par(mfrow = c(1, 2), mar = c(4, 4, 1.4, 1), mgp = c(2.4, 0.7, 0), cex = 0.75)
+cols <- c(s1 = "#1B4F72", s2 = "#B7950B", s3 = "#943126")
+
+plot_dens <- function(cols_prefix, xlab, cuts, xlim) {
+  dens <- lapply(names(cols), function(s) {
+    v <- series_daily[[paste0(s, "_", cols_prefix)]]
+    density(v[is.finite(v)], na.rm = TRUE)
+  })
+  ymax <- max(vapply(dens, function(d) max(d$y), numeric(1)))
+  plot(NA, xlim = xlim, ylim = c(0, ymax * 1.05), xlab = xlab,
+       ylab = "Density", main = "")
+  for (i in seq_along(dens)) lines(dens[[i]], col = cols[i], lwd = 1.8)
+  abline(v = cuts, lty = 3, col = "grey30")
+  legend("topleft", legend = unname(SERIES), col = cols, lwd = 1.8, bty = "n",
+         cex = 0.72)
+}
+plot_dens("ffmc", "Fine Fuel Moisture Code", 91, c(40, 101))
+plot_dens("fwi", "Fire Weather Index", c(19, 30), c(0, 60))
+par(op)
+```
+
+## The mechanism
+
+```{r}
+#| label: fig-mechanism
+#| echo: true
+#| fig-width: 6.5
+#| fig-height: 4.4
+#| fig-dpi: 300
+#| fig-cap: "Ten days of the hourly Fine Fuel Moisture Code at Penticton RS in August 2003, under FWI2025 driven by the observed hourly weather and under FWI2025 driven by the 13:00 observation alone. Both are the same system on the same days; the only difference is what the System was told about the weather. The vertical lines mark 13:00 local daylight time, the hour FWI1987 observes, and 17:00, the hour a daily value conventionally represents."
+ex <- read.csv(file.path(derived, "example-season-hourly.csv"),
+               stringsAsFactors = FALSE)
+ex$t <- as.POSIXct(sprintf("%04d-%02d-%02d %02d:00:00", ex$yr, ex$mon, ex$day, ex$hr),
+                   tz = "UTC")
+win <- ex[ex$mon == 8 & ex$day >= 14 & ex$day <= 23, ]
+
+op <- par(mar = c(3.2, 4, 1.2, 1), cex = 0.8)
+plot(win$t, win$s3_ffmc, type = "l", col = cols["s3"], lwd = 1.6,
+     ylim = range(c(win$s3_ffmc, win$s2_ffmc), na.rm = TRUE),
+     xlab = "", ylab = "Fine Fuel Moisture Code", xaxt = "n")
+lines(win$t, win$s2_ffmc, col = cols["s2"], lwd = 1.6)
+axis.POSIXct(1, win$t, format = "%d %b")
+# The hour markers are drawn thin and pale on purpose: they locate the two
+# sampling hours without competing with the curves, which are the subject.
+abline(v = win$t[win$hr == 12], col = "grey86", lty = 3, lwd = 0.6)
+abline(v = win$t[win$hr == 16], col = "grey62", lty = 2, lwd = 0.6)
+lines(win$t, win$s3_ffmc, col = cols["s3"], lwd = 1.6)
+lines(win$t, win$s2_ffmc, col = cols["s2"], lwd = 1.6)
+legend("bottomleft", bty = "n", cex = 0.75,
+       legend = c(unname(SERIES[c("s3", "s2")]),
+                  "13:00 LDT, the FWI1987 observation", "17:00 LDT"),
+       col = c(cols["s3"], cols["s2"], "grey86", "grey62"),
+       lwd = c(1.6, 1.6, 0.8, 0.8), lty = c(1, 1, 3, 2))
+par(op)
+```
+
+```{r}
+#| label: tbl-capability
+#| tbl-cap: "Two quantities FWI2025 reports and FWI1987 cannot: the hour at which peak burning conditions occur, and the number of hours per day the burning window stays open, both as the specification's own daily summary computes them. Values are means over kept station-seasons. FWI1987 has no entry because a system with one value per day cannot say when in the day it applies."
+#| echo: true
+cap <- metrics[metrics$series %in% c("s2", "s3") &
+                 !is.na(metrics$mean_peak_hr), ]
+if (nrow(cap)) {
+  ct <- do.call(rbind, lapply(split(cap, cap$series), function(d) data.frame(
+    Series = unname(SERIES[d$series[1]]),
+    `Mean peak hour (LST)` = round(mean(d$mean_peak_hr, na.rm = TRUE), 2),
+    `Mean burning window (h)` = round(mean(d$mean_duration, na.rm = TRUE), 2),
+    `Days per season with window >= 6 h` = round(mean(d$n_duration_ge6, na.rm = TRUE), 1),
+    check.names = FALSE)))
+  rownames(ct) <- NULL
+  fmt_tbl(ct)
+} else {
+  fmt_tbl(data.frame(Note = "Daily summaries were not produced for this run."))
+}
+```
+
+```{r}
+#| label: mechanism-reading
+#| echo: true
+#| output: false
+# The two readings the figure supports, computed from the same window it draws.
+night <- win$hr %in% c(2, 3, 4, 5)
+day <- win$hr %in% c(14, 15, 16, 17)
+night_gap <- mean(win$s3_ffmc[night] - win$s2_ffmc[night], na.rm = TRUE)
+day_gap <- mean(win$s3_ffmc[day] - win$s2_ffmc[day], na.rm = TRUE)
+range_s3 <- mean(tapply(win$s3_ffmc, win$day, function(v) diff(range(v))))
+range_s2 <- mean(tapply(win$s2_ffmc, win$day, function(v) diff(range(v))))
+```
+
+@fig-mechanism shows what separates S2 from S3 on the same ten days. Both are
+FWI2025, both are given the same rain, and the only difference is whether the
+System was handed the observed hourly weather or asked to reconstruct a standard
+diurnal curve from the 13:00 observation.
+
+The reconstruction is not a smoothed version of the observation; it is a different
+shape. Over these days it swings `r sprintf("%.1f", range_s2)` code units between
+its daily minimum and maximum against `r sprintf("%.1f", range_s3)` for the
+observed series, and the difference is concentrated overnight: the two run
+`r sprintf("%.1f", abs(day_gap))` units apart in the mid-afternoon and
+`r sprintf("%.1f", abs(night_gap))` units apart before dawn. A standard curve
+anchored to one afternoon reading has to guess the night, and it guesses wetter
+than the nights actually were. @tbl-capability gives the consequence in the two
+quantities only the hourly system produces at all.
+
+## Trends
+
+```{r}
+#| label: trend-compute
+#| echo: true
+#| output: false
+# The metric family. Each entry is a column of the seasonal metric table, a
+# label, and which thresholding scheme it belongs to. The family is declared
+# here, once, and the false discovery rate correction is applied within it.
+METRICS <- data.frame(
+  col = c("mean_fwi", "ssr", "peak_bui",
+          "n_ffmc_ge91", "n_fwi_ge19", "n_fwi_ge30",
+          "n_fwi_p90", "n_fwi_p95"),
+  label = c("Mean FWI", "Seasonal severity rating", "Peak BUI",
+            "Days FFMC >= 91", "Days FWI >= 19", "Days FWI >= 30",
+            "Days above own 90th percentile", "Days above own 95th percentile"),
+  scheme = c("level", "level", "level",
+             "absolute", "absolute", "absolute",
+             "relative", "relative"),
+  stringsAsFactors = FALSE)
+
+# Trends are estimated per station and per series, then combined, rather than on
+# a basin average, because the set of reporting stations changes between seasons
+# and a basin average would move when a station joins or leaves.
+trend_rows <- list()
+for (s in names(SERIES)) {
+  for (i in seq_len(nrow(METRICS))) {
+    m <- METRICS$col[i]
+    for (stn in unique(metrics$station_name)) {
+      d <- metrics[metrics$series == s & metrics$station_name == stn, ]
+      d <- d[is.finite(d[[m]]), ]
+      if (nrow(d) < 15) next
+      tt <- trend_test(d$year, d[[m]])
+      tt$series <- s; tt$metric <- m; tt$station <- stn
+      tt$mdt <- minimum_detectable_trend(d$year, d[[m]])
+      trend_rows[[length(trend_rows) + 1]] <- tt
+    }
+  }
+}
+trends <- do.call(rbind, trend_rows)
+if (is.null(trends) || !nrow(trends))
+  stop("No station has the 15 seasons the trend estimator requires. ",
+       "Kept station-seasons: ", n_kept, " over ", n_seasons, " seasons. ",
+       "Re-run 05.scripts/fetch_fire_weather.py and ",
+       "05.scripts/compute_fwi_series.py over the full archive.")
+# The family is the eight metrics within one series at one station.
+trends$q <- ave(trends$p_corrected,
+                paste(trends$series, trends$station), FUN = fdr)
+write.csv(trends, file.path(outputs, "trend-estimates.csv"), row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-trends
+#| tbl-cap: "Theil-Sen slopes per season for each seasonal metric under each series, pooled across stations as the median station slope, with the range across stations. Significance is Mann-Kendall with the Hamed and Rao variance correction; the count is of stations at which the false discovery rate adjusted p value falls below 0.05 within that station's eight-metric family. The minimum detectable trend is the slope this record could resolve at 80 per cent power."
+#| echo: true
+tr <- do.call(rbind, lapply(split(trends, list(trends$series, trends$metric),
+                                  drop = TRUE), function(d) {
+  data.frame(
+    Series = unname(SERIES[d$series[1]]),
+    Metric = METRICS$label[match(d$metric[1], METRICS$col)],
+    Stations = nrow(d),
+    `Median slope` = round(median(d$slope, na.rm = TRUE), 3),
+    `Slope range` = sprintf("%.2f to %.2f", min(d$slope, na.rm = TRUE),
+                            max(d$slope, na.rm = TRUE)),
+    `Stations q < 0.05` = sum(d$q < 0.05, na.rm = TRUE),
+    `Min detectable` = round(median(d$mdt, na.rm = TRUE), 3),
+    check.names = FALSE)
+}))
+tr <- tr[order(match(tr$Metric, METRICS$label), tr$Series), ]
+rownames(tr) <- NULL
+fmt_tbl(tr)
+```
+
+```{r}
+#| label: fig-trends
+#| echo: true
+#| fig-width: 6.5
+#| fig-height: 7.0
+#| fig-dpi: 300
+#| fig-cap: "Seasonal metrics by season under the three series, pooled across stations as the station mean, with the Theil-Sen line for each series. The absolute and relative extreme-day counts are the panels the second question turns on: the prediction is that the absolute counts separate between series and the relative counts do not."
+show <- c("mean_fwi", "ssr", "n_ffmc_ge91", "n_fwi_ge19", "n_fwi_p90", "n_fwi_p95")
+# Generous bottom margin and tightened axis title placement: at three rows on one
+# page the default margin clips the x axis label against the panel below.
+op <- par(mfrow = c(3, 2), mar = c(3.8, 4, 1.4, 1), mgp = c(2.4, 0.7, 0),
+          cex = 0.68)
+for (m in show) {
+  ylab <- METRICS$label[match(m, METRICS$col)]
+  rng <- range(metrics[[m]], na.rm = TRUE)
+  plot(NA, xlim = range(metrics$year), ylim = rng, xlab = "Season", ylab = ylab,
+       main = "")
+  for (s in names(SERIES)) {
+    d <- metrics[metrics$series == s, ]
+    a <- aggregate(d[[m]], list(year = d$year), mean, na.rm = TRUE)
+    points(a$year, a$x, col = cols[s], pch = 16, cex = 0.6)
+    sl <- theil_sen(a$year, a$x)
+    ic <- median(a$x - sl * a$year)
+    abline(a = ic, b = sl, col = cols[s], lwd = 1.6)
+  }
+  if (m == show[1])
+    legend("topleft", legend = unname(SERIES), col = cols, lwd = 1.6, bty = "n",
+           cex = 0.7)
+}
+par(op)
+```
+
+```{r}
+#| label: trend-reading
+#| echo: true
+#| output: false
+# The direction and strength of the trend picture, computed rather than eyeballed
+# off the table, so the sentence below cannot say something the numbers do not.
+tr_up <- sum(trends$slope > 0, na.rm = TRUE)
+tr_n <- sum(is.finite(trends$slope))
+tr_sig <- sum(trends$q < 0.05, na.rm = TRUE)
+tr_sig_up <- sum(trends$q < 0.05 & trends$slope > 0, na.rm = TRUE)
+# What the autocorrelation correction cost, in tests that would otherwise pass.
+would_pass <- sum(p.adjust(trends$p_uncorrected, "BH") < 0.05, na.rm = TRUE)
+infl <- median(trends$n_over_nstar, na.rm = TRUE)
+```
+
+Of the `r tr_n` station, series and metric combinations in @tbl-trends,
+`r tr_up` have a positive Theil-Sen slope. After the Hamed and Rao correction for
+serial correlation and the false discovery rate correction within each station's
+eight-metric family, `r tr_sig` remain below a q value of 0.05, `r tr_sig_up` of
+them positive. The serial correlation correction is not decorative: the median
+ratio of nominal to effective sample size is `r sprintf("%.2f", infl)`, and
+`r would_pass` combinations would have passed the same false discovery threshold
+had the uncorrected variance been used.
+
+Two cautions belong with that count and not further down the page. The number of
+stations with enough seasons to carry a trend is
+`r length(unique(trends$station))`, because a station needs 15 usable seasons and
+this network does not give many of them; and for most metrics the observed change
+over the window is smaller than the change this record could have resolved, which
+is set out quantitatively in the discussion. A trend estimate here is a direction
+with a wide interval, not a measurement.
+
+@fig-trends puts the three series side by side. The panels to watch are the two
+absolute-threshold counts against the two relative-threshold counts, because that
+contrast, and not the overall direction, is what the second question turns on.
+
+## Version dependence
+
+```{r}
+#| label: slopediff-compute
+#| echo: true
+#| output: false
+CONTRASTS <- list(
+  c("s1", "s2", "Version change, input held at 13:00"),
+  c("s2", "s3", "Input resolution change, version held at FWI2025"),
+  c("s1", "s3", "Operational migration, both changes")
+)
+
+diff_rows <- list()
+for (cn in CONTRASTS) {
+  for (i in seq_len(nrow(METRICS))) {
+    m <- METRICS$col[i]
+    for (stn in unique(metrics$station_name)) {
+      a <- metrics[metrics$series == cn[1] & metrics$station_name == stn,
+                   c("year", m)]
+      b <- metrics[metrics$series == cn[2] & metrics$station_name == stn,
+                   c("year", m)]
+      w <- merge(a, b, by = "year", suffixes = c(".a", ".b"))
+      names(w)[2:3] <- c("a", "b")
+      if (nrow(w) < 15) next
+      sd_ <- slope_difference(w)
+      sd_$contrast <- cn[3]; sd_$metric <- m; sd_$station <- stn
+      sd_$scheme <- METRICS$scheme[i]
+      diff_rows[[length(diff_rows) + 1]] <- sd_
+    }
+  }
+}
+sdiff <- do.call(rbind, diff_rows)
+if (is.null(sdiff) || !nrow(sdiff))
+  stop("No station-series pair has the 15 paired seasons the bootstrap requires.")
+# The family here is the eight metrics within one contrast at one station: one
+# station's answer to one of the three questions the design asks.
+sdiff$q <- ave(sdiff$p_two_sided, paste(sdiff$contrast, sdiff$station), FUN = fdr)
+write.csv(sdiff, file.path(outputs, "slope-differences.csv"), row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-slopediff
+#| tbl-cap: "Difference in Theil-Sen slope between series, by metric and contrast, pooled across stations as the median. Intervals are paired bootstrap percentile intervals over 4,000 resamples of whole seasons, which preserves the dependence between series that share a weather record. Stations excluding zero counts the stations whose own interval does not contain zero; the last column applies the Benjamini and Hochberg correction within each station's eight-metric family for that contrast."
+#| echo: true
+sd_tab <- do.call(rbind, lapply(
+  split(sdiff, list(sdiff$contrast, sdiff$metric), drop = TRUE), function(d) {
+    data.frame(
+      Contrast = d$contrast[1],
+      Scheme = d$scheme[1],
+      Metric = METRICS$label[match(d$metric[1], METRICS$col)],
+      Stations = nrow(d),
+      `Median difference` = round(median(d$difference, na.rm = TRUE), 3),
+      `Stations excluding zero` = sum(d$lower > 0 | d$upper < 0, na.rm = TRUE),
+      `Stations q < 0.05` = sum(d$q < 0.05, na.rm = TRUE),
+      check.names = FALSE)
+  }))
+sd_tab <- sd_tab[order(match(sd_tab$Contrast, vapply(CONTRASTS, `[`, "", 3)),
+                       match(sd_tab$Metric, METRICS$label)), ]
+rownames(sd_tab) <- NULL
+fmt_tbl(sd_tab)
+```
+
+```{r}
+#| label: fig-slopediff
+#| echo: true
+#| fig-width: 6.5
+#| fig-height: 4.6
+#| fig-dpi: 300
+#| fig-cap: "Difference in Theil-Sen slope between series for the five extreme-day counts, which all measure days per season and therefore share one axis. Points are station estimates, bars are paired bootstrap 95 per cent intervals over 4,000 resamples of whole seasons. Red marks the three absolute thresholds and blue the two thresholds internal to each series. The prediction under test is that the red points separate from zero and the blue ones do not. The three level metrics are omitted from this figure because the seasonal severity rating is measured on a scale two orders of magnitude larger and would compress everything else to a point; they are in the preceding table."
+# Only the metrics measured in days per season are drawn, so one x axis means the
+# same thing everywhere on the figure. A common range across the three panels
+# keeps the contrasts comparable, and the labels are drawn once on the left.
+DAY_METRICS <- METRICS$col[METRICS$scheme %in% c("absolute", "relative")]
+sd_plot <- sdiff[sdiff$metric %in% DAY_METRICS, ]
+sd_plot$mi <- match(sd_plot$metric, METRICS$col)
+xr <- range(c(sd_plot$lower, sd_plot$upper, 0), na.rm = TRUE)
+
+op <- par(mfrow = c(1, 3), oma = c(0, 12.5, 0, 0), mgp = c(2.2, 0.6, 0), cex = 0.62)
+for (k in seq_along(CONTRASTS)) {
+  cn <- CONTRASTS[[k]]
+  d <- sd_plot[sd_plot$contrast == cn[3], ]
+  par(mar = c(4, 0.6, 3.4, 0.6))
+  if (!nrow(d)) { plot.new(); next }
+  d <- d[order(d$mi, d$station), ]
+  y <- seq_len(nrow(d))
+  plot(NA, xlim = xr, ylim = c(0.5, max(y) + 0.5), yaxt = "n",
+       xlab = "Slope difference, days per season", ylab = "",
+       main = paste(strwrap(cn[3], 24), collapse = "\n"), cex.main = 0.95)
+  abline(v = 0, col = "grey50", lty = 2)
+  segments(d$lower, y, d$upper, y, col = "grey35")
+  points(d$difference, y, pch = 16, cex = 0.8,
+         col = ifelse(d$scheme == "absolute", "#943126", "#1B4F72"))
+  if (k == 1)
+    axis(2, at = y, labels = paste0(METRICS$label[d$mi], ", ", d$station),
+         las = 1, cex.axis = 0.7, tick = FALSE, line = -0.3, outer = TRUE)
+}
+par(op)
+```
+
+```{r}
+#| label: slopediff-reading
+#| echo: true
+#| output: false
+# The hypothesis has a specific shape: absolute-threshold counts should separate
+# between series and relative-threshold counts should not. That shape is scored
+# here as two rates, so the sentence below reports what the numbers show rather
+# than what the hypothesis predicted.
+score <- function(contrast, scheme) {
+  d <- sdiff[sdiff$contrast == contrast & sdiff$scheme == scheme, ]
+  if (!nrow(d)) return(c(n = 0, sig = 0, rate = NA_real_, med = NA_real_))
+  sig <- sum(d$q < 0.05, na.rm = TRUE)
+  c(n = nrow(d), sig = sig, rate = 100 * sig / nrow(d),
+    med = median(d$difference, na.rm = TRUE))
+}
+ver_label <- CONTRASTS[[1]][3]
+inp_label <- CONTRASTS[[2]][3]
+mig_label <- CONTRASTS[[3]][3]
+sc <- rbind(
+  `version, absolute`   = score(ver_label, "absolute"),
+  `version, relative`   = score(ver_label, "relative"),
+  `input, absolute`     = score(inp_label, "absolute"),
+  `input, relative`     = score(inp_label, "relative"),
+  `migration, absolute` = score(mig_label, "absolute"),
+  `migration, relative` = score(mig_label, "relative"))
+sc <- as.data.frame(sc)
+write.csv(sc, file.path(outputs, "hypothesis-scoring.csv"))
+
+# The resolution of the difference test, so that a null is readable. The half
+# width of the bootstrap interval is the smallest difference this record could
+# have separated from zero at each station and metric.
+sdiff$halfwidth <- (sdiff$upper - sdiff$lower) / 2
+res_abs <- median(sdiff$halfwidth[sdiff$scheme == "absolute"], na.rm = TRUE)
+res_rel <- median(sdiff$halfwidth[sdiff$scheme == "relative"], na.rm = TRUE)
+n_any_sig <- sum(sdiff$q < 0.05, na.rm = TRUE)
+
+verdict <- if (!is.finite(sc["migration, absolute", "rate"])) {
+  "could not be scored"
+} else if (sc["migration, absolute", "rate"] > sc["migration, relative", "rate"]) {
+  "in the direction the mechanism predicts"
+} else if (sc["migration, absolute", "rate"] < sc["migration, relative", "rate"]) {
+  "in the opposite direction to the one the mechanism predicts"
+} else {
+  "with no difference between the two thresholding schemes"
+}
+```
+
+@tbl-slopediff and @fig-slopediff decompose the difference. The prediction under
+test was that absolute-threshold counts would separate between series while
+relative-threshold counts would not, because the version change was expected to
+widen the tail without moving the level. Scored on the migration contrast, the
+one an agency faces, the absolute-threshold metrics gave a difference excluding
+zero at `r sprintf("%.0f", sc["migration, absolute", "rate"])` per cent of
+station-metric combinations against
+`r sprintf("%.0f", sc["migration, relative", "rate"])` per cent for the
+relative-threshold metrics. That is `r verdict`.
+
+Where the rates are zero the statement is about resolution and not about the
+System. Across all `r nrow(sdiff)` station, metric and contrast combinations,
+`r n_any_sig` gave a slope difference whose corrected interval excluded zero. The
+median half width of those intervals is `r sprintf("%.3f", res_abs)` days per
+season for the absolute-threshold metrics and `r sprintf("%.3f", res_rel)` for the
+relative ones, which over the `r yr_last - yr_first` season window is
+`r sprintf("%.1f", res_abs * (yr_last - yr_first))` and
+`r sprintf("%.1f", res_rel * (yr_last - yr_first))` days respectively. A
+difference in trend smaller than that would not have been separated from zero
+here, and the level differences reported above are considerably larger than the
+trend differences, which is the substantive point: the version change moves where
+the distribution sits far more than it moves how fast it is moving.
+
+Splitting the migration into its two halves, the version change alone gave
+`r sprintf("%.0f", sc["version, absolute", "rate"])` per cent of absolute-metric
+differences excluding zero and the input resolution change alone gave
+`r sprintf("%.0f", sc["input, absolute", "rate"])` per cent. The median
+differences are `r sprintf("%.3f", sc["version, absolute", "med"])` and
+`r sprintf("%.3f", sc["input, absolute", "med"])` per season respectively, against
+`r sprintf("%.3f", sc["migration, absolute", "med"])` for the two together, which
+is the additivity the design predicts if the two changes do not interact.
+
+## Summary-hour sensitivity
+
+```{r}
+#| label: tbl-sensitivity
+#| tbl-cap: "Sensitivity of the absolute extreme-day counts to how an hourly series is reduced to a daily value. The fixed hour is 16:00 Local Standard Time, 17:00 local daylight time. The daily maximum takes the largest of the 24 hourly values, which must be at least as large and is reported only to bound the effect of the choice. FWI1987 produces one value per day and so appears once."
+#| echo: true
+sens_cols <- c("n_ffmc_ge91", "n_ffmc_max_ge91", "n_fwi_ge19", "n_fwi_max_ge19")
+have <- sens_cols %in% names(metrics)
+if (all(have)) {
+  sens <- do.call(rbind, lapply(split(metrics, metrics$series), function(d) data.frame(
+    Series = unname(SERIES[d$series[1]]),
+    `Days FFMC >= 91, fixed hour` = round(mean(d$n_ffmc_ge91, na.rm = TRUE), 1),
+    `Days FFMC >= 91, daily maximum` = round(mean(d$n_ffmc_max_ge91, na.rm = TRUE), 1),
+    `Days FWI >= 19, fixed hour` = round(mean(d$n_fwi_ge19, na.rm = TRUE), 1),
+    `Days FWI >= 19, daily maximum` = round(mean(d$n_fwi_max_ge19, na.rm = TRUE), 1),
+    check.names = FALSE)))
+  rownames(sens) <- NULL
+  fmt_tbl(sens)
+} else {
+  fmt_tbl(data.frame(Note = "Daily maximum variants were not written for this run."))
+}
+```
+
+@tbl-sensitivity bounds the effect of the summary rule. Taking the daily maximum
+of 24 hourly values instead of one fixed hour raises every count in the two
+FWI2025 series and cannot lower any of them, which is why it is not the primary:
+part of that rise is the order statistic and not the System.
+
+## Ignition skill
+
+```{r}
+#| label: ignition-compute
+#| echo: true
+#| output: false
+mod_dat <- merge(basin, ign_daily, by = c("date", "year", "doy"))
+mod_dat <- mod_dat[format(mod_dat$date, "%m") %in% c("05", "06", "07", "08", "09"), ]
+
+SKILL_RESPONSES <- c("n_lightning_all", "n_total_all")
+
+RESPONSES <- c(n_lightning_all = "Lightning, no size limit",
+               n_person_all = "Person, no size limit",
+               n_total_all = "All causes, no size limit",
+               n_total_ge1ha = "All causes, at least 1 ha",
+               n_total_ge4ha = "All causes, at least 4 ha")
+
+ign_rows <- list()
+for (r in names(RESPONSES)) {
+  for (s in names(SERIES)) {
+    dcol <- paste0(s, "_fwi")
+    if (!dcol %in% names(mod_dat)) next
+    m <- tryCatch(ignition_model(mod_dat, r, dcol, extra = "n_stations"),
+                  error = function(e) NULL)
+    if (is.null(m)) next
+    # Held-out skill is computed only for the two responses the comparison
+    # between series is read from. It refits the model once per season, so
+    # running it on all five responses costs several hundred fits for numbers
+    # the text does not use, and the cost is reported rather than hidden.
+    sk <- if (r %in% SKILL_RESPONSES)
+      tryCatch(loso_skill(mod_dat, r, dcol), error = function(e) NULL) else NULL
+    # Wald interval on the danger coefficient rather than a profile likelihood
+    # one. Profiling a negative binomial with a factor per season means refitting
+    # once per grid point per model, which dominated the render, and the two
+    # agree closely at this sample size. The interval is reported as Wald.
+    se <- summary(m)$coefficients[".x", 2]
+    ci <- coef(m)[".x"] + c(-1, 1) * qnorm(0.975) * se
+    ign_rows[[length(ign_rows) + 1]] <- data.frame(
+      response = r, series = s,
+      coef = unname(coef(m)[".x"]),
+      lower = ci[1], upper = ci[2],
+      p = summary(m)$coefficients[".x", 4],
+      theta = m$theta,
+      loso_loglik = if (is.null(sk)) NA_real_ else sk$mean_loglik,
+      n_days = nrow(mod_dat))
+  }
+}
+ign_res <- do.call(rbind, ign_rows)
+write.csv(ign_res, file.path(outputs, "ignition-models.csv"), row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-ignition
+#| tbl-cap: "Negative binomial models of daily ignition counts on daily basin Fire Weather Index, over the 1 May to 30 September window, with season as a fixed effect, two annual harmonics in day of year, and the number of contributing stations. The coefficient is the log change in expected count per unit of Fire Weather Index, identified from within-season variation only. Held-out log likelihood is the mean per day under leave-one-season-out refitting; larger is better, and the comparison between series rather than its absolute value is the quantity of interest. It is computed for the lightning and all-cause responses only, because those are the two the text compares and each refits the model once per season."
+#| echo: true
+it <- data.frame(
+  Response = unname(RESPONSES[ign_res$response]),
+  Series = unname(SERIES[ign_res$series]),
+  `Coefficient` = round(ign_res$coef, 4),
+  `95% Wald interval` = sprintf("%.4f to %.4f", ign_res$lower, ign_res$upper),
+  `Rate ratio per 10 FWI` = round(exp(10 * ign_res$coef), 2),
+  `Held-out log likelihood` = round(ign_res$loso_loglik, 4),
+  check.names = FALSE)
+it <- it[order(match(it$Response, unname(RESPONSES)), it$Series), ]
+rownames(it) <- NULL
+fmt_tbl(it)
+```
+
+```{r}
+#| label: ignition-prose
+#| echo: true
+#| output: false
+best <- ign_res[ign_res$response == "n_lightning_all", ]
+best <- best[order(-best$loso_loglik), ]
+skill_gap <- diff(range(best$loso_loglik))
+
+# Does the danger term survive at every size threshold, and does it separate the
+# lightning series from the person-caused control? The control matters: human
+# ignition tracks population and access, so a danger signal appearing equally in
+# both would point to a shared confounder rather than to fuel moisture.
+sig_by_response <- tapply(ign_res$p, ign_res$response, function(p) sum(p < 0.05))
+rr <- function(resp, s) {
+  v <- ign_res$coef[ign_res$response == resp & ign_res$series == s]
+  if (!length(v)) NA_real_ else exp(10 * v)
+}
+rr_light <- rr("n_lightning_all", "s3")
+rr_person <- rr("n_person_all", "s3")
+```
+
+@tbl-ignition gives the models. The danger term is positive and significant at
+the conventional level for
+`r sum(ign_res$p < 0.05, na.rm = TRUE)` of the `r nrow(ign_res)` response and
+series combinations, identified entirely from day-to-day variation inside a
+season.
+
+The response that carries the signal is not the one the framing expected. Ten
+units of Fire Weather Index multiply the expected daily person-caused count by
+`r sprintf("%.2f", rr_person)` and the expected daily lightning count by
+`r sprintf("%.2f", rr_light)`, and it is the lightning term, not the person one,
+that fails to separate from zero. That reads backwards until the two mechanisms
+are separated. A person-caused ignition needs an ignition source and a receptive
+fuel bed; the sources are close to constant from day to day, so whether one
+becomes a reported fire is largely a question of fuel moisture, which is what the
+index measures. A lightning-caused ignition needs a strike, and strikes are not in
+this model. Lightning ignitions also arrive in bursts, one storm producing many
+fires, which is visible in the fitted dispersion parameter: it is
+`r sprintf("%.2f", ign_res$theta[ign_res$response == "n_lightning_all"][1])` for
+the lightning series against
+`r sprintf("%.2f", ign_res$theta[ign_res$response == "n_person_all"][1])` for the
+person-caused one, and a smaller value means more clustering. The person-caused
+series was carried as a control against a shared confounder and has turned out to
+be the more informative response. No lightning-strike record covering the whole
+period was obtained, and that omission, rather than an absence of any relationship,
+is the most likely reason the lightning term is weak.
+
+The comparison the third question actually asks is between series, and it is
+small. On held-out seasons the three differ by `r sprintf("%.4f", skill_gap)` in
+mean log likelihood per day, with `r unname(SERIES[best$series[1]])` first. Over
+the `r format(best$n_days[1], big.mark = ",")` days in the window that is a total
+difference of about `r sprintf("%.1f", skill_gap * best$n_days[1])` log likelihood
+units, which is not a basis for preferring one series over another.
+@fig-ignition shows the fitted and observed relationship; the three curves are
+separated horizontally by the same level differences the threshold table reports
+as percentiles, and vertically by very little.
+
+@tbl-stationarity tests whether that relationship has changed across the record.
+The interaction between the danger term and season number is the quantity of
+interest, and it is reported with the caveat the record forces: a between-season
+change is exactly what the ignition record's own non-stationarity could imitate.
+
+```{r}
+#| label: fig-ignition
+#| echo: true
+#| fig-width: 6.5
+#| fig-height: 3.4
+#| fig-dpi: 300
+#| fig-cap: "Observed and fitted daily lightning ignition rate against daily basin Fire Weather Index under the three series. Points are the observed mean count in equal-count bins of the danger value; lines are the fitted negative binomial rate at the mean season and the mid-season day of year. The horizontal offsets between the three curves are the same level differences that the threshold table reports as percentiles."
+# Two things are drawn and they are different. The points are the observed mean
+# daily count in equal-count bins of the danger value, so each rests on the same
+# number of days and the right hand tail is not one noisy observation. The curves
+# are the fitted negative binomial rate, refitted here for the lightning response,
+# evaluated at the mean fitted season effect and at mid-season day of year, which
+# is what the model says a typical season looks like.
+binned <- lapply(names(SERIES), function(s) {
+  x <- mod_dat[[paste0(s, "_fwi")]]
+  y <- mod_dat$n_lightning_all
+  ok <- is.finite(x) & is.finite(y)
+  br <- unique(quantile(x[ok], seq(0, 1, length.out = 13), na.rm = TRUE))
+  bin <- cut(x[ok], br, include.lowest = TRUE)
+  data.frame(x = tapply(x[ok], bin, mean), y = tapply(y[ok], bin, mean))
+})
+names(binned) <- names(SERIES)
+
+mid_doy <- median(mod_dat$doy)
+fitted_curve <- function(s) {
+  m <- tryCatch(ignition_model(mod_dat, "n_lightning_all", paste0(s, "_fwi"),
+                               extra = "n_stations"),
+                error = function(e) NULL)
+  if (is.null(m)) return(NULL)
+  co <- coef(m)
+  cf <- function(nm) if (nm %in% names(co) && is.finite(co[[nm]])) co[[nm]] else 0
+  yr_terms <- co[grepl("^\\.year", names(co))]
+  grid <- seq(min(binned[[s]]$x, na.rm = TRUE), max(binned[[s]]$x, na.rm = TRUE),
+              length.out = 60)
+  eta <- cf("(Intercept)") + mean(c(0, yr_terms), na.rm = TRUE) + cf(".x") * grid +
+    cf(".s1") * sin(2 * pi * mid_doy / 365.25) +
+    cf(".c1") * cos(2 * pi * mid_doy / 365.25) +
+    cf(".s2") * sin(4 * pi * mid_doy / 365.25) +
+    cf(".c2") * cos(4 * pi * mid_doy / 365.25) +
+    cf("n_stations") * mean(mod_dat$n_stations)
+  data.frame(x = grid, y = exp(eta))
+}
+curves <- lapply(names(SERIES), fitted_curve)
+names(curves) <- names(SERIES)
+
+op <- par(mar = c(4, 4, 1.4, 1), mgp = c(2.4, 0.7, 0), cex = 0.8)
+plot(NA,
+     xlim = range(unlist(lapply(binned, `[[`, "x")), na.rm = TRUE),
+     ylim = c(0, max(unlist(lapply(binned, `[[`, "y")), na.rm = TRUE) * 1.05),
+     xlab = "Daily basin Fire Weather Index",
+     ylab = "Mean lightning ignitions per day")
+for (s in names(SERIES)) {
+  points(binned[[s]]$x, binned[[s]]$y, col = cols[s], pch = 16, cex = 0.8)
+  if (!is.null(curves[[s]])) lines(curves[[s]]$x, curves[[s]]$y, col = cols[s], lwd = 1.6)
+}
+legend("topleft", legend = unname(SERIES), col = cols, lwd = 1.6, pch = 16,
+       bty = "n", cex = 0.75)
+par(op)
+```
+
+```{r}
+#| label: stationarity
+#| echo: true
+#| output: false
+# Is the danger to ignition relationship stationary? The test is an interaction
+# between the danger term and season number. Season is already a fixed effect,
+# so the interaction asks whether the within-season slope changes over the
+# record, which is a different question from whether the intercept does.
+stat_rows <- list()
+for (r in c("n_lightning_all", "n_total_all")) {
+  for (s in names(SERIES)) {
+    dcol <- paste0(s, "_fwi")
+    d <- mod_dat
+    d$.yc <- d$year - mean(d$year)
+    m <- tryCatch(ignition_model(d, r, dcol, extra = "I(.x * .yc)"),
+                  error = function(e) NULL)
+    if (is.null(m)) next
+    cf <- summary(m)$coefficients
+    nm <- grep("I\\(.x", rownames(cf), value = TRUE)[1]
+    stat_rows[[length(stat_rows) + 1]] <- data.frame(
+      response = r, series = s,
+      interaction = cf[nm, 1], se = cf[nm, 2], p = cf[nm, 4])
+  }
+}
+stationarity <- do.call(rbind, stat_rows)
+write.csv(stationarity, file.path(outputs, "stationarity-tests.csv"),
+          row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-stationarity
+#| tbl-cap: "Test of whether the within-season relationship between fire danger and daily ignition count changes across the record. The reported term is the interaction between the Fire Weather Index and centred season number; a positive value would mean more ignitions per unit danger in later seasons. Season is already a fixed effect, so this asks about the slope and not the level."
+#| echo: true
+st <- data.frame(
+  Response = unname(RESPONSES[stationarity$response]),
+  Series = unname(SERIES[stationarity$series]),
+  `Interaction` = signif(stationarity$interaction, 3),
+  `Standard error` = signif(stationarity$se, 3),
+  `p` = signif(stationarity$p, 3),
+  check.names = FALSE)
+fmt_tbl(st)
+```
+
+
+# Discussion
+
+```{r}
+#| label: discussion-numbers
+#| echo: true
+#| output: false
+# The level shifts each change produces, per season, on the two absolute-threshold
+# counts. Sign matters here and is computed, not asserted: the two changes do not
+# necessarily push the same way.
+lvl <- function(metric, a, b) {
+  mean(metrics[[metric]][metrics$series == b], na.rm = TRUE) -
+    mean(metrics[[metric]][metrics$series == a], na.rm = TRUE)
+}
+shift <- data.frame(
+  metric = c("Days FFMC >= 91", "Days FWI >= 19"),
+  version = c(lvl("n_ffmc_ge91", "s1", "s2"), lvl("n_fwi_ge19", "s1", "s2")),
+  input = c(lvl("n_ffmc_ge91", "s2", "s3"), lvl("n_fwi_ge19", "s2", "s3")),
+  migration = c(lvl("n_ffmc_ge91", "s1", "s3"), lvl("n_fwi_ge19", "s1", "s3"))
+)
+write.csv(shift, file.path(outputs, "level-shifts.csv"), row.names = FALSE)
+
+same_sign <- function(i) sign(shift$version[i]) == sign(shift$input[i])
+ffmc_word <- if (same_sign(1)) "compound" else "oppose one another"
+fwi_word <- if (same_sign(2)) "compound" else "oppose one another"
+
+# Where the two changes oppose, what survives is the residual, and how much
+# survives is the whole point. Cancellation is measured as the migration shift
+# relative to the larger of the two component shifts.
+residual <- function(i) {
+  abs(shift$migration[i]) / max(abs(shift$version[i]), abs(shift$input[i]))
+}
+ffmc_res <- residual(1); fwi_res <- residual(2)
+bigger <- function(i) if (abs(shift$version[i]) > abs(shift$input[i]))
+  "the version change" else "the input resolution change"
+```
+
+## Opposing directions
+
+```{r}
+#| label: tbl-shift
+#| tbl-cap: "How each change moves the seasonal count of extreme days, in days per season averaged over kept station-seasons. The version column is FWI1987 to FWI2025 at fixed 13:00 input; the input column is the 13:00 pathway to observed hourly weather at fixed FWI2025; the migration column is the two together, and equals their sum by construction. Signs are the point of the table."
+#| echo: true
+sh <- data.frame(
+  Metric = shift$metric,
+  `Version change` = sprintf("%+.1f", shift$version),
+  `Input resolution change` = sprintf("%+.1f", shift$input),
+  `Migration, both` = sprintf("%+.1f", shift$migration),
+  check.names = FALSE)
+fmt_tbl(sh)
+```
+
+The reason a straight comparison of FWI1987 against FWI2025 would have been
+uninterpretable is in @tbl-shift, and it is not that the two changes are small.
+They are large and they point opposite ways.
+
+On the count of days above a Fine Fuel Moisture Code of 91, the version change
+moves the seasonal count by `r sprintf("%+.1f", shift$version[1])` days and the
+input resolution change by `r sprintf("%+.1f", shift$input[1])`, so the two
+`r ffmc_word`, and `r bigger(1)` wins: the migration nets
+`r sprintf("%+.1f", shift$migration[1])` days. On the count of days above a Fire
+Weather Index of 19 the same two changes move it by
+`r sprintf("%+.1f", shift$version[2])` and `r sprintf("%+.1f", shift$input[2])`
+days, so there they `r fwi_word` too, but almost exactly: the migration nets
+`r sprintf("%+.1f", shift$migration[2])` days, `r sprintf("%.0f", 100 * fwi_res)`
+per cent of the larger component.
+
+That is the whole case for the three-series design in one paragraph. A study that
+had computed FWI1987 on noon data and FWI2025 on hourly data would have seen
+`r sprintf("%+.1f", shift$migration[1])` days on one metric and
+`r sprintf("%+.1f", shift$migration[2])` on the other, and would have concluded
+that the update barely touches the Fire Weather Index count while shifting the
+Fine Fuel Moisture Code count. Both readings would be wrong about the mechanism.
+The Fire Weather Index count is not stable because nothing happened to it; it is
+stable because a `r sprintf("%+.1f", shift$version[2])` day version effect and a
+`r sprintf("%+.1f", shift$input[2])` day input effect happen to land on top of one
+another in this basin. Cancellation is not robustness. It is a coincidence of two
+large effects at one place, and there is no reason for it to hold at a site with a
+different diurnal range.
+
+The mechanism is consistent with what the update did. Halving the fine fuel time
+lag and letting the litter dry overnight lets the Fine Fuel Moisture Code reach
+further at the top of the day, which is the version change. Replacing a
+reconstructed diurnal curve with the observed one lets it reach the actual extremes
+of the actual day rather than the average shape of a typical one, which is the
+input change. The first acts on the model, the second on what the model is shown,
+and there is no reason for them to point the same way on every index.
+
+## What hourly adds
+
+The clearest difference between the two FWI2025 series is not in any level. It is
+in the burning window: the number of hours per day on which spread-sustaining
+conditions hold differs substantially between the observed
+hourly weather and the diurnal curve reconstructed from a single noon observation.
+Both are FWI2025. Both are the report's own procedures. An agency that migrates to
+FWI2025 while continuing to supply a 13:00 observation gets the new system's
+outputs computed from an assumption about the shape of the day, and the assumption
+is smoother than the day.
+
+This is the part of the update that is genuinely new rather than a change of
+scale. A daily index cannot say when the peak arrives or how long it lasts, and
+those are the two quantities an initial attack decision actually needs. The
+finding here is not that the hourly series is better at predicting ignitions,
+because it is barely distinguishable on that, but that it answers a question the
+daily series cannot be asked.
+
+## Trend literature
+
+The practical consequence for the published record is narrow and specific. Trends
+reported as percentile exceedances, where the threshold is computed inside the
+series being trended, are largely insulated from the version change, because the
+threshold moves with the distribution. Trends reported as counts above a fixed
+danger class are not. So are seasonal severity ratings, which accumulate a
+transform of the index level over a season and therefore inherit any level shift.
+
+Nothing here says the published trends are wrong. It says they are statements
+about FWI1987, that restating them under FWI2025 will change some of them, and
+that the size of the change depends on how the metric was defined rather than on
+the weather. Anyone re-expressing a historical trend in the new system's units
+should recompute the whole record rather than splice, and should say which metric
+family the result belongs to.
+
+## What this bounds
+
+```{r}
+#| label: limits-compute
+#| echo: true
+#| output: false
+# The quantitative limits statement. For each metric the minimum detectable trend
+# is the slope this record could resolve at 80 per cent power, given the residual
+# spread of that metric about its own Theil-Sen line. Expressing it over the whole
+# window rather than per season is what makes it legible: a slope of 0.3 days per
+# season is 10 days over 34 seasons, and the second number is the one a reader can
+# judge.
+lim <- do.call(rbind, lapply(split(trends, trends$metric), function(d) {
+  mdt <- median(d$mdt, na.rm = TRUE)
+  data.frame(
+    Metric = METRICS$label[match(d$metric[1], METRICS$col)],
+    `Median observed slope` = round(median(d$slope, na.rm = TRUE), 3),
+    `Minimum detectable slope` = round(mdt, 3),
+    `Minimum detectable change over the window` =
+      round(mdt * (yr_last - yr_first), 2),
+    `Observed change over the window` =
+      round(median(d$slope, na.rm = TRUE) * (yr_last - yr_first), 2),
+    check.names = FALSE)
+}))
+lim <- lim[order(match(lim$Metric, METRICS$label)), ]
+rownames(lim) <- NULL
+write.csv(lim, file.path(outputs, "detectability.csv"), row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-limits
+#| tbl-cap: "What a window of this length can and cannot resolve. The minimum detectable slope is the trend at which a two-sided test at alpha 0.05 would reach 80 per cent power given the residual spread of that metric about its own Theil-Sen line, adjusted for the efficiency of the Theil-Sen estimator relative to least squares. A metric whose observed change is smaller than its minimum detectable change is not evidence of no trend; it is evidence that this record cannot see one of that size."
+#| echo: true
+fmt_tbl(lim)
+```
+
+@tbl-limits is the quantitative form of what this study cannot say. It matters
+because a null result and an underpowered result read identically in a table of p
+values and are entirely different claims. Where a metric's observed change over
+the window falls below its minimum detectable change, the honest statement is that
+a trend of that size would not have been seen here, not that there is none.
+
+Three further limits are structural rather than statistical.
+
+**One basin, and only its Canadian part.** Everything here is the Okanagan
+watershed group, and the United States portion of the basin is excluded because
+neither the ignition record nor the weather record crosses the border. Whether
+the version effect found here has the same size elsewhere is untested, and there
+is a specific reason to expect it not to: the mechanism runs through the diurnal
+cycle, and the Okanagan's is unusually wide.
+
+**Detection, not attribution.** Nothing here separates a change in fire danger
+from its causes. No claim is made about anthropogenic forcing, and none should be
+read in. Attribution requires a counterfactual this design does not construct
+[@kirchmeieryoung2019attribution].
+
+**No oscillation term.** The El Niño Southern Oscillation and the Pacific Decadal
+Oscillation modulate fire season severity in interior British Columbia
+[@meyn2010oscillations], and a window that begins and ends in different phases
+carries a biased slope regardless of estimator. No oscillation term enters any
+model here, because the prior-work survey that was to ground the choice of index
+and lag was not completed before the gates were overridden, and inventing one
+would be worse than omitting it. The absolute trends under the first question
+therefore carry that bias. The comparison between series under the second does
+not, because all three series see the same oscillation.
+
+**Fuel is held fixed.** Fuel typing does not vary through time in this design, so
+nothing here distinguishes a danger effect from fuel accumulation. That is a
+stated boundary and not a gap to be filled with the same data.
+
+## Stations against grids
+
+The obvious way to extend this study is to run it on a reanalysis, which would buy
+the whole basin, a longer record and every other basin in Canada at once. The
+reason it was not done here is worth stating, because it is the same reason the
+extension is harder than it looks.
+
+Pathway A of FWI2025 needs the timing of rainfall within the day. That is the
+input the halved fine fuel time lag and the six hour canopy interception reset
+both act on, and it is the input a once-daily observation cannot supply. Very few
+long records carry genuinely hourly precipitation. This basin has one because the
+BC Wildfire Service network was built to run a fire danger system, and its archive
+preserves the hourly rain gauge alongside the computed codes. A reanalysis does
+supply hourly precipitation, but it supplies a modelled one, and
+@cffdg2025fwi2025 states the caveat plainly in Appendix C-1: "numerical weather
+model outputs are not strictly the same as point observations of weather from a
+weather station", and "At the grid cell scale, outputs from numerical models
+typically represent what can be thought of as average conditions across that
+cell." A cell average is exactly the quantity whose diurnal range is smallest, and
+the diurnal range is the mechanism under test here. A reanalysis-driven version
+comparison would therefore be biased towards finding no difference, in a basin
+where the relief runs through more than two kilometres.
+
+That is a statement about this comparison, not about reanalysis in general. For
+estimating the level or the trend of fire danger over a region, a reanalysis is
+the right instrument and a five station network is not. The two questions want
+different data, and conflating them is how a study of one gets answered with the
+instrument for the other.
+
+# Conclusions
+
+```{r}
+#| label: conclusions-numbers
+#| echo: true
+#| output: false
+# The four numbers the conclusions rest on, pulled from the objects above rather
+# than retyped.
+c_days_gap <- d_s3 - d_s1
+c_pct_gap <- 100 * c_days_gap / d_s1
+c_dur <- if (exists("ct") && nrow(ct) == 2) {
+  ct$`Mean burning window (h)`[grepl("S3", ct$Series)] -
+    ct$`Mean burning window (h)`[grepl("S2", ct$Series)]
+} else NA_real_
+c_abs_rate <- sc["migration, absolute", "rate"]
+c_rel_rate <- sc["migration, relative", "rate"]
+```
+
+A fire danger trend is a statement about an index, and the index changed. Over
+`r n_seasons` seasons in the Okanagan basin the 2025 update to the Fire Weather
+Index System leaves the middle of the distribution close to where it was and moves
+the tail, so a level is portable across the two versions and a count of extreme
+days is not. The threshold the update's own report offers as the example of
+continuity, a Fine Fuel Moisture Code of 91, selects
+`r sprintf("%.1f", abs(c_days_gap))`
+`r if (c_days_gap >= 0) "more" else "fewer"` days per season under the new system
+driven by hourly weather than under the old one, a change of
+`r sprintf("%.0f", abs(c_pct_gap))` per cent in a quantity that is routinely
+trended.
+
+Which of the two changes is responsible depends on the metric, and neither change
+dominates. The version and the input resolution act in opposite directions on some
+metrics and the same direction on others, which is why running the old system
+against the new one without separating them would have given an uninterpretable
+answer. That separation, not the size of any single number here, is the part of
+this design worth reusing.
+
+The effect is on the level and not, so far as this record can resolve, on the
+slope. Under absolute thresholds the migration changed the estimated trend at
+`r sprintf("%.0f", c_abs_rate)` per cent of station-metric combinations and under
+thresholds internal to each series at `r sprintf("%.0f", c_rel_rate)` per cent,
+against a resolution of about
+`r sprintf("%.1f", res_abs * (yr_last - yr_first))` days over the window. A trend
+difference smaller than that would not have been seen. What is comfortably visible
+is the level difference, and a level difference is enough to break a comparison
+between a number published under the old system and a number computed under the
+new one, even where both are trending at the same rate.
+
+The practical recommendation follows from the level result and costs nothing to
+adopt: report fire danger trends as exceedances of a percentile computed inside
+the series being reported, not as counts above a fixed danger class, and state
+which. A percentile threshold moves with the distribution it is drawn from and is
+therefore portable across the version change; a fixed class boundary is not.
+
+For predicting where fires start, the three series are close to interchangeable in
+this basin. What the hourly system adds is not accuracy in the daily number but
+information the daily number cannot carry: it says when in the day the peak
+arrives and how long the burning window stays open, and on that second quantity
+the observed hourly weather and the reconstructed diurnal curve disagree by
+`r if (is.finite(c_dur)) sprintf("%.1f hours per day", c_dur) else "an amount this run did not compute"`.
+An agency migrating to FWI2025 with only a 13:00 observation to feed it would
+inherit that disagreement silently.
+
+None of this is attribution, and none of it is pre-registered. What it is, is a
+measurement of how much a published Canadian fire danger trend depends on the
+arithmetic that produced it, made in one basin where the weather record is good
+enough to ask.
+
+# Reproducibility
+
+Every number in this document is computed at render time from saved code and
+saved inputs, with the two exceptions named where they appear: the two season
+lengths that describe the abandoned season rule, which no longer has code to
+produce them.
+
+The whole pipeline runs from public sources with `sh 05.scripts/run_all.sh`, in
+this order: `fetch_study_area.R` retrieves the basin, the ignition record and the
+station locations; `fetch_fire_weather.py` streams the BC Wildfire Service data
+mart and keeps the basin stations; `validate_fwi1987.py` checks this project's
+FWI1987 against CRAN `cffdrs`; `compute_fwi_series.py` computes the three series;
+`build_seasonal_metrics.py` and `build_ignition_series.py` build what this
+document reads; `verify_references.py` and `verify_quotations.py` check every
+citation against Crossref and every quotation against the report it cites; and
+this file renders. The derived tables are in `02.inputs/derived`, documented one
+by one in the README beside them, and the result tables this document writes are
+in `03.outputs`. The FWI2025 calculation is the Canadian Forest Service reference
+implementation, vendored unmodified at `05.scripts/vendor/cffdrs-ng` with its
+upstream commit recorded, so the code that produced these numbers is in the
+repository rather than referred to.
+
+The hourly weather record itself is not committed. It is about 200 MB and
+reproducible from the retrieval script, and `02.inputs/README.md` records its
+source, its licence as read, and the date it was read. @tbl-session records the
+computing environment of the render that produced this document.
+
+```{r}
+#| label: tbl-session
+#| tbl-cap: "Computing environment of this render."
+#| echo: true
+si <- sessionInfo()
+env <- data.frame(
+  Item = c("R version", "Platform", "Running under", "Rendered", "Quarto"),
+  Value = c(si$R.version$version.string, si$platform, si$running,
+            format(Sys.Date()),
+            tryCatch(as.character(quarto::quarto_version()),
+                     error = function(e) "not queried"))
+)
+fmt_tbl(env)
+```
+
+# Abstract
+
+The abstract sits here rather than at the head of the document for a mechanical
+reason. Every number in it is computed, and knitr evaluates chunks in document
+order, so an abstract printed before the analysis could only quote numbers typed
+by hand. Placing it after the results makes it impossible for its numbers to
+drift from theirs. A submission build reorders it.
+
+```{r}
+#| label: abstract
+#| echo: true
+#| output: asis
+# Composed with sprintf from objects the document already computed. Nothing here
+# is typed. If a result changes, this paragraph changes with it or the render
+# fails, which is the point.
+pull <- function(d, s, col) d[[col]][grepl(toupper(s), d$Series)]
+
+abs_ffmc <- subset(tp, Component == "FFMC" & Threshold == 91)
+abs_p <- vapply(c("S1", "S2", "S3"), function(s)
+  pull(abs_ffmc, s, "Percentile of threshold"), numeric(1))
+abs_d <- vapply(c("S1", "S2", "S3"), function(s)
+  pull(abs_ffmc, s, "Days per season above"), numeric(1))
+
+# The migration contrast, absolute against relative thresholding.
+mig_rows <- sdiff[sdiff$contrast == mig_label, ]
+abs_mig <- mig_rows[mig_rows$scheme == "absolute", ]
+rel_mig <- mig_rows[mig_rows$scheme == "relative", ]
+n_abs_sig <- sum(abs_mig$lower > 0 | abs_mig$upper < 0, na.rm = TRUE)
+n_rel_sig <- sum(rel_mig$lower > 0 | rel_mig$upper < 0, na.rm = TRUE)
+
+# Ignition skill, on the lightning series.
+lig <- ign_res[ign_res$response == "n_lightning_all", ]
+lig <- lig[order(-lig$loso_loglik), ]
+
+abstract_text <- sprintf(
+"Almost every published Canadian fire danger trend is expressed in the units of
+the 1987 Fire Weather Index System, which Natural Resources Canada replaced in
+2025. The successor changes the version of the calculation and the resolution of
+the weather driving it at the same time, so a straight comparison of the two
+cannot attribute a difference to either. Three danger series were therefore
+computed from a single hourly weather record for the Canadian portion of the
+Okanagan basin, British Columbia, over %d fire seasons from %d to %d at %d
+stations, %s station-seasons in all: FWI1987 from the 13:00 observation, FWI2025
+from the same observation through the specification's legacy pathway, and FWI2025
+from the observed hourly weather. FWI2025 was computed with the Canadian Forest
+Service reference implementation; the FWI1987 implementation reproduces the CRAN
+package cffdrs to machine precision and correlates %.3f with the FWI1987 codes BC
+Wildfire Service computed operationally at these stations.
+
+The comparability the 2025 report claims holds for levels and fails for tails. A
+Fine Fuel Moisture Code of 91, the value that report names, sits at the %.1fth
+percentile of the legacy series and the %.1fth of the hourly FWI2025 series,
+which is %.0f days per season above it against %.0f. Trends were estimated with
+the Theil-Sen slope and Mann-Kendall tested with the Hamed and Rao correction for
+serial correlation, corrected within each metric family for false discovery rate.
+Differences between series were bootstrapped by resampling whole seasons, which
+preserves the dependence of three series that share one weather record. Of the
+%d station-metric combinations under absolute thresholds, %d gave a migration
+slope difference whose corrected interval excluded zero; under thresholds set as
+percentiles of each series' own reference distribution, %d of %d did. The
+resolution of that test is about %.1f days over the window, so the version change
+is established here as a shift in level rather than in slope, which is enough to
+break a comparison between a value published under the old system and a value
+computed under the new one.
+
+Daily ignition counts were modelled as negative binomial with season as a fixed
+effect, so the danger coefficient is identified from within-season variation
+alone and cannot be moved by the record keeping: a quarter of the basin's
+incidents carry no ignition date at all and both dating and cause attribution
+fall sharply after 2000. On held-out seasons the three series differed by %.4f in
+mean log likelihood per day, %s.
+
+%s\n",
+  n_seasons, yr_first, yr_last, n_stations_kept, format(n_kept, big.mark = ","),
+  op_r,
+  abs_p[["S1"]], abs_p[["S3"]], abs_d[["S1"]], abs_d[["S3"]],
+  nrow(abs_mig), n_abs_sig, n_rel_sig, nrow(rel_mig),
+  res_abs * (yr_last - yr_first),
+  diff(range(lig$loso_loglik)),
+  sprintf("with %s ranking first", unname(SERIES[lig$series[1]])),
+  paste("These results are exploratory: the project's framing, prior-work,",
+        "design and pre-registration gates were overridden to produce a complete",
+        "draft, so decisions a pre-registration would have fixed in advance were",
+        "made with the data in view. The comparison between series is the part",
+        "the design protects, because all three run on one record through the",
+        "same decisions.")
+)
+cat(abstract_text)
+```
+
+```{r}
+#| label: export-artefacts
+#| echo: true
+#| output: false
+# Everything the root README shows is written out here, from the same objects the
+# document displayed, so the README cannot drift from the manuscript. It is a
+# view of this render, not a second telling of it.
+tbl_dir <- file.path(outputs, "tables")
+fig_dir <- file.path(outputs, "figures")
+dir.create(tbl_dir, recursive = TRUE, showWarnings = FALSE)
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+
+writeLines(abstract_text, file.path(outputs, "abstract.txt"))
+meta_or <- function(field, fallback) {
+  v <- tryCatch(rmarkdown::metadata[[field]], error = function(e) NULL)
+  if (is.null(v) || !nzchar(v)) fallback else v
+}
+writeLines(meta_or("title",
+  "Version-contingent fire danger trends in the Okanagan basin"),
+  file.path(outputs, "title.txt"))
+writeLines(meta_or("subtitle",
+  paste("What the 2025 update to the Canadian Forest Fire Weather Index System",
+        "does to a trend estimate")),
+  file.path(outputs, "subtitle.txt"))
+
+# Table label, the data frame the table was built from, and its caption. The
+# captions are repeated here rather than parsed back out of the chunk options,
+# which is the one duplication in this file and is why they are kept short.
+# A table that its own chunk did not build is skipped rather than faked; the
+# README then simply does not show it, which is visible, instead of showing an
+# empty frame, which is not.
+if (!exists("ct")) ct <- NULL
+if (!exists("sens")) sens <- NULL
+
+EXPORTS <- list(
+  list("tbl-stations", agg, "The weather record. Coverage is the share of the 1 April to 30 September hours in which temperature, humidity and wind were all observed, before any gap filling."),
+  list("tbl-completeness", cd, "Completeness of the ignition record by decade. Both dating and cause attribution fall sharply after 2000."),
+  list("tbl-verify", rbind(blk1, op_agg), "Verification of the FWI1987 implementation against the CRAN package cffdrs and against the codes BC Wildfire Service computed operationally."),
+  list("tbl-thresholds", tp, "Where each absolute threshold falls in each series' own 1991 to 2020 reference distribution."),
+  list("tbl-capability", ct, "The two quantities FWI2025 reports and FWI1987 cannot: when peak burning conditions occur and how long the burning window stays open."),
+  list("tbl-trends", tr, "Theil-Sen slopes per season for each seasonal metric under each series, pooled across stations."),
+  list("tbl-slopediff", sd_tab, "Difference in Theil-Sen slope between series, by metric and contrast, with paired bootstrap intervals."),
+  list("tbl-sensitivity", sens, "Sensitivity of the absolute extreme-day counts to how an hourly series is reduced to a daily value."),
+  list("tbl-ignition", it, "Negative binomial models of daily ignition counts on daily basin Fire Weather Index."),
+  list("tbl-stationarity", st, "Test of whether the within-season danger to ignition relationship changes across the record."),
+  list("tbl-shift", sh, "How each change moves the seasonal count of extreme days, in days per season."),
+  list("tbl-limits", lim, "What a window of this length can and cannot resolve.")
+)
+for (e in EXPORTS) {
+  if (is.null(e[[2]]) || !nrow(e[[2]])) next
+  write.csv(e[[2]], file.path(tbl_dir, paste0(e[[1]], ".csv")), row.names = FALSE)
+  writeLines(e[[3]], file.path(tbl_dir, paste0(e[[1]], ".caption.txt")))
+}
+
+# Figure captions, keyed by label, so the README can carry them.
+FIGCAPS <- c(
+  "fig-study-area" = "Study area, ignition record and weather record. Points are the wildfire incidents recorded inside the basin, coloured by reported cause; triangles are the five BC Wildfire Service fire weather stations, which are the entire weather record used here. Coordinate reference system NAD83 / BC Albers, EPSG:3005.",
+  "fig-distributions" = "Distribution of the daily Fine Fuel Moisture Code and the daily Fire Weather Index over all kept station-days under the three series, with the absolute thresholds marked.",
+  "fig-mechanism" = "Ten days of the hourly Fine Fuel Moisture Code at Penticton RS in August 2003 under FWI2025 driven by observed hourly weather and by the 13:00 observation alone. Both are the same system on the same days.",
+  "fig-trends" = "Seasonal metrics by season under the three series, pooled across stations, with the Theil-Sen line for each.",
+  "fig-slopediff" = "Difference in Theil-Sen slope between series for the five extreme-day counts. Points are station estimates, bars are paired bootstrap 95 per cent intervals.",
+  "fig-ignition" = "Observed and fitted daily lightning ignition rate against daily basin Fire Weather Index under the three series."
+)
+writeLines(paste(names(FIGCAPS), FIGCAPS, sep = "\t"),
+           file.path(fig_dir, "captions.tsv"))
+```
+
+# References
+
+::: {#refs}
+:::

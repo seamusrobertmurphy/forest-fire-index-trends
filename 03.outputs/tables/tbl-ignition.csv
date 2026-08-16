@@ -1,0 +1,16 @@
+"Response","Series","Coefficient","95% Wald interval","Rate ratio per 10 FWI","Held-out log likelihood"
+"Lightning, no size limit","S1: FWI1987, 13:00 observation",0.0161,"0.0052 to 0.0269",1.17,-0.4201
+"Lightning, no size limit","S2: FWI2025, 13:00 observation",0.011,"-0.0005 to 0.0225",1.12,-0.4206
+"Lightning, no size limit","S3: FWI2025, hourly observation",0.0099,"-0.0003 to 0.0200",1.1,-0.4206
+"Person, no size limit","S1: FWI1987, 13:00 observation",0.048,"0.0421 to 0.0539",1.62,NA
+"Person, no size limit","S2: FWI2025, 13:00 observation",0.0489,"0.0428 to 0.0550",1.63,NA
+"Person, no size limit","S3: FWI2025, hourly observation",0.0412,"0.0360 to 0.0465",1.51,NA
+"All causes, no size limit","S1: FWI1987, 13:00 observation",0.0332,"0.0289 to 0.0375",1.39,-1.1637
+"All causes, no size limit","S2: FWI2025, 13:00 observation",0.0329,"0.0283 to 0.0374",1.39,-1.1664
+"All causes, no size limit","S3: FWI2025, hourly observation",0.0287,"0.0247 to 0.0327",1.33,-1.1672
+"All causes, at least 1 ha","S1: FWI1987, 13:00 observation",0.0706,"0.0585 to 0.0827",2.03,NA
+"All causes, at least 1 ha","S2: FWI2025, 13:00 observation",0.0702,"0.0582 to 0.0823",2.02,NA
+"All causes, at least 1 ha","S3: FWI2025, hourly observation",0.067,"0.0568 to 0.0772",1.95,NA
+"All causes, at least 4 ha","S1: FWI1987, 13:00 observation",0.0846,"0.0673 to 0.1018",2.33,NA
+"All causes, at least 4 ha","S2: FWI2025, 13:00 observation",0.0826,"0.0660 to 0.0992",2.28,NA
+"All causes, at least 4 ha","S3: FWI2025, hourly observation",0.0845,"0.0706 to 0.0984",2.33,NA

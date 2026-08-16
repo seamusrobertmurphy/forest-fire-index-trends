@@ -1,0 +1,1 @@
+Theil-Sen slopes per season for each seasonal metric under each series, pooled across stations.
