@@ -18,11 +18,7 @@
 # Sourced, not run: it defines functions and returns a plot.
 # ---------------------------------------------------------------------------
 
-suppressPackageStartupMessages({
-  library(sf)
-  library(terra)
-  library(ggplot2)
-})
+# Packages are loaded once by the manuscript setup chunk (easypackages::packages).
 
 # Municipal names arrive in their legal form, "The Corporation of the District
 # of Peachland". The map wants the placename.
@@ -175,7 +171,7 @@ plot_study_area <- function(
   # Top left: the only quarter of the panel carrying neither the basin nor a
   # placename, so the inset covers nothing.
   list(plot = main + patchwork::inset_element(
-         inset, left = 0.005, bottom = 0.63, right = 0.34, top = 0.995,
+         inset, left = 0.005, bottom = 0.82, right = 0.34, top = 0.995,
          align_to = "panel"),
        rf = rf,
        n_ign = nrow(ign),

@@ -40,6 +40,7 @@ python3 05.scripts/verify_references.py
 
 echo "== 7b. verify every quotation against the report it cites =="
 python3 05.scripts/verify_quotations.py
+python3 05.scripts/verify_literature_quotations.py
 
 echo "== 8. render the manuscript, both formats =="
 cd 01.manuscript && quarto render manuscript.qmd --to html && quarto render manuscript.qmd --to docx

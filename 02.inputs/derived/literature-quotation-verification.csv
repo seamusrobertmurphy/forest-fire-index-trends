@@ -1,0 +1,46 @@
+key,quotation,source_text,found_verbatim
+filmon2004firestorm,its driest three-year period on record,pdf,True
+filmon2004firestorm,a successful record of fire suppression has led to a fuel buildup in the forests of British Columbia,pdf,True
+abbott2018newnormal,was in many ways at the heart of 2017 wildfires,pdf,True
+hessburg2019resilience,burned area is primarily controlled by annual to decadal climate and fire weather; fuels are typically not limiting,pdf,True
+haughian2012climate,experience the most significant increases in fire indices,pdf,True
+vitolo2020era5,in mountainous areas,pdf,True
+matthews2009comparison,widely varying assessments of fire danger for a given set of inputs,pdf,True
+rodell2024hourly,standard noon local time usually does not coincide with the timing of peak fire behavior,pdf,True
+cffdg2025fwi2025,Using hourly weather to better reflect maximum burning conditions,2025 report pdf,True
+cffdg2025fwi2025,the time lag function used in the FWI2025 for the FFMC has been cut in half,2025 report pdf,True
+cffdg2025fwi2025,an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025,2025 report pdf,True
+cffdg2025fwi2025,should reflect meaningful differences in fuel moisture content,2025 report pdf,True
+cffdg2025fwi2025,calculations always use hourly weather,2025 report pdf,True
+stocks1989overview,"the now familiar Canadian Forest Fire Weather Index (FWI) System, the recently introduced Canadian Forest Fire Behavior Prediction (FBP) System, a proposed Canadian Forest Fire Occurrence Prediction (FOP) System, and the incomplete Accessory Fuel Moisture System",pdf,True
+cffdg2025fwi2025,FWI1987 was designed to track conditions in a generalized pine forest (similar to C-3),2025 report pdf,True
+cffdg2025fwi2025,Observations of litter moisture from the field have suggested that the drying rate in the FFMC model itself is too slow,2025 report pdf,True
+hanes2023drought,predicted the moisture content of the deeper organic layers (10–18 cm depths) well,pdf,True
+cffdg2025fwi2025,the agency weather station network does not calculate the FWI System up to this date,2025 report pdf,True
+cffdg2025fwi2025,a nearby Environment and Climate Change Canada (ECCC) station,2025 report pdf,True
+perrakis2018bcfueltypes,over 4.7 million VRI polygons,pdf,True
+perrakis2018bcfueltypes,"the FBP fuel typing process is inherently subjective, and the vegetation communities of BC frequently fall through the cracks between the FBP fuel types",pdf,True
+bcws2026stations,BCWS operates a network of automated hourly reporting weather stations to support all aspects of fire management,catalogue record,True
+bcws2026stations,"The data are used as input to the Canadian Forest Fire Danger Rating System, as a basis for weather forecasting and for climate monitoring",catalogue record,True
+bcws2026stations,"Sensors at the weather stations monitor temperature, relative humidity, wind speed and direction and rainfall",catalogue record,True
+cffdg2025fwi2025,start calculation three days after the disappearance of snow cover,2025 report pdf,True
+field2015gfwed,"were available only for the fire season, which was determined using a temperature threshold",pdf,True
+hanes2020overwinter,fire weather stations are not operated during the winter,pdf,True
+mcelhinny2020era5,active on the fourth day following 3 consecutive days with a maximum temperature of 12 °C or higher,pdf,True
+mcelhinny2020era5,after 3 consecutive days with a maximum temperature of 5 °C or lower,pdf,True
+jolly2015global,the number of days each year when fire danger is above half its value range,pdf,True
+hanes2020overwinter,the western provinces regularly overwinter the DC,pdf,True
+mcelhinny2020era5,even a modest difference in FWI values at start-up can lead to important differences in the number and spatial distribution of fire spread days between the overwintered and default calculations,pdf,True
+field2015gfwed,will be different in other regions,pdf,True
+zhang2011indices,few physically based thresholds have relevance in all parts of the world,abstract,True
+bcws2026psta,was developed using the 90th percentile fire weather index value for an interpolated and elevation-adjusted analysis of weather station values,catalogue record,True
+zhang2005percentile,overestimated exceedance rates outside the base period,pdf,True
+taylor2013prediction,overdispersion is of concern when Poisson-based methods are used to model counts,pdf,True
+castelclavera2025comparative,relying solely on fire-weather indices is insufficient for efficient rating of fire activities,abstract,True
+roberts2017crossvalidation,in serious underestimation of predictive error,abstract,True
+gneiting2007scoring,are directly comparable if they refer to exactly the same set of forecast situations,pdf,True
+eastaugh2012cautionary,indicate different predictive power between the effectively identical indices,pdf,True
+eastaugh2012cautionary,resulting from the frequency distributions of the index values rather than from any real difference in predictive power,pdf,True
+coogan2025lightning,a lag between the time a fire started and the time it was detected,pdf,True
+cffdg2025fwi2025,numerical weather model outputs are not strictly the same as point observations of weather from a weather station,2025 report pdf,True
+cffdg2025fwi2025,"At the grid cell scale, outputs from numerical models typically represent what can be thought of as average conditions across that cell.",2025 report pdf,True

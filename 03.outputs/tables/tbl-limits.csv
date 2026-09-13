@@ -1,9 +1,9 @@
 "Metric","Median observed slope","Minimum detectable slope","Minimum detectable change over the window","Observed change over the window"
-"Mean FWI",0.18,0.262,8.9,6.14
-"Seasonal severity rating",13.486,23.199,788.75,458.54
-"Peak BUI",1.74,5.016,170.55,59.17
-"Days FFMC >= 91",0.741,0.928,31.55,25.19
-"Days FWI >= 19",0.739,1.301,44.24,25.11
-"Days FWI >= 30",0.625,1.089,37.03,21.25
-"Days above own 90th percentile",0.377,0.71,24.15,12.82
-"Days above own 95th percentile",0.146,0.483,16.42,4.98
+"Mean FWI",0.18,0.266,9.04,6.14
+"Seasonal severity rating",13.486,23.245,790.32,458.54
+"Peak BUI",1.74,5.206,177.01,59.17
+"Days FFMC >= 91",0.741,0.934,31.77,25.19
+"Days FWI >= 19",0.739,1.341,45.58,25.11
+"Days FWI >= 30",0.625,1.119,38.06,21.25
+"Days above own 90th percentile",0.372,0.778,26.45,12.66
+"Days above own 95th percentile",0.149,0.517,17.57,5.07

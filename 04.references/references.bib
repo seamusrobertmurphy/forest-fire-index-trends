@@ -23,6 +23,7 @@
   number      = {GLC-X-42},
   year        = {2025},
   pages       = {58},
+  doi         = {10.4095/st000101},
   isbn        = {978-0-660-77629-3},
   issn        = {2562-0738},
   note        = {Cat. no. Fo123-2/42-2025E-PDF},
@@ -413,3 +414,479 @@
   url          = {https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-fire-incident-locations-historical},
   note         = {Retrieved 2026-08-14 by 05.scripts/fetch\_study\_area.R}
 }
+
+% ---------------------------------------------------------------------------
+% Government and agency datasets, added 2026-09-12 (Revision 6). Catalogue
+% titles, owning organisations and licences were read from the BC Data
+% Catalogue API on 2026-09-12; none has a DOI, so verify_references.py does
+% not check them and they are entered by hand.
+% ---------------------------------------------------------------------------
+
+@misc{geobc2026fwagroups,
+  author       = {{GeoBC Branch}},
+  title        = {{Freshwater Atlas} -- {Watershed Groups}
+                  ({WHSE\_BASEMAPPING.FWA\_WATERSHED\_GROUPS\_POLY})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-watershed-groups},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{geobc2026fwalakes,
+  author       = {{GeoBC Branch}},
+  title        = {{Freshwater Atlas} -- {Lakes} ({WHSE\_BASEMAPPING.FWA\_LAKES\_POLY})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{geobc2026fwastreams,
+  author       = {{GeoBC Branch}},
+  title        = {{Freshwater Atlas} -- {Stream Network}
+                  ({WHSE\_BASEMAPPING.FWA\_STREAM\_NETWORKS\_SP})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-stream-network},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{geobc2026majorwatersheds,
+  author       = {{GeoBC Branch}},
+  title        = {{BC Major Watersheds} ({WHSE\_BASEMAPPING.BC\_MAJOR\_WATERSHEDS})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- Canada},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/bc-major-watersheds},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{wsc2026subsubdrainage,
+  author       = {{Environmental Monitoring and Analysis Branch}},
+  title        = {{Water Survey of Canada} {Sub-Sub-Drainage Areas}
+                  ({WHSE\_IMAGERY\_AND\_BASE\_MAPS.DRP\_SUB\_SUB\_DRAINAGES\_1M\_SP})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- Canada},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/water-survey-of-canada-sub-sub-drainage-areas},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{bc2026municipalities,
+  author       = {{Governance and Structure Branch}},
+  title        = {Municipalities -- {Legally Defined Administrative Areas of BC}
+                  ({WHSE\_LEGAL\_ADMIN\_BOUNDARIES.ABMS\_MUNICIPALITIES\_SP})},
+  howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/municipalities-legally-defined-administrative-areas-of-bc},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{geobc2026province,
+  author       = {{GeoBC Branch}},
+  title        = {{Province of British Columbia} -- {Legally Defined Administrative
+                  Areas of BC} ({WHSE\_LEGAL\_ADMIN\_BOUNDARIES.ABMS\_PROVINCE\_SP})},
+  howpublished = {BC Data Catalogue, access only},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/province-of-british-columbia-legally-defined-administrative-areas-of-bc},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{bcws2026stations,
+  author       = {{BC Wildfire Service}},
+  title        = {{BC Wildfire Active Weather Stations and Data}
+                  ({WHSE\_LAND\_AND\_NATURAL\_RESOURCE.PROT\_WEATHER\_STATIONS\_SP})},
+  howpublished = {BC Data Catalogue, access only},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-active-weather-stations},
+  note         = {Retrieved 2026-08-14}
+}
+
+@misc{aws2026terraintiles,
+  author       = {{Amazon Web Services}},
+  title        = {{Terrain Tiles}},
+  howpublished = {Registry of Open Data on AWS, public domain tiles derived from
+                  {SRTM} and national elevation datasets},
+  year         = {2026},
+  url          = {https://registry.opendata.aws/terrain-tiles/},
+  note         = {Zoom level 9, retrieved 2026-08-14 through the elevatr R package}
+}
+
+@manual{wang2026cffdrspkg,
+  author = {Xianli Wang and Alan Cantin and Marc-Andr{\'e} Parisien and Mike
+            Wotton and Kerry Anderson and Brett Moore and Tom Schiks and Mike
+            Flannigan},
+  title  = {cffdrs: {Canadian Forest Fire Danger Rating System}},
+  year   = {2025},
+  note   = {R package version 1.9.2, published 2025-08-22; authors read from the package DESCRIPTION on 2026-09-12},
+  url    = {https://CRAN.R-project.org/package=cffdrs}
+}
+
+% The author's unpublished 2022 prototype, cited as unpublished work and never as
+% peer-reviewed (Revision 4). Repository and page both returned HTTP 200 on
+% 2026-09-12; the proof-of-concept PDF in the repository is dated 2022-03-10.
+@misc{murphy2022cffdrsprototype,
+  author       = {Seamus Murphy},
+  title        = {Wildfire Fuel Mapping with the {Canadian Forest Fire Danger
+                  Rating System}: Proof of Concept for the {Okanagan} Watershed},
+  howpublished = {Unpublished work, {CabinGIS}; code repository and results page},
+  year         = {2022},
+  url          = {https://github.com/seamusrobertmurphy/wildfire-fuel-mapping-CFFDRS-2.0},
+  note         = {Results page https://seamusrobertmurphy.quarto.pub/cffdrs/, updated
+                  2025-09; accessed 2026-09-12}
+}
+
+@misc{bcws2026psta,
+  author       = {{BC Wildfire Service}},
+  title        = {{BC Wildfire PSTA Head Fire Intensity}},
+  howpublished = {BC Data Catalogue, access only},
+  year         = {2026},
+  url          = {https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-psta-head-fire-intensity},
+  note         = {Catalogue record read through the catalogue API on 2026-09-12; record last modified 2026-08-05}
+}
+
+% ---------------------------------------------------------------------------
+% Literature added 2026-09-12 for Revisions 1, 4, 7, 10 and 13. Every DOI entry
+% below was taken from doi.org content negotiation after its title was matched
+% against the CrossRef works record, and every claim the manuscript makes about
+% it was checked against its full text or abstract; see
+% 02.inputs/derived/literature-cited.csv.
+% ---------------------------------------------------------------------------
+
+% verified against Crossref 2026-09-12; DOI 10.1029/wr018i001p00107; title: Techniques of trend analysis for monthly water quality data
+@article{hirsch1982trend, title={Techniques of trend analysis for monthly water quality data}, volume={18}, ISSN={1944-7973}, url={http://dx.doi.org/10.1029/wr018i001p00107}, DOI={10.1029/wr018i001p00107}, number={1}, journal={Water Resources Research}, publisher={American Geophysical Union (AGU)}, author={Hirsch, Robert M. and Slack, James R. and Smith, Richard A.}, year={1982}, pages={107–121} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf17008; title: Trend analysis of fire season length and extreme fire weather in North America between 1979 and 2015
+@article{jain2017seasonlength, title={Trend analysis of fire season length and extreme fire weather in {North America} between 1979 and 2015}, volume={26}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf17008}, DOI={10.1071/wf17008}, number={12}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Jain, Piyush and Wang, Xianli and Flannigan, Mike D.}, year={2017}, pages={1009–1020} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/nhess-14-1477-2014; title: Temporal variations and change in forest fire danger  in Europe for 1960–2012
+@article{venalainen2014europe, title={Temporal variations and change in forest fire danger  in {Europe} for 1960–2012}, volume={14}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-14-1477-2014}, DOI={10.5194/nhess-14-1477-2014}, number={6}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Venäläinen, A. and Korhonen, N. and Hyvärinen, O. and Koutsias, N. and Xystrakis, F. and Urbieta, I. R. and Moreno, J. M.}, year={2014}, pages={1477–1490} }
+
+% verified against Crossref 2026-09-12; DOI 10.1038/ncomms8537; title: Climate-induced variations in global wildfire danger from 1979 to 2013
+@article{jolly2015global, title={Climate-induced variations in global wildfire danger from 1979 to 2013}, volume={6}, ISSN={2041-1723}, url={http://dx.doi.org/10.1038/ncomms8537}, DOI={10.1038/ncomms8537}, number={1}, journal={Nature Communications}, publisher={Springer Science and Business Media LLC}, author={Jolly, W. Matt and Cochrane, Mark A. and Freeborn, Patrick H. and Holden, Zachary A. and Brown, Timothy J. and Williamson, Grant J. and Bowman, David M. J. S.}, year={2015} }
+
+% verified against Crossref 2026-09-12; DOI 10.1623/hysj.52.4.611; title: To prewhiten or not to prewhiten in trend analysis?
+@article{bayazit2007prewhiten, title={To prewhiten or not to prewhiten in trend analysis?}, volume={52}, ISSN={2150-3435}, url={http://dx.doi.org/10.1623/hysj.52.4.611}, DOI={10.1623/hysj.52.4.611}, number={4}, journal={Hydrological Sciences Journal}, publisher={Informa UK Limited}, author={Bayazit, M and Önöz, B}, year={2007}, pages={611–624} }
+
+% verified against Crossref 2026-09-12; DOI 10.1002/hyp.1095; title: The influence of autocorrelation on the ability to detect trend in hydrological series
+@article{yue2002autocorrelation, title={The influence of autocorrelation on the ability to detect trend in hydrological series}, volume={16}, ISSN={1099-1085}, url={http://dx.doi.org/10.1002/hyp.1095}, DOI={10.1002/hyp.1095}, number={9}, journal={Hydrological Processes}, publisher={Wiley}, author={Yue, Sheng and Pilon, Paul and Phinney, Bob and Cavadias, George}, year={2002}, pages={1807–1829} }
+
+% verified against Crossref 2026-09-12; DOI 10.1002/hyp.8438; title: Block bootstrap for Mann–Kendall trend test of serially dependent data
+@article{onoz2012blockbootstrap, title={Block bootstrap for {Mann–Kendall} trend test of serially dependent data}, volume={26}, ISSN={1099-1085}, url={http://dx.doi.org/10.1002/hyp.8438}, DOI={10.1002/hyp.8438}, number={23}, journal={Hydrological Processes}, publisher={Wiley}, author={Önöz, Bihrat and Bayazit, Mehmetcik}, year={2012}, pages={3552–3560} }
+
+% verified against Crossref 2026-09-12; DOI 10.1214/aos/1013699998; title: The control of the false discovery rate in multiple testing under dependency
+@article{benjamini2001dependency, title={The control of the false discovery rate in multiple testing under dependency}, volume={29}, ISSN={0090-5364}, url={http://dx.doi.org/10.1214/aos/1013699998}, DOI={10.1214/aos/1013699998}, number={4}, journal={The Annals of Statistics}, publisher={Institute of Mathematical Statistics}, author={Benjamini, Yoav and Yekutieli, Daniel}, year={2001} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/bams-d-15-00267.1; title: “The Stippling Shows Statistically Significant Grid Points”: How Research Results are Routinely Overstated and Overinterpreted, and What to Do about It
+@article{wilks2016stippling, title={“The Stippling Shows Statistically Significant Grid Points”: How Research Results are Routinely Overstated and Overinterpreted, and What to Do about It}, volume={97}, ISSN={1520-0477}, url={http://dx.doi.org/10.1175/bams-d-15-00267.1}, DOI={10.1175/bams-d-15-00267.1}, number={12}, journal={Bulletin of the American Meteorological Society}, publisher={American Meteorological Society}, author={Wilks, D. S.}, year={2016}, pages={2263–2273} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/1520-0442(1997)010<0065:rhtfaf>2.0.co;2; title: Resampling Hypothesis Tests for Autocorrelated Fields
+@article{wilks1997resampling, title={Resampling Hypothesis Tests for Autocorrelated Fields}, volume={10}, ISSN={1520-0442}, url={http://dx.doi.org/10.1175/1520-0442(1997)010<0065:rhtfaf>2.0.co;2}, DOI={10.1175/1520-0442(1997)010<0065:rhtfaf>2.0.co;2}, number={1}, journal={Journal of Climate}, publisher={American Meteorological Society}, author={Wilks, D. S.}, year={1997}, pages={65–82} }
+
+% verified against Crossref 2026-09-12; DOI 10.1214/aos/1176347265; title: The Jackknife and the Bootstrap for General Stationary Observations
+@article{kunsch1989bootstrap, title={The Jackknife and the Bootstrap for General Stationary Observations}, volume={17}, ISSN={0090-5364}, url={http://dx.doi.org/10.1214/aos/1176347265}, DOI={10.1214/aos/1176347265}, number={3}, journal={The Annals of Statistics}, publisher={Institute of Mathematical Statistics}, author={Kunsch, Hans R.}, year={1989} }
+
+% verified against Crossref 2026-09-12; DOI 10.1080/01621459.1994.10476870; title: The Stationary Bootstrap
+@article{politis1994stationary, title={The Stationary Bootstrap}, volume={89}, ISSN={1537-274X}, url={http://dx.doi.org/10.1080/01621459.1994.10476870}, DOI={10.1080/01621459.1994.10476870}, number={428}, journal={Journal of the American Statistical Association}, publisher={Informa UK Limited}, author={Politis, Dimitris N. and Romano, Joseph P.}, year={1994}, pages={1303–1313} }
+
+% verified against Crossref 2026-09-12; DOI 10.1080/01621459.1987.10478410; title: Better Bootstrap Confidence Intervals
+@article{efron1987better, title={Better Bootstrap Confidence Intervals}, volume={82}, ISSN={1537-274X}, url={http://dx.doi.org/10.1080/01621459.1987.10478410}, DOI={10.1080/01621459.1987.10478410}, number={397}, journal={Journal of the American Statistical Association}, publisher={Informa UK Limited}, author={Efron, Bradley}, year={1987}, pages={171–185} }
+
+% verified against Crossref 2026-09-12; DOI 10.1214/ss/1032280214; title: Bootstrap confidence intervals
+@article{diciccio1996bootstrap, title={Bootstrap confidence intervals}, volume={11}, ISSN={0883-4237}, url={http://dx.doi.org/10.1214/ss/1032280214}, DOI={10.1214/ss/1032280214}, number={3}, journal={Statistical Science}, publisher={Institute of Mathematical Statistics}, author={DiCiccio, Thomas J. and Efron, Bradley}, year={1996} }
+
+% verified against Crossref 2026-09-12; DOI 10.2307/2532163; title: Two Guidelines for Bootstrap Hypothesis Testing
+@article{hall1991guidelines, title={Two Guidelines for Bootstrap Hypothesis Testing}, volume={47}, ISSN={0006-341X}, url={http://dx.doi.org/10.2307/2532163}, DOI={10.2307/2532163}, number={2}, journal={Biometrics}, publisher={JSTOR}, author={Hall, Peter and Wilson, Susan R.}, year={1991}, pages={757} }
+
+% verified against Crossref 2026-09-12; DOI 10.1029/1999jd901105; title: Statistical significance of trends and trend differences in layer‐average atmospheric temperature time series
+@article{santer2000trenddiff, title={Statistical significance of trends and trend differences in layer‐average atmospheric temperature time series}, volume={105}, ISSN={0148-0227}, url={http://dx.doi.org/10.1029/1999jd901105}, DOI={10.1029/1999jd901105}, number={D6}, journal={Journal of Geophysical Research: Atmospheres}, publisher={American Geophysical Union (AGU)}, author={Santer, B. D. and Wigley, T. M. L. and Boyle, J. S. and Gaffen, D. J. and Hnilo, J. J. and Nychka, D. and Parker, D. E. and Taylor, K. E.}, year={2000}, pages={7337–7356} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/jcli3366.1; title: Avoiding Inhomogeneity in Percentile-Based Indices of Temperature Extremes
+@article{zhang2005percentile, title={Avoiding Inhomogeneity in Percentile-Based Indices of Temperature Extremes}, volume={18}, ISSN={0894-8755}, url={http://dx.doi.org/10.1175/jcli3366.1}, DOI={10.1175/jcli3366.1}, number={11}, journal={Journal of Climate}, publisher={American Meteorological Society}, author={Zhang, Xuebin and Hegerl, Gabriele and Zwiers, Francis W. and Kenyon, Jesse}, year={2005}, pages={1641–1651} }
+
+% verified against Crossref 2026-09-12; DOI 10.1029/98jd00995; title: Factors affecting the detection of trends: Statistical considerations and applications to environmental data
+@article{weatherhead1998detection, title={Factors affecting the detection of trends: Statistical considerations and applications to environmental data}, volume={103}, ISSN={0148-0227}, url={http://dx.doi.org/10.1029/98jd00995}, DOI={10.1029/98jd00995}, number={D14}, journal={Journal of Geophysical Research: Atmospheres}, publisher={American Geophysical Union (AGU)}, author={Weatherhead, Elizabeth C. and Reinsel, Gregory C. and Tiao, George C. and Meng, Xiao‐Li and Choi, Dongseok and Cheang, Wai‐Kwong and Keller, Teddie and DeLuisi, John and Wuebbles, Donald J. and Kerr, James B. and Miller, Alvin J. and Oltmans, Samuel J. and Frederick, John E.}, year={1998}, pages={17149–17161} }
+
+% verified against Crossref 2026-09-12; DOI 10.1029/jd095id12p20507; title: Effects of autocorrelation and temporal sampling schemes on estimates of trend and spatial correlation
+@article{tiao1990autocorrelation, title={Effects of autocorrelation and temporal sampling schemes on estimates of trend and spatial correlation}, volume={95}, ISSN={0148-0227}, url={http://dx.doi.org/10.1029/jd095id12p20507}, DOI={10.1029/jd095id12p20507}, number={D12}, journal={Journal of Geophysical Research: Atmospheres}, publisher={American Geophysical Union (AGU)}, author={Tiao, G. C. and Reinsel, G. C. and Xu, Daming and Pedrick, J. H. and Zhu, Xiaodong and Miller, A. J. and DeLuisi, J. J. and Mateer, C. L. and Wuebbles, D. J.}, year={1990}, pages={20507–20517} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/1520-0442(2001)014<1568:dpotir>2.0.co;2; title: Detection Probability of Trends in Rare Events: Theory and Application to Heavy Precipitation in the Alpine Region
+@article{frei2001rare, title={Detection Probability of Trends in Rare Events: Theory and Application to Heavy Precipitation in the {Alpine Region}}, volume={14}, ISSN={1520-0442}, url={http://dx.doi.org/10.1175/1520-0442(2001)014<1568:dpotir>2.0.co;2}, DOI={10.1175/1520-0442(2001)014<1568:dpotir>2.0.co;2}, number={7}, journal={Journal of Climate}, publisher={American Meteorological Society}, author={Frei, Christoph and Schär, Christoph}, year={2001}, pages={1568–1584} }
+
+% verified against Crossref 2026-09-12; DOI 10.3389/feart.2020.00014; title: Re-evaluation of the Power of the Mann-Kendall Test for Detecting Monotonic Trends in Hydrometeorological Time Series
+@article{wang2020power, title={Re-evaluation of the Power of the {Mann-Kendall} Test for Detecting Monotonic Trends in Hydrometeorological Time Series}, volume={8}, ISSN={2296-6463}, url={http://dx.doi.org/10.3389/feart.2020.00014}, DOI={10.3389/feart.2020.00014}, journal={Frontiers in Earth Science}, publisher={Frontiers Media SA}, author={Wang, Fan and Shao, Wei and Yu, Haijun and Kan, Guangyuan and He, Xiaoyan and Zhang, Dawei and Ren, Minglei and Wang, Gang}, year={2020} }
+
+% verified against Crossref 2026-09-12; DOI 10.1214/13-sts451; title: Wildfire Prediction to Inform Fire Management: Statistical Science Challenges
+@article{taylor2013prediction, title={Wildfire Prediction to Inform Fire Management: Statistical Science Challenges}, volume={28}, ISSN={0883-4237}, url={http://dx.doi.org/10.1214/13-sts451}, DOI={10.1214/13-sts451}, number={4}, journal={Statistical Science}, publisher={Institute of Mathematical Statistics}, author={Taylor, S. W. and Woolford, Douglas G. and Dean, C. B. and Martell, David L.}, year={2013} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf11088; title: Prediction of daily lightning- and human-caused fires in British Columbia
+@article{magnussen2012bc, title={Prediction of daily lightning- and human-caused fires in {British Columbia}}, volume={21}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf11088}, DOI={10.1071/wf11088}, number={4}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Magnussen, S. and Taylor, S. W.}, year={2012}, pages={342–356} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/x05-071; title: A lightning fire occurrence model for Ontario
+@article{wotton2005lightning, title={A lightning fire occurrence model for {Ontario}}, volume={35}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/x05-071}, DOI={10.1139/x05-071}, number={6}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Wotton, B M and Martell, David L}, year={2005}, pages={1389–1401} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/x87-068; title: A logistic model for predicting daily people-caused forest fire occurrence in Ontario
+@article{martell1987logistic, title={A logistic model for predicting daily people-caused forest fire occurrence in {Ontario}}, volume={17}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/x87-068}, DOI={10.1139/x87-068}, number={5}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Martell, D. L. and Otukol, S. and Stocks, B. J.}, year={1987}, pages={394–401} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/x89-237; title: Modelling seasonal variation in daily people-caused forest fire occurrence
+@article{martell1989seasonal, title={Modelling seasonal variation in daily people-caused forest fire occurrence}, volume={19}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/x89-237}, DOI={10.1139/x89-237}, number={12}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Martell, D. L. and Bevilacqua, E. and Stocks, B. J.}, year={1989}, pages={1555–1563} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/nhess-12-927-2012; title: A cautionary note regarding comparisons of fire danger indices
+@article{eastaugh2012cautionary, title={A cautionary note regarding comparisons of fire danger indices}, volume={12}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-12-927-2012}, DOI={10.5194/nhess-12-927-2012}, number={4}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Eastaugh, C. S. and Arpaci, A. and Vacik, H.}, year={2012}, pages={927–934} }
+
+% verified against Crossref 2026-09-12; DOI 10.2307/3314912; title: Negative binomial and mixed Poisson regression
+@article{lawless1987negbin, title={Negative binomial and mixed {Poisson} regression}, volume={15}, ISSN={1708-945X}, url={http://dx.doi.org/10.2307/3314912}, DOI={10.2307/3314912}, number={3}, journal={Canadian Journal of Statistics}, publisher={Wiley}, author={Lawless, Jerald F.}, year={1987}, pages={209–225} }
+
+% verified against Crossref 2026-09-12; DOI 10.1111/ecog.02881; title: Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure
+@article{roberts2017crossvalidation, title={Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure}, volume={40}, ISSN={1600-0587}, url={http://dx.doi.org/10.1111/ecog.02881}, DOI={10.1111/ecog.02881}, number={8}, journal={Ecography}, publisher={Wiley}, author={Roberts, David R. and Bahn, Volker and Ciuti, Simone and Boyce, Mark S. and Elith, Jane and Guillera‐Arroita, Gurutzeta and Hauenstein, Severin and Lahoz‐Monfort, José J. and Schröder, Boris and Thuiller, Wilfried and Warton, David I. and Wintle, Brendan A. and Hartig, Florian and Dormann, Carsten F.}, year={2017}, pages={913–929} }
+
+% verified against Crossref 2026-09-12; DOI 10.1198/016214506000001437; title: Strictly Proper Scoring Rules, Prediction, and Estimation
+@article{gneiting2007scoring, title={Strictly Proper Scoring Rules, Prediction, and Estimation}, volume={102}, ISSN={1537-274X}, url={http://dx.doi.org/10.1198/016214506000001437}, DOI={10.1198/016214506000001437}, number={477}, journal={Journal of the American Statistical Association}, publisher={Informa UK Limited}, author={Gneiting, Tilmann and Raftery, Adrian E}, year={2007}, pages={359–378} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf13090; title: Predicting the number of daily human-caused bushfires to assist suppression planning in south-west Western Australia
+@article{plucinski2014bushfires, title={Predicting the number of daily human-caused bushfires to assist suppression planning in south-west Western {Australia}}, volume={23}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf13090}, DOI={10.1071/wf13090}, number={4}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Plucinski, M. P. and McCaw, W. L. and Gould, J. S. and Wotton, B. M.}, year={2014}, pages={520–531} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf01048; title: Lightning and lightning fire, central cordillera, Canada
+@article{wierzchowski2002lightning, title={Lightning and lightning fire, central cordillera, {Canada}}, volume={11}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf01048}, DOI={10.1071/wf01048}, number={1}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Wierzchowski, Jack and Heathcott, Mark and Flannigan, Michael D.}, year={2002}, pages={41–51} }
+
+% verified against Crossref 2026-09-12; DOI 10.1186/s42408-025-00376-1; title: Lightning ignition efficiency in Canadian forests
+@article{coogan2025lightning, title={Lightning ignition efficiency in {Canadian} forests}, volume={21}, ISSN={1933-9747}, url={http://dx.doi.org/10.1186/s42408-025-00376-1}, DOI={10.1186/s42408-025-00376-1}, number={1}, journal={Fire Ecology}, publisher={Springer Science and Business Media LLC}, author={Coogan, Sean C. P. and Cannon, Alex J. and Flannigan, Mike D.}, year={2025} }
+
+% verified against Crossref 2026-09-12; DOI 10.1080/07055900.2020.1845117; title: Cloud-to-Ground Lightning in Canada: 20 Years of CLDN Data
+@article{kochtubajda2020cldn, title={Cloud-to-Ground Lightning in {Canada}: 20 Years of {CLDN} Data}, volume={58}, ISSN={1480-9214}, url={http://dx.doi.org/10.1080/07055900.2020.1845117}, DOI={10.1080/07055900.2020.1845117}, number={5}, journal={Atmosphere-Ocean}, publisher={Informa UK Limited}, author={Kochtubajda, Bohdan and Burrows, William R.}, year={2020}, pages={316–332} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/x91-035; title: Lightning-ignited forest fires in northwestern Ontario
+@article{flannigan1991lightning, title={Lightning-ignited forest fires in northwestern {Ontario}}, volume={21}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/x91-035}, DOI={10.1139/x91-035}, number={3}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Flannigan, M. D. and Wotton, B. M.}, year={1991}, pages={277–287} }
+
+% verified against Crossref 2026-09-12; DOI 10.1371/journal.pone.0120621; title: Modeling Forest Fire Occurrences Using Count-Data Mixed Models in Qiannan Autonomous Prefecture of Guizhou Province in China
+@article{xiao2015count, title={Modeling Forest Fire Occurrences Using Count-Data Mixed Models in {Qiannan} Autonomous Prefecture of Guizhou Province in {China}}, volume={10}, ISSN={1932-6203}, url={http://dx.doi.org/10.1371/journal.pone.0120621}, DOI={10.1371/journal.pone.0120621}, number={3}, journal={PLOS ONE}, publisher={Public Library of Science (PLoS)}, author={Xiao, Yundan and Zhang, Xiongqing and Ji, Ping}, editor={Hanewinkel, Marc}, year={2015}, pages={e0120621} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2024.110315; title: A comparative analysis of fire-weather indices for enhanced fire activity prediction with probabilistic approaches
+@article{castelclavera2025comparative, title={A comparative analysis of fire-weather indices for enhanced fire activity prediction with probabilistic approaches}, volume={361}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2024.110315}, DOI={10.1016/j.agrformet.2024.110315}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Castel-Clavera, Jorge and Pimont, François and Opitz, Thomas and Ruffault, Julien and Barbero, Renaud and Allard, Denis and Dupuy, Jean-Luc}, year={2025}, pages={110315} }
+
+% verified against Crossref 2026-09-12; DOI 10.1002/wcc.147; title: Indices for monitoring changes in extremes based on daily temperature and precipitation data
+@article{zhang2011indices, title={Indices for monitoring changes in extremes based on daily temperature and precipitation data}, volume={2}, ISSN={1757-7799}, url={http://dx.doi.org/10.1002/wcc.147}, DOI={10.1002/wcc.147}, number={6}, journal={WIREs Climate Change}, publisher={Wiley}, author={Zhang, Xuebin and Alexander, Lisa and Hegerl, Gabriele C. and Jones, Philip and Tank, Albert Klein and Peterson, Thomas C. and Trewin, Blair and Zwiers, Francis W.}, year={2011}, pages={851–870} }
+
+% verified against Crossref 2026-09-12; DOI 10.1088/1748-9326/ac52c8; title: On the effect of reference periods on trends in percentile-based extreme temperature indices
+@article{dunn2022reference, title={On the effect of reference periods on trends in percentile-based extreme temperature indices}, volume={17}, ISSN={1748-9326}, url={http://dx.doi.org/10.1088/1748-9326/ac52c8}, DOI={10.1088/1748-9326/ac52c8}, number={3}, journal={Environmental Research Letters}, publisher={IOP Publishing}, author={Dunn, Robert J H and Morice, Colin P}, year={2022}, pages={034026} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/nhess-15-1407-2015; title: Development of a Global Fire Weather Database
+@article{field2015gfwed, title={Development of a {Global Fire Weather Database}}, volume={15}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-15-1407-2015}, DOI={10.5194/nhess-15-1407-2015}, number={6}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Field, R. D. and Spessa, A. C. and Aziz, N. A. and Camia, A. and Cantin, A. and Carr, R. and de Groot, W. J. and Dowdy, A. J. and Flannigan, M. D. and Manomaiphiboon, K. and Pappenberger, F. and Tanpipat, V. and Wang, X.}, year={2015}, pages={1407–1423} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf05021; title: Science, technology, and human factors in fire danger rating: the Canadian experience.
+@article{taylor2006science, title={Science, technology, and human factors in fire danger rating: the {Canadian} experience.}, volume={15}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf05021}, DOI={10.1071/wf05021}, number={1}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Taylor, Stephen W. and Alexander, Martin E.}, year={2006}, pages={121–135} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf09001; title: Defining fire spread event days for fire-growth modelling
+@article{podur2011spread, title={Defining fire spread event days for fire-growth modelling}, volume={20}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf09001}, DOI={10.1071/wf09001}, number={4}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Podur, Justin and Wotton, B. Mike}, year={2011}, pages={497–507} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/cjfr-2011-0432; title: A methodology for investigating trends in changes in the timing of the fire season with applications to lightning-caused forest fires in Alberta and Ontario, Canada
+@article{albertgreen2013timing, title={A methodology for investigating trends in changes in the timing of the fire season with applications to lightning-caused forest fires in {Alberta} and {Ontario}, {Canada}}, volume={43}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/cjfr-2011-0432}, DOI={10.1139/cjfr-2011-0432}, number={1}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Albert-Green, Alisha and Dean, C.B. and Martell, David L. and Woolford, Douglas G.}, year={2013}, pages={39–45} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf25164; title: Using observed fires to study changes in fire season timing across Ontario, Canada
+@article{granville2026season, title={Using observed fires to study changes in fire season timing across {Ontario}, {Canada}}, volume={35}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf25164}, DOI={10.1071/wf25164}, number={7}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Granville, Kevin and Woolford, Douglas G. and Dean, C. B.}, year={2026} }
+
+% verified against Crossref 2026-09-12; DOI 10.1098/rstb.2015.0178; title: Increasing western US forest wildfire activity: sensitivity to changes in the timing of spring
+@article{westerling2016increasing, title={Increasing western {US} forest wildfire activity: sensitivity to changes in the timing of spring}, volume={371}, ISSN={1471-2970}, url={http://dx.doi.org/10.1098/rstb.2015.0178}, DOI={10.1098/rstb.2015.0178}, number={1696}, journal={Philosophical Transactions of the Royal Society B: Biological Sciences}, publisher={The Royal Society}, author={Westerling, Anthony LeRoy}, year={2016}, pages={20150178} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/essd-12-1823-2020; title: A high-resolution reanalysis of global fire weather from 1979 to 2018 – overwintering the Drought Code
+@article{mcelhinny2020era5, title={A high-resolution reanalysis of global fire weather from 1979 to 2018 – overwintering the {Drought Code}}, volume={12}, ISSN={1866-3516}, url={http://dx.doi.org/10.5194/essd-12-1823-2020}, DOI={10.5194/essd-12-1823-2020}, number={3}, journal={Earth System Science Data}, publisher={Copernicus GmbH}, author={McElhinny, Megan and Beckers, Justin F. and Hanes, Chelene and Flannigan, Mike and Jain, Piyush}, year={2020}, pages={1823–1833} }
+
+% verified against Crossref 2026-09-12; DOI 10.3390/fire3020024; title: Preceding Fall Drought Conditions and Overwinter Precipitation Effects on Spring Wildland Fire Activity in Canada
+@article{hanes2020overwinter, title={Preceding Fall Drought Conditions and Overwinter Precipitation Effects on Spring Wildland Fire Activity in {Canada}}, volume={3}, ISSN={2571-6255}, url={http://dx.doi.org/10.3390/fire3020024}, DOI={10.3390/fire3020024}, number={2}, journal={Fire}, publisher={MDPI AG}, author={Hanes, Chelene and Wotton, Mike and Woolford, Douglas G. and Martell, David L. and Flannigan, Mike}, year={2020}, pages={24} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf09055; title: Spatial variation of trends in wildfire and summer drought in British Columbia, Canada, 1920–2000
+@article{meyn2010spatial, title={Spatial variation of trends in wildfire and summer drought in {British Columbia}, {Canada}, 1920–2000}, volume={19}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf09055}, DOI={10.1071/wf09055}, number={3}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Meyn, Andrea and Schmidtlein, Sebastian and Taylor, Stephen W. and Girardin, Martin P. and Thonicke, Kirsten and Cramer, Wolfgang}, year={2010}, pages={272–283} }
+
+% verified against Crossref 2026-09-12; DOI 10.1002/2016jg003661; title: Interannual climate variability drives regional fires in west central British Columbia, Canada
+@article{harvey2017interannual, title={Interannual climate variability drives regional fires in west central {British Columbia}, {Canada}: Fire-Climate in Central {British Columbia}}, volume={122}, ISSN={2169-8953}, url={http://dx.doi.org/10.1002/2016jg003661}, DOI={10.1002/2016jg003661}, number={7}, journal={Journal of Geophysical Research: Biogeosciences}, publisher={American Geophysical Union (AGU)}, author={Harvey, Jill E. and Smith, Dan J.}, year={2017}, pages={1759–1774} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/x11-160; title: Mixed-severity fire regimes in dry forests of southern interior British Columbia, Canada
+@article{heyerdahl2012mixed, title={Mixed-severity fire regimes in dry forests of southern interior {British Columbia}, {Canada}}, volume={42}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/x11-160}, DOI={10.1139/x11-160}, number={1}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Heyerdahl, Emily K. and Lertzman, Ken and Wong, Carmen M.}, year={2012}, pages={88–98} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf21035; title: Regional drought synchronised historical fires in dry forests of the Montane Cordillera Ecozone, Canada
+@article{chavardes2021drought, title={Regional drought synchronised historical fires in dry forests of the {Montane Cordillera} Ecozone, {Canada}}, volume={31}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf21035}, DOI={10.1071/wf21035}, number={1}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Chavardès, Raphaël D. and Daniels, Lori D. and Harvey, Jill E. and Greene, Gregory A. and Marcoux, Hélène and Eskelson, Bianca N. I. and Gedalof, Ze’ev and Brookes, Wesley and Kubian, Rick and Cochrane, Jared D. and Nesbitt, John H. and Pogue, Alexandra M. and Villemaire-Côté, Olivier and Gray, Robert W. and Andison, David W.}, year={2021}, pages={67–80} }
+
+% verified against Crossref 2026-09-12; DOI 10.3389/fevo.2021.676961; title: A Disrupted Historical Fire Regime in Central British Columbia
+@article{brookes2021disrupted, title={A Disrupted Historical Fire Regime in Central {British Columbia}}, volume={9}, ISSN={2296-701X}, url={http://dx.doi.org/10.3389/fevo.2021.676961}, DOI={10.3389/fevo.2021.676961}, journal={Frontiers in Ecology and Evolution}, publisher={Frontiers Media SA}, author={Brookes, Wesley and Daniels, Lori D. and Copes-Gerbitz, Kelsey and Baron, Jennifer N. and Carroll, Allan L.}, year={2021} }
+
+% verified against Crossref 2026-09-12; DOI 10.1002/eap.2736; title: The contribution of Indigenous stewardship to an historical mixed‐severity fire regime in British Columbia, Canada
+@article{copesgerbitz2022indigenous, title={The contribution of {Indigenous} stewardship to an historical mixed‐severity fire regime in {British Columbia}, {Canada}}, volume={33}, ISSN={1939-5582}, url={http://dx.doi.org/10.1002/eap.2736}, DOI={10.1002/eap.2736}, number={1}, journal={Ecological Applications}, publisher={Wiley}, author={Copes‐Gerbitz, Kelsey and Daniels, Lori D. and Hagerman, Shannon M.}, year={2022} }
+
+% verified against Crossref 2026-09-12; DOI 10.22230/jem.2012v13n1a152; title: Expected Effects of Climate Change on Forest Disturbance Regimes in British Columbia
+@article{haughian2012climate, title={Expected Effects of Climate Change on Forest Disturbance Regimes in {British Columbia}}, volume={13}, ISSN={1488-4666}, url={http://dx.doi.org/10.22230/jem.2012v13n1a152}, DOI={10.22230/jem.2012v13n1a152}, number={1}, journal={Journal of Ecosystems and Management}, publisher={CISP Journal Services}, author={Haughian, Sean R. and Burton, Philip J. and Taylor, Steve W. and Curry, Charles}, year={2012} }
+
+% verified against Crossref 2026-09-12; DOI 10.3389/fevo.2019.00239; title: Climate, Environment, and Disturbance History Govern Resilience of Western North American Forests
+@article{hessburg2019resilience, title={Climate, Environment, and Disturbance History Govern Resilience of Western North American Forests}, volume={7}, ISSN={2296-701X}, url={http://dx.doi.org/10.3389/fevo.2019.00239}, DOI={10.3389/fevo.2019.00239}, journal={Frontiers in Ecology and Evolution}, publisher={Frontiers Media SA}, author={Hessburg, Paul F. and Miller, Carol L. and Parks, Sean A. and Povak, Nicholas A. and Taylor, Alan H. and Higuera, Philip E. and Prichard, Susan J. and North, Malcolm P. and Collins, Brandon M. and Hurteau, Matthew D. and Larson, Andrew J. and Allen, Craig D. and Stephens, Scott L. and Rivera-Huerta, Hiram and Stevens-Rumann, Camille S. and Daniels, Lori D. and Gedalof, Ze’ev and Gray, Robert W. and Kane, Van R. and Churchill, Derek J. and Hagmann, R. Keala and Spies, Thomas A. and Cansler, C. Alina and Belote, R. Travis and Veblen, Thomas T. and Battaglia, Mike A. and Hoffman, Chad and Skinner, Carl N. and Safford, Hugh D. and Salter, R. Brion}, year={2019} }
+
+% verified against Crossref 2026-09-12; DOI 10.1080/07060661.2011.563906; title: Direct and indirect impacts of climate change on forests: three case studies from British Columbia
+@article{daniels2011climate, title={Direct and indirect impacts of climate change on forests: three case studies from {British Columbia}}, volume={33}, ISSN={1715-2992}, url={http://dx.doi.org/10.1080/07060661.2011.563906}, DOI={10.1080/07060661.2011.563906}, number={2}, journal={Canadian Journal of Plant Pathology}, publisher={Informa UK Limited}, author={Daniels, Lori D. and Maertens, Thomas B. and Stan, Amanda B. and McCloskey, Shane P. J. and Cochrane, Jed D. and Gray, Robert W.}, year={2011}, pages={108–116} }
+
+% verified against Crossref 2026-09-12; DOI 10.1007/s10113-022-01895-2; title: Transforming fire governance in British Columbia, Canada: an emerging vision for coexisting with fire
+@article{copesgerbitz2022governance, title={Transforming fire governance in {British Columbia}, {Canada}: an emerging vision for coexisting with fire}, volume={22}, ISSN={1436-378X}, url={http://dx.doi.org/10.1007/s10113-022-01895-2}, DOI={10.1007/s10113-022-01895-2}, number={2}, journal={Regional Environmental Change}, publisher={Springer Science and Business Media LLC}, author={Copes-Gerbitz, Kelsey and Hagerman, Shannon M. and Daniels, Lori D.}, year={2022} }
+
+% verified against Crossref 2026-09-12; DOI 10.1007/s10980-023-01720-z; title: On the limited consensus of mountain pine beetle impacts on wildfire
+@article{romualdi2023mpb, title={On the limited consensus of mountain pine beetle impacts on wildfire}, volume={38}, ISSN={1572-9761}, url={http://dx.doi.org/10.1007/s10980-023-01720-z}, DOI={10.1007/s10980-023-01720-z}, number={9}, journal={Landscape Ecology}, publisher={Springer Science and Business Media LLC}, author={Romualdi, D. C. and Wilkinson, S. L. and James, P. M. A.}, year={2023}, pages={2159–2178} }
+
+% verified against Crossref 2026-09-12; DOI 10.1111/j.1365-2486.2007.01517.x; title: Climatic change and fire potential in South‐Central British Columbia, Canada
+@article{nitschke2008okanagan, title={Climatic change and fire potential in South‐Central {British Columbia}, {Canada}}, volume={14}, ISSN={1365-2486}, url={http://dx.doi.org/10.1111/j.1365-2486.2007.01517.x}, DOI={10.1111/j.1365-2486.2007.01517.x}, number={4}, journal={Global Change Biology}, publisher={Wiley}, author={NITSCHKE, CRAIG R. and INNES, JOHN L.}, year={2007}, pages={841–855} }
+
+% verified against Crossref 2026-09-12; DOI 10.1038/s43247-024-01346-2; title: Record-breaking fire weather in North America in 2021 was initiated by the Pacific northwest heat dome
+@article{jain2024heatdome, title={Record-breaking fire weather in {North America} in 2021 was initiated by the Pacific northwest heat dome}, volume={5}, ISSN={2662-4435}, url={http://dx.doi.org/10.1038/s43247-024-01346-2}, DOI={10.1038/s43247-024-01346-2}, number={1}, journal={Communications Earth &amp; Environment}, publisher={Springer Science and Business Media LLC}, author={Jain, Piyush and Sharma, Aseem Raj and Acuna, Dante Castellanos and Abatzoglou, John T. and Flannigan, Mike}, year={2024} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/cjfr-2021-0353; title: Identifying and analyzing spatial and temporal patterns of lightning-ignited wildfires in Western Canada from 1981 to 2018
+@article{aftergood2022lightning, title={Identifying and analyzing spatial and temporal patterns of lightning-ignited wildfires in {Western Canada} from 1981 to 2018}, volume={52}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/cjfr-2021-0353}, DOI={10.1139/cjfr-2021-0353}, number={11}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Aftergood, Olivia S.R. and Flannigan, Mike D.}, year={2022}, pages={1399–1411} }
+
+% verified against Crossref 2026-09-12; DOI 10.1371/journal.pone.0197218; title: A thirty year, fine-scale, characterization of area burned in Canadian forests shows evidence of regionally increasing trends in the last decade
+@article{coops2018burned, title={A thirty year, fine-scale, characterization of area burned in {Canadian} forests shows evidence of regionally increasing trends in the last decade}, volume={13}, ISSN={1932-6203}, url={http://dx.doi.org/10.1371/journal.pone.0197218}, DOI={10.1371/journal.pone.0197218}, number={5}, journal={PLOS ONE}, publisher={Public Library of Science (PLoS)}, author={Coops, Nicholas C. and Hermosilla, Txomin and Wulder, Michael A. and White, Joanne C. and Bolton, Douglas K.}, editor={Lamb, Eric Gordon}, year={2018}, pages={e0197218} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/2009jcli2909.1; title: A Multiscalar Drought Index Sensitive to Global Warming: The Standardized Precipitation Evapotranspiration Index
+@article{vicenteserrano2010spei, title={A Multiscalar Drought Index Sensitive to Global Warming: The {Standardized Precipitation Evapotranspiration Index}}, volume={23}, ISSN={0894-8755}, url={http://dx.doi.org/10.1175/2009jcli2909.1}, DOI={10.1175/2009jcli2909.1}, number={7}, journal={Journal of Climate}, publisher={American Meteorological Society}, author={Vicente-Serrano, Sergio M. and Beguería, Santiago and López-Moreno, Juan I.}, year={2010}, pages={1696–1718} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/cp-8-89-2012; title: Benchmarking homogenization algorithms for monthly data
+@article{venema2012homogenization, title={Benchmarking homogenization algorithms for monthly data}, volume={8}, ISSN={1814-9332}, url={http://dx.doi.org/10.5194/cp-8-89-2012}, DOI={10.5194/cp-8-89-2012}, number={1}, journal={Climate of the Past}, publisher={Copernicus GmbH}, author={Venema, V. K. C. and Mestre, O. and Aguilar, E. and Auer, I. and Guijarro, J. A. and Domonkos, P. and Vertacnik, G. and Szentimrey, T. and Stepanek, P. and Zahradnicek, P. and Viarre, J. and Müller-Westermeier, G. and Lakatos, M. and Williams, C. N. and Menne, M. J. and Lindau, R. and Rasol, D. and Rustemeier, E. and Kolokythas, K. and Marinova, T. and Andresen, L. and Acquaotta, F. and Fratianni, S. and Cheval, S. and Klancar, M. and Brunetti, M. and Gruber, C. and Prohom Duran, M. and Likso, T. and Esteban, P. and Brandsma, T.}, year={2012}, pages={89–115} }
+
+% verified against Crossref 2026-09-12; DOI 10.1029/2004jd004536; title: Can climate trends be calculated from reanalysis data?
+@article{bengtsson2004reanalysis, title={Can climate trends be calculated from reanalysis data?}, volume={109}, ISSN={0148-0227}, url={http://dx.doi.org/10.1029/2004jd004536}, DOI={10.1029/2004jd004536}, number={D11}, journal={Journal of Geophysical Research: Atmospheres}, publisher={American Geophysical Union (AGU)}, author={Bengtsson, Lennart and Hagemann, Stefan and Hodges, Kevin I.}, year={2004} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/2009bams2858.1; title: Reanalyses Suitable for Characterizing Long-Term Trends
+@article{thorne2010reanalysis, title={Reanalyses Suitable for Characterizing Long-Term Trends}, volume={91}, ISSN={1520-0477}, url={http://dx.doi.org/10.1175/2009bams2858.1}, DOI={10.1175/2009bams2858.1}, number={3}, journal={Bulletin of the American Meteorological Society}, publisher={American Meteorological Society}, author={Thorne, P. W. and Vose, R. S.}, year={2010}, pages={353–362} }
+
+% verified against Crossref 2026-09-12; DOI 10.1029/2012gl051387; title: An intercomparison of temperature trends in the U.S. Historical Climatology Network and recent atmospheric reanalyses
+@article{vose2012ushcn, title={An intercomparison of temperature trends in the {U.S.} {Historical Climatology Network} and recent atmospheric reanalyses}, volume={39}, ISSN={1944-8007}, url={http://dx.doi.org/10.1029/2012gl051387}, DOI={10.1029/2012gl051387}, number={10}, journal={Geophysical Research Letters}, publisher={American Geophysical Union (AGU)}, author={Vose, Russell S. and Applequist, Scott and Menne, Matthew J. and Williams, Claude N. and Thorne, Peter}, year={2012} }
+
+% verified against Crossref 2026-09-12; DOI 10.5558/tfc65450-6; title: The Canadian Forest Fire Danger Rating System: An Overview
+@article{stocks1989overview, title={The {Canadian Forest Fire Danger Rating System}: An Overview}, volume={65}, ISSN={1499-9315}, url={http://dx.doi.org/10.5558/tfc65450-6}, DOI={10.5558/tfc65450-6}, number={6}, journal={The Forestry Chronicle}, publisher={Canadian Institute of Forestry}, author={Stocks, B. J. and Lynham, T. J. and Lawson, B. D. and Alexander, M. E. and Wagner, C. E. Van and McAlpine, R. S. and Dubé, D. E.}, year={1989}, pages={450–457} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf06087; title: Stand-specific litter moisture content calibrations for the Canadian Fine Fuel Moisture Code
+@article{wotton2007standspecific, title={Stand-specific litter moisture content calibrations for the {Canadian} {Fine Fuel Moisture Code}}, volume={16}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf06087}, DOI={10.1071/wf06087}, number={4}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Wotton, B. Mike and Beverly, Jennifer L.}, year={2007}, pages={463–472} }
+
+% verified against Crossref 2026-09-12; DOI 10.1139/x90-046; title: Moisture diffusivity and response time in fine forest fuels
+@article{anderson1990diffusivity, title={Moisture diffusivity and response time in fine forest fuels}, volume={20}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/x90-046}, DOI={10.1139/x90-046}, number={3}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Anderson, Hal E.}, year={1990}, pages={315–325} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf16040; title: Evaluating the applicability of predicting dead fine fuel moisture based on the hourly Fine Fuel Moisture Code in the south-eastern Great Xing’an Mountains of China
+@article{zhang2017hourlyffmc, title={Evaluating the applicability of predicting dead fine fuel moisture based on the hourly {Fine Fuel Moisture Code} in the south-eastern {Great Xing’an Mountains} of {China}}, volume={26}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf16040}, DOI={10.1071/wf16040}, number={2}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Zhang, Jili and Cui, Xiaoyang and Wei, Rui and Huang, Yan and Di, Xueying}, year={2017}, pages={167–175} }
+
+% verified against Crossref 2026-09-12; DOI 10.3390/f15081429; title: The Role of Field Measurements of Fine Dead Fuel Moisture Content in the Canadian Fire Weather Index System—A Study Case in the Central Region of Portugal
+@article{alves2024portugal, title={The Role of Field Measurements of Fine Dead Fuel Moisture Content in the {Canadian {Fire Weather Index} System}—A Study Case in the Central Region of {Portugal}}, volume={15}, ISSN={1999-4907}, url={http://dx.doi.org/10.3390/f15081429}, DOI={10.3390/f15081429}, number={8}, journal={Forests}, publisher={MDPI AG}, author={Alves, Daniela and Almeida, Miguel and Reis, Luís and Raposo, Jorge and Viegas, Domingos Xavier}, year={2024}, pages={1429} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf22112; title: Evaluation of new methods for drought estimation in the Canadian Forest Fire Danger Rating System
+@article{hanes2023drought, title={Evaluation of new methods for drought estimation in the {Canadian Forest Fire Danger Rating System}}, volume={32}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf22112}, DOI={10.1071/wf22112}, number={6}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Hanes, Chelene C. and Wotton, Mike and Bourgeau-Chavez, Laura and Woolford, Douglas G. and Bélair, Stéphane and Martell, David and Flannigan, Mike D.}, year={2023}, pages={836–853} }
+
+% verified against Crossref 2026-09-12; DOI 10.1071/wf14214; title: Characterisation of the fuel and fire environment in southern Ontario’s tallgrass prairie
+@article{kidnie2015grass, title={Characterisation of the fuel and fire environment in southern {Ontario}’s tallgrass prairie}, volume={24}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf14214}, DOI={10.1071/wf14214}, number={8}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Kidnie, Susan and Wotton, B. Mike}, year={2015}, pages={1118–1128} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/waf-d-23-0226.1; title: Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment Using Numerical Weather Prediction
+@article{rodell2024hourly, title={Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment Using Numerical Weather Prediction}, volume={39}, ISSN={1520-0434}, url={http://dx.doi.org/10.1175/waf-d-23-0226.1}, DOI={10.1175/waf-d-23-0226.1}, number={6}, journal={Weather and Forecasting}, publisher={American Meteorological Society}, author={Rodell, Christopher and Howard, Rosie and Jain, Piyush and Moisseeva, Nadya and Chui, Timothy and Stull, Roland}, year={2024}, pages={925–941} }
+
+% verified against Crossref 2026-09-12; DOI 10.1007/s10584-012-0667-2; title: On the projection of future fire danger conditions with various instantaneous/mean-daily data sources
+@article{herrera2013daily, title={On the projection of future fire danger conditions with various instantaneous/mean-daily data sources}, volume={118}, ISSN={1573-1480}, url={http://dx.doi.org/10.1007/s10584-012-0667-2}, DOI={10.1007/s10584-012-0667-2}, number={3-4}, journal={Climatic Change}, publisher={Springer Science and Business Media LLC}, author={Herrera, S. and Bedia, J. and Gutiérrez, J. M. and Fernández, J. and Moreno, J. M.}, year={2013}, pages={827–840} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/nhess-12-699-2012; title: Sensitivity of fire weather index to different reanalysis products in the Iberian Peninsula
+@article{bedia2012reanalysis, title={Sensitivity of fire weather index to different reanalysis products in the {Iberian Peninsula}}, volume={12}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-12-699-2012}, DOI={10.5194/nhess-12-699-2012}, number={3}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Bedia, J. and Herrera, S. and Gutiérrez, J. M. and Zavala, G. and Urbieta, I. R. and Moreno, J. M.}, year={2012}, pages={699–708} }
+
+% verified against Crossref 2026-09-12; DOI 10.5194/nhess-20-1123-2020; title: Evaluation of Global Fire Weather Database reanalysis and short-term forecast products
+@article{field2020gfwed, title={Evaluation of {Global Fire Weather Database} reanalysis and short-term forecast products}, volume={20}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-20-1123-2020}, DOI={10.5194/nhess-20-1123-2020}, number={4}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Field, Robert D.}, year={2020}, pages={1123–1147} }
+
+% verified against Crossref 2026-09-12; DOI 10.1038/s41597-020-0554-z; title: ERA5-based global meteorological wildfire danger maps
+@article{vitolo2020era5, title={{ERA5}-based global meteorological wildfire danger maps}, volume={7}, ISSN={2052-4463}, url={http://dx.doi.org/10.1038/s41597-020-0554-z}, DOI={10.1038/s41597-020-0554-z}, number={1}, journal={Scientific Data}, publisher={Springer Science and Business Media LLC}, author={Vitolo, Claudia and Di Giuseppe, Francesca and Barnard, Christopher and Coughlan, Ruth and San-Miguel-Ayanz, Jesus and Libertá, Giorgio and Krzeminski, Blazej}, year={2020} }
+
+% verified against Crossref 2026-09-12; DOI 10.1002/met.170; title: Index sensitivity analysis applied to the Canadian Forest Fire Weather Index and the McArthur Forest Fire Danger Index
+@article{dowdy2010sensitivity, title={Index sensitivity analysis applied to the {Canadian Forest Fire Weather Index} and the {McArthur Forest Fire Danger Index}: INDEX SENSITIVITY ANALYSIS APPLIED TO THE CANADIAN}, volume={17}, ISSN={1350-4827}, url={http://dx.doi.org/10.1002/met.170}, DOI={10.1002/met.170}, number={3}, journal={Meteorological Applications}, publisher={Wiley}, author={Dowdy, Andrew J. and Mills, Graham A. and Finkele, Klara and de Groot, William}, year={2009}, pages={298–312} }
+
+% verified against Crossref 2026-09-12; DOI 10.22499/2.5801.005; title: A comparison of fire danger rating systems for use in forests
+@article{matthews2009comparison, title={A comparison of fire danger rating systems for use in forests}, volume={58}, ISSN={1836-716X}, url={http://dx.doi.org/10.22499/2.5801.005}, DOI={10.22499/2.5801.005}, number={01}, journal={Australian Meteorological and Oceanographic Journal}, publisher={CSIRO Publishing}, author={Matthews, S}, year={2009}, pages={41–48} }
+
+% verified against Crossref 2026-09-12; DOI 10.1175/jamc-d-24-0043.1; title: Contrasting Trends in Colorado Fire Weather Index from Reanalysis and Observations
+@article{silver2025colorado, title={Contrasting Trends in {Colorado} {Fire Weather Index} from Reanalysis and Observations}, volume={64}, ISSN={1558-8432}, url={http://dx.doi.org/10.1175/jamc-d-24-0043.1}, DOI={10.1175/jamc-d-24-0043.1}, number={2}, journal={Journal of Applied Meteorology and Climatology}, publisher={American Meteorological Society}, author={Silver, Max M. and Lundquist, Julie K.}, year={2025}, pages={197–220} }
+
+
+% Hand-entered government report, no DOI; title, authors and year confirmed against the PDF on 2026-09-12.
+@techreport{filmon2004firestorm,
+  author      = {Filmon, Gary},
+  title       = {{Firestorm} 2003 {Provincial Review}},
+  institution = {Province of British Columbia},
+  address     = {Victoria, British Columbia},
+  year        = {2004},
+  url         = {https://www2.gov.bc.ca/assets/gov/public-safety-and-emergency-services/wildfire-status/governance/bcws_firestormreport_2003.pdf},
+  note        = {Hand-entered, no DOI}
+}
+
+% Hand-entered government report, no DOI; title, authors and year confirmed against the PDF on 2026-09-12.
+@techreport{abbott2018newnormal,
+  author      = {Abbott, George and Chapman, Maureen},
+  title       = {Addressing the {New Normal}: 21st Century Disaster Management in {British Columbia}. Report and findings of the BC Flood and Wildfire Review, an independent review examining the 2017 flood and wildfire seasons},
+  institution = {Province of British Columbia},
+  address     = {Victoria, British Columbia},
+  year        = {2018},
+  url         = {https://www2.gov.bc.ca/assets/gov/public-safety-and-emergency-services/emergency-preparedness-response-recovery/embc/bc-flood-and-wildfire-review-addressing-the-new-normal-21st-century-disaster-management-in-bc-web.pdf},
+  note        = {Hand-entered, no DOI}
+}
+
+% Hand-entered government report, no DOI; title, authors and year confirmed against the PDF on 2026-09-12.
+@techreport{perrakis2018bcfueltypes,
+  author      = {Perrakis, Daniel D. B. and Eade, George and Hicks, Dana},
+  title       = {{British Columbia} Wildfire Fuel Typing and Fuel Type Layer Description},
+  institution = {Natural Resources Canada, Canadian Forest Service, Pacific Forestry Centre},
+  address     = {Victoria, British Columbia},
+  type        = {Information Report},
+  number      = {BC-X-444},
+  year        = {2018},
+  isbn        = {978-0-660-26896-5},
+  note        = {Cat. no. Fo143-2/444E-PDF},
+  url         = {https://publications.gc.ca/collections/collection_2019/rncan-nrcan/Fo143-2-444-eng.pdf}
+}
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2012.04.001; title: Recent climate change: Long-term trends in meteorological forest fire danger in the Alps
+@article{wastl2012climate, title={Recent climate change: Long-term trends in meteorological forest fire danger in the {Alps}}, volume={162-163}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2012.04.001}, DOI={10.1016/j.agrformet.2012.04.001}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Wastl, Clemens and Schunk, Christian and Leuchner, Michael and Pezzatti, Gianni B. and Menzel, Annette}, year={2012}, pages={1–13} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2012.08.011; title: Large-scale weather types, forest fire danger, and wildfire occurrence in the Alps
+@article{wastl2013large, title={Large-scale weather types, forest fire danger, and wildfire occurrence in the {Alps}}, volume={168}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2012.08.011}, DOI={10.1016/j.agrformet.2012.08.011}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Wastl, Clemens and Schunk, Christian and Lüpke, Marvin and Cocca, Giampaolo and Conedera, Marco and Valese, Eva and Menzel, Annette}, year={2013}, pages={15–25} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2014.01.005; title: Fire weather and large fire potential in the northern Sierra Nevada
+@article{collins2014fire, title={Fire weather and large fire potential in the northern {Sierra Nevada}}, volume={189-190}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2014.01.005}, DOI={10.1016/j.agrformet.2014.01.005}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Collins, Brandon M.}, year={2014}, pages={30–35} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2015.09.002; title: Global patterns in the sensitivity of burned area to fire-weather: Implications for climate change
+@article{bedia2015global, title={Global patterns in the sensitivity of burned area to fire-weather: Implications for climate change}, volume={214-215}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2015.09.002}, DOI={10.1016/j.agrformet.2015.09.002}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Bedia, Joaquín and Herrera, Sixto and Gutiérrez, Jose Manuel and Benali, Akli and Brands, Swen and Mota, Bernardo and Moreno, Jose Manuel}, year={2015}, pages={369–379} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2016.12.007; title: Fine fuel moisture for site- and species-specific fire danger assessment in comparison to fire danger indices
+@article{schunk2017fine, title={Fine fuel moisture for site- and species-specific fire danger assessment in comparison to fire danger indices}, volume={234-235}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2016.12.007}, DOI={10.1016/j.agrformet.2016.12.007}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Schunk, Christian and Wastl, Clemens and Leuchner, Michael and Menzel, Annette}, year={2017}, pages={31–47} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2018.07.005; title: Comparisons of fire weather indices using Canadian raw and homogenized weather data
+@article{tsinko2018comparisons, title={Comparisons of fire weather indices using {Canadian} raw and homogenized weather data}, volume={262}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2018.07.005}, DOI={10.1016/j.agrformet.2018.07.005}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Tsinko, Y. and Bakhshaii, A. and Johnson, E.A. and Martin, Y.E.}, year={2018}, pages={110–119} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2018.11.026; title: Dynamic and thermodynamic changes conducive to the increased occurrence of extreme spring fire weather over western Canada under possible anthropogenic climate change
+@article{tan2019dynamic, title={Dynamic and thermodynamic changes conducive to the increased occurrence of extreme spring fire weather over western {Canada} under possible anthropogenic climate change}, volume={265}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2018.11.026}, DOI={10.1016/j.agrformet.2018.11.026}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Tan, Xuezhi and Chen, Shu and Gan, Thian Yew and Liu, Bingjun and Chen, Xiaohong}, year={2019}, pages={269–279} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2019.107789; title: Identifying large fire weather typologies in the Iberian Peninsula
+@article{rodrigues2020identifying, title={Identifying large fire weather typologies in the {Iberian Peninsula}}, volume={280}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2019.107789}, DOI={10.1016/j.agrformet.2019.107789}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Rodrigues, Marcos and Trigo, Ricardo M. and Vega-García, Cristina and Cardil, Adrián}, year={2020}, pages={107789} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2020.107923; title: Recent evolution of spatial and temporal patterns of burnt areas and fire weather risk in the Iberian Peninsula
+@article{calheiros2020evolution, title={Recent evolution of spatial and temporal patterns of burnt areas and fire weather risk in the {Iberian Peninsula}}, volume={287}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2020.107923}, DOI={10.1016/j.agrformet.2020.107923}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Calheiros, T. and Nunes, J.P. and Pereira, M.G.}, year={2020}, pages={107923} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2020.108076; title: Weather-related thresholds for wildfire danger in a Mediterranean region: The case of Greece
+@article{papagiannaki2020weather, title={Weather-related thresholds for wildfire danger in a {Mediterranean} region: The case of {Greece}}, volume={291}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2020.108076}, DOI={10.1016/j.agrformet.2020.108076}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Papagiannaki, K. and Giannaros, T.M. and Lykoudis, S. and Kotroni, V. and Lagouvardos, K.}, year={2020}, pages={108076} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2021.108467; title: Trends and patterns in annually burned forest areas and fire weather across the European boreal zone in the 20th and early 21st centuries
+@article{drobyshev2021trends, title={Trends and patterns in annually burned forest areas and fire weather across the {European} boreal zone in the 20th and early 21st centuries}, volume={306}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2021.108467}, DOI={10.1016/j.agrformet.2021.108467}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Drobyshev, Igor and Ryzhkova, Nina and Eden, Jonathan and Kitenberga, Mara and Pinto, Guilherme and Lindberg, Henrik and Krikken, Folmer and Yermokhin, Maxim and Bergeron, Yves and Kryshen, Alexander}, year={2021}, pages={108467} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2021.108583; title: Observed and estimated consequences of climate change for the fire weather regime in the moist-temperate climate of the Czech Republic
+@article{trnka2021observed, title={Observed and estimated consequences of climate change for the fire weather regime in the moist-temperate climate of the {Czech Republic}}, volume={310}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2021.108583}, DOI={10.1016/j.agrformet.2021.108583}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Trnka, Miroslav and Možný, Martin and Jurečka, František and Balek, Jan and Semerádová, Daniela and Hlavinka, Petr and Štěpánek, Petr and Farda, Aleš and Skalák, Petr and Cienciala, Emil and Čermák, Petr and Chuchma, Filip and Zahradníček, Pavel and Janouš, Dalibor and Fischer, Milan and Žalud, Zdeněk and Brázdil, Rudolf}, year={2021}, pages={108583} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2023.109746; title: Integrating burned area as a complementary performance measure for daily fire danger assessment: A large-scale test
+@article{bekar2023integrating, title={Integrating burned area as a complementary performance measure for daily fire danger assessment: A large-scale test}, volume={342}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2023.109746}, DOI={10.1016/j.agrformet.2023.109746}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Bekar, İsmail and Pezzatti, G. Boris and Conedera, Marco and Vacik, Harald and Pausas, Juli G. and Dupire, Sylvain and Bugmann, Harald}, year={2023}, pages={109746} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2023.109749; title: Changes in European fire weather extremes and related atmospheric drivers
+@article{giannaros2023changes, title={Changes in {European} fire weather extremes and related atmospheric drivers}, volume={342}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2023.109749}, DOI={10.1016/j.agrformet.2023.109749}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Giannaros, Theodore M. and Papavasileiou, Georgios}, year={2023}, pages={109749} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2024.109928; title: On the sensitivity of fire-weather climate projections to empirical fire models
+@article{tory2024sensitivity, title={On the sensitivity of fire-weather climate projections to empirical fire models}, volume={348}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2024.109928}, DOI={10.1016/j.agrformet.2024.109928}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Tory, Kevin J. and Cruz, Miguel G. and Matthews, Stuart and Kilinc, Musa and McCaw, W. Lachlan}, year={2024}, pages={109928} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2025.110507; title: Multifactorial interactions contribute to contrasting wildfire trends at mid–high latitudes of the Northern Hemisphere
+@article{zhao2025multifactorial, title={Multifactorial interactions contribute to contrasting wildfire trends at mid–high latitudes of the {Northern Hemisphere}}, volume={367}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2025.110507}, DOI={10.1016/j.agrformet.2025.110507}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Zhao, Hang and Zhang, Zhengxiang and Zhen, Shuo and Wang, Xin and Yin, Yiwei}, year={2025}, pages={110507} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2025.110688; title: Decreasing frequency of low and moderate fire weather days may be contributing to large wildfire occurrence in the northern Sierra Nevada
+@article{collins2025decreasing, title={Decreasing frequency of low and moderate fire weather days may be contributing to large wildfire occurrence in the northern {Sierra Nevada}}, volume={372}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2025.110688}, DOI={10.1016/j.agrformet.2025.110688}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Collins, Brandon M.}, year={2025}, pages={110688} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2026.111169; title: A satellite-based forest fire weather index for characterizing fire danger variability in the Himalaya
+@article{mamgain2026satellite, title={A satellite-based forest fire weather index for characterizing fire danger variability in the {Himalaya}}, volume={384}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2026.111169}, DOI={10.1016/j.agrformet.2026.111169}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Mamgain, Shailja and Roy, Arijit and Karnatak, Harish Chandra}, year={2026}, pages={111169} }
+
+% verified against Crossref 2026-09-12; DOI 10.1016/j.agrformet.2026.111436; title: Distinct seasonality and trends of natural and anthropogenic wildfires in boreal forests
+@article{gao2026distinct, title={Distinct seasonality and trends of natural and anthropogenic wildfires in boreal forests}, volume={389}, ISSN={0168-1923}, url={http://dx.doi.org/10.1016/j.agrformet.2026.111436}, DOI={10.1016/j.agrformet.2026.111436}, journal={Agricultural and Forest Meteorology}, publisher={Elsevier BV}, author={Gao, Cong and Li, Jinbao and Fang, Keyan and Zhang, Xu and Zhang, Qi and Shi, Chunming}, year={2026}, pages={111436} }

@@ -27,6 +27,28 @@ Layers taken from the BC Data Catalogue, with the object name each came from:
 reads "Not to be used for legal purposes", and it is used here only to locate and count
 ignitions.
 
+## Bibliography keys
+
+Each dataset above is cited in the manuscript under the key given here, so the
+manifest and the bibliography cannot drift. Catalogue titles and owners were read
+from the BC Data Catalogue API on 2026-09-12.
+
+| Dataset | Key |
+|---|---|
+| Freshwater Atlas watershed groups | `geobc2026fwagroups` |
+| Freshwater Atlas lakes | `geobc2026fwalakes` |
+| Freshwater Atlas stream network | `geobc2026fwastreams` |
+| BC Major Watersheds | `geobc2026majorwatersheds` |
+| Water Survey of Canada sub-sub-drainage areas | `wsc2026subsubdrainage` |
+| Municipalities | `bc2026municipalities` |
+| Province outline | `geobc2026province` |
+| BC Wildfire active weather stations | `bcws2026stations` |
+| BC Wildfire fire incident locations, historical | `bcws2026incidents` |
+| BCWS Weather Data Mart | `bcws2026datamart` |
+| AWS Terrain Tiles | `aws2026terraintiles` |
+| NG-CFFDRS reference implementation | `nrcan2026cffdrsng` |
+| CRAN package cffdrs 1.9.2 | `wang2026cffdrspkg` |
+
 ## Derived
 
 Derived products state the script or manuscript chunk that builds them, whether they are

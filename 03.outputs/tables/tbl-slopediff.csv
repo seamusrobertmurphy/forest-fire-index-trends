@@ -5,21 +5,21 @@
 "Version change, input held at 13:00","absolute","Days FFMC >= 91",4,-0.029,0,0
 "Version change, input held at 13:00","absolute","Days FWI >= 19",4,-0.023,0,0
 "Version change, input held at 13:00","absolute","Days FWI >= 30",4,-0.057,0,0
-"Version change, input held at 13:00","relative","Days above own 90th percentile",4,0.033,0,0
-"Version change, input held at 13:00","relative","Days above own 95th percentile",4,0.028,0,0
+"Version change, input held at 13:00","relative","Days above own 90th percentile",4,0.044,0,0
+"Version change, input held at 13:00","relative","Days above own 95th percentile",4,0.031,0,0
 "Input resolution change, version held at FWI2025","level","Mean FWI",4,0.011,0,0
 "Input resolution change, version held at FWI2025","level","Seasonal severity rating",4,0.923,0,0
 "Input resolution change, version held at FWI2025","level","Peak BUI",4,0.247,0,0
 "Input resolution change, version held at FWI2025","absolute","Days FFMC >= 91",4,-0.021,0,0
 "Input resolution change, version held at FWI2025","absolute","Days FWI >= 19",4,-0.062,0,0
 "Input resolution change, version held at FWI2025","absolute","Days FWI >= 30",4,-0.048,0,0
-"Input resolution change, version held at FWI2025","relative","Days above own 90th percentile",4,-0.037,0,0
-"Input resolution change, version held at FWI2025","relative","Days above own 95th percentile",4,-0.031,0,0
+"Input resolution change, version held at FWI2025","relative","Days above own 90th percentile",4,-0.038,0,0
+"Input resolution change, version held at FWI2025","relative","Days above own 95th percentile",4,-0.03,0,0
 "Operational migration, both changes","level","Mean FWI",4,0.005,0,0
 "Operational migration, both changes","level","Seasonal severity rating",4,1.006,0,0
 "Operational migration, both changes","level","Peak BUI",4,0.373,0,0
 "Operational migration, both changes","absolute","Days FFMC >= 91",4,-0.061,0,0
 "Operational migration, both changes","absolute","Days FWI >= 19",4,-0.101,0,0
 "Operational migration, both changes","absolute","Days FWI >= 30",4,-0.105,0,0
-"Operational migration, both changes","relative","Days above own 90th percentile",4,0.02,0,0
-"Operational migration, both changes","relative","Days above own 95th percentile",4,-0.004,0,0
+"Operational migration, both changes","relative","Days above own 90th percentile",4,0.019,0,0
+"Operational migration, both changes","relative","Days above own 95th percentile",4,0.001,0,0
