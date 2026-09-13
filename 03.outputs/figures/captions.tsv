@@ -1,3 +1,5 @@
+fig-coverage	Station reporting by season: each cell is one station-season shaded by the share of hours observed; outlined cells were kept, crossed cells dropped for coverage, blank cells not reporting.
+fig-ignitions	Ignitions by season stacked by reported cause, with the share of incidents dated and the share attributed to a cause below.
 fig-study-area	Study area, ignition record and weather record. Points are the wildfire incidents recorded inside the basin, coloured by reported cause; triangles are the five BC Wildfire Service fire weather stations, which are the entire weather record used here. Coordinate reference system NAD83 / BC Albers, EPSG:3005.
 fig-distributions	Distribution of the daily Fine Fuel Moisture Code and the daily Fire Weather Index over all kept station-days under the three series, with the absolute thresholds marked.
 fig-mechanism	Ten days of the hourly Fine Fuel Moisture Code at Penticton RS in August 2003 under FWI2025 driven by observed hourly weather and by the 13:00 observation alone. Both are the same system on the same days.

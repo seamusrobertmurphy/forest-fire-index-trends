@@ -30,10 +30,7 @@
 ## judgement about the question and not about the arithmetic.
 ## ---------------------------------------------------------------------------
 
-suppressPackageStartupMessages({
-  library(modifiedmk)
-  library(MASS)
-})
+# Packages are loaded once by the manuscript setup chunk (easypackages::packages).
 
 ## Theil-Sen slope with a Mann-Kendall test corrected for serial correlation.
 ##
@@ -41,6 +38,22 @@ suppressPackageStartupMessages({
 ## uncorrected p values, Kendall's tau, and the effective sample size ratio that
 ## the correction used. A series shorter than `min_n` returns NA rather than a
 ## number, because a slope over eight seasons is not an estimate.
+## Moving-block bootstrap indices over an ordered season sequence.
+##
+## Resampling single seasons keeps the pairing between series that share a
+## weather record but discards serial correlation within a series. Blocks of
+## consecutive seasons keep it (Kunsch 1989). Block length is the cube root of
+## the number of seasons, rounded up and at least two, which grows with the
+## record but more slowly than it, as Kunsch's consistency condition requires.
+## Blocks are drawn from the seasons in order of occurrence, so a gap in the
+## record falls inside a block rather than being closed up.
+block_length <- function(n) max(2L, as.integer(ceiling(n^(1/3))))
+block_indices <- function(n, l = block_length(n)) {
+  starts <- sample.int(n - l + 1L, ceiling(n / l), replace = TRUE)
+  idx <- as.vector(vapply(starts, function(s) s:(s + l - 1L), integer(l)))
+  idx[seq_len(n)]
+}
+
 trend_test <- function(year, value, min_n = 15, n_boot = 2000, seed = 20260815) {
   ok <- is.finite(year) & is.finite(value)
   year <- year[ok]; value <- value[ok]
@@ -61,7 +74,7 @@ trend_test <- function(year, value, min_n = 15, n_boot = 2000, seed = 20260815) 
 
   set.seed(seed)
   bs <- vapply(seq_len(n_boot), function(i) {
-    k <- sample.int(n, n, replace = TRUE)
+    k <- block_indices(n)
     theil_sen(year[k], value[k])
   }, numeric(1))
 
@@ -109,16 +122,21 @@ slope_difference <- function(wide, n_boot = 4000, seed = 20260815) {
   sa <- theil_sen(wide$year, wide$a)
   sb <- theil_sen(wide$year, wide$b)
 
+  wide <- wide[order(wide$year), ]
   set.seed(seed)
   d <- vapply(seq_len(n_boot), function(i) {
-    k <- sample.int(n, n, replace = TRUE)
+    k <- block_indices(n)
     theil_sen(wide$year[k], wide$b[k]) - theil_sen(wide$year[k], wide$a[k])
   }, numeric(1))
   d <- d[is.finite(d)]
 
-  ## Two sided bootstrap p value: twice the smaller tail mass on either side of
-  ## zero, floored at the resolution the number of replicates can resolve.
-  p <- 2 * min(mean(d <= 0), mean(d >= 0))
+  ## Two sided bootstrap p value computed under the null hypothesis, following
+  ## the first guideline of Hall and Wilson (1991): the resampled differences
+  ## are centred on the observed difference, and p is the share whose distance
+  ## from it is at least as large as the observed difference is from zero,
+  ## floored at the resolution the number of replicates can resolve.
+  obs <- sb - sa
+  p <- mean(abs(d - obs) >= abs(obs))
   data.frame(
     n = n, slope_a = sa, slope_b = sb, difference = sb - sa,
     lower = unname(quantile(d, 0.025)), upper = unname(quantile(d, 0.975)),
@@ -211,5 +229,65 @@ minimum_detectable_trend <- function(year, value, alpha = 0.05, power = 0.8) {
   ## Theil-Sen is about 93 per cent as efficient as least squares under normal
   ## errors, so the result is divided by that efficiency to stay honest.
   se <- sigma / sqrt(sum((year - mean(year))^2))
-  (qnorm(1 - alpha / 2) + qnorm(power)) * se / 0.93
+  ## Serial correlation inflates the standard error of a trend by
+  ## sqrt((1 + phi) / (1 - phi)) for first-order autoregressive noise with lag-one
+  ## autocorrelation phi (Weatherhead et al. 1998). phi is estimated from the
+  ## residuals in season order and bounded to [0, 0.9], so that a negative sample
+  ## estimate cannot shrink the detectable trend below the independent case.
+  r <- resid[order(year)]
+  phi <- if (length(r) > 2) suppressWarnings(stats::cor(r[-1], r[-length(r)])) else 0
+  phi <- min(max(ifelse(is.finite(phi), phi, 0), 0), 0.9)
+  (qnorm(1 - alpha / 2) + qnorm(power)) * se * sqrt((1 + phi) / (1 - phi)) / 0.93
+}
+
+
+## Percentile exceedance counts with the in-base bootstrap correction of Zhang,
+## Hegerl, Zwiers and Kenyon (2005).
+##
+## A threshold estimated from a fixed base period carries sampling error that
+## biases counts low inside the base period and high outside it, which a trend
+## fitted across the boundary reads as a trend. Zhang et al. removed the jump by
+## estimating the count for each in-base year from thresholds that exclude that
+## year. For each in-base season j, the base sample is rebuilt with season j
+## removed and another base season i duplicated in its place, the threshold is
+## re-estimated, and the count in season j is taken; the count for j is the mean
+## over every i other than j. Out-of-base seasons use the threshold from the whole
+## base period. Zhang et al. estimated calendar-day thresholds; here, as in the
+## uncorrected metric, the threshold is estimated from all days of the season
+## pooled, so the procedure is adapted to a seasonal rather than daily threshold.
+## Quantiles use type 7, the numpy default the uncorrected metric used, and the
+## comparison is strictly greater than, as in the uncorrected metric.
+inbase_corrected_counts <- function(daily, series, probs = c(90, 95),
+                                    reference = c(1991, 2020), min_ref = 500) {
+  col <- paste0(series, "_fwi")
+  out <- list()
+  for (stn in unique(daily$station_name)) {
+    g <- daily[daily$station_name == stn & is.finite(daily[[col]]), c("year", col)]
+    names(g)[2] <- "v"
+    by_year <- split(g$v, g$year)
+    years <- as.integer(names(by_year))
+    base <- years[years >= reference[1] & years <= reference[2]]
+    base_vals <- unlist(by_year[as.character(base)], use.names = FALSE)
+    for (p in probs) {
+      if (length(base_vals) < min_ref) {
+        cnt <- rep(NA_real_, length(years))
+      } else {
+        full <- unname(stats::quantile(base_vals, p / 100, type = 7))
+        cnt <- vapply(years, function(y) {
+          v <- by_year[[as.character(y)]]
+          if (!(y %in% base)) return(sum(v > full))
+          others <- setdiff(base, y)
+          without <- unlist(by_year[as.character(others)], use.names = FALSE)
+          mean(vapply(others, function(i) {
+            thr <- stats::quantile(c(without, by_year[[as.character(i)]]), p / 100,
+                                   type = 7, names = FALSE)
+            sum(v > thr)
+          }, numeric(1)))
+        }, numeric(1))
+      }
+      out[[length(out) + 1]] <- data.frame(station_name = stn, series = series,
+                                           year = years, prob = p, count = cnt)
+    }
+  }
+  do.call(rbind, out)
 }
