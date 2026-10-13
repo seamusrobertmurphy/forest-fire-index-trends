@@ -72,8 +72,7 @@ INDEX.md
 # Claude/agent working files: never committed, never on GitHub.
 # Claude Code local state, except the shared project memory store
 .claude.json
-**/.claude/*
-!**/.claude/memory/
+.claude/
 CLAUDE.local.md
 **/CLAUDE.md
 
