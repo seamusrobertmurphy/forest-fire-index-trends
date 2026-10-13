@@ -16,7 +16,8 @@ levels and failed for tails, in that a Fine Fuel Moisture Code of 91 sat at perc
 against 62 days per season. Of 12 station-metric combinations under absolute
 thresholds, 0 gave a migration slope difference excluding zero, against 0 of
 8 under percentile thresholds, at a resolution of about 16.8 days over the
-window, so the version change was a shift in level rather than in slope. On
+window, which refuted the predicted slope divergence at that resolution, so the
+version change moved the level and left no slope difference the record could resolve. On
 held-out seasons the three series differed by 0.0005 in mean log likelihood per
 day, with FWI1987 on the 13:00 observation ranking first. Fire danger trends should therefore be reported as percentile
 exceedances with the version of the System stated, because a fixed danger class
