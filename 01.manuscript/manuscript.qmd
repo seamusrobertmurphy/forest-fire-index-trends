@@ -1,7 +1,16 @@
 ---
-title: "Version-contingent fire danger trends in the Okanagan basin"
-subtitle: "What the 2025 update to the Canadian Forest Fire Weather Index System does to a trend estimate"
+title: "Fire danger trends across the 2025 update to the Canadian Fire Weather Index System in the Okanagan basin"
 date: today
+keywords:
+  - fire danger
+  - Canadian Forest Fire Weather Index System
+  - FWI2025
+  - hourly weather
+  - fire occurrence
+  - trend detection
+  - Theil-Sen
+  - Okanagan
+  - British Columbia
 author:
   - name: Seamus Murphy
     orcid: 0000-0002-1792-0351
@@ -117,15 +126,15 @@ British Columbia recorded the most severe wildfire seasons of its last century w
 
 Those seasons followed a century in which burning had declined, and the historical record names several triggers for both the decline and the reversal. Tree-ring studies of the province's dry forests reconstructed the regime before suppression. In Douglas-fir and ponderosa pine forests of the southern interior, @heyerdahl2012mixed found a mean plot-composite fire scar interval of 21 years from 1700 to 1900 and a mixed-severity regime at 66 per cent of plots, and in central British Columbia @brookes2021disrupted found that 23 fires between 1619 and 1943 burned at intervals of 10 to 30 years, whereas current fire-free intervals of 70 to 180 years exceed the historical maximum. Drought was the trigger those records share. @chavardes2021drought found that below-average precipitation and summer drought synchronised fires across 14 dry-forest study areas of the Montane Cordillera from 1746 to 1945, and @harvey2017interannual found in west central British Columbia from 1600 to 1900 that drought increasingly synchronised fire from local to regional scales while the El Niño Southern Oscillation, the Pacific Decadal Oscillation and the Pacific North American pattern had a weak or inconsistent influence, except in years when the first two were both positive. People were a second trigger, acting in both directions. At Ne Sextsine in T'exelc territory, @copesgerbitz2022indigenous found that high fire frequency in low-severity plots ceased in the 1870s, following the smallpox epidemic, forced relocation to reserves and the prohibition of Indigenous burning, and @copesgerbitz2022governance traced five eras of provincial fire governance in which government decision-making superseded First Nations fire governance from the 1870s onward. @chavardes2021drought attributed the fall in fire occurrence and synchrony after 1945 to fire exclusion, suppression and climatic variation.
 
-The instrumental record showed the same decline and then its end. @meyn2010spatial found that annual wildfire extent and occurrence across 16 landscape regions of British Columbia fell from 1920 to 2000 and that the fall was significantly related to wetter summers, and @meyn2010oscillations found that year-to-year fire variability in the province's biogeoclimatic zones over the same period was better related to summer drought than to climate oscillations. @parisien2023abrupt, analysing mapped fire perimeters and annual climate from 1919 to 2021, found that fire activity increased from 2005 onward after a century-long decline, as rapid warming raised moisture deficits even where precipitation remained high. Remote sensing and national fire records agree on the direction. @coops2018burned mapped burned area from Landsat for 1985 to 2015 and found a significant increase of 2.4 per cent per year, 709.3 hectares per year, in the Montane Cordillera ecozone, and @hanes2019regime found across Canada from 1959 to 2015 that area burned and the number of large fires had increased, that lightning-caused fires were increasing in most of western Canada while human-caused fires were stable or declining, and that the fire season had begun about one week earlier and ended about one week later. Across boreal forests, @gao2026distinct separated satellite-detected fires from 2002 to 2022 into natural and human causes and found that human-caused fires declined significantly over that period while natural fires were relatively stable. Lightning itself showed no clear trend. @aftergood2022lightning found a non-significant overall decrease in lightning-caused fires across western Canada from 1981 to 2018 and no trend in their clustering in British Columbia, although @wierzchowski2002lightning had shown that lightning is far more effective at igniting fire in British Columbia, with one fire for every 50 discharges against one for every 1,400 in Alberta. The provincial reviews and syntheses gave more weight to fuel and insects than the statistical studies could test. The review of the 2003 season held that "a successful record of fire suppression has led to a fuel buildup in the forests of British Columbia" [@filmon2004firestorm, p. 6], the review of 2017 found that the mountain pine beetle "was in many ways at the heart of 2017 wildfires" [@abbott2018newnormal, p. 11], and @daniels2011climate argued from the East Kootenay that the effects of climate change on fire may be exacerbated by land use, fire exclusion and beetle outbreaks. Against those views, @hessburg2019resilience concluded that in British Columbia "burned area is primarily controlled by annual to decadal climate and fire weather; fuels are typically not limiting" [@hessburg2019resilience, p. 7], and @romualdi2023mpb, in a meta-analysis of studies published from 2000 to 2021, found limited consensus on whether beetle outbreaks amplified or dampened later fire, with the answer depending on spatial scale, fuels and weather.
+The instrumental record showed the same decline and then its end. @meyn2010spatial found that annual wildfire extent and occurrence in British Columbia fell from 1920 to 2000, province-wide and in 11 of the 16 biogeoclimatic zones for occurrence and 10 for extent, and that the fall was significantly related to wetter summers, and @meyn2010oscillations found that year-to-year fire variability in the province's biogeoclimatic zones over the same period was better related to summer drought than to climate oscillations. @parisien2023abrupt, analysing mapped fire perimeters and annual climate from 1919 to 2021, found that fire activity increased from 2005 onward after a century-long decline, as rapid warming raised moisture deficits even where precipitation remained high. Remote sensing and national fire records agree on the direction. @coops2018burned mapped burned area from Landsat for 1985 to 2015 and found a significant increase of 2.4 per cent per year, 709.3 hectares per year, in the Montane Cordillera ecozone, and @hanes2019regime found across Canada from 1959 to 2015 that area burned and the number of large fires had increased, that lightning-caused fires were increasing in most of western Canada while human-caused fires were stable or declining, and that the fire season had begun about one week earlier and ended about one week later. Across boreal forests, @gao2026distinct separated satellite-detected fires from 2002 to 2022 into natural and human causes and found that human-caused fires declined significantly over that period while natural fires were relatively stable. Lightning itself showed no clear trend. @aftergood2022lightning found a non-significant overall decrease in lightning-caused fires across western Canada from 1981 to 2018 and no trend in their clustering in British Columbia, although @wierzchowski2002lightning had shown that lightning is far more effective at igniting fire in British Columbia, with one fire for every 50 discharges against one for every 1,400 in Alberta. The provincial reviews and syntheses gave more weight to fuel and insects than the statistical studies could test. The review of the 2003 season held that "a successful record of fire suppression has led to a fuel buildup in the forests of British Columbia" [@filmon2004firestorm, p. 6], the review of 2017 found that the mountain pine beetle "was in many ways at the heart of 2017 wildfires" [@abbott2018newnormal, p. 11], and @daniels2011climate argued from the East Kootenay that the effects of climate change on fire may be exacerbated by land use, fire exclusion and beetle outbreaks. Against those views, @hessburg2019resilience concluded that in British Columbia "burned area is primarily controlled by annual to decadal climate and fire weather; fuels are typically not limiting" [@hessburg2019resilience, p. 7], and @romualdi2023mpb, in a meta-analysis of studies published from 2000 to 2021, found limited consensus on whether beetle outbreaks amplified or dampened later fire, with the answer depending on spatial scale, fuels and weather.
 
 Where those studies rated fire danger rather than fire, they rated it with the Canadian Forest Fire Weather Index System, specified by @vanwagner1987fwi, implemented from the FORTRAN listing of @vanwagner1985fortran, and used operationally throughout Canada since 1970 [@cffdg2025fwi2025, p. 3]. @girardin2009summer approximated its Drought Code from monthly data for 1901 to 2002 and found that summer moisture explained 63 per cent of the variance in Canada-wide annual area burned from 1959 to 1999. @woolford2014lightning found significant increases in lightning-caused fire risk from 1963 to 2009 in two ecoregions of northwestern Ontario, associated with temperature and fire danger rating index anomalies. @jain2017seasonlength computed the System from the North American Regional Reanalysis for 1979 to 2015 and found that potential fire season length increased over large areas of North America and that trends in spread days and in the 99th percentile of the Fire Weather Index were mostly positive where significant. @jolly2015global, using three reanalyses and three danger indices, found that fire weather seasons lengthened across 25.3 per cent of the Earth's vegetated surface from 1979 to 2013. Station records in Europe and California, computed with the Fire Weather Index or with other danger indices, showed the same direction. @wastl2012climate computed the Fire Weather Index and other danger indices from daily observations at 25 stations in six Alpine countries from 1951 to 2010 and found significant increases in the Western and Southern Alps, together with more days above a predefined threshold, but only a weak increase in the Northern Alps and no clear signal in the inner Alpine valleys. @collins2014fire found fairly strong upward trends in high to extreme fire weather over 40 years at five stations in the northern Sierra Nevada, particularly after the mid-1990s, and @collins2025decreasing, returning to that region, found that fire season days below the 80th and 50th percentiles of the Energy Release Component had declined from the late 1990s and early 2000s. @trnka2021observed found an increasing frequency of fire weather days over most of the Czech Republic from 1956 to 2015, with the trends accelerating after 2000, @giannaros2023changes found that extreme fire weather days in Europe had become more frequent, with change-points in the Mediterranean around the late 1990s and the mid-2000s, and @drobyshev2021trends found a trend towards higher Monthly Drought Code values in April and May in the western and northern European boreal zone over 1901 to 2017. Most of those trends were counts of days beyond a threshold, whether a fixed index value, as in @wastl2012climate, or a percentile, as in @collins2025decreasing and in the 95th percentile of the Daily Severity Rating that @calheiros2020evolution used to define extreme fire weather days on the Iberian Peninsula. For the Okanagan itself, @nitschke2008okanagan used the Canadian Forest Fire Danger Rating System under several climate scenarios to project a 30 per cent longer fire season and a 95 per cent increase in summer fire weather severity in the North Okanagan by 2070, and @haughian2012climate expected the southern interior to "experience the most significant increases in fire indices" [@haughian2012climate, p. 6] of any part of the province. Every one of those studies predates the 2025 update, so the Canadian fire danger trends they report, observed or projected, are statements about the 1987 System.
 
-The same studies show that how the System is computed changes what it reports. @jain2017seasonlength truncated their Canadian series because the reanalysis ceased to assimilate Canadian precipitation observations after 2002, and @venalainen2014europe computed European Fire Weather Index trends separately for the ERA-40 and ERA-Interim reanalyses, finding no obvious trend for 1960 to 1999 and a significant increase in southern and eastern Europe for 1980 to 2012. The input approximation matters as much as the input source. On the Iberian Peninsula, @herrera2013daily found that computing the Fire Weather Index from daily mean rather than 12 UTC instantaneous weather gave an Initial Spread Index about half as large and missed 45 per cent of the extreme days in the instantaneous series, and @bedia2012reanalysis found that three reanalyses all tended to underestimate the index computed at seven Spanish weather stations. At global scale, @field2020gfwed found that components computed from the MERRA-2 reanalysis were in general biased low against station data, and @vitolo2020era5 found that the ERA5 fire danger reanalysis showed higher biases "in mountainous areas" [@vitolo2020era5, p. 6]. In the mountains of Colorado, @silver2025colorado found no significant trend in the Hot-Dry-Windy Index in 22 years of tower observations, whereas the ERA5 reanalysis showed strong increasing trends across the state. The start of the calculation matters as well, since @mcelhinny2020era5 showed that overwintering the Drought Code rather than restarting it at 15 changed the number and distribution of fire spread days. The nearest designs to a version comparison compared different indices or different hours on one record. @matthews2009comparison found that three fire danger systems with similar structures gave "widely varying assessments of fire danger for a given set of inputs" [@matthews2009comparison, p. 41], and that on thirteen years of station data from Camden, New South Wales, the differences partly cancelled when each system used its own observation time and moisture sub-models, @dowdy2010sensitivity found on eight years of gridded Australian data that the McArthur Forest Fire Danger Index was less sensitive to wind and rain and more sensitive to temperature and humidity than the Fire Weather Index, and @rodell2024hourly compared an hourly Fire Weather Index with the standard daily index on the same numerical weather forecast for western North America and found that hourly values at noon were biased low because "standard noon local time usually does not coincide with the timing of peak fire behavior" [@rodell2024hourly, p. 931]. None of those studies compared the trend of one index under two versions of its own calculation.
+The same studies show that how the System is computed changes what it reports. @jain2017seasonlength truncated their Canadian series because the reanalysis ceased to assimilate Canadian precipitation observations after 2002, and @venalainen2014europe computed European Fire Weather Index trends separately for the ERA-40 and ERA-Interim reanalyses, finding no obvious trend for 1960 to 1999 and a significant increase in southern and eastern Europe for 1980 to 2012. The input approximation matters as much as the input source. On the Iberian Peninsula, @herrera2013daily found that computing the Fire Weather Index from daily mean rather than 12 UTC instantaneous weather gave an Initial Spread Index about half as large and missed 45 per cent of the extreme days in the instantaneous series, and @bedia2012reanalysis found that three reanalyses all tended to underestimate the index computed at seven Spanish weather stations. At global scale, @field2020gfwed found that components computed from the MERRA-2 reanalysis were in general biased low against station data, and @vitolo2020era5 found that the ERA5 fire danger reanalysis showed higher biases "in mountainous areas" [@vitolo2020era5, p. 6]. In the mountains of Colorado, @silver2025colorado found no significant trend in the Hot-Dry-Windy Index in 22 years of tower observations, whereas the ERA5 reanalysis showed strong increasing trends across the state. The start of the calculation matters as well, since @mcelhinny2020era5 showed that overwintering the Drought Code rather than restarting it at 15 changed the number and distribution of fire spread days. The nearest designs to a version comparison compared different indices or different hours on one record. @matthews2009comparison found that three fire danger systems with similar structures gave "widely varying assessments of fire danger for a given set of inputs" [@matthews2009comparison, p. 41], and that on thirteen years of station data from Camden, New South Wales, the differences partly cancelled when each system used its own observation time and moisture sub-models, @dowdy2010sensitivity found on eight years of gridded Australian data that the McArthur Forest Fire Danger Index was less sensitive to wind and rain and more sensitive to temperature and humidity than the Fire Weather Index, and @rodell2024hourly compared an hourly Fire Weather Index with the standard daily index on the same numerical weather forecast for western North America and found that hourly values at noon were biased low because "standard noon local time usually does not coincide with the timing of peak fire behavior" [@rodell2024hourly, p. 931]. @luo2026weakened, driving a model of hourly burning with hourly reanalysis, estimated that "annual potential burning hours were estimated to rise 36% over 1975–2024" across North America, by 4 to 5 hours a year over most of the burnable area of British Columbia, Alberta and Yukon, a quantity a once-daily index cannot report. None of those studies compared the trend of one index under two versions of its own calculation. @matteo2025challenges came nearest, computing the 1980 to 2023 global trend in days above the 95th percentile of the Fire Weather Index from noon weather and from four daily aggregate approximations and finding that "all combinations overestimate the trend, ranging from 2.86 to 3.06 days per decade" against 2.65 from noon weather, so the input alone moved the slope, by about a tenth.
 
-Climate science has faced the same problem in other records and treats it as a question of homogeneity. @vose2012ushcn found that a change from afternoon to morning observation at about 20 per cent of the United States Historical Climatology Network stations imposed an artificial decrease of 0.20 °C on the national temperature trend, and @bengtsson2004reanalysis found that the ERA-40 warming trend of 0.14 K per decade for 1958 to 2001 fell to 0.10 K per decade once changes in the observing system were accounted for. @thorne2010reanalysis argued that reanalyses carried time-varying biases that at best reduce their utility for long-term trend monitoring, @venema2012homogenization benchmarked the algorithms used to remove such breaks from station networks, and @santer2000trenddiff showed that testing the trend in the difference between two temperature data sets found significant trend differences in about 30 per cent of pairs, mainly from differences in measurement system. @tsinko2018comparisons found the same problem in the Fire Weather Index itself, in that computing the System from raw and homogenised weather at 16 Canadian stations showed that homogenising the 66-year records lowered index values by about 0.7 to 8.4 per cent and reversed the long-term trend at some stations, among them Kapuskasing. The formulation of an index moves its trend in the same way. @vicenteserrano2010spei found that under imposed warming only the drought indices that included evapotranspiration showed an increase in drought severity, @tory2024sensitivity found that the temperature and humidity functions inside 16 fire danger and fire spread models turned three hypothetical climate change scenarios into projections ranging from minimal change to an increase of more than 50 per cent, with non-trivial differences even between models designed for similar fuels, and @dunn2022reference found that changing the reference period of a percentile index changed trends computed from the same data over the same years by 25 to 50 per cent. Percentile indices carry a further inhomogeneity of their own, since @zhang2005percentile showed that counts above a threshold set from a base period are biased at its boundaries and can show a trend in data that have none.
+Climate science has faced the same problem in other records and treats it as a question of homogeneity. @vose2012ushcn found that a change from afternoon to morning observation at about 20 per cent of the United States Historical Climatology Network stations imposed an artificial decrease of 0.20 °C on the national temperature trend, and @bengtsson2004reanalysis found that the ERA-40 warming trend of 0.14 K per decade for 1958 to 2001 fell to 0.10 K per decade once changes in the observing system were accounted for. @thorne2010reanalysis argued that reanalyses carried time-varying biases that at best reduce their utility for long-term trend monitoring, @venema2012homogenization benchmarked the algorithms used to remove such breaks from station networks, and @santer2000trenddiff showed that testing the trend in the difference between two temperature data sets found significant trend differences in about 30 per cent of pairs, mainly from differences in measurement system. @tsinko2018comparisons found the same problem in the Fire Weather Index itself, in that computing the System from raw and homogenised weather at 16 Canadian stations showed that homogenising the 66-year records lowered index values by about 0.7 to 8.4 per cent and reversed the long-term trend at some stations, among them Kapuskasing. The thesis behind that paper found that homogenising the records changed the significance of a linear trend in the 90th percentile of the codes at up to half of the stations [@tsinko2016thesis], and @wan2010homogenization found that raw and homogenised wind trends at Canadian stations in the western mountains were "often of the opposite signs". The formulation of an index moves its trend in the same way. @vicenteserrano2010spei found that under imposed warming only the drought indices that included evapotranspiration showed an increase in drought severity, @tory2024sensitivity found that the temperature and humidity functions inside 16 fire danger and fire spread models turned three hypothetical climate change scenarios into projections ranging from minimal change to an increase of more than 50 per cent, with non-trivial differences even between models designed for similar fuels, and @dunn2022reference found that changing the reference period of a percentile index changed trends computed from the same data over the same years by 25 to 50 per cent. Percentile indices carry a further inhomogeneity of their own, since @zhang2005percentile showed that counts above a threshold set from a base period are biased at its boundaries and can show a trend in data that have none.
 
-In 2025 the Canadian Forest Service Fire Danger Group replaced the 1987 System. The successor, which that report labelled FWI2025 to keep it distinct from FWI1987 [@cffdg2025fwi2025], was not a recalibration. The first of the key updates its executive summary listed was "Using hourly weather to better reflect maximum burning conditions" [@cffdg2025fwi2025, p. 2], and section 4.1.1 stated that "the time lag function used in the FWI2025 for the FFMC has been cut in half" [@cffdg2025fwi2025, p. 19]. The System now runs on an hourly stream, takes latitude, longitude and date so that daylight length enters the moisture calculation, and adopted the Initial Spread Index of the Fire Behaviour Prediction System [@fcfdg1992fbp] in place of the original.
+In 2025 the Canadian Forest Service Fire Danger Group replaced the 1987 System. The successor, which that report labelled FWI2025 to keep it distinct from FWI1987 [@cffdg2025fwi2025], was not a recalibration. The first of the key updates its executive summary listed was "Using hourly weather to better reflect maximum burning conditions" [@cffdg2025fwi2025, p. 2], and section 4.1.1 stated that "the time lag function used in the FWI2025 for the FFMC has been cut in half" [@cffdg2025fwi2025, p. 19]. The System now runs on an hourly stream, takes latitude, longitude and date so that daylight length enters the moisture calculation, and adopted the Initial Spread Index of the Fire Behaviour Prediction System [@fcfdg1992fbp] in place of the original. By February 2026 the Canadian Forest Service had asked agencies to "implement FWI2025 in parallel with FWI1987 to take advantage of its new capabilities and help us with ongoing testing", and stated that "Work is ongoing to quantify the differences between FWI2025 and FWI1987 in relation to the effect on fire behaviour" [@nrcan2026cffdrsng]. No published study had compared the two on an observed record, and the only English-language work citing the update by October 2026 used it as a destination for a new peatland code [@wilkinson2026daily].
 
 Alongside those changes the report made a claim of continuity. Section 4.1 said that "an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025", and that deviations "should reflect meaningful differences in fuel moisture content" [@cffdg2025fwi2025, p. 18]. Read as written the claim was about levels, and it was plausible, because the update was designed so that a number on the old scale means roughly what it used to mean.
 
@@ -138,7 +147,7 @@ This study separated them. Three danger series were computed from one hourly wea
 | Metric family | Expected direction | Basis |
 |---|---|---|
 | Mean Fire Weather Index and seasonal severity rating | Positive trend in all three series; small difference in level between versions | Rising moisture deficits after 2005 [@parisien2023abrupt]; comparability of levels claimed in section 4.1 of @cffdg2025fwi2025 |
-| Days above absolute thresholds, FFMC 91, FWI 19 and FWI 30 | Positive trend; steeper under FWI2025 than FWI1987; input resolution also moves the count | Halved Fine Fuel Moisture Code time lag [@cffdg2025fwi2025]; extreme days sensitive to how the input weather is summarised [@herrera2013daily; @rodell2024hourly] |
+| Days above absolute thresholds, FFMC 91, FWI 19 and FWI 30 | Positive trend; steeper under FWI2025 than FWI1987; input resolution also moves the count | Halved Fine Fuel Moisture Code time lag [@cffdg2025fwi2025]; extreme days sensitive to how the input weather is summarised [@herrera2013daily; @rodell2024hourly], and the trend in them moved by 0.22 to 0.39 days per decade when daily aggregates replaced noon weather [@matteo2025challenges] |
 | Days above each series' own 90th and 95th percentiles | Positive trend; little difference between series; bias outside the base period | Percentile thresholds move with the series [@zhang2011indices]; base-period inhomogeneity [@zhang2005percentile; @dunn2022reference] |
 | Daily lightning, person-caused and all-cause ignitions | Positive association with daily danger; weaker for lightning without strike data | Daily fire occurrence in British Columbia [@magnussen2012bc]; strike data in lightning occurrence models [@wotton2005lightning] |
 
@@ -146,7 +155,7 @@ This study separated them. Three danger series were computed from one hourly wea
 
 Three questions were asked. The first asked what the `r yr_first` to `r yr_last` trend in seasonal fire danger in the Okanagan basin was under each series, estimated identically. The second asked whether the three series gave different trends, and if so whether the difference lay in the version or in the input resolution. The prediction under test was specific and had two ways to fail. Under thresholds fixed in absolute index units, the faster-drying FWI2025 should widen the upper tail and produce a steeper positive slope in extreme-day counts than FWI1987, whereas under thresholds set as percentiles internal to each series over a common reference period that difference should largely vanish, because a percentile threshold moves with the series it is computed from. Divergence under both schemes, or under neither, would refute the mechanism rather than support it. The third asked whether any of the three predicted daily ignition counts better than the others, and whether the relationship between danger and ignition was stationary across the record.
 
-The Okanagan basin was a suitable place to ask. It is a populated, fire-prone valley in the southern interior of British Columbia, the part of the province @haughian2012climate expected to see the largest increases in fire indices, with a long instrumented fire weather record, and its terrain is steep enough that a station record is preferable to a reanalysis whose fire danger biases are largest in mountainous areas [@vitolo2020era5]. The study detected change and did not attribute it, in that nothing here separated a change in fire danger from its causes, and no claim about anthropogenic forcing was made or implied.
+The Okanagan basin was a suitable place to ask. It is a populated, fire-prone valley in the southern interior of British Columbia, the part of the province @haughian2012climate expected to see the largest increases in fire indices, with a long instrumented fire weather record, and its terrain is steep enough that a station record is preferable to a reanalysis whose fire danger biases are largest in mountainous areas [@vitolo2020era5]. The only station trend test published for the basin found no significant change in seasonal temperature or precipitation at Penticton Airport and Upper Penticton Creek over 1984 to 2016 [@spittlehouse2022interaction]. The study detected change and did not attribute it, in that nothing here separated a change in fire danger from its causes, and no claim about anthropogenic forcing was made or implied.
 
 The paper is organised as follows. @sec-data describes the basin, the two versions of the System, the hourly weather record and the ignition record. @sec-methods sets out the three-series design, the index computation and its checks, the seasonal metrics and thresholds, and the trend, slope-difference and ignition models. @sec-results reports the implementation checks, the position of each threshold in each series, the mechanism, the trends, the slope differences and the ignition skill. @sec-discussion interprets the opposing directions of the two changes and states what the record can and cannot resolve, and @sec-conclusions closes.
 
@@ -469,6 +478,324 @@ The design responded to both rather than caveating them. The ignition models bel
 
 # Methods {#sec-methods}
 
+```{r}
+#| label: review-terms
+#| echo: true
+#| output: false
+# Search terms come only from the manuscript's own title and keywords, so a reader
+# can trace every term to the front matter. Candidates are written once; the
+# selection is typed into the file and never overwritten by a render.
+if (!file.exists("../04.references/review/search-terms.csv")) {
+  front <- rmarkdown::yaml_front_matter(knitr::current_input())
+  small <- c("a", "an", "and", "as", "at", "by", "do", "does", "for", "from", "how", "in", "into", "is", "its", "of", "on", "or", "the", "to", "under", "using", "versus", "what", "why", "with")
+  phrases <- \(x) x |>
+    stringr::str_to_lower() |>
+    stringr::str_remove_all("[*_]") |>
+    stringr::str_replace_all("[^[:alnum:][:space:]-]", " | ") |>
+    stringr::str_replace_all(paste0("\\b(", paste(small, collapse = "|"), ")\\b"), " | ") |>
+    stringr::str_split_1("\\|") |>
+    stringr::str_squish() |>
+    purrr::keep(\(p) nchar(p) > 2)
+  dir.create("../04.references/review", recursive = TRUE, showWarnings = FALSE)
+  dplyr::bind_rows(
+    tibble::tibble(term = stringr::str_squish(stringr::str_to_lower(unlist(stringr::str_split(unlist(front$keywords), "[;,]")))), source = "keywords"),
+    tibble::tibble(term = phrases(front$title), source = "title"),
+    tibble::tibble(term = phrases(front$subtitle %||% ""), source = "subtitle")
+  ) |>
+    dplyr::distinct(term, .keep_all = TRUE) |>
+    dplyr::mutate(question = NA, concept = NA) |>
+    readr::write_csv("../04.references/review/search-terms.csv", na = "")
+}
+```
+
+```{r}
+#| label: review-queries
+#| echo: true
+#| output: false
+front <- rmarkdown::yaml_front_matter(knitr::current_input())
+declared <- paste(front$title, front$subtitle, paste(unlist(front$keywords), collapse = " ")) |>
+  stringr::str_remove_all("[*_]") |>
+  stringr::str_to_lower()
+term_regex <- \(x) if (stringr::str_ends(x, "\\*")) paste0("\\b", stringr::str_escape(stringr::str_remove(x, "\\*$"))) else paste0("\\b", stringr::str_escape(x), "\\b")
+terms <- readr::read_csv("../04.references/review/search-terms.csv", col_types = readr::cols(.default = "c")) |>
+  dplyr::filter(!is.na(question), !is.na(concept)) |>
+  dplyr::mutate(term = stringr::str_to_lower(term)) |>
+  tidyr::separate_longer_delim(question, " ")
+stray <- terms$term[!purrr::map_lgl(terms$term, \(x) stringr::str_detect(declared, term_regex(x)))]
+if (nrow(terms) == 0) stop("No search terms selected in 04.references/review/search-terms.csv")
+if (length(stray) > 0) stop("Not in the title, subtitle or keywords: ", paste(unique(stray), collapse = ", "))
+queries <- terms |>
+  dplyr::summarise(.by = c(question, concept), group = paste(term, collapse = "|")) |>
+  dplyr::summarise(.by = question, route = paste(c(dplyr::first(question), concept), collapse = "-"), concepts = paste(group, collapse = " AND "))
+# One boolean string per query for the external indexes. A term ending in * is a
+# stem; the external indexes stem on their own, so the star is dropped there.
+boolean_query <- function(concepts, or = " OR ", and = " AND ") {
+  stringr::str_split_1(concepts, " AND ") |>
+    purrr::map_chr(\(g) paste0("(", paste(purrr::map_chr(stringr::str_split_1(g, "\\|"), \(x) {
+      x <- stringr::str_remove(x, "\\*$")
+      if (grepl(" ", x)) paste0('"', x, '"') else x
+    }), collapse = or), ")")) |>
+    paste(collapse = and)
+}
+```
+
+```{r}
+#| label: review-store
+#| echo: true
+#| output: false
+if (!file.exists("../02.inputs/derived/review-store-hits.csv")) {
+  # library-science manifest, https://github.com/seamusrobertmurphy/library-science/blob/main/library/manifest.csv
+  manifest <- readr::read_csv("../../library-science/library/manifest.csv", show_col_types = FALSE)
+  # library-science source notes, https://github.com/seamusrobertmurphy/library-science/tree/main/sources
+  notes <- tibble::tibble(path = list.files("../../library-science/sources", "\\.md$", full.names = TRUE)) |>
+    dplyr::mutate(key = tools::file_path_sans_ext(basename(path)), note = purrr::map_chr(path, \(p) paste(readLines(p, warn = FALSE), collapse = " ")))
+  store <- manifest |>
+    dplyr::filter(status %in% c("verified", "filed", "unverified"), !is.na(title) | !is.na(key)) |>
+    dplyr::left_join(dplyr::select(notes, key, note), by = "key") |>
+    dplyr::mutate(text = stringr::str_to_lower(paste(title, note)))
+  hits <- queries |>
+    purrr::pmap(\(question, route, concepts) {
+      groups <- stringr::str_split_1(concepts, " AND ")
+      term <- \(x) if (stringr::str_ends(x, "\\*")) paste0(stringr::str_remove(x, "\\*$"), "\\w*") else paste0(x, "\\b")
+      patterns <- purrr::map_chr(groups, \(g) paste0("\\b(", paste(purrr::map_chr(stringr::str_split_1(g, "\\|"), term), collapse = "|"), ")"))
+      keep <- purrr::map(patterns, \(r) stringr::str_detect(store$text, r)) |> purrr::reduce(`&`)
+      store[keep, ] |> dplyr::transmute(question, route = paste0("store-", route), key, doi, title, year, venue = container, source_note = dplyr::if_else(has_source_note == "yes", key, NA))
+    }) |>
+    purrr::list_rbind()
+  readr::write_csv(hits, "../02.inputs/derived/review-store-hits.csv")
+  queries |>
+    dplyr::transmute(strand = "library-science", route = paste0("store-", route), query = concepts, date = as.character(Sys.Date())) |>
+    dplyr::left_join(dplyr::count(hits, route, name = "retrieved"), by = "route") |>
+    dplyr::mutate(retrieved = tidyr::replace_na(retrieved, 0L), reported_total = retrieved, cap = NA, capped = FALSE, error = NA) |>
+    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+}
+```
+
+```{r}
+#| label: review-openalex
+#| echo: true
+#| output: false
+# OpenAlex searches titles and abstracts. Abstracts are publisher text and are
+# written only under 02.inputs/searches, which is not committed; the committed
+# hits file carries bibliographic fields alone.
+if (!file.exists("../02.inputs/derived/review-openalex-hits.csv")) {
+  abstract_text <- function(inv) {
+    if (is.null(inv)) return(NA_character_)
+    pos <- unlist(inv, use.names = FALSE)
+    words <- rep(names(inv), lengths(inv))
+    paste(words[order(pos)], collapse = " ")
+  }
+  search_oa <- function(question, route, concepts, cap = 3000) {
+    query <- boolean_query(concepts)
+    works <- list(); cursor <- "*"; total <- NA; err <- NA
+    repeat {
+      # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works/search-works
+      resp <- httr2::request("https://api.openalex.org/works") |>
+        httr2::req_url_query(filter = paste0("title_and_abstract.search:", query, ",from_publication_date:1987-01-01"),
+                             select = "id,doi,title,publication_year,primary_location,type,cited_by_count,abstract_inverted_index",
+                             `per-page` = 200, cursor = cursor, mailto = "seamusrobertmurphy@gmail.com") |>
+        httr2::req_retry(max_tries = 6) |>
+        httr2::req_error(is_error = \(r) FALSE) |>
+        httr2::req_perform()
+      if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
+      body <- httr2::resp_body_json(resp)
+      total <- body$meta$count; cursor <- body$meta$next_cursor
+      works <- c(works, body$results)
+      if (is.null(cursor) || length(body$results) == 0 || length(works) >= cap) break
+    }
+    rows <- works |>
+      purrr::map(\(w) tibble::tibble(
+        openalex = w$id %||% NA_character_,
+        doi = stringr::str_remove(w$doi %||% NA_character_, "^https://doi.org/"),
+        title = w$title %||% NA_character_, year = w$publication_year %||% NA_integer_,
+        venue = w$primary_location$source$display_name %||% NA_character_,
+        type = w$type %||% NA_character_, citations = w$cited_by_count %||% NA_integer_,
+        abstract = abstract_text(w$abstract_inverted_index))) |>
+      purrr::list_rbind()
+    list(hits = dplyr::mutate(rows, question, route = paste0("openalex-", route), .before = 1),
+         log = tibble::tibble(strand = "openalex", route = paste0("openalex-", route), query, date = as.character(Sys.Date()),
+                              retrieved = nrow(rows), reported_total = total, cap, capped = isTRUE(total > cap), error = err))
+  }
+  runs <- purrr::pmap(queries, search_oa)
+  oa <- purrr::map(runs, "hits") |> purrr::list_rbind()
+  dir.create("../02.inputs/searches", showWarnings = FALSE)
+  readr::write_csv(oa, "../02.inputs/searches/review-openalex-records.csv")
+  readr::write_csv(dplyr::select(oa, -abstract), "../02.inputs/derived/review-openalex-hits.csv")
+  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
+    dplyr::bind_rows(purrr::map(runs, "log") |> purrr::list_rbind() |> dplyr::mutate(dplyr::across(dplyr::everything(), as.character))) |>
+    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+}
+```
+
+```{r}
+#| label: review-ads
+#| echo: true
+#| output: false
+# NASA ADS searches abstracts with a personal token read from outside the
+# repository. The token "trend" is a stopword in ADS, so any query carrying it
+# is run without that concept and logged as such.
+if (!file.exists("../02.inputs/derived/review-ads-hits.csv")) {
+  token_file <- path.expand("~/.ads/dev_key")
+  search_ads <- function(question, route, concepts, cap = 2000) {
+    groups <- stringr::str_split_1(concepts, " AND ")
+    dropped <- groups[stringr::str_detect(groups, "^trend")]
+    groups <- groups[!stringr::str_detect(groups, "^trend")]
+    query <- paste0("abs:", boolean_query(paste(groups, collapse = " AND ")), " year:1987-")
+    rows <- tibble::tibble(); total <- NA; err <- NA; start <- 0
+    if (!file.exists(token_file)) err <- "no token" else repeat {
+      # NASA ADS search API, https://ui.adsabs.harvard.edu/help/api/api-docs.html
+      resp <- httr2::request("https://api.adsabs.harvard.edu/v1/search/query") |>
+        httr2::req_headers(Authorization = paste("Bearer", readLines(token_file, warn = FALSE)[1])) |>
+        httr2::req_url_query(q = query, fl = "bibcode,title,year,pub,doi,doctype,abstract", rows = 200, start = start) |>
+        httr2::req_retry(max_tries = 4) |>
+        httr2::req_error(is_error = \(r) FALSE) |>
+        httr2::req_perform()
+      if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
+      body <- httr2::resp_body_json(resp)$response
+      total <- body$numFound
+      page <- body$docs |>
+        purrr::map(\(d) tibble::tibble(bibcode = d$bibcode %||% NA_character_, doi = unlist(d$doi)[1] %||% NA_character_,
+                                       title = unlist(d$title)[1] %||% NA_character_, year = as.integer(d$year %||% NA),
+                                       venue = d$pub %||% NA_character_, type = d$doctype %||% NA_character_,
+                                       abstract = d$abstract %||% NA_character_)) |>
+        purrr::list_rbind()
+      rows <- dplyr::bind_rows(rows, page)
+      start <- start + 200
+      if (nrow(page) == 0 || start >= total || nrow(rows) >= cap) break
+    }
+    list(hits = dplyr::mutate(rows, question, route = paste0("ads-", route), .before = 1),
+         log = tibble::tibble(strand = "ads", route = paste0("ads-", route), query, date = as.character(Sys.Date()),
+                              retrieved = nrow(rows), reported_total = total, cap, capped = isTRUE(total > cap),
+                              error = dplyr::coalesce(err, if (length(dropped)) paste("stopword concept dropped:", dropped) else NA)))
+  }
+  runs <- purrr::pmap(queries, search_ads)
+  ads <- purrr::map(runs, "hits") |> purrr::list_rbind()
+  readr::write_csv(ads, "../02.inputs/searches/review-ads-records.csv")
+  readr::write_csv(dplyr::select(ads, -abstract), "../02.inputs/derived/review-ads-hits.csv")
+  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
+    dplyr::bind_rows(purrr::map(runs, "log") |> purrr::list_rbind() |> dplyr::mutate(dplyr::across(dplyr::everything(), as.character))) |>
+    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+}
+```
+
+```{r}
+#| label: review-semantic-scholar
+#| echo: true
+#| output: false
+# Semantic Scholar is the index the library protocol names. Without a key it
+# rate limits, so a refusal is logged against the query rather than stopping
+# the render, and the log row says which strand is missing.
+if (!file.exists("../02.inputs/derived/review-s2-hits.csv")) {
+  search_s2 <- function(question, route, concepts, cap = 3000) {
+    query <- boolean_query(concepts, or = " | ", and = " + ")
+    papers <- list(); token <- NULL; total <- NA; err <- NA
+    repeat {
+      # Semantic Scholar Academic Graph bulk search, https://api.semanticscholar.org/api-docs/graph#tag/Paper-Data/operation/get_graph_paper_bulk_search
+      resp <- httr2::request("https://api.semanticscholar.org/graph/v1/paper/search/bulk") |>
+        httr2::req_url_query(query = query, year = "1987-", fields = "title,year,venue,externalIds,citationCount,publicationTypes", token = token) |>
+        httr2::req_throttle(rate = 1 / 2) |>
+        httr2::req_retry(max_tries = 3, backoff = \(i) 5 * i) |>
+        httr2::req_error(is_error = \(r) FALSE) |>
+        httr2::req_perform()
+      if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
+      body <- httr2::resp_body_json(resp)
+      total <- body$total; token <- body$token
+      papers <- c(papers, body$data)
+      if (is.null(token) || length(papers) >= cap) break
+    }
+    works <- papers |>
+      purrr::map(\(w) tibble::tibble(doi = w$externalIds$DOI %||% NA_character_, title = w$title %||% NA_character_, year = w$year %||% NA_integer_, venue = w$venue %||% NA_character_, type = paste(unlist(w$publicationTypes), collapse = " "), citations = w$citationCount %||% NA_integer_)) |>
+      purrr::list_rbind()
+    list(hits = dplyr::mutate(works, question, route = paste0("s2-", route), .before = 1),
+         log = tibble::tibble(strand = "semantic-scholar", route = paste0("s2-", route), query, date = as.character(Sys.Date()), retrieved = nrow(works), reported_total = total, cap, capped = isTRUE(total > cap), error = err))
+  }
+  runs <- purrr::pmap(queries, search_s2)
+  readr::write_csv(purrr::map(runs, "hits") |> purrr::list_rbind(), "../02.inputs/derived/review-s2-hits.csv")
+  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
+    dplyr::bind_rows(purrr::map(runs, "log") |> purrr::list_rbind() |> dplyr::mutate(dplyr::across(dplyr::everything(), as.character))) |>
+    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+}
+```
+
+```{r}
+#| label: review-chase
+#| echo: true
+#| output: false
+# One round of backward and forward chasing from the central records, through
+# OpenAlex, which lists both the references of a work and the works citing it.
+central <- c("10.4095/st000101", "10.1175/waf-d-23-0226.1", "10.1016/j.agrformet.2018.07.005",
+             "10.1007/s10584-012-0667-2", "10.1071/wf17008", "10.1071/wf11088")
+if (length(central) > 0 && !file.exists("../02.inputs/derived/review-chase-hits.csv")) {
+  oa_get <- function(url, query = list()) {
+    resp <- httr2::request(url) |> httr2::req_url_query(!!!query, mailto = "seamusrobertmurphy@gmail.com") |>
+      httr2::req_retry(max_tries = 6) |> httr2::req_error(is_error = \(r) FALSE) |> httr2::req_perform()
+    if (httr2::resp_status(resp) != 200) return(NULL)
+    httr2::resp_body_json(resp)
+  }
+  as_row <- \(w) tibble::tibble(openalex = w$id %||% NA_character_, doi = stringr::str_remove(w$doi %||% NA_character_, "^https://doi.org/"), title = w$title %||% NA_character_, year = w$publication_year %||% NA_integer_, venue = w$primary_location$source$display_name %||% NA_character_)
+  chase <- function(seed_doi) {
+    # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works
+    seed <- oa_get(paste0("https://api.openalex.org/works/https://doi.org/", seed_doi))
+    if (is.null(seed)) return(tibble::tibble(seed = seed_doi, route = "chase", error = "seed not found"))
+    refs <- if (length(seed$referenced_works)) oa_get("https://api.openalex.org/works", list(filter = paste0("ids.openalex:", paste(basename(unlist(seed$referenced_works)), collapse = "|")), `per-page` = 200, select = "id,doi,title,publication_year,primary_location")) else NULL
+    cites <- oa_get("https://api.openalex.org/works", list(filter = paste0("cites:", basename(seed$id)), `per-page` = 200, select = "id,doi,title,publication_year,primary_location"))
+    dplyr::bind_rows(
+      purrr::map(refs$results %||% list(), as_row) |> purrr::list_rbind() |> dplyr::mutate(route = "chase-references"),
+      purrr::map(cites$results %||% list(), as_row) |> purrr::list_rbind() |> dplyr::mutate(route = "chase-citations")
+    ) |> dplyr::mutate(seed = seed_doi, .before = 1)
+  }
+  chased <- purrr::map(central, chase) |> purrr::list_rbind()
+  readr::write_csv(chased, "../02.inputs/derived/review-chase-hits.csv")
+  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
+    dplyr::bind_rows(chased |> dplyr::count(seed, route, name = "retrieved") |>
+      dplyr::transmute(strand = "openalex-chase", route = paste(route, seed), query = seed, date = as.character(Sys.Date()),
+                       retrieved = as.character(retrieved), reported_total = retrieved, cap = NA, capped = "FALSE", error = NA)) |>
+    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+}
+```
+
+```{r}
+#| label: review-records
+#| echo: true
+#| output: false
+# One row per unique record across every strand. A record already cited by this
+# manuscript is marked, by DOI against the bibliography, so screening can see
+# what the earlier reading had reached.
+if (!file.exists("../02.inputs/derived/review-records.csv")) {
+  read_hits <- \(p) if (file.exists(p)) readr::read_csv(p, col_types = readr::cols(.default = "c")) else tibble::tibble()
+  bib <- paste(readLines("../04.references/references.bib", warn = FALSE), collapse = " ")
+  bib_dois <- stringr::str_to_lower(unlist(stringr::str_extract_all(bib, "10\\.[0-9]{4,9}/[^\\s,}\"]+")))
+  dplyr::bind_rows(
+    read_hits("../02.inputs/derived/review-store-hits.csv"),
+    read_hits("../02.inputs/derived/review-openalex-hits.csv"),
+    read_hits("../02.inputs/derived/review-ads-hits.csv"),
+    read_hits("../02.inputs/derived/review-s2-hits.csv"),
+    read_hits("../02.inputs/derived/review-chase-hits.csv") |> dplyr::mutate(question = "chase")
+  ) |>
+    dplyr::mutate(doi = stringr::str_to_lower(doi),
+                  id = dplyr::coalesce(doi, stringr::str_squish(stringr::str_to_lower(stringr::str_replace_all(title, "[^[:alnum:] ]", " "))))) |>
+    dplyr::filter(!is.na(id), id != "") |>
+    dplyr::summarise(.by = id, doi = dplyr::first(stats::na.omit(doi)), title = dplyr::first(stats::na.omit(title)), year = dplyr::first(stats::na.omit(year)), venue = dplyr::first(stats::na.omit(venue)), type = dplyr::first(stats::na.omit(type)), questions = paste(sort(unique(question)), collapse = " "), routes = paste(sort(unique(route)), collapse = " "), duplicates_merged = dplyr::n(), key = dplyr::first(stats::na.omit(key)), source_note = dplyr::first(stats::na.omit(source_note))) |>
+    dplyr::mutate(cited = dplyr::if_else(!is.na(doi) & doi %in% bib_dois, "yes", "no"), decision = NA, reason = NA, full_text = NA) |>
+    readr::write_csv("../02.inputs/derived/review-records.csv", na = "")
+}
+```
+
+```{r}
+#| label: review-counts
+#| echo: true
+#| output: false
+records <- readr::read_csv("../02.inputs/derived/review-records.csv", show_col_types = FALSE)
+search_log <- readr::read_csv("../02.inputs/derived/review-search-log.csv", show_col_types = FALSE)
+review_counts <- tibble::tibble(
+  Stage = c("Records retrieved", "Unique after removing duplicates", "Excluded on title and abstract", "Read in full", "Retained"),
+  Records = c(sum(search_log$retrieved, na.rm = TRUE), nrow(records), sum(records$decision == "exclude" & !(records$full_text %in% "yes")), sum(records$full_text == "yes", na.rm = TRUE), sum(records$decision == "include", na.rm = TRUE))
+)
+review_reasons <- records |>
+  dplyr::filter(decision == "exclude") |>
+  dplyr::count(reason, name = "Records", sort = TRUE)
+```
+
 ## Study Design
 
 FWI1987 and FWI2025 differ in version and in input resolution simultaneously, so comparing one against the other answers no question about either. Three series were computed from a single hourly weather record, and each contrast moved one thing (@tbl-design).
@@ -484,6 +811,8 @@ FWI1987 and FWI2025 differ in version and in input resolution simultaneously, so
 S1 against S2 isolated the version change at fixed input, S2 against S3 isolated the input resolution change at fixed version, and S1 against S3 was the operational contrast an agency faces on migration, the sum of the other two. All three ran on the same weather, the same season window, the same startup values and the same gap filling, so nothing that differed between them was an artefact of the record.
 
 Pathway C is the report's own procedure for the legacy observation. The 13:00 observation was converted to estimated daily maxima and minima using national constants, daily maximum temperature being about 2 degrees Celsius above the 13:00 value, minimum wind speed 10 per cent of it and maximum wind speed 30 per cent above it, and humidity carried through at constant vapour content; those maxima and minima were then expanded to an hourly stream by the sinusoidal method of @beck1989diurnal with the default offset and decay coefficients of Table A-1 of @cffdg2025fwi2025. Daily rainfall, whose timing is unknown in a once-daily observation, was placed at the first hour after sunrise, which is the rule the report gives and the rule FWI1987 implicitly used.
+
+The literature behind the expectations set out in the Introduction was gathered under a written protocol on 13 October 2026, with search terms drawn from the title and keywords, run on the author's reference store, OpenAlex, NASA ADS and Semantic Scholar, and followed by one round of citation chasing through OpenAlex from six central papers. The searches retrieved `r n_fmt(review_counts$Records[1])` records, `r n_fmt(review_counts$Records[2])` of them unique, of which `r n_fmt(review_counts$Records[3])` were excluded on title and abstract, `r review_counts$Records[5]` were retained and `r review_counts$Records[4]` were read in full. One reader screened and read, Semantic Scholar refused one of the four queries, and NASA ADS ran the trend query without its trend concept because that word is a stopword there, so that strand is under-searched for the first question.
 
 ## Index Computation
 
@@ -521,7 +850,7 @@ Metric families were corrected within each series by the false discovery rate pr
 
 Comparing the trends of two records that share most of their variability has a precedent in the evaluation of atmospheric temperature data sets. @santer2000trenddiff tested the trend in the series of differences between two data sets rather than the overlap of their separate confidence intervals, because the difference removes variability common to both, and found that roughly 30 per cent of data set pairs differed significantly in lower tropospheric trend, mainly through differences in measurement system, where overlapping intervals had not shown it. @wilks1997resampling showed that applying the same resampling pattern to every element of a data vector carries the cross correlation between elements into the resampled statistics without the need to model it. The three series here came from one weather record and were strongly dependent, and each was also serially correlated from season to season. Resampling single seasons would keep the pairing between series but discard that serial correlation, which block bootstraps retain by resampling runs of consecutive observations [@kunsch1989bootstrap; @politis1994stationary], and @onoz2012blockbootstrap found that a block bootstrap Mann-Kendall test had power comparable with the other corrections for serial dependence. The difference between two series' slopes was therefore estimated by a moving-block bootstrap, drawing blocks of consecutive seasons with replacement and recomputing both slopes on the same resampled seasons in every one of 4,000 replicates, which kept the pairing between series by construction. Blocks were `r paste(sort(unique(vapply(as.integer(table(kept$station_name)[table(kept$station_name) >= 15]), block_length, integer(1)))), collapse = ' or ')` seasons long for station records of `r min(table(kept$station_name)[table(kept$station_name) >= 15])` to `r max(table(kept$station_name))` seasons, the cube root of the record length rounded up, which grows with the record but more slowly than it, as @kunsch1989bootstrap required for consistency, and they were drawn from the seasons in order of occurrence so that a gap in a station record fell inside a block. The interval on the difference was the plain percentile interval, on which the bias-corrected and accelerated interval of @efron1987better improves to second-order correctness [@diciccio1996bootstrap]. The two-sided p value was computed under the null hypothesis, following the first guideline of @hall1991guidelines, that resampling should reflect the null hypothesis, whose violation they found can seriously reduce power. The resampled differences were centred on the observed difference, and p was the share of them lying at least as far from it as the observed difference lies from zero. It was corrected for false discovery rate within the eight metrics of one contrast at one station.
 
-Daily fire occurrence has been modelled statistically since Bruce (1960), whose negative binomial model related daily counts to a fire danger rating index and which @taylor2013prediction identified as the first stochastic model of fire occurrence. Canadian operational practice later moved to logistic models of fire presence, because, as @taylor2013prediction noted, "overdispersion is of concern when Poisson-based methods are used to model counts" [@taylor2013prediction, p. 591]. @martell1987logistic predicted the probability of a people-caused fire day in northern Ontario by logistic regression with a Poisson assumption for the daily count, and @martell1989seasonal added periodic functions of the calendar day to represent seasonal variation. Count models remain in use where the daily number is the quantity of interest. @plucinski2014bushfires modelled daily human-caused bushfires in south-west Western Australia by negative binomial regression on fuel moisture, fitted on three years and tested on an independent fourth, and @xiao2015count found that a negative binomial mixed model described forest fire counts in Guizhou, China, better than Poisson, zero-inflated and hurdle alternatives. The closest regional precedent is @magnussen2012bc, who modelled daily lightning- and human-caused fire occurrence across British Columbia from 1981 to 2000 by logistic regression on lightning strikes, forest cover, surface weather, atmospheric stability and Fire Weather Index System moisture codes, and under leave-one-year-out cross-validation predicted the daily provincial number of lightning fires at R = 0.83 and of human-caused fires at R = 0.55 [@magnussen2012bc].
+Daily fire occurrence has been modelled statistically since Bruce (1960), whose negative binomial model related daily counts to a fire danger rating index and which @taylor2013prediction identified as the first stochastic model of fire occurrence. Canadian operational practice later moved to logistic models of fire presence, because, as @taylor2013prediction noted, "overdispersion is of concern when Poisson-based methods are used to model counts" [@taylor2013prediction, p. 591]. @martell1987logistic predicted the probability of a people-caused fire day in northern Ontario by logistic regression with a Poisson assumption for the daily count, and @martell1989seasonal added periodic functions of the calendar day to represent seasonal variation. Count models remain in use where the daily number is the quantity of interest. @plucinski2014bushfires modelled daily human-caused bushfires in south-west Western Australia by negative binomial regression on fuel moisture, fitted on three years and tested on an independent fourth, and @xiao2015count found that a negative binomial mixed model described forest fire counts in Guizhou, China, better than Poisson, zero-inflated and hurdle alternatives. The closest regional precedent is @magnussen2012bc, who modelled daily lightning- and human-caused fire occurrence across British Columbia from 1981 to 2000 by logistic regression on lightning strikes, forest cover, surface weather, atmospheric stability and Fire Weather Index System moisture codes, and under leave-one-year-out cross-validation predicted the daily provincial number of lightning fires at R = 0.83 and of human-caused fires at R = 0.55 [@magnussen2012bc]. @granville2022case supplied the one Canadian test of whether the relationship between danger and occurrence changed over time, fitting period by intensity interactions to industrial fires in Ontario from 1976 to 2019 and finding "insufficient evidence to justify the inclusion of interaction terms for low HFI (p-value > 0.3, Table 3)".
 
 Daily ignition counts here were modelled by negative binomial regression with a log link [@lawless1987negbin], because the response was a daily basin count rather than a cell-day presence. The linear predictor carried the daily basin danger value, two annual harmonics in day of year in the manner of @martell1989seasonal, season as a factor, and the number of stations that contributed to the basin mean that day, since no station reports in every season and the composition of the network changes. That last term cannot affect the comparison between series in any case, because all three are averaged over exactly the same stations on exactly the same days. The seasonal terms matter beyond this study, since @castelclavera2025comparative found in Mediterranean France that "relying solely on fire-weather indices is insufficient for efficient rating of fire activities" and that spatial and seasonal effects were needed, even though the Canadian Fire Weather Index was the most skilful index they tested. The lightning model carried no strike term, because no strike record covered the window, and lightning occurrence models depend on one. @flannigan1991lightning explained nearly 50 per cent of the variance in daily lightning fire counts in northwestern Ontario with the Duff Moisture Code and the multiplicity of negative discharges, @wotton2005lightning found that a sheltered duff moisture index was the strongest predictor of ignition given a strike, and @wierzchowski2002lightning recorded one fire for every 50 lightning discharges in British Columbia against one for every 1,400 in Alberta. The Canadian Lightning Detection Network climatology of @kochtubajda2020cldn covers 1999 to 2018, so it misses the first `r 1999 - yr_first` seasons of this window and the last `r yr_last - 2018`.
 
@@ -1317,6 +1646,8 @@ st <- data.frame(
 fmt_tbl(st)
 ```
 
+Of the `r nrow(stationarity)` interaction terms, `r sum(stationarity$p < 0.05, na.rm = TRUE)` reached the conventional level, `r if (sum(stationarity$p < 0.05, na.rm = TRUE) == 0) "so the within-season slope did not change detectably across the record, which agrees with" else "a result to set beside"` the one Canadian precedent, in which @granville2022case found no change in the danger to occurrence slope at low intensity across three regulatory periods.
+
 # Discussion {#sec-discussion}
 
 ```{r}
@@ -1376,9 +1707,9 @@ That is the case for the three-series design. A study that had computed FWI1987 
 
 The direction of each level shift is consistent with what the update did. Halving the fine fuel time lag and letting the litter dry overnight lets the Fine Fuel Moisture Code reach further at the top of the day, which is the version change, whereas replacing a reconstructed diurnal curve with the observed one lets it reach the actual extremes of the actual day rather than the average shape of a typical one, which is the input change. The first acts on the model, the second on what the model is shown, and there is no reason for them to point the same way on every index. @wastl2013large found at five Alpine stations that differences between regions were largest in the Fine Fuel Moisture Code, smaller in the Duff Moisture Code and smallest in the Drought Code, and attributed that order to the time lags of the fuel layers each code represents, so a change to the fine fuel time lag would be expected to act most strongly on the Fine Fuel Moisture Code and on the counts built from it. The Fire Weather Index combines the codes with wind, and @rodrigues2020identifying noted that the same Fire Weather Index value could arise from different combinations of weather variables, so two changes that acted on different parts of the calculation could offset in the combined index while remaining visible in its parts.
 
-The few studies that varied one element of a fire danger calculation on a fixed record found effects of the same kind. On thirteen years of station data from Camden, New South Wales, @matthews2009comparison found that the differences in structure between three fire danger systems partly cancelled once each used its own observation time and moisture sub-models, which is the cancellation found here for days above a Fire Weather Index of 19, where a `r sprintf("%+.1f", shift$version[2])` day version effect and a `r sprintf("%+.1f", shift$input[2])` day input effect netted `r sprintf("%+.1f", shift$migration[2])` days. On the Iberian Peninsula, @herrera2013daily found that daily mean inputs missed 45 per cent of the extreme days in the series computed from 12 UTC inputs, and here replacing the reconstructed diurnal curve with observed hourly weather moved the count of days above a Fine Fuel Moisture Code of 91 by `r sprintf("%+.1f", shift$input[1])` days per season, so in both records the way the weather was supplied to the calculation moved the extreme-day count by an amount comparable to a change of system. @rodell2024hourly found in western North America that hourly Fire Weather Index values sampled at noon were biased low against the daily index because noon did not coincide with peak fire behaviour, which is the reason the daily value here was taken at 17:00 local daylight time and the daily maximum was reported only as a bound. None of those studies followed a trend through the change, so the result here, a level shift with no slope divergence this record could resolve, could not be compared with any of them.
+The few studies that varied one element of a fire danger calculation on a fixed record found effects of the same kind. On thirteen years of station data from Camden, New South Wales, @matthews2009comparison found that the differences in structure between three fire danger systems partly cancelled once each used its own observation time and moisture sub-models, which is the cancellation found here for days above a Fire Weather Index of 19, where a `r sprintf("%+.1f", shift$version[2])` day version effect and a `r sprintf("%+.1f", shift$input[2])` day input effect netted `r sprintf("%+.1f", shift$migration[2])` days. On the Iberian Peninsula, @herrera2013daily found that daily mean inputs missed 45 per cent of the extreme days in the series computed from 12 UTC inputs, and here replacing the reconstructed diurnal curve with observed hourly weather moved the count of days above a Fine Fuel Moisture Code of 91 by `r sprintf("%+.1f", shift$input[1])` days per season, so in both records the way the weather was supplied to the calculation moved the extreme-day count by an amount comparable to a change of system. @rodell2024hourly found in western North America that hourly Fire Weather Index values sampled at noon were biased low against the daily index because noon did not coincide with peak fire behaviour, which is the reason the daily value here was taken at 17:00 local daylight time and the daily maximum was reported only as a bound. None of those studies followed a trend through the change, so the result here, a level shift with no slope divergence this record could resolve, could not be compared with any of them. The one measured effect of input timing on a slope, the 0.22 to 0.39 days per decade by which daily aggregates inflated a global extreme-day trend [@matteo2025challenges], is about a tenth of the `r sprintf("%.1f", res_abs * (yr_last - yr_first))` days over the window this record could resolve, so a slope effect of that size would not have been detected here, and the null slope result bounds the effect rather than excluding it.
 
-The clearest difference between the two FWI2025 series was not in any level but in the burning window, because the number of hours per day on which spread-sustaining conditions held differed substantially between the observed hourly weather and the diurnal curve reconstructed from a single noon observation. Both are FWI2025 and both are the report's own procedures, so an agency that migrates to FWI2025 while continuing to supply a 13:00 observation gets the new system's outputs computed from an assumption about the shape of the day, and the assumption is smoother than the day.
+The clearest difference between the two FWI2025 series was not in any level but in the burning window, because the number of hours per day on which spread-sustaining conditions held differed substantially between the observed hourly weather and the diurnal curve reconstructed from a single noon observation. Both are FWI2025 and both are the report's own procedures, so an agency that migrates to FWI2025 while continuing to supply a 13:00 observation gets the new system's outputs computed from an assumption about the shape of the day, and the assumption is smoother than the day. That window has a published counterpart in @luo2026weakened, who estimated from hourly reanalysis that potential burning hours across North America rose 36 per cent over 1975 to 2024.
 
 This is the part of the update that is genuinely new rather than a change of scale, because a daily index cannot say when the peak arrives or how long it lasts, and those are the two quantities an initial attack decision actually needs. The finding here was not that the hourly series predicted ignitions better, because it was barely distinguishable on that, but that it answered a question the daily series cannot be asked.
 
@@ -1388,7 +1719,7 @@ The small difference in ignition skill between the three series agreed with comp
 
 The slope prediction failed. Under neither thresholding scheme did the migration change an estimated trend at any station, the outcome the design had set as refuting the mechanism, and the refutation holds to a resolution of about `r sprintf("%.1f", res_abs * (yr_last - yr_first))` days over the window. The practical consequence for the published record therefore rests on the level result alone, and is narrow and specific. Trends reported as percentile exceedances, where the threshold is computed inside the series being trended, are largely insulated from the version change, because the threshold moves with the distribution. Trends reported as counts above a fixed danger class are not, and neither are seasonal severity ratings, which accumulate a transform of the index level over a season and therefore inherit any level shift. Fixed classes were already uncertain across regions before any version change, since @papagiannaki2020weather found that the Fire Weather Index class thresholds of the European Forest Fire Information System were too low for Greece and that thresholds fitted to Greek fire records predicted wildfire danger significantly better. That insulation is from the version and not from the reference period. @dunn2022reference found that warm-day trends computed from the same data over the same years changed by about 25 to 50 per cent when the percentile reference period moved, and @zhang2005percentile showed that counts outside a base period are biased upward unless the rates inside it are bootstrapped, so a percentile trend is portable across the version change only when its reference period is stated, held fixed and treated for that bias.
 
-Nothing here says the published trends are wrong, only that they are statements about FWI1987, that restating them under FWI2025 will change some of them, and that the size of the change depends on how the metric was defined rather than on the weather. Anyone re-expressing a historical trend in the new system's units should recompute the whole record rather than splice, and should say which metric family the result belongs to.
+Nothing here says the published trends are wrong, only that they are statements about FWI1987, that restating them under FWI2025 will change some of them, and that the size of the change depends on how the metric was defined rather than on the weather. For the Okanagan there was little to restate, since the only station test found no significant trend in seasonal temperature or precipitation at Penticton over 1984 to 2016 [@spittlehouse2022interaction]. A level shift that leaves the relative change alone has been seen before in this index, since @quilcaille2023fire found that computing the Fire Weather Index from mean rather than minimum humidity reduced it "by about −33 % (June) above 20° N" while the reduction was "roughly identical during the fire seasons across the planet, be it over 1994–2014 or 2081–2100". Anyone re-expressing a historical trend in the new system's units should recompute the whole record rather than splice, and should say which metric family the result belongs to.
 
 ## Limitations
 
@@ -1428,7 +1759,7 @@ fmt_tbl(lim)
 
 @tbl-limits is the quantitative form of what this study cannot say. It matters because a null result and an underpowered result read identically in a table of p values and are entirely different claims. Where a metric's observed change over the window fell below its minimum detectable change, the correct statement is that a trend of that size would not have been seen here, not that there is none.
 
-Six further limits are structural rather than statistical. First, the study covered one basin, and only its Canadian part. Everything here is the Okanagan watershed group, and the United States portion of the basin was excluded because neither the ignition record nor the weather record crosses the border. Whether the version effect found here has the same size elsewhere is untested, and there is a specific reason to expect it not to, because the mechanism runs through the diurnal cycle, and the Okanagan's is unusually wide. Second, the study detected change and did not attribute it. Nothing here separated a change in fire danger from its causes, no claim was made about anthropogenic forcing, and none should be read in, because attribution requires a comparison against a world without the forcing that this design did not construct [@kirchmeieryoung2019attribution]. Third, no oscillation term entered any model. The El Niño Southern Oscillation and the Pacific Decadal Oscillation modulate fire season severity in interior British Columbia [@meyn2010oscillations], although @tan2019dynamic found that neither had contributed to wildfire weather in western Canada and that spring warming and drying there since 1871 could not be attributed to common teleconnections, and in another mountain region @mamgain2026satellite found fire danger elevated in El Niño years and reduced in La Niña years from 2000 to 2024. A window that begins and ends in different phases carries a biased slope regardless of estimator. No oscillation index was included, and including one would require choosing the index and the lag from the literature on interior British Columbia fire seasons before the record was examined. The absolute trends under the first question therefore carry that bias, whereas the comparison between series under the second does not, because all three series see the same oscillation. Fourth, fuel was held fixed. Fuel typing did not vary through time in this design, so nothing here distinguished a danger effect from fuel accumulation, which is a stated boundary and not a gap to be filled with the same data. The boundary matters for reading a danger trend as a fire trend, because @wastl2012climate found meteorological fire danger rising in Bavaria while the number of fires and the area burned fell, and @zhao2025multifactorial found across mid to high northern latitudes from 1982 to 2018 that rising flammability increased wildfire in fuel-rich forests but decreased it where water deficits had reduced fuel. Fifth, four analysis choices, the season window, the coverage threshold, the reference period and the daily summary hour, were set with the data in view rather than fixed in advance, so the absolute trends carry that freedom, whereas the comparison between series does not, because all three series ran through the same choices and a choice that moved one moved all three. Sixth, the season window was fixed. A 1 May to 30 September window measures danger inside a season of fixed length and cannot register a season that lengthens at either end, so if the true season lengthened, the counts inside the window rose by less than whole-season counts would have, and trends in window counts understate trends in the season. Four routes would recover the season from this basin, each at a cost. The first is a year-round climate station of the kind @hanes2020overwinter used for winter precipitation, driving the temperature rule of @lawson2008weather and overwintering the Drought Code, at the cost of dating the season from a valley site rather than from the fire weather stations. The second is the danger-series definition of @jolly2015global applied inside a wider fixed window, which needs the stations to be reporting before the first day above half the danger range and fails in any season they were not. The third is the fire-based definitions of @westerling2016increasing and @granville2026season, which the basin's ignition record cannot support after 2000 because its dating completeness fell, as @sec-data showed. The fourth is a reanalysis start date, which carries the grid-cell caveat set out below. The first route is the one this record could adopt, because it would also replace the Drought Code restart that @mcelhinny2020era5 showed changes spread-day counts, and it would enter all three series alike, leaving the comparison between them intact.
+Seven further limits are structural rather than statistical. First, the study covered one basin, and only its Canadian part. Everything here is the Okanagan watershed group, and the United States portion of the basin was excluded because neither the ignition record nor the weather record crosses the border. Whether the version effect found here has the same size elsewhere is untested, and there is a specific reason to expect it not to, because the mechanism runs through the diurnal cycle, and the Okanagan's is unusually wide. Second, the study detected change and did not attribute it. Nothing here separated a change in fire danger from its causes, no claim was made about anthropogenic forcing, and none should be read in, because attribution requires a comparison against a world without the forcing that this design did not construct [@kirchmeieryoung2019attribution]. Third, no oscillation term entered any model. The El Niño Southern Oscillation and the Pacific Decadal Oscillation modulate fire season severity in interior British Columbia [@meyn2010oscillations], although @tan2019dynamic found that neither had contributed to wildfire weather in western Canada and that spring warming and drying there since 1871 could not be attributed to common teleconnections, and in another mountain region @mamgain2026satellite found fire danger elevated in El Niño years and reduced in La Niña years from 2000 to 2024. A window that begins and ends in different phases carries a biased slope regardless of estimator. No oscillation index was included, and including one would require choosing the index and the lag from the literature on interior British Columbia fire seasons before the record was examined. The absolute trends under the first question therefore carry that bias, whereas the comparison between series under the second does not, because all three series see the same oscillation. Fourth, the sensor history of the BC Wildfire Service stations was not available, and @vanwijngaarden2005examination found that the replacement of the psychrometer by the dewcel "produced a decreasing step in relative humidity at a number of stations" in the national network, so an undocumented sensor change inside this record would enter all three series alike and move the absolute trends, not the version comparison. Fifth, fuel was held fixed. Fuel typing did not vary through time in this design, so nothing here distinguished a danger effect from fuel accumulation, which is a stated boundary and not a gap to be filled with the same data. The boundary matters for reading a danger trend as a fire trend, because @wastl2012climate found meteorological fire danger rising in Bavaria while the number of fires and the area burned fell, and @zhao2025multifactorial found across mid to high northern latitudes from 1982 to 2018 that rising flammability increased wildfire in fuel-rich forests but decreased it where water deficits had reduced fuel. Sixth, four analysis choices, the season window, the coverage threshold, the reference period and the daily summary hour, were set with the data in view rather than fixed in advance, so the absolute trends carry that freedom, whereas the comparison between series does not, because all three series ran through the same choices and a choice that moved one moved all three. Seventh, the season window was fixed. A 1 May to 30 September window measures danger inside a season of fixed length and cannot register a season that lengthens at either end, so if the true season lengthened, the counts inside the window rose by less than whole-season counts would have, and trends in window counts understate trends in the season. Four routes would recover the season from this basin, each at a cost. The first is a year-round climate station of the kind @hanes2020overwinter used for winter precipitation, driving the temperature rule of @lawson2008weather and overwintering the Drought Code, at the cost of dating the season from a valley site rather than from the fire weather stations. The second is the danger-series definition of @jolly2015global applied inside a wider fixed window, which needs the stations to be reporting before the first day above half the danger range and fails in any season they were not. The third is the fire-based definitions of @westerling2016increasing and @granville2026season, which the basin's ignition record cannot support after 2000 because its dating completeness fell, as @sec-data showed. The fourth is a reanalysis start date, which carries the grid-cell caveat set out below. The first route is the one this record could adopt, because it would also replace the Drought Code restart that @mcelhinny2020era5 showed changes spread-day counts, and it would enter all three series alike, leaving the comparison between them intact.
 
 The obvious way to extend this study is to run it on a reanalysis, which would buy the whole basin, a longer record and every other basin in Canada at once. The reason it was not done here is stated, because it is the same reason the extension is not straightforward.
 
@@ -1476,7 +1807,7 @@ Not yet declared.
 
 # Data Availability {.unnumbered}
 
-The hourly fire weather observations are public at the BC Wildfire Service Weather Data Mart [@bcws2026datamart] and the incident record, the station locations and the basin boundary at the BC Data Catalogue [@bcws2026incidents; @bcws2026stations; @geobc2026fwagroups], all under the licences stated at those sources. The FWI2025 calculation used the Canadian Forest Service reference implementation [@nrcan2026cffdrsng] unmodified. The derived tables, the FWI1987 implementation, the retrieval and analysis code, and the source of this document, from which every number in it is computed, are available from the author and will be archived with a persistent identifier on acceptance.
+The hourly fire weather observations are public at the BC Wildfire Service Weather Data Mart [@bcws2026datamart] and the incident record, the station locations and the basin boundary at the BC Data Catalogue [@bcws2026incidents; @bcws2026stations; @geobc2026fwagroups], all under the licences stated at those sources. The FWI2025 calculation used the Canadian Forest Service reference implementation [@nrcan2026cffdrsng] unmodified. The derived tables, the FWI1987 implementation, the retrieval and analysis code, and the source of this document, from which every number in it is computed, are available from the author and will be archived with a persistent identifier on acceptance. The hourly record was retrieved from the BC Wildfire Service Weather Data Mart, whose FTP server the Service states "will be reaching the end of it's lifespan by January 2027" [@bcws2026datamart], so the retrieved record is deposited with the code.
 
 # Conflicts of Interest {.unnumbered}
 
@@ -1511,11 +1842,15 @@ lig <- ign_res[ign_res$response == "n_lightning_all", ]
 lig <- lig[order(-lig$loso_loglik), ]
 
 abstract_text <- sprintf(
-"Almost every published Canadian fire danger trend is expressed in the units of
-the 1987 Fire Weather Index System, which the Canadian Forest Service replaced in
+"Fire danger trends in the Okanagan basin of British Columbia carried across the
+2025 update to the Canadian Forest Fire Weather Index System when they were
+reported as days above a percentile threshold and did not when they were reported
+as days in a fixed danger class, and the hourly weather the new System runs on
+added the hour and the daily duration of peak burning conditions, which the 1987
+System could not report. The Canadian Forest Service replaced the 1987 System in
 2025 with a version that changed the calculation and the resolution of the
-weather driving it at once, so a straight comparison cannot attribute a
-difference to either change, and no study has separated them. This study
+weather driving it at once, almost every published Canadian fire danger trend is
+in the old units, and no study had separated the two changes. This study
 computed three danger series from one hourly weather record (%d fire weather
 stations, %s station-seasons, %d fire seasons, %d to %d, Canadian Okanagan basin,
 British Columbia), FWI1987 from the 13:00 observation, FWI2025 from the same
@@ -1543,8 +1878,7 @@ did not carry across the change and a percentile threshold did.\n",
   sprintf("with %s ranking first", unname(SERIES_PROSE[lig$series[1]]))
 )
 cat(abstract_text)
-cat("\n**Keywords:** fire danger; Canadian Forest Fire Weather Index System;",
-    "FWI2025; trend detection; Theil-Sen; Okanagan; British Columbia\n")
+cat("\n**Keywords:**", paste(unlist(rmarkdown::metadata$keywords), collapse = "; "), "\n")
 ```
 
 ```{r}
@@ -1565,12 +1899,9 @@ meta_or <- function(field, fallback) {
   if (is.null(v) || !nzchar(v)) fallback else v
 }
 writeLines(meta_or("title",
-  "Version-contingent fire danger trends in the Okanagan basin"),
+  "Fire danger trends across the 2025 update to the Canadian Fire Weather Index System in the Okanagan basin"),
   file.path(outputs, "title.txt"))
-writeLines(meta_or("subtitle",
-  paste("What the 2025 update to the Canadian Forest Fire Weather Index System",
-        "does to a trend estimate")),
-  file.path(outputs, "subtitle.txt"))
+writeLines(meta_or("subtitle", ""), file.path(outputs, "subtitle.txt"))
 
 # Table label, the data frame the table was built from, and its caption. The
 # captions are repeated here rather than parsed back out of the chunk options,

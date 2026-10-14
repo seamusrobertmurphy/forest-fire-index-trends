@@ -6,9 +6,12 @@ Written 2026-09-12, the sibling of verify_quotations.py, which covers the 2025
 report alone. The manuscript is read, every passage in double quotation marks is
 paired with the citation that follows it in the same sentence, and the passage is
 searched for in the source. The source text is the PDF saved as
-04.references/literature/<key>.pdf, extracted with pdftotext, or, for a source
+04.references/literature/<key>.pdf, extracted with pdftotext, or a saved page or
+text at 04.references/literature/<key>.html, .md or .txt, or, for the two web
+pages in REPORTS, the capture saved under 04.references/reports/, or, for a source
 read from its abstract only, the abstract returned by CrossRef or OpenAlex for the
-DOI in references.bib. Comparison is on letters and digits only, so wording must
+DOI in references.bib. Extended 2026-10-13 for the sources the literature review
+added. Comparison is on letters and digits only, so wording must
 match exactly while quotation marks, dashes, ligatures, spacing and line-break
 hyphenation are ignored.
 
@@ -21,6 +24,7 @@ Usage:  python3 05.scripts/verify_literature_quotations.py
 from __future__ import annotations
 
 import csv
+import html
 import json
 import os
 import re
@@ -39,6 +43,21 @@ OUT = os.path.join(ROOT, "02.inputs", "derived", "literature-quotation-verificat
 CATALOGUE = {"bcws2026psta": "bc-wildfire-psta-head-fire-intensity",
              "bcws2026stations": "bc-wildfire-active-weather-stations"}
 UA = {"User-Agent": "forest-fire-index-trends/1.0"}
+# Web pages quoted in the manuscript, read from the captures saved on the date in
+# their file names. Added 2026-10-13.
+REPORTS = {"nrcan2026cffdrsng": os.path.join(ROOT, "04.references", "reports", "cffdrs-ng", "README-2026-10-13.md"),
+           "bcws2026datamart": os.path.join(ROOT, "04.references", "reports", "bcws", "predictive-services-page-2026-10-13.html")}
+
+
+def text_of(path: str) -> str:
+    """Plain text of a saved source: pdftotext for a PDF, tags stripped and
+    entities unescaped for a page, the file as read for anything else."""
+    if path.endswith(".pdf"):
+        return subprocess.run(["pdftotext", path, "-"], capture_output=True, text=True).stdout
+    raw = open(path, encoding="utf-8", errors="ignore").read()
+    if path.endswith((".html", ".htm")):
+        raw = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+    return raw
 
 
 def letters(s: str) -> str:
@@ -91,10 +110,13 @@ def main() -> None:
                 pairs.append(("cffdg2025fwi2025", m.group(1)))
                 continue
             after = sent[m.end():]
-            k = re.search(r"@([a-z][a-z0-9]+)", after) or re.search(r"@([a-z][a-z0-9]+)", sent[:m.start()][::-1][::-1])
-            if not k:
+            # The key after the quotation in its sentence, or, failing that, the
+            # nearest key before it, since a sentence may cite two sources in turn.
+            k = re.search(r"@([a-z][a-z0-9]+)", after)
+            before = re.findall(r"@([a-z][a-z0-9]+)", sent[:m.start()])
+            if not k and not before:
                 continue
-            key = k.group(1)
+            key = k.group(1) if k else before[-1]
             if key.startswith(("tbl", "fig", "sec")):
                 continue
             pairs.append((key, m.group(1)))
@@ -114,6 +136,13 @@ def main() -> None:
             elif os.path.exists(pdf):
                 cache[key] = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
                 src = "pdf"
+            elif any(os.path.exists(os.path.join(LIT, key + ext)) for ext in (".html", ".md", ".txt")):
+                ext = next(e for e in (".html", ".md", ".txt") if os.path.exists(os.path.join(LIT, key + e)))
+                cache[key] = text_of(os.path.join(LIT, key + ext))
+                src = "saved text"
+            elif key in REPORTS and os.path.exists(REPORTS[key]):
+                cache[key] = text_of(REPORTS[key])
+                src = "saved page"
             elif key in dois:
                 cache[key] = abstract_for(dois[key])
                 src = "abstract"

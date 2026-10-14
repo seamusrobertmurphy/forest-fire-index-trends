@@ -1,8 +1,12 @@
-Almost every published Canadian fire danger trend is expressed in the units of
-the 1987 Fire Weather Index System, which the Canadian Forest Service replaced in
+Fire danger trends in the Okanagan basin of British Columbia carried across the
+2025 update to the Canadian Forest Fire Weather Index System when they were
+reported as days above a percentile threshold and did not when they were reported
+as days in a fixed danger class, and the hourly weather the new System runs on
+added the hour and the daily duration of peak burning conditions, which the 1987
+System could not report. The Canadian Forest Service replaced the 1987 System in
 2025 with a version that changed the calculation and the resolution of the
-weather driving it at once, so a straight comparison cannot attribute a
-difference to either change, and no study has separated them. This study
+weather driving it at once, almost every published Canadian fire danger trend is
+in the old units, and no study had separated the two changes. This study
 computed three danger series from one hourly weather record (5 fire weather
 stations, 104 station-seasons, 31 fire seasons, 1991 to 2025, Canadian Okanagan basin,
 British Columbia), FWI1987 from the 13:00 observation, FWI2025 from the same

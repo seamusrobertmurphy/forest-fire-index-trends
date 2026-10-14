@@ -7,8 +7,13 @@ haughian2012climate,experience the most significant increases in fire indices,pd
 vitolo2020era5,in mountainous areas,pdf,True
 matthews2009comparison,widely varying assessments of fire danger for a given set of inputs,pdf,True
 rodell2024hourly,standard noon local time usually does not coincide with the timing of peak fire behavior,pdf,True
+luo2026weakened,annual potential burning hours were estimated to rise 36% over 1975–2024,abstract,True
+matteo2025challenges,"all combinations overestimate the trend, ranging from 2.86 to 3.06 days per decade",saved text,True
+wan2010homogenization,often of the opposite signs,saved text,True
 cffdg2025fwi2025,Using hourly weather to better reflect maximum burning conditions,2025 report pdf,True
 cffdg2025fwi2025,the time lag function used in the FWI2025 for the FFMC has been cut in half,2025 report pdf,True
+nrcan2026cffdrsng,implement FWI2025 in parallel with FWI1987 to take advantage of its new capabilities and help us with ongoing testing,saved page,True
+nrcan2026cffdrsng,Work is ongoing to quantify the differences between FWI2025 and FWI1987 in relation to the effect on fire behaviour,saved page,True
 cffdg2025fwi2025,an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025,2025 report pdf,True
 cffdg2025fwi2025,should reflect meaningful differences in fuel moisture content,2025 report pdf,True
 cffdg2025fwi2025,calculations always use hourly weather,2025 report pdf,True
@@ -36,11 +41,16 @@ zhang2011indices,few physically based thresholds have relevance in all parts of 
 bcws2026psta,was developed using the 90th percentile fire weather index value for an interpolated and elevation-adjusted analysis of weather station values,catalogue record,True
 zhang2005percentile,overestimated exceedance rates outside the base period,pdf,True
 taylor2013prediction,overdispersion is of concern when Poisson-based methods are used to model counts,pdf,True
+granville2022case,"insufficient evidence to justify the inclusion of interaction terms for low HFI (p-value > 0.3, Table 3)",pdf,True
 castelclavera2025comparative,relying solely on fire-weather indices is insufficient for efficient rating of fire activities,abstract,True
 roberts2017crossvalidation,in serious underestimation of predictive error,abstract,True
 gneiting2007scoring,are directly comparable if they refer to exactly the same set of forecast situations,pdf,True
 eastaugh2012cautionary,indicate different predictive power between the effectively identical indices,pdf,True
 eastaugh2012cautionary,resulting from the frequency distributions of the index values rather than from any real difference in predictive power,pdf,True
 coogan2025lightning,a lag between the time a fire started and the time it was detected,pdf,True
+quilcaille2023fire,by about −33 % (June) above 20° N,pdf,True
+quilcaille2023fire,"roughly identical during the fire seasons across the planet, be it over 1994–2014 or 2081–2100",pdf,True
+vanwijngaarden2005examination,produced a decreasing step in relative humidity at a number of stations,abstract,True
 cffdg2025fwi2025,numerical weather model outputs are not strictly the same as point observations of weather from a weather station,2025 report pdf,True
 cffdg2025fwi2025,"At the grid cell scale, outputs from numerical models typically represent what can be thought of as average conditions across that cell.",2025 report pdf,True
+bcws2026datamart,will be reaching the end of it's lifespan by January 2027,saved page,True

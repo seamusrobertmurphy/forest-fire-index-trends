@@ -1,0 +1,44 @@
+doi,key,year,first_author,title,container,type
+10.1038/s41612-025-01163-0,matteo2025challenges,2025,Matteo,Challenges in assessing Fire Weather changes in a warming climate,npj Climate and Atmospheric Science,journal-article
+10.5194/nhess-26-3417-2026,mirones2026deep,2026,Mirones,Deep Learning Emulation of Multivariate Climate Indices: A Case Study of the Fire Weather ,Natural Hazards and Earth System Science,journal-article
+10.1038/s41598-026-72729-y,campos2026daily,2026,Campos,From daily to hourly scale: improving fire weather index with high-resolution Meso-NH simu,Scientific Reports,journal-article
+10.1175/jamc-d-10-05001.1,foxhughes2011impact,2011,Fox-Hughes,Impact of More Frequent Observations on the Understanding of Tasmanian Fire Danger,Journal of Applied Meteorology and Clima,journal-article
+10.1071/wf19185,plucinski2020comparing,2020,Plucinski,Comparing the performance of daily forest fire danger summary metrics for estimating fire ,International Journal of Wildland Fire,journal-article
+10.1071/wf25023,perello2025fuel,2025,Perello,Fuel-aware forest fire danger rating system RISICO: a comparative study for Italy,International Journal of Wildland Fire,journal-article
+10.5194/essd-15-2153-2023,quilcaille2023fire,2023,Quilcaille,Fire weather index data under historical and shared socioeconomic pathway projections in t,Earth System Science Data,journal-article
+10.5194/essd-18-5995-2026,benoit2026daily,2026,Benoit,"A daily gridded dataset of the Fire Weather Index across Canada, with calculations based o",Earth System Science Data,journal-article
+10.3390/f17040486,han2026comparative,2026,Han,A Comparative Review of Wildfire Danger Rating Systems: Focus on Fuel Moisture Modeling Fr,Forests,journal-article
+10.1016/j.mex.2026.104174,wilkinson2026daily,2026,Wilkinson,A daily peat moisture code for monitoring and predicting peatland fire danger,MethodsX,journal-article
+10.1126/sciadv.aed0725,luo2026weakened,2026,Luo,A weakened diurnal weather constraint leads to longer burning hours in North America,Science Advances,journal-article
+10.1007/s13253-022-00497-z,granville2022case,2022,Granville,A Case-Crossover Study of the Impact of the Modifying Industrial Operations Protocol on th,"Journal of Agricultural, Biological and ",journal-article
+10.1071/wf19058,nadeem2019mesoscale,2019,Nadeem,Mesoscale spatiotemporal predictive models of daily human- and lightning-caused wildland f,International Journal of Wildland Fire,journal-article
+10.3390/fire9010044,boateng2026time,2026,Boateng,"A Time Series Analysis of Monthly Fire Counts in Ontario, Canada, with Consideration of Cl",Fire,journal-article
+10.1071/wf21090,taylor2022predicting,2022,Taylor,Predicting daily initial attack aircraft targets in British Columbia,International Journal of Wildland Fire,journal-article
+10.1186/s42408-025-00376-1,coogan2025lightning,2025,Coogan,Lightning ignition efficiency in Canadian forests,Fire Ecology,journal-article
+10.1071/wf20139,phelps2021comparing,2021,Phelps,Comparing calibrated statistical and machine learning methods for wildland fire occurrence,International Journal of Wildland Fire,journal-article
+10.1071/wf20134,phelps2021guidelines,2021,Phelps,Guidelines for effective evaluation and comparison of wildland fire occurrence prediction ,International Journal of Wildland Fire,journal-article
+10.3390/fire3020024,hanes2020preceding,2020,Hanes,Preceding Fall Drought Conditions and Overwinter Precipitation Effects on Spring Wildland ,Fire,journal-article
+10.1139/cjfr-2025-0209,hanes2025fire,2025,Hanes,Fire regime changes in Canada: an update,Canadian Journal of Forest Research,journal-article
+10.1071/wf25164,granville2026observed,2026,Granville,"Using observed fires to study changes in fire season timing across Ontario, Canada",International Journal of Wildland Fire,journal-article
+10.1016/j.foreco.2025.122796,perrakis2025assessing,2025,Perrakis,"Assessing wildfire potential in a coastal forest watershed, British Columbia, Canada",Forest Ecology and Management,journal-article
+10.1002/env.2278,woolford2014lightning,2014,Woolford,"Lightning‐caused forest fire risk in Northwestern Ontario, Canada, is increasing and assoc",Environmetrics,journal-article
+10.1088/1748-9326/ad97cf,kudlkov2024assessing,2024,Kudláčková,Assessing fire danger classes and extreme thresholds of the Canadian Fire Weather Index ac,Environmental Research Letters,journal-article
+10.1071/wf01048,wierzchowski2002lightning,2002,Wierzchowski,"Lightning and lightning fire, central cordillera, Canada",International Journal of Wildland Fire,journal-article
+10.1139/cjfr-2024-0092,daniels2025wildfires,2025,Daniels,"The 2023 wildfires in British Columbia, Canada: impacts, drivers, and transformations to c",Canadian Journal of Forest Research,journal-article
+10.11575/prism/28120,CROSSREF FAIL,,,HTTP Error 404: Not Found,,
+10.1201/9781351190831-3,hubnerova2020fire,2020,Hubnerova,Fire-Weather Index and Climate Change,Evaluating Climate Change Impacts,book-chapter
+10.1080/03610918.2020.1804580,nmeth2020comparison,2020,Németh,Comparison of trend detection methods in GEV models,Communications in Statistics - Simulatio,journal-article
+10.1175/2009jcli3200.1,wan2010homogenization,2010,Wan,Homogenization and Trend Analysis of Canadian Near-Surface Wind Speeds,Journal of Climate,journal-article
+10.1029/2005jd005925,vanwijngaarden2005examination,2005,van Wijngaarden,Examination of discontinuities in hourly surface relative humidity in Canada during 1953–2,Journal of Geophysical Research: Atmosph,journal-article
+10.1071/wf03066,amiro2004fire,2004,Amiro,Fire weather index system components for large fires in the Canadian boreal forest,International Journal of Wildland Fire,journal-article
+10.5194/essd-12-1823-2020,mcelhinny2020high,2020,McElhinny,A high-resolution reanalysis of global fire weather from 1979 to 2018 – overwintering the ,Earth System Science Data,journal-article
+10.1139/cjfr-2021-0137,spittlehouse2022interaction,2022,Spittlehouse,Interaction of elevation and climate change on fire weather risk,Canadian Journal of Forest Research,journal-article
+10.3389/fenvs.2020.527278,taylor2020atmospheric,2020,Taylor,Atmospheric Cascades Shape Wildfire Activity and Fire Management Decision Spaces Across Sc,Frontiers in Environmental Science,journal-article
+10.1038/s43247-025-02372-4,queen2025fingerprint,2025,Queen,Fingerprint of anthropogenic climate change detected in long-term western North American f,Communications Earth &amp; Environment,journal-article
+10.1071/wf18119,chavards2019monthly,2019,Chavardès,Monthly adaptations of the Drought Code reveal nuanced fire–drought associations in montan,International Journal of Wildland Fire,journal-article
+10.1126/science.ado1006,wang2025canadian,2025,Wang,Canadian forests are more conducive to high-severity fires in recent decades,Science,journal-article
+10.1088/2752-5295/adec0f,barnes2025disentangling,2025,Barnes,Disentangling the roles of natural variability and climate change in Canada’s 2023 fire se,Environmental Research: Climate,journal-article
+10.1139/cjfr-2026-0100,boulanger2026shifting,2026,Boulanger,Shifting wildfire spread dynamics in Canada: declining spread rates but increasing spread ,Canadian Journal of Forest Research,journal-article
+10.1038/s41467-024-51154-7,jain2024drivers,2024,Jain,Drivers and Impacts of the Record-Breaking 2023 Wildfire Season in Canada,Nature Communications,journal-article
+10.1016/j.ecoinf.2024.102531,dastour2024analysis,2024,Dastour,Analysis of forest fire patterns and their relationship with climate variables in Alberta',Ecological Informatics,journal-article
+10.3390/fire6030096,ahmed2023occurrence,2023,Ahmed,"Occurrence, Area Burned, and Seasonality Trends of Forest Fires in the Natural Subregions ",Fire,journal-article

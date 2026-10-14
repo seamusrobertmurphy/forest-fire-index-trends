@@ -1,0 +1,28 @@
+strand,route,query,date,retrieved,reported_total,cap,capped,error
+library-science,store-q1-index-trend-place,fire danger|fire weather index AND trend* AND okanagan|british columbia|canadian,2026-10-13,0,0,NA,FALSE,NA
+library-science,store-q2-index-input,fire danger|fire weather index AND hourly,2026-10-13,1,1,NA,FALSE,NA
+library-science,store-q3-index-occurrence-place,fire danger|fire weather index AND fire occurrence AND british columbia|canadian,2026-10-13,0,0,NA,FALSE,NA
+library-science,store-q4-version,fwi2025,2026-10-13,0,0,NA,FALSE,NA
+openalex,openalex-q1-index-trend-place,"(""fire danger"" OR ""fire weather index"") AND (trend) AND (okanagan OR ""british columbia"" OR canadian)",2026-10-13,113,113,3000,FALSE,NA
+openalex,openalex-q2-index-input,"(""fire danger"" OR ""fire weather index"") AND (hourly)",2026-10-13,109,109,3000,FALSE,NA
+openalex,openalex-q3-index-occurrence-place,"(""fire danger"" OR ""fire weather index"") AND (""fire occurrence"") AND (""british columbia"" OR canadian)",2026-10-13,105,105,3000,FALSE,NA
+openalex,openalex-q4-version,(fwi2025),2026-10-13,1,1,3000,FALSE,NA
+ads,ads-q1-index-trend-place,"abs:(""fire danger"" OR ""fire weather index"") AND (okanagan OR ""british columbia"" OR canadian) year:1987-",2026-10-13,593,593,2000,FALSE,stopword concept dropped: trend*
+ads,ads-q2-index-input,"abs:(""fire danger"" OR ""fire weather index"") AND (hourly) year:1987-",2026-10-13,157,157,2000,FALSE,NA
+ads,ads-q3-index-occurrence-place,"abs:(""fire danger"" OR ""fire weather index"") AND (""fire occurrence"") AND (""british columbia"" OR canadian) year:1987-",2026-10-13,101,101,2000,FALSE,NA
+ads,ads-q4-version,abs:(fwi2025) year:1987-,2026-10-13,0,0,2000,FALSE,NA
+semantic-scholar,s2-q1-index-trend-place,"(""fire danger"" | ""fire weather index"") + (trend) + (okanagan | ""british columbia"" | canadian)",2026-10-13,0,NA,3000,FALSE,HTTP 429
+semantic-scholar,s2-q2-index-input,"(""fire danger"" | ""fire weather index"") + (hourly)",2026-10-13,61,61,3000,FALSE,NA
+semantic-scholar,s2-q3-index-occurrence-place,"(""fire danger"" | ""fire weather index"") + (""fire occurrence"") + (""british columbia"" | canadian)",2026-10-13,71,71,3000,FALSE,NA
+semantic-scholar,s2-q4-version,(fwi2025),2026-10-13,0,0,3000,FALSE,NA
+openalex-chase,chase-citations 10.1007/s10584-012-0667-2,10.1007/s10584-012-0667-2,2026-10-13,37,37,NA,FALSE,NA
+openalex-chase,chase-references 10.1007/s10584-012-0667-2,10.1007/s10584-012-0667-2,2026-10-13,46,46,NA,FALSE,NA
+openalex-chase,chase-citations 10.1016/j.agrformet.2018.07.005,10.1016/j.agrformet.2018.07.005,2026-10-13,8,8,NA,FALSE,NA
+openalex-chase,chase-references 10.1016/j.agrformet.2018.07.005,10.1016/j.agrformet.2018.07.005,2026-10-13,65,65,NA,FALSE,NA
+openalex-chase,chase-citations 10.1071/wf11088,10.1071/wf11088,2026-10-13,45,45,NA,FALSE,NA
+openalex-chase,chase-references 10.1071/wf11088,10.1071/wf11088,2026-10-13,52,52,NA,FALSE,NA
+openalex-chase,chase-citations 10.1071/wf17008,10.1071/wf17008,2026-10-13,175,175,NA,FALSE,NA
+openalex-chase,chase-references 10.1071/wf17008,10.1071/wf17008,2026-10-13,62,62,NA,FALSE,NA
+openalex-chase,chase-citations 10.1175/waf-d-23-0226.1,10.1175/waf-d-23-0226.1,2026-10-13,9,9,NA,FALSE,NA
+openalex-chase,chase-references 10.1175/waf-d-23-0226.1,10.1175/waf-d-23-0226.1,2026-10-13,27,27,NA,FALSE,NA
+openalex-chase,chase-citations 10.4095/st000101,10.4095/st000101,2026-10-13,2,2,NA,FALSE,NA

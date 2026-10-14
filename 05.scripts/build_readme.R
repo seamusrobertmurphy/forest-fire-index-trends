@@ -84,8 +84,7 @@ abstract <- readLines(file.path(outputs, "abstract.txt"), warn = FALSE)
 out <- c(
   paste("#", title),
   "",
-  paste0("*", subtitle, "*"),
-  "",
+  if (nzchar(subtitle)) c(paste0("*", subtitle, "*"), "") else NULL,
   "Seamus Murphy, ORCID 0000-0002-1792-0351.",
   "",
   paste("Everything below is generated from the render of",

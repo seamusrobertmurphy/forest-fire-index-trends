@@ -1,0 +1,63 @@
+key,doi,oa_status,pdf_url,result
+albertgreen2013timing,10.1139/cjfr-2011-0432,closed,,no open pdf location
+anderson1990diffusivity,10.1139/x90-046,closed,,no open pdf location
+bayazit2007prewhiten,10.1623/hysj.52.4.611,bronze,,url failed: HTTPError
+bedia2015global,10.1016/j.agrformet.2015.09.002,bronze,,no open pdf location
+bekar2023integrating,10.1016/j.agrformet.2023.109746,hybrid,https://hal.science/hal-04230635/document,saved 3611133 bytes
+bengtsson2004reanalysis,10.1029/2004jd004536,bronze,,url failed: HTTPError
+calheiros2020evolution,10.1016/j.agrformet.2020.107923,bronze,,url failed: HTTPError
+castelclavera2025comparative,10.1016/j.agrformet.2024.110315,hybrid,,url failed: HTTPError
+chavardes2021drought,10.1071/wf21035,hybrid,,url failed: HTTPError
+collins2014fire,10.1016/j.agrformet.2014.01.005,closed,,no open pdf location
+collins2025decreasing,10.1016/j.agrformet.2025.110688,bronze,,no open pdf location
+copesgerbitz2022governance,10.1007/s10113-022-01895-2,hybrid,https://link.springer.com/content/pdf/10.1007/s10113-022-01895-2.pdf,saved 2209988 bytes
+copesgerbitz2022indigenous,10.1002/eap.2736,hybrid,,url failed: HTTPError
+daniels2011climate,10.1080/07060661.2011.563906,closed,,no open pdf location
+dowdy2010sensitivity,10.1002/met.170,closed,,no open pdf location
+drobyshev2021trends,10.1016/j.agrformet.2021.108467,hybrid,,no open pdf location
+efron1987better,10.1080/01621459.1987.10478410,closed,,no open pdf location
+flannigan1991lightning,10.1139/x91-035,closed,,no open pdf location
+gao2026distinct,10.1016/j.agrformet.2026.111436,hybrid,,url failed: HTTPError
+giannaros2023changes,10.1016/j.agrformet.2023.109749,green,,url failed: HTTPError
+granville2026season,10.1071/wf25164,hybrid,,url failed: HTTPError
+hall1991guidelines,10.2307/2532163,closed,,no open pdf location
+harvey2017interannual,10.1002/2016jg003661,closed,,no open pdf location
+heyerdahl2012mixed,10.1139/x11-160,closed,,no open pdf location
+hirsch1982trend,10.1029/wr018i001p00107,closed,,no open pdf location
+jain2017seasonlength,10.1071/wf17008,closed,,no open pdf location
+kidnie2015grass,10.1071/wf14214,closed,,no open pdf location
+kochtubajda2020cldn,10.1080/07055900.2020.1845117,closed,,no open pdf location
+kunsch1989bootstrap,10.1214/aos/1176347265,,,already on disk
+lawless1987negbin,10.2307/3314912,closed,,no open pdf location
+magnussen2012bc,10.1071/wf11088,closed,,no open pdf location
+mamgain2026satellite,10.1016/j.agrformet.2026.111169,closed,,no open pdf location
+martell1987logistic,10.1139/x87-068,closed,,no open pdf location
+martell1989seasonal,10.1139/x89-237,closed,,no open pdf location
+meyn2010spatial,10.1071/wf09055,closed,,no open pdf location
+nitschke2008okanagan,10.1111/j.1365-2486.2007.01517.x,closed,,no open pdf location
+onoz2012blockbootstrap,10.1002/hyp.8438,closed,,no open pdf location
+papagiannaki2020weather,10.1016/j.agrformet.2020.108076,closed,,no open pdf location
+plucinski2014bushfires,10.1071/wf13090,closed,,no open pdf location
+podur2011spread,10.1071/wf09001,bronze,,url failed: HTTPError
+politis1994stationary,10.1080/01621459.1994.10476870,closed,,url failed: HTTPError
+roberts2017crossvalidation,10.1111/ecog.02881,closed,,no open pdf location
+rodrigues2020identifying,10.1016/j.agrformet.2019.107789,green,,no open pdf location
+romualdi2023mpb,10.1007/s10980-023-01720-z,hybrid,https://link.springer.com/content/pdf/10.1007/s10980-023-01720-z.pdf,saved 1203463 bytes
+santer2000trenddiff,10.1029/1999jd901105,bronze,,url failed: HTTPError
+schunk2017fine,10.1016/j.agrformet.2016.12.007,closed,,no open pdf location
+silver2025colorado,10.1175/jamc-d-24-0043.1,green,,url failed: HTTPError
+tan2019dynamic,10.1016/j.agrformet.2018.11.026,bronze,,no open pdf location
+tiao1990autocorrelation,10.1029/jd095id12p20507,closed,,no open pdf location
+tory2024sensitivity,10.1016/j.agrformet.2024.109928,hybrid,,url failed: HTTPError
+trnka2021observed,10.1016/j.agrformet.2021.108583,closed,,no open pdf location
+tsinko2018comparisons,10.1016/j.agrformet.2018.07.005,hybrid,,url failed: HTTPError
+wastl2012climate,10.1016/j.agrformet.2012.04.001,closed,,no open pdf location
+wastl2013large,10.1016/j.agrformet.2012.08.011,closed,,no open pdf location
+weatherhead1998detection,10.1029/98jd00995,bronze,,url failed: HTTPError
+wierzchowski2002lightning,10.1071/wf01048,closed,,no open pdf location
+wotton2005lightning,10.1139/x05-071,closed,,no open pdf location
+wotton2007standspecific,10.1071/wf06087,closed,,no open pdf location
+yue2002autocorrelation,10.1002/hyp.1095,bronze,,url failed: HTTPError
+zhang2011indices,10.1002/wcc.147,closed,,no open pdf location
+zhang2017hourlyffmc,10.1071/wf16040,closed,,no open pdf location
+zhao2025multifactorial,10.1016/j.agrformet.2025.110507,closed,,no open pdf location

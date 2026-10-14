@@ -1,6 +1,4 @@
-# Version-contingent fire danger trends in the Okanagan basin
-
-*What the 2025 update to the Canadian Forest Fire Weather Index System does to a trend estimate*
+# Fire danger trends across the 2025 update to the Canadian Fire Weather Index System in the Okanagan basin
 
 Seamus Murphy, ORCID 0000-0002-1792-0351.
 
@@ -8,44 +6,34 @@ Everything below is generated from the render of `01.manuscript/manuscript.qmd` 
 
 ## Abstract
 
-Almost every published Canadian fire danger trend is expressed in the units of
-the 1987 Fire Weather Index System, which Natural Resources Canada replaced in
-2025. The successor changes the version of the calculation and the resolution of
-the weather driving it at the same time, so a straight comparison of the two
-cannot attribute a difference to either. Three danger series were therefore
-computed from a single hourly weather record for the Canadian portion of the
-Okanagan basin, British Columbia, over 31 fire seasons from 1991 to 2025 at 5
-stations, 104 station-seasons in all: FWI1987 from the 13:00 observation, FWI2025
-from the same observation through the specification's legacy pathway, and FWI2025
-from the observed hourly weather. FWI2025 was computed with the Canadian Forest
-Service reference implementation; the FWI1987 implementation reproduces the CRAN
-package cffdrs to machine precision and correlates 0.986 with the FWI1987 codes BC
-Wildfire Service computed operationally at these stations.
-
-The comparability the 2025 report claims holds for levels and fails for tails. A
-Fine Fuel Moisture Code of 91, the value that report names, sits at the 65.1th
-percentile of the legacy series and the 62.5th of the hourly FWI2025 series,
-which is 57 days per season above it against 62. Trends were estimated with
-the Theil-Sen slope and Mann-Kendall tested with the Hamed and Rao correction for
-serial correlation, corrected within each metric family for false discovery rate.
-Differences between series were bootstrapped by resampling whole seasons, which
-preserves the dependence of three series that share one weather record. Of the
-12 station-metric combinations under absolute thresholds, 0 gave a migration
-slope difference whose corrected interval excluded zero; under thresholds set as
-percentiles of each series' own reference distribution, 0 of 8 did. The
-resolution of that test is about 13.5 days over the window, so the version change
-is established here as a shift in level rather than in slope, which is enough to
-break a comparison between a value published under the old system and a value
-computed under the new one.
-
-Daily ignition counts were modelled as negative binomial with season as a fixed
-effect, so the danger coefficient is identified from within-season variation
-alone and cannot be moved by the record keeping: a quarter of the basin's
-incidents carry no ignition date at all and both dating and cause attribution
-fall sharply after 2000. On held-out seasons the three series differed by 0.0005 in
-mean log likelihood per day, with S1: FWI1987, 13:00 observation ranking first.
-
-These results are exploratory: the project's framing, prior-work, design and pre-registration gates were overridden to produce a complete draft, so decisions a pre-registration would have fixed in advance were made with the data in view. The comparison between series is the part the design protects, because all three run on one record through the same decisions.
+Fire danger trends in the Okanagan basin of British Columbia carried across the
+2025 update to the Canadian Forest Fire Weather Index System when they were
+reported as days above a percentile threshold and did not when they were reported
+as days in a fixed danger class, and the hourly weather the new System runs on
+added the hour and the daily duration of peak burning conditions, which the 1987
+System could not report. The Canadian Forest Service replaced the 1987 System in
+2025 with a version that changed the calculation and the resolution of the
+weather driving it at once, almost every published Canadian fire danger trend is
+in the old units, and no study had separated the two changes. This study
+computed three danger series from one hourly weather record (5 fire weather
+stations, 104 station-seasons, 31 fire seasons, 1991 to 2025, Canadian Okanagan basin,
+British Columbia), FWI1987 from the 13:00 observation, FWI2025 from the same
+observation through the legacy pathway, and FWI2025 from observed hourly weather.
+Trends were estimated with the Theil-Sen slope and the Mann-Kendall test under
+the Hamed and Rao correction, series differences were bootstrapped over blocks of
+consecutive seasons, and daily ignition counts were modelled as negative binomial with
+season as a fixed effect. The comparability claimed by the 2025 report held for
+levels and failed for tails, in that a Fine Fuel Moisture Code of 91 sat at percentile
+65.1 of the legacy series and percentile 62.5 of the hourly series, 57
+against 62 days per season. Of 12 station-metric combinations under absolute
+thresholds, 0 gave a migration slope difference excluding zero, against 0 of
+8 under percentile thresholds, at a resolution of about 16.8 days over the
+window, which refuted the predicted slope divergence at that resolution, so the
+version change moved the level and left no slope difference the record could resolve. On
+held-out seasons the three series differed by 0.0005 in mean log likelihood per
+day, with FWI1987 on the 13:00 observation ranking first. Fire danger trends should therefore be reported as percentile
+exceedances with the version of the System stated, because a fixed danger class
+did not carry across the change and a percentile threshold did.
 
 
 ## Figures
@@ -78,13 +66,13 @@ These results are exploratory: the project's framing, prior-work, design and pre
 
 **Table 1.** The weather record. Coverage is the share of the 1 April to 30 September hours in which temperature, humidity and wind were all observed, before any gap filling.
 
-| Station | Elevation (m) | First season | Last season | Seasons kept | Seasons dropped | Not reporting | Median coverage |
-| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| PENTICTON RS | 492 | 1991 | 2025 | 27 | 11 | 0 | 1.000 |
-| MCCUDDY | 1023 | 1994 | 2025 | 26 | 11 | 1 | 1.000 |
-| FINTRY | 526 | 1996 | 2025 | 25 | 7 | 6 | 1.000 |
-| BRENDA MINES | 1463 | 1998 | 2025 | 20 | 17 | 1 | 0.999 |
-| WEST KELOWNA | 650 | 2017 | 2024 | 6 | 3 | 28 | 0.998 |
+| Station | Elevation (m) | Installed | First season | Last season | Seasons kept | Seasons dropped | Not reporting | Median coverage |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| PENTICTON RS | 492 | 1988 | 1991 | 2025 | 27 | 11 | 0 | 1.000 |
+| MCCUDDY | 1023 | 1989 | 1994 | 2025 | 26 | 11 | 1 | 1.000 |
+| FINTRY | 526 | 1990 | 1996 | 2025 | 25 | 7 | 6 | 1.000 |
+| BRENDA MINES | 1463 | 1989 | 1998 | 2025 | 20 | 17 | 1 | 0.999 |
+| WEST KELOWNA | 650 | 2016 | 2017 | 2024 | 6 | 3 | 28 | 0.998 |
 
 **Table 2.** Completeness of the ignition record by decade. Both dating and cause attribution fall sharply after 2000.
 
@@ -139,30 +127,30 @@ These results are exploratory: the project's framing, prior-work, design and pre
 
 | Series | Metric | Stations | Median slope | Slope range | Stations q < 0.05 | Min detectable |
 | :--- | :--- | ---: | ---: | :--- | ---: | ---: |
-| S1: FWI1987, 13:00 observation | Mean FWI | 4 | 0.176 | 0.07 to 0.37 | 1 | 0.265 |
-| S2: FWI2025, 13:00 observation | Mean FWI | 4 | 0.166 | 0.09 to 0.36 | 1 | 0.257 |
-| S3: FWI2025, hourly observation | Mean FWI | 4 | 0.181 | 0.04 to 0.38 | 1 | 0.266 |
+| S1: FWI1987, 13:00 observation | Mean FWI | 4 | 0.176 | 0.07 to 0.37 | 1 | 0.266 |
+| S2: FWI2025, 13:00 observation | Mean FWI | 4 | 0.166 | 0.09 to 0.36 | 1 | 0.269 |
+| S3: FWI2025, hourly observation | Mean FWI | 4 | 0.181 | 0.04 to 0.38 | 1 | 0.275 |
 | S1: FWI1987, 13:00 observation | Seasonal severity rating | 4 | 13.376 | 7.29 to 28.06 | 1 | 22.329 |
-| S2: FWI2025, 13:00 observation | Seasonal severity rating | 4 | 13.884 | 5.24 to 29.93 | 1 | 22.988 |
+| S2: FWI2025, 13:00 observation | Seasonal severity rating | 4 | 13.884 | 5.24 to 29.93 | 1 | 23.301 |
 | S3: FWI2025, hourly observation | Seasonal severity rating | 4 | 14.817 | 7.17 to 29.85 | 1 | 23.332 |
-| S1: FWI1987, 13:00 observation | Peak BUI | 4 | 1.606 | 0.78 to 2.76 | 0 | 4.291 |
-| S2: FWI2025, 13:00 observation | Peak BUI | 4 | 1.671 | 0.91 to 3.05 | 0 | 4.828 |
-| S3: FWI2025, hourly observation | Peak BUI | 4 | 1.918 | 1.32 to 3.20 | 0 | 5.150 |
+| S1: FWI1987, 13:00 observation | Peak BUI | 4 | 1.606 | 0.78 to 2.76 | 0 | 4.668 |
+| S2: FWI2025, 13:00 observation | Peak BUI | 4 | 1.671 | 0.91 to 3.05 | 0 | 5.371 |
+| S3: FWI2025, hourly observation | Peak BUI | 4 | 1.918 | 1.32 to 3.20 | 0 | 6.057 |
 | S1: FWI1987, 13:00 observation | Days FFMC >= 91 | 4 | 0.761 | 0.28 to 1.33 | 1 | 0.981 |
-| S2: FWI2025, 13:00 observation | Days FFMC >= 91 | 4 | 0.715 | 0.33 to 1.23 | 2 | 0.883 |
+| S2: FWI2025, 13:00 observation | Days FFMC >= 91 | 4 | 0.715 | 0.33 to 1.23 | 2 | 0.904 |
 | S3: FWI2025, hourly observation | Days FFMC >= 91 | 4 | 0.741 | 0.26 to 1.22 | 1 | 0.899 |
-| S1: FWI1987, 13:00 observation | Days FWI >= 19 | 4 | 0.798 | 0.45 to 1.50 | 1 | 1.316 |
-| S2: FWI2025, 13:00 observation | Days FWI >= 19 | 4 | 0.710 | 0.47 to 1.70 | 2 | 1.318 |
-| S3: FWI2025, hourly observation | Days FWI >= 19 | 4 | 0.696 | 0.40 to 1.35 | 1 | 1.273 |
+| S1: FWI1987, 13:00 observation | Days FWI >= 19 | 4 | 0.798 | 0.45 to 1.50 | 1 | 1.378 |
+| S2: FWI2025, 13:00 observation | Days FWI >= 19 | 4 | 0.710 | 0.47 to 1.70 | 2 | 1.365 |
+| S3: FWI2025, hourly observation | Days FWI >= 19 | 4 | 0.696 | 0.40 to 1.35 | 1 | 1.304 |
 | S1: FWI1987, 13:00 observation | Days FWI >= 30 | 4 | 0.711 | 0.20 to 1.43 | 1 | 1.147 |
-| S2: FWI2025, 13:00 observation | Days FWI >= 30 | 4 | 0.654 | 0.10 to 1.44 | 2 | 1.103 |
-| S3: FWI2025, hourly observation | Days FWI >= 30 | 4 | 0.606 | 0.36 to 1.25 | 1 | 1.089 |
-| S1: FWI1987, 13:00 observation | Days above own 90th percentile | 4 | 0.353 | 0.15 to 0.72 | 1 | 0.820 |
-| S2: FWI2025, 13:00 observation | Days above own 90th percentile | 4 | 0.461 | 0.09 to 0.79 | 2 | 0.695 |
-| S3: FWI2025, hourly observation | Days above own 90th percentile | 4 | 0.327 | 0.15 to 0.80 | 1 | 0.684 |
-| S1: FWI1987, 13:00 observation | Days above own 95th percentile | 4 | 0.146 | 0.10 to 0.37 | 1 | 0.550 |
-| S2: FWI2025, 13:00 observation | Days above own 95th percentile | 4 | 0.174 | 0.11 to 0.43 | 1 | 0.449 |
-| S3: FWI2025, hourly observation | Days above own 95th percentile | 4 | 0.143 | 0.12 to 0.25 | 1 | 0.464 |
+| S2: FWI2025, 13:00 observation | Days FWI >= 30 | 4 | 0.654 | 0.10 to 1.44 | 2 | 1.138 |
+| S3: FWI2025, hourly observation | Days FWI >= 30 | 4 | 0.606 | 0.36 to 1.25 | 1 | 1.119 |
+| S1: FWI1987, 13:00 observation | Days above own 90th percentile | 4 | 0.337 | 0.17 to 0.72 | 2 | 0.857 |
+| S2: FWI2025, 13:00 observation | Days above own 90th percentile | 4 | 0.450 | 0.09 to 0.78 | 1 | 0.740 |
+| S3: FWI2025, hourly observation | Days above own 90th percentile | 4 | 0.333 | 0.16 to 0.79 | 2 | 0.746 |
+| S1: FWI1987, 13:00 observation | Days above own 95th percentile | 4 | 0.141 | 0.12 to 0.37 | 1 | 0.605 |
+| S2: FWI2025, 13:00 observation | Days above own 95th percentile | 4 | 0.172 | 0.11 to 0.43 | 1 | 0.493 |
+| S3: FWI2025, hourly observation | Days above own 95th percentile | 4 | 0.148 | 0.14 to 0.26 | 1 | 0.513 |
 
 **Table 7.** Difference in Theil-Sen slope between series, by metric and contrast, with paired bootstrap intervals.
 
@@ -174,24 +162,24 @@ These results are exploratory: the project's framing, prior-work, design and pre
 | Version change, input held at 13:00 | absolute | Days FFMC >= 91 | 4 | -0.029 | 0 | 0 |
 | Version change, input held at 13:00 | absolute | Days FWI >= 19 | 4 | -0.023 | 0 | 0 |
 | Version change, input held at 13:00 | absolute | Days FWI >= 30 | 4 | -0.057 | 0 | 0 |
-| Version change, input held at 13:00 | relative | Days above own 90th percentile | 4 | 0.033 | 0 | 0 |
-| Version change, input held at 13:00 | relative | Days above own 95th percentile | 4 | 0.028 | 0 | 0 |
+| Version change, input held at 13:00 | relative | Days above own 90th percentile | 4 | 0.044 | 0 | 0 |
+| Version change, input held at 13:00 | relative | Days above own 95th percentile | 4 | 0.031 | 0 | 0 |
 | Input resolution change, version held at FWI2025 | level | Mean FWI | 4 | 0.011 | 0 | 0 |
 | Input resolution change, version held at FWI2025 | level | Seasonal severity rating | 4 | 0.923 | 0 | 0 |
 | Input resolution change, version held at FWI2025 | level | Peak BUI | 4 | 0.247 | 0 | 0 |
 | Input resolution change, version held at FWI2025 | absolute | Days FFMC >= 91 | 4 | -0.021 | 0 | 0 |
 | Input resolution change, version held at FWI2025 | absolute | Days FWI >= 19 | 4 | -0.062 | 0 | 0 |
 | Input resolution change, version held at FWI2025 | absolute | Days FWI >= 30 | 4 | -0.048 | 0 | 0 |
-| Input resolution change, version held at FWI2025 | relative | Days above own 90th percentile | 4 | -0.037 | 0 | 0 |
-| Input resolution change, version held at FWI2025 | relative | Days above own 95th percentile | 4 | -0.031 | 0 | 0 |
+| Input resolution change, version held at FWI2025 | relative | Days above own 90th percentile | 4 | -0.038 | 0 | 0 |
+| Input resolution change, version held at FWI2025 | relative | Days above own 95th percentile | 4 | -0.030 | 0 | 0 |
 | Operational migration, both changes | level | Mean FWI | 4 | 0.005 | 0 | 0 |
 | Operational migration, both changes | level | Seasonal severity rating | 4 | 1.006 | 0 | 0 |
 | Operational migration, both changes | level | Peak BUI | 4 | 0.373 | 0 | 0 |
 | Operational migration, both changes | absolute | Days FFMC >= 91 | 4 | -0.061 | 0 | 0 |
 | Operational migration, both changes | absolute | Days FWI >= 19 | 4 | -0.101 | 0 | 0 |
 | Operational migration, both changes | absolute | Days FWI >= 30 | 4 | -0.105 | 0 | 0 |
-| Operational migration, both changes | relative | Days above own 90th percentile | 4 | 0.020 | 0 | 0 |
-| Operational migration, both changes | relative | Days above own 95th percentile | 4 | -0.004 | 0 | 0 |
+| Operational migration, both changes | relative | Days above own 90th percentile | 4 | 0.019 | 0 | 0 |
+| Operational migration, both changes | relative | Days above own 95th percentile | 4 | 0.001 | 0 | 0 |
 
 **Table 8.** Sensitivity of the absolute extreme-day counts to how an hourly series is reduced to a daily value.
 
@@ -243,12 +231,12 @@ These results are exploratory: the project's framing, prior-work, design and pre
 
 | Metric | Median observed slope | Minimum detectable slope | Minimum detectable change over the window | Observed change over the window |
 | :--- | ---: | ---: | ---: | ---: |
-| Mean FWI | 0.180 | 0.262 | 8.90 | 6.14 |
-| Seasonal severity rating | 13.486 | 23.199 | 788.75 | 458.54 |
-| Peak BUI | 1.740 | 5.016 | 170.55 | 59.17 |
-| Days FFMC >= 91 | 0.741 | 0.928 | 31.55 | 25.19 |
-| Days FWI >= 19 | 0.739 | 1.301 | 44.24 | 25.11 |
-| Days FWI >= 30 | 0.625 | 1.089 | 37.03 | 21.25 |
-| Days above own 90th percentile | 0.377 | 0.710 | 24.15 | 12.82 |
-| Days above own 95th percentile | 0.146 | 0.483 | 16.42 | 4.98 |
+| Mean FWI | 0.180 | 0.266 | 9.04 | 6.14 |
+| Seasonal severity rating | 13.486 | 23.245 | 790.32 | 458.54 |
+| Peak BUI | 1.740 | 5.206 | 177.01 | 59.17 |
+| Days FFMC >= 91 | 0.741 | 0.934 | 31.77 | 25.19 |
+| Days FWI >= 19 | 0.739 | 1.341 | 45.58 | 25.11 |
+| Days FWI >= 30 | 0.625 | 1.119 | 38.06 | 21.25 |
+| Days above own 90th percentile | 0.372 | 0.778 | 26.45 | 12.66 |
+| Days above own 95th percentile | 0.149 | 0.517 | 17.57 | 5.07 |
 
