@@ -1,2 +1,3 @@
 question,route,key,doi,title,year,venue,source_note
 q2,store-q2-index-input,rodell2024forecasting,10.1175/waf-d-23-0226.1,Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment Using Numerical Weather Prediction,2024,Weather and Forecasting,NA
+q2c,store-q2c-index-input,rodell2024forecasting,10.1175/waf-d-23-0226.1,Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment Using Numerical Weather Prediction,2024,Weather and Forecasting,NA

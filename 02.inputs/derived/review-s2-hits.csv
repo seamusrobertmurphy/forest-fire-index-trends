@@ -1,133 +1,638 @@
 question,route,doi,title,year,venue,type,citations
 q2,s2-q2-index-input,10.3390/rs18020318,Quantifying VIIRS and ABI Contributions to Hourly Dead Fuel Moisture Content Estimation Using Machine Learning,2026,Remote Sensing,JournalArticle,1
-q2,s2-q2-index-input,10.22499/3.6003.00004,"A bias corrected WRF mesoscale fire weather dataset for Victoria, Australia 1972-2012",2016,,,19
-q2,s2-q2-index-input,10.1139/CJFR-2014-0294,Assessing the probability of sustained flaming in masticated fuel beds.,2015,,,12
-q2,s2-q2-index-input,10.5194/egusphere-egu2020-11639,Climate services for forest fire risk management,2020,,Review,1
-q2,s2-q2-index-input,NA,A climatology of extreme fire weather days in Victoria,2006,,,38
-q2,s2-q2-index-input,10.1007/s00382-017-3580-6,Multivariate quantile mapping bias correction: an N-dimensional probability density function transform for climate model simulations of multiple variables,2017,Climate Dynamics,,598
-q2,s2-q2-index-input,10.1175/JAMC-D-13-0114.1,A Regression Model for Smoke Plume Rise of Prescribed Fires Using Meteorological Conditions,2014,,,12
+q2,s2-q2-index-input,10.22499/3.6003.00004,"A bias corrected WRF mesoscale fire weather dataset for Victoria, Australia 1972-2012",2016,NA,NA,19
+q2,s2-q2-index-input,10.1139/CJFR-2014-0294,Assessing the probability of sustained flaming in masticated fuel beds.,2015,NA,NA,12
+q2,s2-q2-index-input,10.5194/egusphere-egu2020-11639,Climate services for forest fire risk management,2020,NA,Review,1
+q2,s2-q2-index-input,NA,A climatology of extreme fire weather days in Victoria,2006,NA,NA,38
+q2,s2-q2-index-input,10.1007/s00382-017-3580-6,Multivariate quantile mapping bias correction: an N-dimensional probability density function transform for climate model simulations of multiple variables,2017,Climate Dynamics,NA,598
+q2,s2-q2-index-input,10.1175/JAMC-D-13-0114.1,A Regression Model for Smoke Plume Rise of Prescribed Fires Using Meteorological Conditions,2014,NA,NA,12
 q2,s2-q2-index-input,10.1038/s41586-021-04325-1,Warming weakens the night-time barrier to global fire,2022,Nature,JournalArticle,194
 q2,s2-q2-index-input,10.1071/wf23190,Climate and weather drivers in southern California Santa Ana Wind and non-Santa Wind fires,2024,International journal of wildland fire,JournalArticle,5
 q2,s2-q2-index-input,10.1080/03736245.2024.2398422,Modification of the microclimate and fire danger by Berg winds in the midlands of KwaZulu-Natal,2024,The South African Geographical Journal,JournalArticle,4
 q2,s2-q2-index-input,10.1016/j.mex.2026.104174,A daily peat moisture code for monitoring and predicting peatland fire danger,2026,MethodsX,JournalArticle,0
-q2,s2-q2-index-input,NA,On the relation between heat wave events and fire risk indices over Chalkidiki- Greece,2014,,,0
-q2,s2-q2-index-input,10.1071/WF02003,The Oklahoma Fire Danger Model: An operational tool for mesoscale fire danger rating in Oklahoma,2002,,,34
-q2,s2-q2-index-input,10.1071/WF06021,Predicting forest floor moisture for burned and unburned Pinus banksiana forests in the Canadian Northwest Territories,2007,,,19
-q2,s2-q2-index-input,10.1002/joc.7262,"Extreme winds and fire weather in coastal Santa Barbara County, CA: An observational analysis",2021,International Journal of Climatology,,12
-q2,s2-q2-index-input,NA,A climatology of extreme fire weather days in Victoria,2006,,,0
+q2,s2-q2-index-input,NA,On the relation between heat wave events and fire risk indices over Chalkidiki- Greece,2014,NA,NA,0
+q2,s2-q2-index-input,10.1071/WF02003,The Oklahoma Fire Danger Model: An operational tool for mesoscale fire danger rating in Oklahoma,2002,NA,NA,34
+q2,s2-q2-index-input,10.1071/WF06021,Predicting forest floor moisture for burned and unburned Pinus banksiana forests in the Canadian Northwest Territories,2007,NA,NA,19
+q2,s2-q2-index-input,10.1002/joc.7262,"Extreme winds and fire weather in coastal Santa Barbara County, CA: An observational analysis",2021,International Journal of Climatology,NA,12
+q2,s2-q2-index-input,NA,A climatology of extreme fire weather days in Victoria,2006,NA,NA,0
 q2,s2-q2-index-input,10.1080/10962247.2019.1640808,A statistical model for predicting PM2.5 for the western United States,2019,Journal of the Air and Waste Management Association,JournalArticle,30
 q2,s2-q2-index-input,10.5220/0015063700004091,Enhancing Wildfire Prevention: An Operational Pipeline Integrating WRF Mesoscale Modelling and Automated CFFDRS Calculation,2026,International Conference on Data Technologies and Applications,JournalArticle,0
 q2,s2-q2-index-input,10.5194/essd-18-5995-2026,"A daily gridded dataset of the Fire Weather Index across Canada, with calculations based on the sun's elevation",2026,Earth System Science Data,JournalArticle,0
 q2,s2-q2-index-input,10.23919/AEIT63317.2024.10736821,Fire Danger Characterization in Italy: Mitigating the Impact on Real Time Operation of the Power System,2024,AEIT International Annual Conference,Conference,2
-q2,s2-q2-index-input,NA,A COMPARISON OF HOURLY FINE FUEL MOISTURE CODE CALCULATIONS WITHIN CANADA,2009,,,5
+q2,s2-q2-index-input,NA,A COMPARISON OF HOURLY FINE FUEL MOISTURE CODE CALCULATIONS WITHIN CANADA,2009,NA,NA,5
 q2,s2-q2-index-input,10.1071/wf24113,Sub-hourly forecasting of fire potential using machine learning on time series of surface weather variables,2025,International journal of wildland fire,JournalArticle,6
-q2,s2-q2-index-input,10.36334/modsim.2011.a2.grose,Bushfire conditions under a warming climate – the value of regional climate modelling,2011,,,1
-q2,s2-q2-index-input,NA,Incorporating solar radiation into the litter moisture model in the Canadian Forest Fire Danger Rating System,2010,,,0
+q2,s2-q2-index-input,10.36334/modsim.2011.a2.grose,Bushfire conditions under a warming climate – the value of regional climate modelling,2011,NA,NA,1
+q2,s2-q2-index-input,NA,Incorporating solar radiation into the litter moisture model in the Canadian Forest Fire Danger Rating System,2010,NA,NA,0
 q2,s2-q2-index-input,10.3390/f17040484,"Study on Model Construction and Extrapolation Accuracy of Surface Branch Moisture Content for Typical Stands in Qipanshan Area, Northeastern China",2026,Forests,JournalArticle,4
-q2,s2-q2-index-input,NA,"Web-based teaching, learning and research using real-time data from field-based agrometeorological measurement systems.",2014,,,4
-q2,s2-q2-index-input,NA,Field verification of the Nelson dead fuel moisture model and comparisons with National Fire Danger Rating System (NFDRS) predictions,2005,,,1
-q2,s2-q2-index-input,NA,An hourly based meteorological fire danger system,2018,,,1
+q2,s2-q2-index-input,NA,"Web-based teaching, learning and research using real-time data from field-based agrometeorological measurement systems.",2014,NA,NA,4
+q2,s2-q2-index-input,NA,Field verification of the Nelson dead fuel moisture model and comparisons with National Fire Danger Rating System (NFDRS) predictions,2005,NA,NA,1
+q2,s2-q2-index-input,NA,An hourly based meteorological fire danger system,2018,NA,NA,1
 q2,s2-q2-index-input,10.1111/jtsa.12732,Transformed‐Linear Models for Time Series Extremes,2020,Journal of Time Series Analysis,JournalArticle,9
-q2,s2-q2-index-input,10.5194/NHESS-13-2157-2013,Forest fire danger rating in complex topography - results from a case study in the Bavarian Alps in autumn 2011,2013,,,24
+q2,s2-q2-index-input,10.5194/NHESS-13-2157-2013,Forest fire danger rating in complex topography - results from a case study in the Bavarian Alps in autumn 2011,2013,NA,NA,24
 q2,s2-q2-index-input,10.1071/wf25023,Fuel-aware forest fire danger rating system RISICO: a comparative study for Italy,2025,International journal of wildland fire,JournalArticle,4
 q2,s2-q2-index-input,10.13287/j.1001-9332.202608.010,"Driving mechanisms and predictive modeling of lightning-caused fires in the Greater Khingan Mountains, China.",2026,Ying yong sheng tai xue bao = The journal of applied ecology,JournalArticle,0
-q2,s2-q2-index-input,NA,Modeling the probability of sustained flaming in Canadian fuel types: predictive value of fire weather index components compared with observations of site weather and fuel moisture conditions,2005,,,2
-q2,s2-q2-index-input,10.14195/978-989-26-16-506,Advances in forest fire research 2018,2018,,,10
-q2,s2-q2-index-input,10.3390/app10228213,Developing a New Hourly Forest Fire Risk Index Based on Catboost in South Korea,2020,Applied Sciences,,43
+q2,s2-q2-index-input,NA,Modeling the probability of sustained flaming in Canadian fuel types: predictive value of fire weather index components compared with observations of site weather and fuel moisture conditions,2005,NA,NA,2
+q2,s2-q2-index-input,10.14195/978-989-26-16-506,Advances in forest fire research 2018,2018,NA,NA,10
+q2,s2-q2-index-input,10.3390/app10228213,Developing a New Hourly Forest Fire Risk Index Based on Catboost in South Korea,2020,Applied Sciences,NA,43
 q2,s2-q2-index-input,10.1175/waf-d-23-0226.1,Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment using Numerical Weather Prediction,2024,Weather and forecasting,JournalArticle,7
-q2,s2-q2-index-input,10.7075/TJFS.199909.0339,Modeling Probability of Ignition in Taiwan Red Pine Forests,1999,,,16
-q2,s2-q2-index-input,NA,DIURNAL FINE FUEL MOISTURE CHARACTERISTICS AT A NORTHERN LATITUDE,2012,,,10
-q2,s2-q2-index-input,10.1175/BAMS-D-21-0013.1,Meteorologically Stratified Gust Factors for Forecasting Peak Wind Gusts Across the United States,2021,Bulletin of The American Meteorological Society - (BAMS),,11
+q2,s2-q2-index-input,10.7075/TJFS.199909.0339,Modeling Probability of Ignition in Taiwan Red Pine Forests,1999,NA,NA,16
+q2,s2-q2-index-input,NA,DIURNAL FINE FUEL MOISTURE CHARACTERISTICS AT A NORTHERN LATITUDE,2012,NA,NA,10
+q2,s2-q2-index-input,10.1175/BAMS-D-21-0013.1,Meteorologically Stratified Gust Factors for Forecasting Peak Wind Gusts Across the United States,2021,Bulletin of The American Meteorological Society - (BAMS),NA,11
 q2,s2-q2-index-input,10.3390/f17040486,A Comparative Review of Wildfire Danger Rating Systems: Focus on Fuel Moisture Modeling Frameworks,2026,Forests,JournalArticle Review,1
-q2,s2-q2-index-input,NA,SATELLITE-DERIVED PM 2 . 5 EMISSIONS FROM WILDFIRES FOR AIR QULAITY FORECAST,2006,,,1
-q2,s2-q2-index-input,10.1071/wf19185,Comparing the performance of daily forest fire danger summary metrics for estimating fire activity in southern Australian forests,2020,,,4
+q2,s2-q2-index-input,NA,SATELLITE-DERIVED PM 2 . 5 EMISSIONS FROM WILDFIRES FOR AIR QULAITY FORECAST,2006,NA,NA,1
+q2,s2-q2-index-input,10.1071/wf19185,Comparing the performance of daily forest fire danger summary metrics for estimating fire activity in southern Australian forests,2020,NA,NA,4
 q2,s2-q2-index-input,10.1175/waf-d-24-0068.1,An hourly wildfire potential index for predicting sub-daily fire activity based on rapidly-updating convection-allowing model forecasts,2025,Weather and forecasting,JournalArticle,4
-q2,s2-q2-index-input,NA,HOURLY BIOMASS BURNING EMISSIONS INVENTORY DERIVED FROM GOES DATA,2008,,,0
-q2,s2-q2-index-input,10.1007/s10584-012-0667-2,On the projection of future fire danger conditions with various instantaneous/mean-daily data sources,2013,Climatic Change,,33
-q2,s2-q2-index-input,NA,Implementation of models and the forecast system for the National Fire Danger Rating System,2019,,,0
-q2,s2-q2-index-input,10.1016/J.FIRESAF.2014.05.012,The timing of vegetation fire occurrence in a human landscape,2014,,,36
-q2,s2-q2-index-input,10.1071/WF02019,"Temporal simulation of diurnal temperature and relative humidity evolution at a forested mountainous site in Attica, Greece",2002,,,9
-q2,s2-q2-index-input,10.1175/JAMC-D-10-05001.1,Impact of More Frequent Observations on the Understanding of Tasmanian Fire Danger,2011,,,10
-q2,s2-q2-index-input,NA,An Hourly Operational Fire Danger Monitoring Tool,2015,,,0
-q2,s2-q2-index-input,10.1016/J.AGRFORMET.2005.03.012,A comparison of three models of 1-h time lag fuel moisture in Hawaii,2005,,,30
-q2,s2-q2-index-input,10.36334/modsim.2013.a3.mills,A 40-year mesoscale gridded fire weather climatology for Victoria - an overview,2013,,Review,1
+q2,s2-q2-index-input,NA,HOURLY BIOMASS BURNING EMISSIONS INVENTORY DERIVED FROM GOES DATA,2008,NA,NA,0
+q2,s2-q2-index-input,10.1007/s10584-012-0667-2,On the projection of future fire danger conditions with various instantaneous/mean-daily data sources,2013,Climatic Change,NA,33
+q2,s2-q2-index-input,NA,Implementation of models and the forecast system for the National Fire Danger Rating System,2019,NA,NA,0
+q2,s2-q2-index-input,10.1016/J.FIRESAF.2014.05.012,The timing of vegetation fire occurrence in a human landscape,2014,NA,NA,36
+q2,s2-q2-index-input,10.1071/WF02019,"Temporal simulation of diurnal temperature and relative humidity evolution at a forested mountainous site in Attica, Greece",2002,NA,NA,9
+q2,s2-q2-index-input,10.1175/JAMC-D-10-05001.1,Impact of More Frequent Observations on the Understanding of Tasmanian Fire Danger,2011,NA,NA,10
+q2,s2-q2-index-input,NA,An Hourly Operational Fire Danger Monitoring Tool,2015,NA,NA,0
+q2,s2-q2-index-input,10.1016/J.AGRFORMET.2005.03.012,A comparison of three models of 1-h time lag fuel moisture in Hawaii,2005,NA,NA,30
+q2,s2-q2-index-input,10.36334/modsim.2013.a3.mills,A 40-year mesoscale gridded fire weather climatology for Victoria - an overview,2013,NA,Review,1
 q2,s2-q2-index-input,10.1038/s41598-026-68923-7,Machine learning for one day ahead prediction of high fire weather index conditions from area weighted ERA5 data in mersin,2026,Scientific Reports,JournalArticle,0
 q2,s2-q2-index-input,10.1038/s41598-026-72729-y,From daily to hourly scale: improving fire weather index with high-resolution Meso-NH simulations,2026,Scientific Reports,JournalArticle,0
-q2,s2-q2-index-input,10.36334/modsim.2019.h7.harris,Victorian fire weather trends and variability,2019,"El Sawah, S. (ed.) MODSIM2019, 23rd International Congress on Modelling and Simulation.",,4
-q2,s2-q2-index-input,10.1016/J.ATMOSENV.2007.12.040,"Biomass burning emissions over northern Australia constrained by aerosol measurements: II-Model validation, and impacts on air quality and radiative forcing",2008,,,44
-q2,s2-q2-index-input,10.1002/met.1367,Climatological evaluation of Haines forest fire weather index over the Mediterranean Basin,2014,,,43
+q2,s2-q2-index-input,10.36334/modsim.2019.h7.harris,Victorian fire weather trends and variability,2019,"El Sawah, S. (ed.) MODSIM2019, 23rd International Congress on Modelling and Simulation.",NA,4
+q2,s2-q2-index-input,10.1016/J.ATMOSENV.2007.12.040,"Biomass burning emissions over northern Australia constrained by aerosol measurements: II-Model validation, and impacts on air quality and radiative forcing",2008,NA,NA,44
+q2,s2-q2-index-input,10.1002/met.1367,Climatological evaluation of Haines forest fire weather index over the Mediterranean Basin,2014,NA,NA,43
 q2,s2-q2-index-input,10.5194/gmd-17-7713-2024,The Global Forest Fire Emissions Prediction System version 1.0,2024,Geoscientific Model Development,JournalArticle,17
-q2,s2-q2-index-input,10.1016/J.ATMOSENV.2007.10.089,Biomass burning emissions over northern Australia constrained by aerosol measurements : I-Modelling the distribution of hourly emissions,2008,,,40
-q2,s2-q2-index-input,10.36334/modsim.2011.a2.lin,Estimate of Maximum Insurance Loss due to Bushfires,2011,,,1
-q2,s2-q2-index-input,10.1127/0941-2948/2005/0017,A single-layer litter-moisture model for estimating forest-fire danger,2005,,,24
+q2,s2-q2-index-input,10.1016/J.ATMOSENV.2007.10.089,Biomass burning emissions over northern Australia constrained by aerosol measurements : I-Modelling the distribution of hourly emissions,2008,NA,NA,40
+q2,s2-q2-index-input,10.36334/modsim.2011.a2.lin,Estimate of Maximum Insurance Loss due to Bushfires,2011,NA,NA,1
+q2,s2-q2-index-input,10.1127/0941-2948/2005/0017,A single-layer litter-moisture model for estimating forest-fire danger,2005,NA,NA,24
 q3,s2-q3-index-occurrence-place,10.1186/s42408-025-00376-1,Lightning ignition efficiency in Canadian forests,2025,Fire Ecology,JournalArticle,5
 q3,s2-q3-index-occurrence-place,10.7717/peerj.2649,Regional variation in fire weather controls the reported occurrence of Scottish wildfires,2016,PeerJ,JournalArticle,28
-q3,s2-q3-index-occurrence-place,10.3929/ETHZ-A-006088494,Modelling and assessing fire regimes in mountain forests of Switzerland,2009,,,12
+q3,s2-q3-index-occurrence-place,10.3929/ETHZ-A-006088494,Modelling and assessing fire regimes in mountain forests of Switzerland,2009,NA,NA,12
 q3,s2-q3-index-occurrence-place,10.1109/CSAE.2011.5952422,Adaptation of Canadian Forest Fire Weather Index system and it's application,2011,International Conference on Computer Science and Application Engineering,Conference,8
-q3,s2-q3-index-occurrence-place,10.11118/actaun201967051285,Comparison of Methods for the Assessment of Fire Danger in the Czech Republic,2019,Acta Universitatis Agriculturae et Silviculturae Mendelianae Brunensis,,11
-q3,s2-q3-index-occurrence-place,10.1002/met.214,Evaluation of the Canadian fire weather index system in an eastern Mediterranean environment,2011,,,145
-q3,s2-q3-index-occurrence-place,10.1071/WF01048,"Lightning and lightning fire, central cordillera, Canada",2002,,,119
+q3,s2-q3-index-occurrence-place,10.11118/actaun201967051285,Comparison of Methods for the Assessment of Fire Danger in the Czech Republic,2019,Acta Universitatis Agriculturae et Silviculturae Mendelianae Brunensis,NA,11
+q3,s2-q3-index-occurrence-place,10.1002/met.214,Evaluation of the Canadian fire weather index system in an eastern Mediterranean environment,2011,NA,NA,145
+q3,s2-q3-index-occurrence-place,10.1071/WF01048,"Lightning and lightning fire, central cordillera, Canada",2002,NA,NA,119
 q3,s2-q3-index-occurrence-place,10.1007/S00267-003-0241-9,Using Satellite Fire Detection to Calibrate Components of the Fire Weather Index System in Malaysia and Indonesia,2005,Environmental Management,JournalArticle,23
-q3,s2-q3-index-occurrence-place,10.1007/s10651-007-0081-5,Introduction to this special issue on statistics for wildfire processes,2009,Environmental and Ecological Statistics,,0
+q3,s2-q3-index-occurrence-place,10.1007/s10651-007-0081-5,Introduction to this special issue on statistics for wildfire processes,2009,Environmental and Ecological Statistics,NA,0
 q3,s2-q3-index-occurrence-place,10.11575/prism/37640,Forest Fire Danger/Risk Forecasting: A Remote Sensing Approach,2020,Open Mind,Study,1
 q3,s2-q3-index-occurrence-place,10.1071/wf23190,Climate and weather drivers in southern California Santa Ana Wind and non-Santa Wind fires,2024,International journal of wildland fire,JournalArticle,5
-q3,s2-q3-index-occurrence-place,NA,"Seasonal fire danger forecasts for supporting fire prevention management in an eastern Mediterranean environment: the case study of Attica, Greece",2022,,,0
-q3,s2-q3-index-occurrence-place,10.1111/j.1365-2486.2007.01517.x,"Climatic change and fire potential in South‐Central British Columbia, Canada",2007,,,62
+q3,s2-q3-index-occurrence-place,NA,"Seasonal fire danger forecasts for supporting fire prevention management in an eastern Mediterranean environment: the case study of Attica, Greece",2022,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1111/j.1365-2486.2007.01517.x,"Climatic change and fire potential in South‐Central British Columbia, Canada",2007,NA,NA,62
 q3,s2-q3-index-occurrence-place,10.1007/s11042-023-15881-1,Fire danger forecasting using machine learning-based models and meteorological observation: a case study in Northeastern China,2023,Multimedia tools and applications,JournalArticle,18
-q3,s2-q3-index-occurrence-place,10.1016/S0168-1699(02)00120-5,Information systems in support of wildland fire management decision making in Canada,2002,,Review,158
-q3,s2-q3-index-occurrence-place,10.1088/1748-9326/ac5f94,Future climate change impact on wildfire danger over the Mediterranean: the case of Greece,2021,,,51
-q3,s2-q3-index-occurrence-place,10.1117/1.JRS.7.073578,Remote sensing-based determination of understory grass greening stage over boreal forest,2013,,,9
-q3,s2-q3-index-occurrence-place,NA,"Assessment of fire seasonality, and evaluation of fire-weather relationship, and fire danger models in Italy",2013,,,0
-q3,s2-q3-index-occurrence-place,10.1007/s13253-022-00497-z,"A Case-Crossover Study of the Impact of the Modifying Industrial Operations Protocol on the Frequency of Industrial Forestry-Caused Wildland Fires in Ontario, Canada",2022,Journal of Agricultural Biological and Environmental Statistics,,6
-q3,s2-q3-index-occurrence-place,10.3832/IFOR1686-009,Probabilistic prediction of daily fire occurrence in the Mediterranean with readily available spatio-temporal data,2017,,,20
-q3,s2-q3-index-occurrence-place,NA,Fire occurrence regime and performance of Canadian fire weather index,2014,,,0
-q3,s2-q3-index-occurrence-place,10.1023/A:1005894525278,The effects of climate change on landscape diversity: an example in Ontario forests,1998,,,76
-q3,s2-q3-index-occurrence-place,10.1007/978-90-481-2322-3_7,Integrating Meteorological Dynamic Data and Historical Data into a Stochastic Model for Predicting Forest Fires Risk Maps,2010,,,1
-q3,s2-q3-index-occurrence-place,10.5194/nhess-23-429-2023,"Seasonal fire danger forecasts for supporting fire prevention management in an eastern Mediterranean environment: the case of Attica, Greece",2023,Natural Hazards and Earth System Sciences,,16
-q3,s2-q3-index-occurrence-place,10.5194/NHESS-14-143-2014,Sensitivity and evaluation of current fire risk and future projections due to climate change: the case study of Greece,2013,,,78
+q3,s2-q3-index-occurrence-place,10.1016/S0168-1699(02)00120-5,Information systems in support of wildland fire management decision making in Canada,2002,NA,Review,158
+q3,s2-q3-index-occurrence-place,10.1088/1748-9326/ac5f94,Future climate change impact on wildfire danger over the Mediterranean: the case of Greece,2021,NA,NA,51
+q3,s2-q3-index-occurrence-place,10.1117/1.JRS.7.073578,Remote sensing-based determination of understory grass greening stage over boreal forest,2013,NA,NA,9
+q3,s2-q3-index-occurrence-place,NA,"Assessment of fire seasonality, and evaluation of fire-weather relationship, and fire danger models in Italy",2013,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1007/s13253-022-00497-z,"A Case-Crossover Study of the Impact of the Modifying Industrial Operations Protocol on the Frequency of Industrial Forestry-Caused Wildland Fires in Ontario, Canada",2022,Journal of Agricultural Biological and Environmental Statistics,NA,6
+q3,s2-q3-index-occurrence-place,10.3832/IFOR1686-009,Probabilistic prediction of daily fire occurrence in the Mediterranean with readily available spatio-temporal data,2017,NA,NA,20
+q3,s2-q3-index-occurrence-place,NA,Fire occurrence regime and performance of Canadian fire weather index,2014,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1023/A:1005894525278,The effects of climate change on landscape diversity: an example in Ontario forests,1998,NA,NA,76
+q3,s2-q3-index-occurrence-place,10.1007/978-90-481-2322-3_7,Integrating Meteorological Dynamic Data and Historical Data into a Stochastic Model for Predicting Forest Fires Risk Maps,2010,NA,NA,1
+q3,s2-q3-index-occurrence-place,10.5194/nhess-23-429-2023,"Seasonal fire danger forecasts for supporting fire prevention management in an eastern Mediterranean environment: the case of Attica, Greece",2023,Natural Hazards and Earth System Sciences,NA,16
+q3,s2-q3-index-occurrence-place,10.5194/NHESS-14-143-2014,Sensitivity and evaluation of current fire risk and future projections due to climate change: the case study of Greece,2013,NA,NA,78
 q3,s2-q3-index-occurrence-place,10.1071/wf24057,"Using hydrological modelling to improve the Fire Weather Index system over tropical peatlands of peninsular Malaysia, Sumatra and Borneo",2025,International journal of wildland fire,JournalArticle,2
-q3,s2-q3-index-occurrence-place,10.1080/11956860.2022.2070342,"Drivers of Extreme Wildfire Years in the 1965–2019 Fire Regime of the Tłchǫ First Nation Territory, Canada",2022,Ecoscience,,16
-q3,s2-q3-index-occurrence-place,10.5194/nhess-2017-318-rc3,"Forest Fire Danger Rating Systems Assessment in the Mediterranean Type Environment , Crete , Greece",2017,,,0
-q3,s2-q3-index-occurrence-place,10.1177/0265813515596448,Use and performance of the Forest Fire Weather Index to model the risk of wildfire occurrence in the Alpine region,2016,,JournalArticle,10
-q3,s2-q3-index-occurrence-place,10.1007/S11027-006-9043-8,Development of the Indonesian and Malaysian Fire Danger Rating Systems,2006,,,179
+q3,s2-q3-index-occurrence-place,10.1080/11956860.2022.2070342,"Drivers of Extreme Wildfire Years in the 1965–2019 Fire Regime of the Tłchǫ First Nation Territory, Canada",2022,Ecoscience,NA,16
+q3,s2-q3-index-occurrence-place,10.5194/nhess-2017-318-rc3,"Forest Fire Danger Rating Systems Assessment in the Mediterranean Type Environment , Crete , Greece",2017,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1177/0265813515596448,Use and performance of the Forest Fire Weather Index to model the risk of wildfire occurrence in the Alpine region,2016,NA,JournalArticle,10
+q3,s2-q3-index-occurrence-place,10.1007/S11027-006-9043-8,Development of the Indonesian and Malaysian Fire Danger Rating Systems,2006,NA,NA,179
 q3,s2-q3-index-occurrence-place,10.1007/s10651-007-0084-2,Interpreting and using outputs from the Canadian Forest Fire Danger Rating System in research applications,2009,Environmental and Ecological Statistics,Review,254
-q3,s2-q3-index-occurrence-place,NA,PREDICTION OF FOREST FIRE USING WIRELESS SENSOR NETWORK,2015,,,2
-q3,s2-q3-index-occurrence-place,10.1007/s10668-020-00799-7,"The Canadian versus the National Forest Fire Danger Rating Systems tested in Mediterranean forests fire Crete, Greece",2020,"Environment, Development and Sustainability",,6
-q3,s2-q3-index-occurrence-place,NA,A Study on the Development of Forest Fire Occurrence Probability Model using Canadian Forest Fire Weather Index -Occurrence of Forest Fire in Kangwon Province -,2009,,,7
-q3,s2-q3-index-occurrence-place,10.17221/8/2013-JFS,Spatial-temporal distribution of forest fires and fire weather index calculation from 2000 to 2009 in China,2018,,,11
-q3,s2-q3-index-occurrence-place,10.1016/J.FORECO.2012.08.035,Evaluation of the performance of meteorological forest fire indices for German federal states,2013,,,59
+q3,s2-q3-index-occurrence-place,NA,PREDICTION OF FOREST FIRE USING WIRELESS SENSOR NETWORK,2015,NA,NA,2
+q3,s2-q3-index-occurrence-place,10.1007/s10668-020-00799-7,"The Canadian versus the National Forest Fire Danger Rating Systems tested in Mediterranean forests fire Crete, Greece",2020,"Environment, Development and Sustainability",NA,6
+q3,s2-q3-index-occurrence-place,NA,A Study on the Development of Forest Fire Occurrence Probability Model using Canadian Forest Fire Weather Index -Occurrence of Forest Fire in Kangwon Province -,2009,NA,NA,7
+q3,s2-q3-index-occurrence-place,10.17221/8/2013-JFS,Spatial-temporal distribution of forest fires and fire weather index calculation from 2000 to 2009 in China,2018,NA,NA,11
+q3,s2-q3-index-occurrence-place,10.1016/J.FORECO.2012.08.035,Evaluation of the performance of meteorological forest fire indices for German federal states,2013,NA,NA,59
 q3,s2-q3-index-occurrence-place,10.1038/s41597-026-07212-4,CalWildFire: A high-resolution in situ dataset for wildfire analysis and modeling in the Mediterranean region,2026,Scientific Data,JournalArticle,1
 q3,s2-q3-index-occurrence-place,10.3389/ffgc.2025.1680856,A novel framework for fire risk assessment in Kazakhstan: integrating machine learning and remote sensing,2025,Frontiers in Forests and Global Change,JournalArticle,1
 q3,s2-q3-index-occurrence-place,10.1186/s13717-017-0070-z,cffdrs: an R package for the Canadian Forest Fire Danger Rating System,2017,Ecological Processes,Review,129
-q3,s2-q3-index-occurrence-place,NA,Forest fire occurrence prediction in Slovenia using GIS technology,2013,,,1
+q3,s2-q3-index-occurrence-place,NA,Forest fire occurrence prediction in Slovenia using GIS technology,2013,NA,NA,1
 q3,s2-q3-index-occurrence-place,NA,"[Dynamics of forest fire weather indices in Tahe County of Great Xing' an Mountains region, Heilongjiang Province].",2011,Ying yong sheng tai xue bao = The journal of applied ecology,JournalArticle,4
-q3,s2-q3-index-occurrence-place,NA,"Validation of burn scar mapping: Pilot case in Peloponnesus, Greece",2020,,,0
-q3,s2-q3-index-occurrence-place,NA,캐나다 산불 기상지수를 이용한 산불발생확률모형 개발 -강원도 지역 산불발생을 중심으로-,2009,,,0
-q3,s2-q3-index-occurrence-place,NA,"Comment on nhess-2021-384 Anonymous Referee # 2 Referee comment on "" A data-driven model for Fennoscandian wildfire danger "" by Sigrid Jørgensen",2022,,,0
-q3,s2-q3-index-occurrence-place,10.1002/env.2292,Special Issue on Wildland Fires,2014,,,1
-q3,s2-q3-index-occurrence-place,10.5194/EGUSPHERE-EGU21-14602,Evaluation of the reliability of the high-resolution WRF fire danger forecasts in Poland,2021,,,1
+q3,s2-q3-index-occurrence-place,NA,"Validation of burn scar mapping: Pilot case in Peloponnesus, Greece",2020,NA,NA,0
+q3,s2-q3-index-occurrence-place,NA,캐나다 산불 기상지수를 이용한 산불발생확률모형 개발 -강원도 지역 산불발생을 중심으로-,2009,NA,NA,0
+q3,s2-q3-index-occurrence-place,NA,"Comment on nhess-2021-384 Anonymous Referee # 2 Referee comment on "" A data-driven model for Fennoscandian wildfire danger "" by Sigrid Jørgensen",2022,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1002/env.2292,Special Issue on Wildland Fires,2014,NA,NA,1
+q3,s2-q3-index-occurrence-place,10.5194/EGUSPHERE-EGU21-14602,Evaluation of the reliability of the high-resolution WRF fire danger forecasts in Poland,2021,NA,NA,1
 q3,s2-q3-index-occurrence-place,10.1109/JSTARS.2022.3232665,Assessing the Effects of Fuel Moisture Content on the 2018 Megafires in California,2023,IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing,JournalArticle,25
 q3,s2-q3-index-occurrence-place,10.1088/1748-9326/acd2ee,Accounting for fuel in fire danger forecasts: the fire occurrence probability index (FOPI),2023,Environmental Research Letters,JournalArticle,13
 q3,s2-q3-index-occurrence-place,10.1088/1757-899X/1208/1/012033,Fire prediction with logistic regression on territory of Bosnia and Herzegovina,2021,IOP Conference Series: Materials Science and Engineering,Conference,3
-q3,s2-q3-index-occurrence-place,10.1071/WF11088,Prediction of daily lightning- and human-caused fires in British Columbia,2012,,,42
+q3,s2-q3-index-occurrence-place,10.1071/WF11088,Prediction of daily lightning- and human-caused fires in British Columbia,2012,NA,NA,42
 q3,s2-q3-index-occurrence-place,10.3390/RS10060923,An Advanced Forest Fire Danger Forecasting System: Integration of Remote Sensing and Historical Sources of Ignition Data,2018,Remote Sensing,JournalArticle,40
-q3,s2-q3-index-occurrence-place,10.1007/S10694-010-0184-7,Modelling Soil Moisture Deficit and Moisture Content of Ground Vegetation: Progress Towards Development of a Fire Weather Index System Appropriate to the UK,2011,,,5
-q3,s2-q3-index-occurrence-place,NA,Performances of the Korean and the Canadian forest fire danger rating systems in prediction of forest fire occurrence during spring in South Korea,2006,,,0
-q3,s2-q3-index-occurrence-place,10.1016/J.FORECO.2006.08.273,The Relation Between the Moisture Content of Fine Forest Fuels and Several Forest Fire Related Aspects,2006,,,6
-q3,s2-q3-index-occurrence-place,10.3390/SU11164284,Projection of Forest Fire Danger due to Climate Change in the French Mediterranean Region,2019,Sustainability,,61
-q3,s2-q3-index-occurrence-place,10.20868/upm.thesis.91776,Estudio de la estructura y funcionamiento de dos índices de peligro meteorológico de incendios forestales. Aplicación a tres zonas climáticas de España peninsular,2003,,,0
+q3,s2-q3-index-occurrence-place,10.1007/S10694-010-0184-7,Modelling Soil Moisture Deficit and Moisture Content of Ground Vegetation: Progress Towards Development of a Fire Weather Index System Appropriate to the UK,2011,NA,NA,5
+q3,s2-q3-index-occurrence-place,NA,Performances of the Korean and the Canadian forest fire danger rating systems in prediction of forest fire occurrence during spring in South Korea,2006,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1016/J.FORECO.2006.08.273,The Relation Between the Moisture Content of Fine Forest Fuels and Several Forest Fire Related Aspects,2006,NA,NA,6
+q3,s2-q3-index-occurrence-place,10.3390/SU11164284,Projection of Forest Fire Danger due to Climate Change in the French Mediterranean Region,2019,Sustainability,NA,61
+q3,s2-q3-index-occurrence-place,10.20868/upm.thesis.91776,Estudio de la estructura y funcionamiento de dos índices de peligro meteorológico de incendios forestales. Aplicación a tres zonas climáticas de España peninsular,2003,NA,NA,0
 q3,s2-q3-index-occurrence-place,10.3390/fire7100346,Simulation of Fire Occurrence Based on Historical Data in Future Climate Scenarios and Its Practical Verification,2024,Fire,JournalArticle,5
-q3,s2-q3-index-occurrence-place,10.1071/WF08206,Environmental determinants of lightning- v. human-induced forest fire ignitions differ in a temperate mountain region of Switzerland,2010,,,91
-q3,s2-q3-index-occurrence-place,10.1071/WF05021,"Science, technology, and human factors in fire danger rating: the Canadian experience",2006,,Review,224
-q3,s2-q3-index-occurrence-place,NA,The changes of forest fuel dryness conditions under global warming in Inner Mongolia Daxing'anling forest region,2009,,,4
-q3,s2-q3-index-occurrence-place,10.5194/NHESS-14-53-2014,Assessing the predictability of fire occurrence and area burned across phytoclimatic regions in Spain,2014,,,47
-q3,s2-q3-index-occurrence-place,10.5194/nhess-2021-384,A data-driven prediction model for Fennoscandian wildfires,2021,,,0
-q3,s2-q3-index-occurrence-place,10.1071/WF07014,Fire activity in Portugal and its relationship to weather and the Canadian Fire Weather Index System,2008,,,171
-q3,s2-q3-index-occurrence-place,10.1080/01431160903586773,Mapping fuel moisture codes using MODIS images and the Getis statistic over western Canada grasslands,2011,,,7
-q3,s2-q3-index-occurrence-place,10.1007/978-3-642-29172-2_71,Evaluation of the Canadian Fire Weather Index in Greece and Future Climate Projections,2013,,,8
-q3,s2-q3-index-occurrence-place,NA,PREDICTION OF FOREST FIRE USING WIRELESS SENSOR NETWORK,2015,,,7
+q3,s2-q3-index-occurrence-place,10.1071/WF08206,Environmental determinants of lightning- v. human-induced forest fire ignitions differ in a temperate mountain region of Switzerland,2010,NA,NA,91
+q3,s2-q3-index-occurrence-place,10.1071/WF05021,"Science, technology, and human factors in fire danger rating: the Canadian experience",2006,NA,Review,224
+q3,s2-q3-index-occurrence-place,NA,The changes of forest fuel dryness conditions under global warming in Inner Mongolia Daxing'anling forest region,2009,NA,NA,4
+q3,s2-q3-index-occurrence-place,10.5194/NHESS-14-53-2014,Assessing the predictability of fire occurrence and area burned across phytoclimatic regions in Spain,2014,NA,NA,47
+q3,s2-q3-index-occurrence-place,10.5194/nhess-2021-384,A data-driven prediction model for Fennoscandian wildfires,2021,NA,NA,0
+q3,s2-q3-index-occurrence-place,10.1071/WF07014,Fire activity in Portugal and its relationship to weather and the Canadian Fire Weather Index System,2008,NA,NA,171
+q3,s2-q3-index-occurrence-place,10.1080/01431160903586773,Mapping fuel moisture codes using MODIS images and the Getis statistic over western Canada grasslands,2011,NA,NA,7
+q3,s2-q3-index-occurrence-place,10.1007/978-3-642-29172-2_71,Evaluation of the Canadian Fire Weather Index in Greece and Future Climate Projections,2013,NA,NA,8
+q3,s2-q3-index-occurrence-place,NA,PREDICTION OF FOREST FIRE USING WIRELESS SENSOR NETWORK,2015,NA,NA,7
 q3,s2-q3-index-occurrence-place,10.3390/rs11182101,Introducing a New Remote Sensing-Based Model for Forecasting Forest Fire Danger Conditions at a Four-Day Scale,2019,Remote Sensing,JournalArticle,31
-q3,s2-q3-index-occurrence-place,10.5194/nhess-23-65-2023,A data-driven model for Fennoscandian wildfire danger,2023,Natural Hazards and Earth System Sciences,,12
-q3,s2-q3-index-occurrence-place,10.5194/NHESSD-2-4711-2014,An assessment of fire occurrence regime and performance of Canadian fire weather index in south central Siberian boreal region,2014,,,6
-q3,s2-q3-index-occurrence-place,NA,Forest fire risk in Spain under future climate change,2010,,,18
-q3,s2-q3-index-occurrence-place,10.14214/SF.7746,The forest fire regime in Latvia during 1922–2014,2017,,,23
+q3,s2-q3-index-occurrence-place,10.5194/nhess-23-65-2023,A data-driven model for Fennoscandian wildfire danger,2023,Natural Hazards and Earth System Sciences,NA,12
+q3,s2-q3-index-occurrence-place,10.5194/NHESSD-2-4711-2014,An assessment of fire occurrence regime and performance of Canadian fire weather index in south central Siberian boreal region,2014,NA,NA,6
+q3,s2-q3-index-occurrence-place,NA,Forest fire risk in Spain under future climate change,2010,NA,NA,18
+q3,s2-q3-index-occurrence-place,10.14214/SF.7746,The forest fire regime in Latvia during 1922–2014,2017,NA,NA,23
+q1a,s2-q1a-index-trend-estimator,10.1071/WF17008,Trend analysis of fire season length and extreme fire weather in North America between 1979 and 2015,2017,NA,NA,142
+q1a,s2-q1a-index-trend-estimator,10.1071/wf24002,Fire weather severity in southern Africa is increasing faster and more extensively in the late than in the early dry season,2025,International journal of wildland fire,JournalArticle,9
+q1a,s2-q1a-index-trend-estimator,NA,A trend analysis of global fire activity. Is it land use or climate the main driver,2016,NA,NA,0
+q1a,s2-q1a-index-trend-estimator,10.1016/j.scitotenv.2023.161954,Historical spatiotemporal changes in fire danger potential across biomes.,2023,Science of the Total Environment,JournalArticle,8
+q2d,s2-q2d-index-threshold,10.1175/2008WAF2007062.1,Suitability of the Weather Research and Forecasting (WRF) Model to Predict the June 2005 Fire Weather for Interior Alaska,2008,NA,NA,73
+q2d,s2-q2d-index-threshold,10.3390/meteorology2010006,Changes in the Seasonality of Fire Activity and Fire Weather in Portugal: Is the Wildfire Season Really Longer?,2023,Meteorology,NA,33
+q2d,s2-q2d-index-threshold,10.1071/WF20175,"Downscaled GCM climate projections of fire weather over Victoria, Australia. Part 2*: a multi-model ensemble of 21st century trends",2021,NA,NA,7
+q2d,s2-q2d-index-threshold,10.3390/fire3020008,Combining the Monthly Drought Code and Paleoecological Data to Assess Holocene Climate Impact on Mediterranean Fire Regime,2020,Fire,NA,10
+q2d,s2-q2d-index-threshold,10.1071/WF18091,Why is the effect of live fuel moisture content on fire rate of spread underestimated in field experiments in shrublands?,2018,International journal of wildland fire,NA,60
+q2d,s2-q2d-index-threshold,10.1071/WF07001,The meteorological conditions associated with extreme fire risk in Italy and Greece: relevance to climate model studies,2008,NA,NA,73
+q2d,s2-q2d-index-threshold,10.7717/peerj.2649,Regional variation in fire weather controls the reported occurrence of Scottish wildfires,2016,PeerJ,JournalArticle,28
+q2d,s2-q2d-index-threshold,NA,BURNED AREAS DETECTION AND FIRE WEATHER INDEX. A STUDY CASE IN NW ITALY,2019,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1016/j.scitotenv.2019.02.323,"Modeling initial attack success of wildfire suppression in Catalonia, Spain.",2019,Science of the Total Environment,JournalArticle,48
+q2d,s2-q2d-index-threshold,10.1088/1748-9326/abd9f2,The effect of climate change on indicators of fire danger in the UK,2021,Environmental Research Letters,NA,39
+q2d,s2-q2d-index-threshold,10.1051/e3sconf/202673602001,Ecoregion-Based Fire Weather Index Patterns Prior to Wildfire Events in Sumatra,2026,E3S Web of Conferences,JournalArticle Conference,0
+q2d,s2-q2d-index-threshold,10.1007/s10980-018-0655-7,Dryness thresholds for fire occurrence vary by forest type along an aridity gradient: evidence from Southern Australia,2018,Landscape Ecology,NA,23
+q2d,s2-q2d-index-threshold,10.3390/f10100838,Variation in the Canadian Fire Weather Index Thresholds for Increasingly Larger Fires in Portugal,2019,Forests,NA,41
+q2d,s2-q2d-index-threshold,10.1007/s10980-018-0655-7,Dryness thresholds for fire occurrence vary by forest type along an aridity gradient: evidence from Southern Australia,2018,Landscape Ecology,NA,0
+q2d,s2-q2d-index-threshold,10.3138/infor.49.1.031,Resource Location and Relocation Models with Rolling Horizon Forecasting for Wildland Fire Planning,2011,INFOR. Information systems and operational research,JournalArticle,44
+q2d,s2-q2d-index-threshold,10.35595/2414-9179-2021-2-27-340-354,Development of natural fire prevention method based on remote sensing data: case study of Krasnoyarsk region forests,2021,InterCarto. InterGIS,NA,1
+q2d,s2-q2d-index-threshold,10.1029/2024jh000331,Toward Spatio‐Temporally Consistent Multi‐Site Fire Danger Downscaling With Explainable Deep Learning,2025,Journal of Geophysical Research,JournalArticle,1
+q2d,s2-q2d-index-threshold,NA,A fire danger climatology for Tasmania,2007,NA,Review,30
+q2d,s2-q2d-index-threshold,10.1029/2018JD028754,"Evaluation of Gridded Precipitation Data and Interpolation Methods for Forest Fire Danger Rating in Alberta, Canada",2019,Journal of Geophysical Research - Atmospheres,NA,21
+q2d,s2-q2d-index-threshold,10.1088/1748-9326/10/11/114013,Fire activity as a function of fire–weather seasonal severity and antecedent climate across spatial scales in southern Europe and Pacific western USA,2015,NA,NA,77
+q2d,s2-q2d-index-threshold,10.5194/NHESS-16-1217-2016,Calibration and evaluation of the Canadian Forest Fire Weather Index (FWI) System for improved wildland fire danger rating in the United Kingdom,2015,NA,NA,72
+q2d,s2-q2d-index-threshold,10.5194/nhess-2019-60,"Wildland fire potential outlooks for Portugal using meteorological
+indices of fire danger",2019,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1016/j.isci.2026.116142,Live fuel moisture content estimated using spectral indices to assess fire activity in the mountainous forests of Southwest China,2026,iScience,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1007/s10584-018-2167-5,Direct and component-wise bias correction of multi-variate climate indices: the percentile adjustment function diagnostic tool,2018,Climatic Change,NA,60
+q2d,s2-q2d-index-threshold,10.1071/wf21106,High-resolution fire danger forecast for Poland based on the Weather Research and Forecasting Model,2021,International journal of wildland fire,NA,10
+q2d,s2-q2d-index-threshold,10.1071/WF17008,Trend analysis of fire season length and extreme fire weather in North America between 1979 and 2015,2017,NA,NA,142
+q2d,s2-q2d-index-threshold,NA,Potential impact of climate change on live fuel moisture dynamic at local scale,2019,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1038/s41586-021-04325-1,Warming weakens the night-time barrier to global fire,2022,Nature,JournalArticle,194
+q2d,s2-q2d-index-threshold,10.1016/j.ophtha.2013.08.021,Fire risk with nasal cannula oxygen.,2013,"Ophthalmology (Rochester, Minn.)",LettersAndComments,1
+q2d,s2-q2d-index-threshold,10.1007/s10342-011-0556-7,"The Canadian fire weather index system and wildfire activity in the Karst forest management area, Slovenia",2011,European Journal of Forest Research,NA,1
+q2d,s2-q2d-index-threshold,10.1175/jamc-d-24-0230.1,Multi fire index examination of future climate change affecting wildfire seasonality and extremes in the contiguous United States,2025,Journal of Applied Meteorology and Climatology,JournalArticle,0
+q2d,s2-q2d-index-threshold,NA,The self defence alternative in the fight against severe bushfires Part 2 Science and logic (Fire agency approach vs. self defence),2006,NA,NA,0
+q2d,s2-q2d-index-threshold,NA,A semiparametric Bayesian model for spatiotemporal extremes,2018,NA,NA,9
+q2d,s2-q2d-index-threshold,10.1071/WF08133,Prediction of the probability of large fires in the Sydney region of south-eastern Australia using fire weather,2009,NA,NA,151
+q2d,s2-q2d-index-threshold,10.1186/s42408-022-00150-7,Reliability of cross-regional applications of global fire danger models: a Peruvian case study,2022,Fire Ecology,NA,5
+q2d,s2-q2d-index-threshold,10.1016/j.mex.2026.104174,A daily peat moisture code for monitoring and predicting peatland fire danger,2026,MethodsX,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.14195/978-989-26-0884-6_131,"Investigation of the weather conditions leading to large forest fires in the area around Athens, Greece",2014,NA,NA,5
+q2d,s2-q2d-index-threshold,10.1007/s11042-023-15881-1,Fire danger forecasting using machine learning-based models and meteorological observation: a case study in Northeastern China,2023,Multimedia tools and applications,JournalArticle,18
+q2d,s2-q2d-index-threshold,10.1071/wf25278,Wildfire danger assessment and forecast through fire spread simulations,2026,International journal of wildland fire,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1016/J.ATMOSENV.2004.01.011,A drought-based predictor of recent haze events in western Indonesia,2004,NA,Review,51
+q2d,s2-q2d-index-threshold,10.3390/F9040190,Developing Models to Predict the Number of Fire Hotspots from an Accumulated Fuel Dryness Index by Vegetation Type and Region in Mexico,2018,NA,NA,25
+q2d,s2-q2d-index-threshold,10.1016/j.jenvman.2014.02.027,Flammability properties of British heathland and moorland vegetation: models for predicting fire ignition.,2014,Journal of Environmental Management,JournalArticle,58
+q2d,s2-q2d-index-threshold,10.1088/1748-9326/ac5f94,Future climate change impact on wildfire danger over the Mediterranean: the case of Greece,2021,NA,NA,51
+q2d,s2-q2d-index-threshold,10.51318/fret.2025.95.4.001,ОБЕСПЕЧЕННОСТЬ ПОДРОСТОМ И ОБОСНОВАНИЕ ВИДА РУБОК СПЕЛЫХ И ПЕРЕСТОЙНЫХ НАСАЖДЕНИЙ В ЛЕНТОЧНЫХ БОРАХ АЛТАЯ,2025,Леса России и хозяйство в них,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1029/2020EF001736,Projected Changes in Reference Evapotranspiration in California and Nevada: Implications for Drought and Wildland Fire Danger,2020,Earth's Future,NA,50
+q2d,s2-q2d-index-threshold,10.3390/FIRE2020028,The Effect of Ecophysiological Traits on Live Fuel Moisture Content,2019,Fire,NA,51
+q2d,s2-q2d-index-threshold,10.23919/SpliTech58164.2023.10193466,Do fire danger classes in Croatia need calibration?,2023,2023 8th International Conference on Smart and Sustainable Technologies (SpliTech),Conference Review,0
+q2d,s2-q2d-index-threshold,10.1071/WF04054,"Calibrating the Fine Fuel Moisture Code for grass ignition potential in Sumatra, Indonesia",2005,NA,NA,91
+q2d,s2-q2d-index-threshold,10.1038/s41612-025-01021-z,Growing human-induced climate change fingerprint in regional weekly fire extremes,2025,npj Climate and Atmospheric Science,JournalArticle,9
+q2d,s2-q2d-index-threshold,10.1071/es19043,"Climatology of wind changes and elevated fire danger over Victoria, Australia",2020,NA,NA,4
+q2d,s2-q2d-index-threshold,10.1117/1.JRS.7.073578,Remote sensing-based determination of understory grass greening stage over boreal forest,2013,NA,NA,9
+q2d,s2-q2d-index-threshold,10.5424/FS/2014231-04632,Ignition probability of fine dead surface fuels of native Patagonian forests or Argentina,2014,NA,NA,23
+q2d,s2-q2d-index-threshold,10.31026/j.eng.2022.06.05,Assessment Strategies of Fixed Firefighting system in Residential Multi-Story Building for Improving Fire Safety: A Review,2022,Jurnal Engineering,Review,5
+q2d,s2-q2d-index-threshold,NA,ecent climate change : Long-term trends in meteorological forest fire danger in he Alps,2012,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1139/X04-101,Conversion of fuel moisture content values to ignition potential for integrated fire danger assessment,2004,NA,Review,171
+q2d,s2-q2d-index-threshold,NA,A robust scientiﬁc workﬂow for assessing ﬁre danger levels using open-source software,2017,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1007/s10342-011-0556-7,"The Canadian fire weather index system and wildfire activity in the Karst forest management area, Slovenia",2012,European Journal of Forest Research,NA,19
+q2d,s2-q2d-index-threshold,10.1007/s11277-018-5966-0,Shift Reduce Parser Based Malicious Sensor Detection for Predicting Forest Fire in WSNs,2018,Wireless personal communications,JournalArticle,3
+q2d,s2-q2d-index-threshold,NA,ANALISIS HUBUNGAN CURAH HUJAN DAN PARAMETER SISTEM PERINGKAT BAHAYA KEBAKARAN (SPBK) DENGAN KEJADIAN KEBAKARAN HUTAN DAN LAHAN UNTUK MENENTUKAN NILAI AMBANG BATAS KEBAKARAN,2017,NA,NA,14
+q2d,s2-q2d-index-threshold,10.1002/joc.7262,"Extreme winds and fire weather in coastal Santa Barbara County, CA: An observational analysis",2021,International Journal of Climatology,NA,12
+q2d,s2-q2d-index-threshold,10.1175/JAMC-D-14-0041.1,Estimating Spatially Varying Severity Thresholds of a Forest Fire Danger Rating System Using Max-Stable Extreme-Event Modeling*,2015,NA,NA,25
+q2d,s2-q2d-index-threshold,10.1071/WF08076,Turbulent kinetic energy during wildfires in the north central and north-eastern US,2010,NA,NA,21
+q2d,s2-q2d-index-threshold,10.1088/2752-5295/ae249a,Climate-driven emergence of fire danger in South America under global warming,2025,Environmental Research: Climate,JournalArticle,1
+q2d,s2-q2d-index-threshold,10.48077/scihor9.2023.143,Assessment of wildfires forecast performance in Albania: Case study,2023,Scientific Horizons,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1029/2005JG000113,Evaluation of Airborne Visible/Infrared Imaging Spectrometer (AVIRIS) and Moderate Resolution Imaging Spectrometer (MODIS) measures of live fuel moisture and fuel condition in a shrubland ecosystem in southern California,2006,NA,NA,124
+q2d,s2-q2d-index-threshold,10.1007/s10342-025-01804-2,"Optimizing NFDRS by developing custom fuel models for wildfire risk assessment in Golestan Province, NE Iran",2025,European Journal of Forest Research,NA,0
+q2d,s2-q2d-index-threshold,NA,Prediction of the probability of large fires in the Sydney region of south-eastern Australia using components of fire weather.,2014,NA,NA,13
+q2d,s2-q2d-index-threshold,10.1071/wf23143,Live trial performance of the Australian Fire Danger Rating System – Research Prototype†,2024,International journal of wildland fire,JournalArticle,5
+q2d,s2-q2d-index-threshold,NA,A meteorolgical investigation of the 'springtime bump' : an early season peak in the fire danger experienced in Tasmania,2014,NA,NA,1
+q2d,s2-q2d-index-threshold,10.3369/TETHYS.2018.15.03,Fire Weather Index (FWI) classification for fire danger assessment applied in Greece,2015,NA,NA,31
+q2d,s2-q2d-index-threshold,10.3390/f16071058,Application of the Canadian Fire Weather Index for Forest Fire Danger Assessment in South Korea,2025,Forests,JournalArticle,4
+q2d,s2-q2d-index-threshold,10.3390/fire2030047,Severe Fire Danger Index: A Forecastable Metric to Inform Firefighter and Community Wildfire Risk Management,2019,Fire,NA,72
+q2d,s2-q2d-index-threshold,10.1175/jcli-d-25-0077.1,Projected changes in both mean climate and climate variability drive substantial increases in extreme fire weather in the western United States,2026,Journal of Climate,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1007/s10021-021-00611-1,Assessing the Risk of Losing Forest Ecosystem Services Due to Wildfires,2021,Ecosystems,NA,65
+q2d,s2-q2d-index-threshold,10.5194/egusphere-egu2020-271,"Droughts, heatwaves, and wildfires: exploring compound and cascading events of dry hazards at the pan-European scale",2019,NA,NA,0
+q2d,s2-q2d-index-threshold,10.5121/IJWEST.2014.5401,Estimating Fire Weather Indices via Semantic Reasoning over Wireless Sensor Network Data Streams,2014,arXiv.org,JournalArticle,11
+q2d,s2-q2d-index-threshold,10.1002/joc.70439,Wildfire Hazard in Poland in a Warming Climate: Past and Future Impact of Extreme Weather,2026,International Journal of Climatology,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.36334/modsim.2017.h10.sharples3,Reassessing the validity of AS3959 in the presence of dynamic bushfire propagation,2017,NA,Review,1
+q2d,s2-q2d-index-threshold,10.5194/NHESS-14-143-2014,Sensitivity and evaluation of current fire risk and future projections due to climate change: the case study of Greece,2013,NA,NA,78
+q2d,s2-q2d-index-threshold,10.1109/SIST61657.2025.11139172,Algorithm for using artificial intelligence in predicting fire danger in the Semey forest in Kazakhstan,2025,2025 IEEE 5th International Conference on Smart Information Systems and Technologies (SIST),Conference,0
+q2d,s2-q2d-index-threshold,10.1007/s00704-013-0839-7,Selecting the best performing fire weather indices for Austrian ecoregions,2013,Theoretical and Applied Climatology,JournalArticle,82
+q2d,s2-q2d-index-threshold,NA,Estimating Spatially Varying Severity Thresholds of the Forest Fire Danger Rating System Using Max-Stable Extreme Event Modelling,2014,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1007/s00704-016-1994-4,Climate change effects on wildland fire risk in the Northeastern and Great Lakes states predicted by a downscaled multi-model ensemble,2016,Theoretical and Applied Climatology,NA,28
+q2d,s2-q2d-index-threshold,NA,Environment monitoring control system for LED (light-emitting diode) display screens,2011,NA,NA,0
+q2d,s2-q2d-index-threshold,NA,AN IMAGE SEGMENTATION APPROACH OF FOREST FIRE AREA BASED ON AERIAL IMAGE,2012,NA,NA,2
+q2d,s2-q2d-index-threshold,10.1109/JSTARS.2026.3700818,Fire Danger and Intensity Response to Vegetation Properties and Weather Conditions in Eastern Asia Using Multilayer Perceptron,2026,IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1071/wf25158,"Relationships between synoptic weather patterns, surface fire weather, and vegetation fire in a temperate region",2025,International journal of wildland fire,JournalArticle,1
+q2d,s2-q2d-index-threshold,10.13140/2.1.3819.8080,Estimating live fuel status by drought indices: an approach for assessing local impact of climate change on fire danger,2014,ASEP,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1071/wf23141,A framework for defining fire danger to support fire management operations in Australia†,2024,International journal of wildland fire,JournalArticle Review,12
+q2d,s2-q2d-index-threshold,10.1136/jech-2021-218229,"Exposure to fine particulate matter (PM2.5) during landscape fire events and the risk of cardiorespiratory emergency department attendances: a time-series study in Perth, Western Australia",2022,Journal of Epidemiology and Community Health,JournalArticle,8
+q2d,s2-q2d-index-threshold,10.1080/11956860.2022.2070342,"Drivers of Extreme Wildfire Years in the 1965–2019 Fire Regime of the Tłchǫ First Nation Territory, Canada",2022,Ecoscience,NA,16
+q2d,s2-q2d-index-threshold,10.1016/J.AGRFORMET.2012.04.001,Recent climate change: Long-term trends in meteorological forest fire danger in the Alps,2012,NA,NA,75
+q2d,s2-q2d-index-threshold,NA,Fire Weather Associated with the 2019 Northern California Public Safety Power Shutoff Events,2021,NA,NA,1
+q2d,s2-q2d-index-threshold,10.1016/j.agrformet.2020.108076,Weather-related thresholds for wildfire danger in a Mediterranean region: The case of Greece,2020,NA,NA,30
+q2d,s2-q2d-index-threshold,10.1111/ecog.07127,Global variation in ecoregion flammability thresholds,2024,Ecography,JournalArticle,9
+q2d,s2-q2d-index-threshold,10.3390/fire6040168,Development of a Decision Matrix for National Weather Service Red Flag Warnings,2023,Fire,JournalArticle,2
+q2d,s2-q2d-index-threshold,10.1088/1748-9326/ae58c0,Spatial and temporal changes in wildfires and their attributes across the western United States,2026,Environmental Research Letters,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.13287/j.1001-9332.202608.010,"Driving mechanisms and predictive modeling of lightning-caused fires in the Greater Khingan Mountains, China.",2026,Ying yong sheng tai xue bao = The journal of applied ecology,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1117/12.829609,Analyses of forest fire danger based on remote sensing in subtropical monsoon zone,2009,Remote Sensing,NA,0
+q2d,s2-q2d-index-threshold,10.1029/2020GL091377,Increasing Synchronous Fire Danger in Forests of the Western United States,2021,Geophysical Research Letters,NA,96
+q2d,s2-q2d-index-threshold,10.3390/su15032498,Investigation of Fire Weather Danger under a Changing Climate at High Resolution in Greece,2023,Sustainability,NA,10
+q2d,s2-q2d-index-threshold,NA,Investigating Over Critical Thresholds of Forest Megafires Danger Conditions in Europe Utilising the ECMWF ERA-Interim Reanalysis,2014,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1007/S11027-006-9043-8,Development of the Indonesian and Malaysian Fire Danger Rating Systems,2006,NA,NA,179
+q2d,s2-q2d-index-threshold,10.47363/jeesr/2026(8)317,Before the Peat Burns: Reframing Indonesia’s Peatland-Fire Governance from Reactive Suppression to Hydrological Prevention and Anticipatory Risk Management,2026,Journal of Earth and Environmental Sciences Research,JournalArticle Review,0
+q2d,s2-q2d-index-threshold,NA,What Can We Infer From Beyond The Data? The Statistics Behind The Analysis Of Risk Events In The Context Of Environmental Studies,2009,NA,Review,1
+q2d,s2-q2d-index-threshold,10.36334/modsim.2017.h10.harris,"Exploring the future of fuel loads in Tasmania. Shifts in vegetation in response to changing fire weather, productivity, and fire frequency",2017,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1371/journal.pone.0222328,Understanding the variability of Australian fire weather between 1973 and 2017,2019,PLoS ONE,JournalArticle,118
+q2d,s2-q2d-index-threshold,NA,Research of Prediction of Forest Fire Meteorological Level Based on Threshold Indicators Method,2011,NA,NA,0
+q2d,s2-q2d-index-threshold,10.15167/2612-2960/BELS2019.1.1.1182,BURNED AREAS DETECTION AND FIRE WEATHER INDEX. A STUDY CASE IN NW ITALY,2019,NA,NA,0
+q2d,s2-q2d-index-threshold,10.21829/MYB.2018.2411565,Puntos de calor en la Sierra Madre Oriental de San Luis Potosí: patrones espaciales y factores asociados,2018,NA,NA,4
+q2d,s2-q2d-index-threshold,10.1071/WF13126,"Future fire danger climatology for Tasmania, Australia, using a dynamically downscaled regional climate model",2014,NA,NA,87
+q2d,s2-q2d-index-threshold,10.23919/AEIT.2018.8577318,Raising awareness on climate-change related hazards that might impact electric infrastructures,2018,AEIT International Annual Conference,Conference,9
+q2d,s2-q2d-index-threshold,NA,A semiparametric spatiotemporal Bayesian model for the bulk and extremes of the Fosberg Fire Weather Index,2018,NA,NA,6
+q2d,s2-q2d-index-threshold,NA,Implications of using percentiles to define fire danger levels,2009,NA,NA,12
+q2d,s2-q2d-index-threshold,10.1088/1748-9326/ad97cf,Assessing fire danger classes and extreme thresholds of the Canadian Fire Weather Index across global environmental zones: a review,2024,Environmental Research Letters,JournalArticle Review,20
+q2d,s2-q2d-index-threshold,10.1071/WF02059,Evaluation of fire danger rating indexes using logistic regression and percentile analysis,2003,NA,NA,180
+q2d,s2-q2d-index-threshold,10.4102/KOEDOE.V55I1.1104,Fire regimes in eastern coastal fynbos: Imperatives and thresholds in managing for diversity,2013,NA,NA,29
+q2d,s2-q2d-index-threshold,10.14195/978-989-26-16-506_3,Calibration of the Canadian FWI system for the territory of Europe,2018,NA,NA,7
+q2d,s2-q2d-index-threshold,10.1016/j.firesaf.2020.103209,Improving firefighter tenability during entrapment and burnover: An analysis of vehicle protection systems,2020,NA,NA,5
+q2d,s2-q2d-index-threshold,10.1175/ei-d-24-0005.1,Land–atmosphere interactions amplify wildfires in southeastern Australia,2025,Earth Interactions,JournalArticle,2
+q2d,s2-q2d-index-threshold,10.14195/978-989-26-16-506_13,The extreme weather conditions behind the destructive fires of June and October 2017 in Portugal,2018,NA,NA,6
+q2d,s2-q2d-index-threshold,10.2984/64.2.199,Estimation of Fire Danger in Hawai'i Using Limited Weather Data and Simulation1,2010,NA,NA,15
+q2d,s2-q2d-index-threshold,NA,Fire danger anomalies associated with foehn-like winds in southeastern Australia,2009,NA,NA,3
+q2d,s2-q2d-index-threshold,NA,Hotspots from satellite monitoring and Forest Fire Weather Index analysis for southwest China.,2010,NA,NA,14
+q2d,s2-q2d-index-threshold,10.1071/WF11065,Fire behaviour in south-western Australian shrublands: evaluating the influence of fuel age and fire weather,2012,NA,NA,44
+q2d,s2-q2d-index-threshold,10.1071/WF9910235,Relating Burning Index to Wildfire Workload Over Broad Geographic Areas,1991,NA,NA,10
+q2d,s2-q2d-index-threshold,10.1016/J.ENVSCI.2013.09.013,Environmental circumstances surrounding bushfire fatalities in Australia 1901–2011,2014,NA,NA,182
+q2d,s2-q2d-index-threshold,10.1071/WF13157,Calibration of the Fire Weather Index over Mediterranean Europe based on fire activity retrieved from MSG satellite imagery,2014,NA,NA,43
+q2d,s2-q2d-index-threshold,10.21203/RS.3.RS-595210/V1,Increased trends in global extreme fire weather driven predominantly by atmospheric humidity and temperature,2021,NA,NA,1
+q2d,s2-q2d-index-threshold,10.20944/preprints201902.0148.v2,Establishing Relationships between Drought and Wildfire Danger Indices: A Test Case for the California-Nevada Drought Early Warning System,2019,NA,NA,2
+q2d,s2-q2d-index-threshold,10.3390/fire5040110,Forecasting Live Fuel Moisture of Adenostema fasciculatum and Its Relationship to Regional Wildfire Dynamics across Southern California Shrublands,2022,Fire,NA,17
+q2d,s2-q2d-index-threshold,10.1590/0102-778641250043,Performance of the Forest-Based Stress Index (FBS) and Windy FBS (wFBS) as Wildfire Danger Metrics,2026,Revista Brasileira de Meteorologia,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1071/WF10119,Modelling drying processes of fuelbeds of Scots pine needles with initial moisture content above the fibre saturation point by two-phase models,2012,NA,NA,20
+q2d,s2-q2d-index-threshold,10.1016/j.scitotenv.2017.03.040,A comparative study of fire weather indices in a semiarid south-eastern Europe region. Case of study: Murcia (Spain).,2017,Science of the Total Environment,JournalArticle,26
+q2d,s2-q2d-index-threshold,10.3390/f11111168,Methodology for the Study of Near-Future Changes of Fire Weather Patterns with Emphasis on Archaeological and Protected Touristic Areas in Greece,2020,Forests,NA,9
+q2d,s2-q2d-index-threshold,NA,Forest fire occurrence prediction in Slovenia using GIS technology,2013,NA,NA,1
+q2d,s2-q2d-index-threshold,10.1063/1.5047293,The change in forest fire danger and burnt area related to the change in meteorological forcing variability,2018,NA,NA,3
+q2d,s2-q2d-index-threshold,10.2737/INT-GTR-367,FIRES: Fire Information Retrieval and Evaluation System - A program for fire danger rating analysis,1997,NA,Review,37
+q2d,s2-q2d-index-threshold,10.1139/CJFR-2017-0063,"Automated prediction of extreme fire weather from synoptic patterns in northern Alberta, Canada",2017,NA,NA,31
+q2d,s2-q2d-index-threshold,NA,Development and feasibility of a mHealth supported Comprehensive Intervention Model (“CIMmH”) for esophageal cancer patients,2021,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1002/met.170,Index sensitivity analysis applied to the Canadian Forest Fire Weather Index and the McArthur Forest Fire Danger Index,2010,NA,NA,131
+q2d,s2-q2d-index-threshold,10.3390/CLI7040052,Establishing Relationships between Drought Indices and Wildfire Danger Outputs: A Test Case for the California-Nevada Drought Early Warning System,2019,Climate,NA,43
+q2d,s2-q2d-index-threshold,10.70917/ijcisim-2026-5240,AI-Driven Framework for Predictive Safety Performance in Intelligent Safety Instrumented Systems (SIS) for Oil & Gas Facilities,2026,International journal of computer information systems and industrial management applications,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1038/s41558-021-01224-1,Observed increases in extreme fire weather driven by atmospheric humidity and temperature,2021,Nature Climate Change,NA,395
+q2d,s2-q2d-index-threshold,10.1071/wf19185,Comparing the performance of daily forest fire danger summary metrics for estimating fire activity in southern Australian forests,2020,NA,NA,4
+q2d,s2-q2d-index-threshold,10.1111/anzs.70054,Bayesian Decision Thresholds for Bushfire Warnings: Calibration and Robustness for Rare‐Event Risk,2026,Australian &amp; New Zealand Journal of Statistics,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1016/j.agrformet.2020.107923,Recent evolution of spatial and temporal patterns of burnt areas and fire weather risk in the Iberian Peninsula,2020,Agricultural and Forest Meteorology,NA,53
+q2d,s2-q2d-index-threshold,10.3390/su14137632,Development of Spatial Peatland Fire Danger Index Using Coupled SWAT-MODFLOW Model,2022,Sustainability,NA,4
+q2d,s2-q2d-index-threshold,10.1117/12.2645062,Application of vegetation indices in fire hazard forecasting from satellite images,2022,Atmospheric and Ocean Optics,NA,0
+q2d,s2-q2d-index-threshold,10.1002/ECS2.1543,"Mid-21st-century climate changes increase predicted fire occurrence and fire season length, Northern Rocky Mountains, United States",2016,NA,NA,85
+q2d,s2-q2d-index-threshold,NA,Forest Fire reseArch,2021,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1007/s10530-017-1641-8,"Cheatgrass (Bromus tectorum) distribution in the intermountain Western United States and its relationship to fire frequency, seasonality, and ignitions",2017,Biological Invasions,Review,70
+q2d,s2-q2d-index-threshold,10.3390/f11050516,A Comparison of Fire Weather Indices with MODIS Fire Days for the Natural Regions of Alaska,2020,NA,NA,27
+q2d,s2-q2d-index-threshold,10.1071/wf19193,Soil moisture as an indicator of growing-season herbaceous fuel moisture and curing rate in grasslands,2020,International journal of wildland fire,NA,37
+q2d,s2-q2d-index-threshold,10.5402/2012/429072,Fire Weather Index Implementation in the Alpine Area,2012,NA,NA,4
+q2d,s2-q2d-index-threshold,10.5194/ems2021-285,Updated Operational Implementation of the Canadian Forest Fire Weather Index System in Ireland,2021,NA,NA,0
+q2d,s2-q2d-index-threshold,10.4996/fireecology.1002010,"Modeling Wildfire Spread in Mountain Pine Beetle-Affected Forest Stands, British Columbia, Canada",2014,Fire Ecology,NA,58
+q2d,s2-q2d-index-threshold,10.5194/NHESS-19-1459-2019,Wildland fire potential outlooks for Portugal using meteorological indices of fire danger,2019,Natural Hazards and Earth System Sciences,NA,14
+q2d,s2-q2d-index-threshold,10.1186/s42408-026-00474-8,Number of dry days drives the expansion of simulated future wildfire in the Florida flatwoods pyrome,2026,Fire Ecology,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.5194/NHESS-12-699-2012,Sensitivity of fire weather index to different reanalysis products in the Iberian Peninsula,2012,NA,NA,66
+q2d,s2-q2d-index-threshold,NA,OP-IJEJ210168_7 254..255 ++,2021,NA,NA,0
+q2d,s2-q2d-index-threshold,NA,Flammability Assessment of,2001,NA,NA,4
+q2d,s2-q2d-index-threshold,10.1002/2017EF000657,Changing Weather Extremes Call for Early Warning of Potential for Catastrophic Fire,2017,NA,NA,89
+q2d,s2-q2d-index-threshold,NA,"Series Environmental Conservation 2017 Cheatgrass ( Bromus tectorum ) distribution in the intermountain Western United States and its relationship to fire frequency , seasonality , and ignitions",2018,NA,Review,71
+q2d,s2-q2d-index-threshold,NA,"PREVENTION AGAINST VEGETATION FIRE IN WEST AFRICA, CAS DISTRICT ZANZAN, NORTHEAST OF THE IVORY COAST: THE PHENOMENON AND ANALYSIS OF THRESHOLD FAVOURABLE CLIMATE",2017,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1016/J.FORECO.2006.08.251,Modeling Canadian wildland fire carbon emissions with the Boreal Fire Effects (BORFIRE) model,2006,NA,NA,19
+q2d,s2-q2d-index-threshold,10.1117/3.660403.CH15,Safety and Cleanliness Considerations,2006,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1038/s41612-024-00575-8,Europe faces up to tenfold increase in extreme fires in a warming climate,2024,npj Climate and Atmospheric Science,JournalArticle,118
+q2d,s2-q2d-index-threshold,10.1071/WF13003,A fire weather index as a basis for an early warning system in Spain,2014,NA,NA,6
+q2d,s2-q2d-index-threshold,10.1093/ije/dyab168.722,131Spatio-temporal analysis to assess health effects of landscape fire smoke: an empirical model,2021,International Journal of Epidemiology,NA,0
+q2d,s2-q2d-index-threshold,10.1016/J.AGRFORMET.2019.04.015,A promising new approach to estimate drought indices for fire danger assessment using remotely sensed data,2019,Agricultural and Forest Meteorology,NA,9
+q2d,s2-q2d-index-threshold,10.5194/egusphere-egu2020-7719,"Identification of droughts and heatwaves in the Western Mediterranean, variability and impacts on vegetation and wildfires using the coupled ORCHIDEE-WRF regional model",2020,NA,NA,1
+q2d,s2-q2d-index-threshold,10.1111/gcb.16006,Global increase in wildfire risk due to climate‐driven declines in fuel moisture,2021,Global Change Biology,JournalArticle,296
+q2d,s2-q2d-index-threshold,10.1007/s10584-012-0667-2,On the projection of future fire danger conditions with various instantaneous/mean-daily data sources,2013,Climatic Change,NA,33
+q2d,s2-q2d-index-threshold,10.1088/1748-9326/abae9e,Increasing concurrence of wildfire drivers tripled megafire critical danger days in Southern California between1982 and 2018,2020,Environmental Research Letters,NA,62
+q2d,s2-q2d-index-threshold,10.1071/WF08032,Forecasting distributions of large federal-lands fires utilizing satellite and gridded weather information,2009,NA,NA,61
+q2d,s2-q2d-index-threshold,10.1007/s10584-015-1375-5,Increasing frequency of extreme fire weather in Canada with climate change,2015,Climatic Change,NA,206
+q2d,s2-q2d-index-threshold,10.1175/ei-d-21-0008.1,Weather Factors Associated with Extremely Large Fires and Fire Growth Days,2021,Earth Interactions,NA,31
+q2d,s2-q2d-index-threshold,10.1117/12.2285847,Study on calculating methods of forest fire area for dynamic disaster assessment based on infrared image,2017,Applied Optics and Photonics China,NA,1
+q2d,s2-q2d-index-threshold,10.63721/26jgeas0148,From Forecast to Field: An Integrated Climate-Risk Mitigation Framework for Indonesia’s Oil Palm Plantations under the 2026 El Niño and Emerging Positive Indian Ocean Dipole,2026,Journal of Geoscience and Eco Agricultural Studies,JournalArticle Review,0
+q2d,s2-q2d-index-threshold,10.1023/A:1011641601076,Flammability Assessment of Mediterranean Forest Fuels,2001,NA,NA,337
+q2d,s2-q2d-index-threshold,NA,Fuel and fire behaviour in semi-arid mallee-heath shrublands,2010,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1071/WF12149,"The relationship of large fire occurrence with drought and fire danger indices in the western USA, 1984-2008: the role of temporal scale",2013,NA,NA,149
+q2d,s2-q2d-index-threshold,10.3390/f16091417,Fire Danger Climatology Using the Hot–Dry–Windy Index: Case Studies from Portugal,2025,Forests,JournalArticle,4
+q2d,s2-q2d-index-threshold,NA,Changes in the extremes of fire danger across the western United States,2010,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1007/s11069-024-06743-6,"Fire activity and fire weather in a Lower Mekong subregion: association, regional calibration, weather–adjusted trends, and policy implications",2024,Natural Hazards,JournalArticle,4
+q2d,s2-q2d-index-threshold,NA,FOR EVALUATING SPATIAL SEASONAL FIRE POTENTIAL INDICES,2009,NA,NA,0
+q2d,s2-q2d-index-threshold,NA,Development of a web-based fire danger forecasting system for Mediterranean landscapes using open source software and crowd-sourced weather data - the isle of Sardinia (Italy) as an example,2013,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1126/sciadv.adx9845,The emerging human fingerprint on global extreme fire weather,2026,Science Advances,JournalArticle,6
+q2d,s2-q2d-index-threshold,10.1071/WF08175,Meteorological conditions and wildfire-related houseloss in Australia,2010,NA,NA,141
+q2d,s2-q2d-index-threshold,10.36334/modsim.2013.a3.mills,A 40-year mesoscale gridded fire weather climatology for Victoria - an overview,2013,NA,Review,1
+q2d,s2-q2d-index-threshold,10.1016/j.isprsjprs.2019.10.013,Predicting forest fires burned area and rate of spread from pre-fire multispectral satellite measurements,2019,Isprs Journal of Photogrammetry and Remote Sensing,NA,38
+q2d,s2-q2d-index-threshold,10.3832/IFOR2679-011,Assessing the performance of fire danger indexes in a Mediterranean area,2018,iForest : Biogeosciences and Forestry,NA,20
+q2d,s2-q2d-index-threshold,10.3390/fire9060222,Prediction Model Construction for Forest and Grassland Fire Occurrence in Sichuan Province and Its Preliminary Application in Transmission Line Scenarios,2026,Fire,JournalArticle,0
+q2d,s2-q2d-index-threshold,NA,"Mapping of Fire Severity and Comparison of Severity Indices Across Vegetation Types in Gibraltar Range National Park, Australia",2008,NA,NA,12
+q2d,s2-q2d-index-threshold,10.1007/s00704-025-05997-9,Remote sensing analysis for wildfire monitoring and prediction in oman: insights from MODIS and fire weather index,2026,Theoretical and Applied Climatology,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1038/s41598-026-68923-7,Machine learning for one day ahead prediction of high fire weather index conditions from area weighted ERA5 data in mersin,2026,Scientific Reports,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.1002/joc.3480,Changes in Australian fire weather between 1973 and 2010,2013,NA,NA,180
+q2d,s2-q2d-index-threshold,10.5194/NHESS-14-53-2014,Assessing the predictability of fire occurrence and area burned across phytoclimatic regions in Spain,2014,NA,NA,47
+q2d,s2-q2d-index-threshold,10.1071/WF07014,Fire activity in Portugal and its relationship to weather and the Canadian Fire Weather Index System,2008,NA,NA,171
+q2d,s2-q2d-index-threshold,10.1007/s00477-023-02412-5,Projections of future fire risk under climate change over the South African savanna,2023,Stochastic environmental research and risk assessment (Print),NA,19
+q2d,s2-q2d-index-threshold,NA,The impacts of Andropogon gayanus (gamba grass) invasion on the fire danger index and fire management at a landscape scale,2014,NA,NA,8
+q2d,s2-q2d-index-threshold,NA,Combustion efficiency of small-scale meadow fire in Daxinganling Mountains,2011,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1186/s42408-023-00224-0,Modeling fuel moisture dynamics under climate change in Spain’s forests,2023,Fire Ecology,JournalArticle,11
+q2d,s2-q2d-index-threshold,10.36334/modsim.2019.h7.harris,Victorian fire weather trends and variability,2019,"El Sawah, S. (ed.) MODSIM2019, 23rd International Congress on Modelling and Simulation.",NA,4
+q2d,s2-q2d-index-threshold,10.5194/EGUSPHERE-EGU21-14916,Fire weather thresholds and burnt area in Portugal,2021,NA,NA,1
+q2d,s2-q2d-index-threshold,10.1016/j.envint.2019.105276,"Heatwaves, droughts, and fires: Exploring compound and cascading dry hazards at the pan-European scale.",2019,Environment International,JournalArticle,281
+q2d,s2-q2d-index-threshold,10.25911/5d6510aa86599,Landscape susceptibility to large fires,2009,NA,NA,0
+q2d,s2-q2d-index-threshold,10.1007/978-3-642-29172-2_71,Evaluation of the Canadian Fire Weather Index in Greece and Future Climate Projections,2013,NA,NA,8
+q2d,s2-q2d-index-threshold,10.12677/etis.2025.21003,Electrical Fire Risk Prediction System Based on High and Low Frequency Recurrent Neural Networks,2025,Embedded Technology and Intelligent Systems,JournalArticle,0
+q2d,s2-q2d-index-threshold,10.3390/fire9040147,Characterizing Human-Caused Wildfire Based on the Fire Weather Index in South Korea,2026,Fire,JournalArticle,2
+q2d,s2-q2d-index-threshold,10.1175/WAF-D-13-00002.1,Diagnosing Santa Ana Winds in Southern California with Synoptic-Scale Analysis,2013,NA,NA,56
+q2d,s2-q2d-index-threshold,NA,Forest fire risk in Spain under future climate change,2010,NA,NA,18
+q2d,s2-q2d-index-threshold,NA,"Grassfires: Fuel, Weather and Fire Behaviour",2009,NA,NA,241
+q2d,s2-q2d-index-threshold,10.1214/22-aoas1642,Spatiotemporal wildfire modeling through point processes with moderate and extreme marks,2021,Annals of Applied Statistics,NA,54
+q3a,s2-q3a-index-occurrence-place,10.1186/s42408-025-00376-1,Lightning ignition efficiency in Canadian forests,2025,Fire Ecology,JournalArticle,5
+q3a,s2-q3a-index-occurrence-place,10.1071/WF04038,An index for tracking sheltered forest floor moisture within the Canadian Forest Fire Weather Index System,2005,NA,NA,67
+q3a,s2-q3a-index-occurrence-place,10.7717/peerj.2649,Regional variation in fire weather controls the reported occurrence of Scottish wildfires,2016,PeerJ,JournalArticle,28
+q3a,s2-q3a-index-occurrence-place,NA,Rainforest flammabililty: Determining the conditions for fire ignition and spread within fire-sensitive vegetation,2010,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.3929/ETHZ-A-006088494,Modelling and assessing fire regimes in mountain forests of Switzerland,2009,NA,NA,12
+q3a,s2-q3a-index-occurrence-place,10.1109/CSAE.2011.5952422,Adaptation of Canadian Forest Fire Weather Index system and it's application,2011,International Conference on Computer Science and Application Engineering,Conference,8
+q3a,s2-q3a-index-occurrence-place,10.11118/actaun201967051285,Comparison of Methods for the Assessment of Fire Danger in the Czech Republic,2019,Acta Universitatis Agriculturae et Silviculturae Mendelianae Brunensis,NA,11
+q3a,s2-q3a-index-occurrence-place,10.1139/CJFR-2014-0294,Assessing the probability of sustained flaming in masticated fuel beds.,2015,NA,NA,12
+q3a,s2-q3a-index-occurrence-place,10.1071/WF06033,"Predicting sustained smouldering combustion in trembling aspen duff in Elk Island National Park, Canada",2007,NA,NA,15
+q3a,s2-q3a-index-occurrence-place,10.1002/met.214,Evaluation of the Canadian fire weather index system in an eastern Mediterranean environment,2011,NA,NA,145
+q3a,s2-q3a-index-occurrence-place,10.1071/WF01048,"Lightning and lightning fire, central cordillera, Canada",2002,NA,NA,119
+q3a,s2-q3a-index-occurrence-place,10.1007/S00267-003-0241-9,Using Satellite Fire Detection to Calibrate Components of the Fire Weather Index System in Malaysia and Indonesia,2005,Environmental Management,JournalArticle,23
+q3a,s2-q3a-index-occurrence-place,10.1007/s10651-007-0081-5,Introduction to this special issue on statistics for wildfire processes,2009,Environmental and Ecological Statistics,NA,0
+q3a,s2-q3a-index-occurrence-place,NA,"Fire & Materials , 31 Jan – 2 Feb 2011 , San Francisco , CA COMPUTER MODELLING OF WILDLAND-URBAN INTERFACE FIRES",2012,NA,Review,0
+q3a,s2-q3a-index-occurrence-place,10.11575/prism/37640,Forest Fire Danger/Risk Forecasting: A Remote Sensing Approach,2020,Open Mind,Study,1
+q3a,s2-q3a-index-occurrence-place,NA,Potential impact of climate change on live fuel moisture dynamic at local scale,2019,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1890/12-0698.1,Fire regime zonation under current and future climate over eastern Canada.,2013,Ecological Applications,JournalArticle,106
+q3a,s2-q3a-index-occurrence-place,10.1071/wf23190,Climate and weather drivers in southern California Santa Ana Wind and non-Santa Wind fires,2024,International journal of wildland fire,JournalArticle,5
+q3a,s2-q3a-index-occurrence-place,NA,"Seasonal fire danger forecasts for supporting fire prevention management in an eastern Mediterranean environment: the case study of Attica, Greece",2022,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1016/J.FORECO.2013.07.051,Peat consumption and carbon loss due to smouldering wildfire in a temperate peatland,2013,NA,Review,163
+q3a,s2-q3a-index-occurrence-place,10.1111/j.1365-2486.2007.01517.x,"Climatic change and fire potential in South‐Central British Columbia, Canada",2007,NA,NA,62
+q3a,s2-q3a-index-occurrence-place,10.1007/s11042-023-15881-1,Fire danger forecasting using machine learning-based models and meteorological observation: a case study in Northeastern China,2023,Multimedia tools and applications,JournalArticle,18
+q3a,s2-q3a-index-occurrence-place,10.1016/S0168-1699(02)00120-5,Information systems in support of wildland fire management decision making in Canada,2002,NA,Review,158
+q3a,s2-q3a-index-occurrence-place,10.1016/J.FORECO.2006.08.285,Prescribed burn documentation and fire danger ratings: A case study,2006,NA,NA,5
+q3a,s2-q3a-index-occurrence-place,10.5902/1980509831622,MODELOS MATEMÁTICOS DE PREVISÃO DO TEOR DE UMIDADE DOS MATERIAIS COMBUSTÍVEIS FLORESTAIS FINOS E MORTOS,2018,NA,Review,8
+q3a,s2-q3a-index-occurrence-place,10.1088/1748-9326/ac5f94,Future climate change impact on wildfire danger over the Mediterranean: the case of Greece,2021,NA,NA,51
+q3a,s2-q3a-index-occurrence-place,10.1071/WF04054,"Calibrating the Fine Fuel Moisture Code for grass ignition potential in Sumatra, Indonesia",2005,NA,NA,91
+q3a,s2-q3a-index-occurrence-place,10.3390/f15091493,Predicting Forest Fire Area Growth Rate Using an Ensemble Algorithm,2024,Forests,JournalArticle,18
+q3a,s2-q3a-index-occurrence-place,10.1117/1.JRS.7.073578,Remote sensing-based determination of understory grass greening stage over boreal forest,2013,NA,NA,9
+q3a,s2-q3a-index-occurrence-place,10.5424/FS/2014231-04632,Ignition probability of fine dead surface fuels of native Patagonian forests or Argentina,2014,NA,NA,23
+q3a,s2-q3a-index-occurrence-place,10.3390/fire5060177,Summer and Fall Extreme Fire Weather Projected to Occur More Often and Affect a Growing Portion of California throughout the 21st Century,2022,Fire,NA,7
+q3a,s2-q3a-index-occurrence-place,10.1109/LGRS.2023.3304817,How Does the Management Paradigm Contain Wildfire Over Southwest China? Evidence From Remote Sensing Observation,2023,IEEE Geoscience and Remote Sensing Letters,JournalArticle,10
+q3a,s2-q3a-index-occurrence-place,NA,"Assessment of fire seasonality, and evaluation of fire-weather relationship, and fire danger models in Italy",2013,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,NA,Using fine fuel moisture codes to understand the effects of climate change on the eastern boreal forests of Canada,2016,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.1007/s13253-022-00497-z,"A Case-Crossover Study of the Impact of the Modifying Industrial Operations Protocol on the Frequency of Industrial Forestry-Caused Wildland Fires in Ontario, Canada",2022,Journal of Agricultural Biological and Environmental Statistics,NA,6
+q3a,s2-q3a-index-occurrence-place,10.3832/IFOR1686-009,Probabilistic prediction of daily fire occurrence in the Mediterranean with readily available spatio-temporal data,2017,NA,NA,20
+q3a,s2-q3a-index-occurrence-place,NA,Fire occurrence regime and performance of Canadian fire weather index,2014,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.3390/atmos13081239,The Performance of ECMWF Ensemble Prediction System for European Extreme Fires: Portugal/Monchique in 2018,2022,Atmosphere,NA,4
+q3a,s2-q3a-index-occurrence-place,10.1023/A:1005894525278,The effects of climate change on landscape diversity: an example in Ontario forests,1998,NA,NA,76
+q3a,s2-q3a-index-occurrence-place,10.1080/10106040308542286,Mapping Pre‐Fire Forest Conditions with NOAA‐AVHRR Images in Northern Boreal Forests,2003,NA,NA,13
+q3a,s2-q3a-index-occurrence-place,10.1071/wf26023,Categorizing weather patterns associated with lightning-caused ignition clusters in Canada,2026,International journal of wildland fire,JournalArticle,0
+q3a,s2-q3a-index-occurrence-place,10.23919/AEIT63317.2024.10736821,Fire Danger Characterization in Italy: Mitigating the Impact on Real Time Operation of the Power System,2024,AEIT International Annual Conference,Conference,2
+q3a,s2-q3a-index-occurrence-place,10.1371/journal.pone.0116875,Modelling the Meteorological Forest Fire Niche in Heterogeneous Pyrologic Conditions,2015,PLoS ONE,JournalArticle,56
+q3a,s2-q3a-index-occurrence-place,10.1038/s41467-025-58097-7,Global data-driven prediction of fire activity,2025,Nature Communications,JournalArticle,88
+q3a,s2-q3a-index-occurrence-place,10.1007/978-90-481-2322-3_7,Integrating Meteorological Dynamic Data and Historical Data into a Stochastic Model for Predicting Forest Fires Risk Maps,2010,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.1071/wf24079,Remotely sensed vegetation phenology drives large fire spread in northwestern Europe,2025,International journal of wildland fire,JournalArticle,2
+q3a,s2-q3a-index-occurrence-place,NA,Interactive comment on “Impact of wildfires on Canada’s oilsands,2018,NA,Review,0
+q3a,s2-q3a-index-occurrence-place,10.14195/978-989-26-0884-6_121,Evaluation of a system for automatic dead fine fuel moisture measurements,2014,NA,NA,5
+q3a,s2-q3a-index-occurrence-place,10.1016/J.AGRFORMET.2018.07.031,How well do meteorological drought indices predict live fuel moisture content (LFMC)? An assessment for wildfire research and operations in Mediterranean ecosystems,2018,Agricultural and Forest Meteorology,NA,112
+q3a,s2-q3a-index-occurrence-place,10.1007/S10584-005-5935-Y,Future Area Burned in Canada,2005,NA,NA,949
+q3a,s2-q3a-index-occurrence-place,10.14214/DF.40,Fuel conditions and fire behavior characteristics of managed Picea abies and Pinus sylvestris forests in Finland,2007,NA,NA,10
+q3a,s2-q3a-index-occurrence-place,NA,Fuel moisture and sustained flaming in masticated fuelbeds,2014,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.2478/forj-2025-0006,Drought models for the study of the vegetation moisture content; analysis of performance of different models in two mediterranean ecosystems for application in forest fire prevention,2025,Central European Forestry Journal,JournalArticle,0
+q3a,s2-q3a-index-occurrence-place,10.5194/nhess-23-429-2023,"Seasonal fire danger forecasts for supporting fire prevention management in an eastern Mediterranean environment: the case of Attica, Greece",2023,Natural Hazards and Earth System Sciences,NA,16
+q3a,s2-q3a-index-occurrence-place,NA,Modeling wildfire dynamics using FLAM coupled with deep learning methods,2019,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.5194/NHESS-14-143-2014,Sensitivity and evaluation of current fire risk and future projections due to climate change: the case study of Greece,2013,NA,NA,78
+q3a,s2-q3a-index-occurrence-place,10.1139/cjfr-2022-0225,"Modelling decisions concerning the dispatch of airtankers for initial attack on forest fires in Ontario, Canada",2022,Canadian Journal of Forest Research,NA,5
+q3a,s2-q3a-index-occurrence-place,10.1071/wf24057,"Using hydrological modelling to improve the Fire Weather Index system over tropical peatlands of peninsular Malaysia, Sumatra and Borneo",2025,International journal of wildland fire,JournalArticle,2
+q3a,s2-q3a-index-occurrence-place,10.1080/11956860.2022.2070342,"Drivers of Extreme Wildfire Years in the 1965–2019 Fire Regime of the Tłchǫ First Nation Territory, Canada",2022,Ecoscience,NA,16
+q3a,s2-q3a-index-occurrence-place,NA,Wildfire evolution in the convective boundary layer,2006,NA,Review,6
+q3a,s2-q3a-index-occurrence-place,10.1016/J.AGRFORMET.2017.03.020,Characteristics of lightnings igniting forest fires in Austria,2017,NA,NA,43
+q3a,s2-q3a-index-occurrence-place,10.5194/nhess-2017-318-rc3,"Forest Fire Danger Rating Systems Assessment in the Mediterranean Type Environment , Crete , Greece",2017,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1177/0265813515596448,Use and performance of the Forest Fire Weather Index to model the risk of wildfire occurrence in the Alpine region,2016,NA,JournalArticle,10
+q3a,s2-q3a-index-occurrence-place,10.3390/fire9060217,Nationwide Daily Wildfire Occurrence Prediction Using Time Proxy Variables and the Canadian Fire Weather Index (FWI),2026,Fire,JournalArticle,1
+q3a,s2-q3a-index-occurrence-place,10.1071/WF20085,Moisture content variation of ground vegetation fuels in boreal mesic and sub-xeric mineral soil forests in Finland,2021,NA,NA,7
+q3a,s2-q3a-index-occurrence-place,10.1007/S11027-006-9043-8,Development of the Indonesian and Malaysian Fire Danger Rating Systems,2006,NA,NA,179
+q3a,s2-q3a-index-occurrence-place,NA,Modeling wildfire dynamics using FLAM coupled with deep learning methods,2019,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.3390/f14081574,"The Influence of Seismic Lines on Wildfire Potential in the Boreal Region of Northern Alberta, Canada",2023,Forests,JournalArticle,12
+q3a,s2-q3a-index-occurrence-place,10.1007/s10651-007-0084-2,Interpreting and using outputs from the Canadian Forest Fire Danger Rating System in research applications,2009,Environmental and Ecological Statistics,Review,254
+q3a,s2-q3a-index-occurrence-place,10.1071/WF99006,Point-source fire growth in Jack Pine slash,1999,NA,NA,15
+q3a,s2-q3a-index-occurrence-place,NA,Modeling the probability of sustained flaming in Canadian fuel types: predictive value of fire weather index components compared with observations of site weather and fuel moisture conditions,2005,NA,NA,2
+q3a,s2-q3a-index-occurrence-place,NA,PREDICTION OF FOREST FIRE USING WIRELESS SENSOR NETWORK,2015,NA,NA,2
+q3a,s2-q3a-index-occurrence-place,10.1007/s10668-020-00799-7,"The Canadian versus the National Forest Fire Danger Rating Systems tested in Mediterranean forests fire Crete, Greece",2020,"Environment, Development and Sustainability",NA,6
+q3a,s2-q3a-index-occurrence-place,NA,A Study on the Development of Forest Fire Occurrence Probability Model using Canadian Forest Fire Weather Index -Occurrence of Forest Fire in Kangwon Province -,2009,NA,NA,7
+q3a,s2-q3a-index-occurrence-place,10.1002/env.2278,"Lightning‐caused forest fire risk in Northwestern Ontario, Canada, is increasing and associated with anomalies in fire weather",2014,NA,NA,38
+q3a,s2-q3a-index-occurrence-place,NA,Predicting Ground Fire Ignition Potential in Aspen Communities,2006,NA,NA,2
+q3a,s2-q3a-index-occurrence-place,NA,THE PERIPHERAL REDUCTION IN BURN PROBABILITY AROUND RECENT BURNS IN THE BOREAL FOREST,2003,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.17221/8/2013-JFS,Spatial-temporal distribution of forest fires and fire weather index calculation from 2000 to 2009 in China,2018,NA,NA,11
+q3a,s2-q3a-index-occurrence-place,10.1007/s10584-020-02865-5,Downscaling fire weather extremes from historical and projected climate models,2020,Climatic Change,NA,19
+q3a,s2-q3a-index-occurrence-place,10.1071/WF09120,Wildfires and the Canadian Forest Fire Weather Index system for the Daxing'anling region of China,2011,NA,NA,76
+q3a,s2-q3a-index-occurrence-place,10.1139/X11-162,Examining the utility of the Canadian Forest Fire Weather Index System in boreal peatlands,2012,NA,NA,47
+q3a,s2-q3a-index-occurrence-place,10.1016/J.FORECO.2012.08.035,Evaluation of the performance of meteorological forest fire indices for German federal states,2013,NA,NA,59
+q3a,s2-q3a-index-occurrence-place,10.1038/s41597-026-07212-4,CalWildFire: A high-resolution in situ dataset for wildfire analysis and modeling in the Mediterranean region,2026,Scientific Data,JournalArticle,1
+q3a,s2-q3a-index-occurrence-place,NA,"FIRE BEHAVIOR ASPECTS ASSOCIATED WITH LINEAR DISTURBANCES IN ALBERTA, CANADA",2012,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.3389/ffgc.2025.1680856,A novel framework for fire risk assessment in Kazakhstan: integrating machine learning and remote sensing,2025,Frontiers in Forests and Global Change,JournalArticle,1
+q3a,s2-q3a-index-occurrence-place,NA,Fire in boreal forests : climatic influences on the number and sizes of fires in recent Canadian forests and the size-area relationship in a Swedish site over the last 800 years,2011,NA,NA,2
+q3a,s2-q3a-index-occurrence-place,10.1016/J.FORECO.2005.01.001,Simulation of historical and current fire regimes in central Saskatchewan,2005,NA,NA,19
+q3a,s2-q3a-index-occurrence-place,10.1175/JAMC-D-11-0219.1,Atmospheric and Fuel Moisture Characteristics Associated with Lightning-Attributed Fires,2012,NA,NA,65
+q3a,s2-q3a-index-occurrence-place,NA,CD-ROM based training course Understanding the Fire Weather Index (FWI) System now available!,2002,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.1186/s13717-017-0070-z,cffdrs: an R package for the Canadian Forest Fire Danger Rating System,2017,Ecological Processes,Review,129
+q3a,s2-q3a-index-occurrence-place,NA,A GIS-based lightning-caused fire probability prediction model in Daxing'an Mountains of Heilongjiang Province,2015,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1071/WF14041,Modifying the Canadian Fine Fuel Moisture Code for masticated surface fuels,2015,NA,NA,15
+q3a,s2-q3a-index-occurrence-place,NA,Forest fire occurrence prediction in Slovenia using GIS technology,2013,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.1029/2004GB002222,Historical burn area in western Canadian peatlands and its relationship to fire weather indices,2004,NA,NA,168
+q3a,s2-q3a-index-occurrence-place,10.3390/f17040486,A Comparative Review of Wildfire Danger Rating Systems: Focus on Fuel Moisture Modeling Frameworks,2026,Forests,JournalArticle Review,1
+q3a,s2-q3a-index-occurrence-place,NA,"[Dynamics of forest fire weather indices in Tahe County of Great Xing' an Mountains region, Heilongjiang Province].",2011,Ying yong sheng tai xue bao = The journal of applied ecology,JournalArticle,4
+q3a,s2-q3a-index-occurrence-place,NA,The projected 21st century forest-fire risk in Finland under different greenhouse gas scenarios,2014,NA,NA,33
+q3a,s2-q3a-index-occurrence-place,10.3390/fire3030034,"Fire Behaviour Observation in Shrublands in Nova Scotia, Canada and Assessment of Aids to Operational Fire Behaviour Prediction",2020,Fire,NA,5
+q3a,s2-q3a-index-occurrence-place,NA,"Validation of burn scar mapping: Pilot case in Peloponnesus, Greece",2020,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,NA,캐나다 산불 기상지수를 이용한 산불발생확률모형 개발 -강원도 지역 산불발생을 중심으로-,2009,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.3390/fire3020024,Preceding Fall Drought Conditions and Overwinter Precipitation Effects on Spring Wildland Fire Activity in Canada,2020,Fire,NA,16
+q3a,s2-q3a-index-occurrence-place,NA,"Comment on nhess-2021-384 Anonymous Referee # 2 Referee comment on "" A data-driven model for Fennoscandian wildfire danger "" by Sigrid Jørgensen",2022,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,NA,Interactive comment on “Impact of wildfires on Canada’s oilsands facilities” by Nima Khakzad,2018,NA,Review,0
+q3a,s2-q3a-index-occurrence-place,10.1071/WF06136,Estimation of dead fuel moisture content from meteorological data in Mediterranean areas. Applications in fire danger assessment,2007,NA,NA,99
+q3a,s2-q3a-index-occurrence-place,10.1016/j.scitotenv.2020.142233,Assessing impacts of future climate change on extreme fire weather and pyro-regions in Iberian Peninsula.,2020,Science of the Total Environment,JournalArticle,64
+q3a,s2-q3a-index-occurrence-place,10.5194/ems2021-285,Updated Operational Implementation of the Canadian Forest Fire Weather Index System in Ireland,2021,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1002/env.2292,Special Issue on Wildland Fires,2014,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,NA,Assessing potential changes in fire weather in Europe,2013,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.5194/EGUSPHERE-EGU21-14602,Evaluation of the reliability of the high-resolution WRF fire danger forecasts in Poland,2021,NA,NA,1
+q3a,s2-q3a-index-occurrence-place,10.1016/J.ATMOSRES.2009.03.010,Comparison of Canadian Forest Fire Danger Rating System and National Fire Danger Rating System fire indices derived from Weather Research and Forecasting (WRF) model data for the June 2005 Interior Alaska wildfires,2010,NA,NA,31
+q3a,s2-q3a-index-occurrence-place,NA,Fire behavior in black spruce-lichen woodland: the Porter Lake project.,1990,NA,NA,64
+q3a,s2-q3a-index-occurrence-place,10.1109/JSTARS.2022.3232665,Assessing the Effects of Fuel Moisture Content on the 2018 Megafires in California,2023,IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing,JournalArticle,26
+q3a,s2-q3a-index-occurrence-place,10.1088/1748-9326/acd2ee,Accounting for fuel in fire danger forecasts: the fire occurrence probability index (FOPI),2023,Environmental Research Letters,JournalArticle,13
+q3a,s2-q3a-index-occurrence-place,10.1088/2515-7620/acdfad,The influence of variability on fire weather conditions in high latitude regions under present and future global warming,2023,Environmental Research Communications,JournalArticle,28
+q3a,s2-q3a-index-occurrence-place,10.1088/1757-899X/1208/1/012033,Fire prediction with logistic regression on territory of Bosnia and Herzegovina,2021,IOP Conference Series: Materials Science and Engineering,Conference,3
+q3a,s2-q3a-index-occurrence-place,10.1088/1748-9326/ada8c2,Large increase in extreme fire weather synchronicity over Europe,2025,Environmental Research Letters,JournalArticle,20
+q3a,s2-q3a-index-occurrence-place,NA,Regionalización de escenarios climáticos para la evaluación del riesgo de incendios: desarrollo y aplicaciones,2015,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1071/WF11088,Prediction of daily lightning- and human-caused fires in British Columbia,2012,NA,NA,42
+q3a,s2-q3a-index-occurrence-place,10.3390/RS10060923,An Advanced Forest Fire Danger Forecasting System: Integration of Remote Sensing and Historical Sources of Ignition Data,2018,Remote Sensing,JournalArticle,40
+q3a,s2-q3a-index-occurrence-place,10.1007/S10694-010-0184-7,Modelling Soil Moisture Deficit and Moisture Content of Ground Vegetation: Progress Towards Development of a Fire Weather Index System Appropriate to the UK,2011,NA,NA,5
+q3a,s2-q3a-index-occurrence-place,10.1071/WF06081,Relationships between seasonal patterns of live fuel moisture and meteorological drought indices for Mediterranean shrubland species,2007,NA,NA,121
+q3a,s2-q3a-index-occurrence-place,10.1016/j.scitotenv.2023.161954,Historical spatiotemporal changes in fire danger potential across biomes.,2023,Science of the Total Environment,JournalArticle,8
+q3a,s2-q3a-index-occurrence-place,10.3390/f16091417,Fire Danger Climatology Using the Hot–Dry–Windy Index: Case Studies from Portugal,2025,Forests,JournalArticle,4
+q3a,s2-q3a-index-occurrence-place,NA,Performances of the Korean and the Canadian forest fire danger rating systems in prediction of forest fire occurrence during spring in South Korea,2006,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1007/s10113-014-0698-5,"Increasing daily wildfire risk in the Acadian Forest Region of Nova Scotia, Canada, under future climate change",2015,Regional Environmental Change,NA,15
+q3a,s2-q3a-index-occurrence-place,10.1016/J.FORECO.2006.08.273,The Relation Between the Moisture Content of Fine Forest Fuels and Several Forest Fire Related Aspects,2006,NA,NA,6
+q3a,s2-q3a-index-occurrence-place,10.3390/SU11164284,Projection of Forest Fire Danger due to Climate Change in the French Mediterranean Region,2019,Sustainability,NA,61
+q3a,s2-q3a-index-occurrence-place,10.1007/BF00396168,Use of Forest Ecosystem Classification systems in fire management,1996,Environmental Monitoring & Assessment,JournalArticle,4
+q3a,s2-q3a-index-occurrence-place,10.1139/X04-188,Impact of stand structure on surface fire ignition potential in Picea abies and Pinus sylvestris forests in southern Finland,2005,NA,NA,105
+q3a,s2-q3a-index-occurrence-place,10.20868/upm.thesis.91776,Estudio de la estructura y funcionamiento de dos índices de peligro meteorológico de incendios forestales. Aplicación a tres zonas climáticas de España peninsular,2003,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,NA,UNIVERSIDAD DE SANTIAGO DE COMPOSTELA,1996,NA,NA,4
+q3a,s2-q3a-index-occurrence-place,10.3390/fire7100346,Simulation of Fire Occurrence Based on Historical Data in Future Climate Scenarios and Its Practical Verification,2024,Fire,JournalArticle,5
+q3a,s2-q3a-index-occurrence-place,10.1071/WF08206,Environmental determinants of lightning- v. human-induced forest fire ignitions differ in a temperate mountain region of Switzerland,2010,NA,NA,91
+q3a,s2-q3a-index-occurrence-place,10.1071/WF05021,"Science, technology, and human factors in fire danger rating: the Canadian experience",2006,NA,Review,224
+q3a,s2-q3a-index-occurrence-place,NA,The changes of forest fuel dryness conditions under global warming in Inner Mongolia Daxing'anling forest region,2009,NA,NA,4
+q3a,s2-q3a-index-occurrence-place,10.5194/NHESS-14-53-2014,Assessing the predictability of fire occurrence and area burned across phytoclimatic regions in Spain,2014,NA,NA,47
+q3a,s2-q3a-index-occurrence-place,10.1071/WF18229,Wildfire ignition from forestry machines in boreal Sweden,2019,International journal of wildland fire,NA,18
+q3a,s2-q3a-index-occurrence-place,10.5194/nhess-2021-384,A data-driven prediction model for Fennoscandian wildfires,2021,NA,NA,0
+q3a,s2-q3a-index-occurrence-place,10.1071/WF07014,Fire activity in Portugal and its relationship to weather and the Canadian Fire Weather Index System,2008,NA,NA,171
+q3a,s2-q3a-index-occurrence-place,10.1080/01431160903586773,Mapping fuel moisture codes using MODIS images and the Getis statistic over western Canada grasslands,2011,NA,NA,7
+q3a,s2-q3a-index-occurrence-place,10.1007/978-3-642-29172-2_71,Evaluation of the Canadian Fire Weather Index in Greece and Future Climate Projections,2013,NA,NA,8
+q3a,s2-q3a-index-occurrence-place,NA,PREDICTION OF FOREST FIRE USING WIRELESS SENSOR NETWORK,2015,NA,NA,7
+q3a,s2-q3a-index-occurrence-place,10.3390/rs11182101,Introducing a New Remote Sensing-Based Model for Forecasting Forest Fire Danger Conditions at a Four-Day Scale,2019,Remote Sensing,JournalArticle,31
+q3a,s2-q3a-index-occurrence-place,10.5194/nhess-23-65-2023,A data-driven model for Fennoscandian wildfire danger,2023,Natural Hazards and Earth System Sciences,NA,12
+q3a,s2-q3a-index-occurrence-place,10.5194/NHESSD-2-4711-2014,An assessment of fire occurrence regime and performance of Canadian fire weather index in south central Siberian boreal region,2014,NA,NA,6
+q3a,s2-q3a-index-occurrence-place,NA,Forest fire risk in Spain under future climate change,2010,NA,NA,18
+q3a,s2-q3a-index-occurrence-place,10.14214/SF.7746,The forest fire regime in Latvia during 1922–2014,2017,NA,NA,23
+q3a,s2-q3a-index-occurrence-place,10.3390/fire9070310,"Predicting Wildfire Damage Severity with Composite Indexing and Fire Weather Features: A Case Study in Gangwon Province, South Korea",2026,Fire,JournalArticle,0
+q1b,s2-q1b-place-fire,10.1002/esp.3356,Wood dynamics in upland streams under different disturbance regimes,2013,NA,Review,38
+q1b,s2-q1b-place-fire,10.1111/J.1541-0064.2012.00447.X,"Forest as hazard, forest as victim: Community perspectives and disaster mitigation in the aftermath of Kelowna's 2003 wildfires",2013,NA,NA,26
+q1b,s2-q1b-place-fire,10.14288/1.0053477,"The impacts of wildfire and Mountain Pine Beetle disturbance on wood budgets, stability and related sediment storage in low-sediment supply streams of the Okanagan Basin",2011,NA,NA,0
+q1b,s2-q1b-place-fire,NA,"Invasive plant management following the 2003 Okanagan valley wildfires, British Columbia.",2007,NA,NA,0
+q1b,s2-q1b-place-fire,10.2113/GSEEGEOSCI.15.4.217,Debris Flows and Floods Following the 2003 Wildfires in Southern British Columbia,2009,NA,NA,42
+q1b,s2-q1b-place-fire,10.3389/fpubh.2025.1578582,CardioRespiratory Effects of Wildfire Suppression (CREWS) study: an experimental overview,2025,Frontiers in Public Health,JournalArticle Review,2
+q1b,s2-q1b-place-fire,10.18357/wg23201831,"Reduction of wildland-urban-interface fire risk in Kelowna, Canada",2018,Western Geographer,JournalArticle,0
+q1b,s2-q1b-place-fire,NA,Riparian Large Woody Debris ( LWD ) Recruitment Models ( Section 1 ) Quantification of the Difference in Instream Woody Debris Loads between Harvesting and Wildfire Disturbance in the Interior of BC ( Section 2 ),2004,NA,Review,1
+q1b,s2-q1b-place-fire,NA,Changes in Snow Accumulation and Ablation after a Fire in South- central British Columbia,2011,NA,NA,28
+q1b,s2-q1b-place-fire,10.1139/CJZ-2018-0222,Foraging behaviour of snowshoe hares (Lepus americanus) in conifer forests regenerating after fire,2019,Canadian Journal of Zoology,NA,11
+q1b,s2-q1b-place-fire,10.22621/CFN.V118I2.904,"Conservation Evaluation of Lemmon's Holly Fern, Polystichum lemmonii , a Threatened Fern in Canada",2004,NA,NA,0
+q1b,s2-q1b-place-fire,10.24908/cpp-apc.v2026i2.19927,"The Housing-Climate Nexus: How Planning and Wildfire Drive Displacement in the Central Okanagan, British Columbia",2026,Canadian Planning and Policy / Aménagement et politique au Canada,JournalArticle,0
+q1b,s2-q1b-place-fire,NA,Risk reduction status of homes reconstructed following wildfire disasters in Canada,2015,NA,NA,1
+q2a,s2-q2a-index-version,NA,Very Portable Remote Automatic Weather Stations,1987,NA,NA,0
+q2a,s2-q2a-index-version,NA,WRF fire simulation coupled with a fuel moisture model and smoke transport by WRF-Chem,2012,NA,NA,11
+q2a,s2-q2a-index-version,NA,Forest Fire Modeling and Early Detection using Wireless Sensor Networks,2009,Ad Hoc Sens. Wirel. Networks,JournalArticle,218
+q2a,s2-q2a-index-version,NA,"Updates to the Weather Information Management System (WIMS), FireFamilyPlus, and the National Fire Danger Rating System (NFDRS)",2013,NA,NA,8
+q2a,s2-q2a-index-version,10.3390/su18189217,"Climate-Driven Wildfire Risk in the Sumapaz Páramo, Colombia: Coupling the Fire Weather Index with Spatiotemporal Analysis for Sustainable Ecosystem Management",2026,Sustainability,JournalArticle,0
+q2a,s2-q2a-index-version,10.1080/10962247.2019.1640808,A statistical model for predicting PM2.5 for the western United States,2019,Journal of the Air and Waste Management Association,JournalArticle,30
+q2a,s2-q2a-index-version,10.29298/RMCF.V3I11.515,APLICACIÓN DEL ÍNDICE METEOROLÓGICO DE INCENDIOS CANADIENSE EN UN PARQUE NACIONAL DEL CENTRO DE MÉXICO,2019,Revista Mexicana de Ciencias Forestales,NA,3
+q2a,s2-q2a-index-version,10.1016/j.envsoft.2024.106181,Modernizing the US National Fire Danger Rating System (version 4): Simplified fuel models and improved live and dead fuel moisture calculations,2024,Environmental Modelling & Software,JournalArticle,40
+q2a,s2-q2a-index-version,10.1080/10106049.2011.604433,Spatial modelling of wildland fire danger for risk analysis and conflict resolution in Malaysia: linking Fire Danger Rating Systems (FDRS) with Wildfire Threat Rating Systems (WTRS),2012,NA,NA,7
+q2a,s2-q2a-index-version,10.1071/WF12169,Behaviour of fire weather indices in the 2009–10 New Zealand wildland fire season,2014,NA,NA,19
+q2a,s2-q2a-index-version,NA,Field verification of the Nelson dead fuel moisture model and comparisons with National Fire Danger Rating System (NFDRS) predictions,2005,NA,NA,1
+q2a,s2-q2a-index-version,NA,Relation Between the National Fire Danger Spread Component and Fire Activity in the Lake States,2018,NA,NA,0
+q2a,s2-q2a-index-version,10.1071/wf25023,Fuel-aware forest fire danger rating system RISICO: a comparative study for Italy,2025,International journal of wildland fire,JournalArticle,4
+q2a,s2-q2a-index-version,10.2737/SE-GTR-61,NFDRSPC: The National Fire-Danger Rating System on a Personal Computer,1990,NA,NA,1
+q2a,s2-q2a-index-version,NA,Interpreting the Canadian Forest Fire Weather Index (FWI) System,1987,NA,NA,79
+q2a,s2-q2a-index-version,NA,"Fire weather of a Canterbury Northwester on 6 February 2011 in South Island, New Zealand",2013,NA,NA,1
+q2a,s2-q2a-index-version,10.3390/fire8110448,"Mechanisms of an Eruptive Forest Fire in Subtropical Hilly Terrain: A Case Study from the 2022 Xintian Fire, Hunan Province, China",2025,Fire,JournalArticle,0
+q2a,s2-q2a-index-version,10.1007/BF02858198,Fuel classification and mapping from satellite imagines,2005,Journal of Forest Research,NA,10
+q2a,s2-q2a-index-version,NA,Determination of equilibrium moisture content for several fine fuels in Hawaii,2007,NA,NA,2
+q2a,s2-q2a-index-version,10.1071/wf23142,Australian Fire Danger Rating System: implementing fire behaviour calculations to forecast fire danger in a research prototype†,2024,International journal of wildland fire,JournalArticle Review,16
+q2a,s2-q2a-index-version,10.1109/GEOINFORMATICS.2017.8090922,Reinforcing wildfire predictive services with timely weather information,2017,GEOINFORMATICS,JournalArticle,2
+q2a,s2-q2a-index-version,10.3390/app10228213,Developing a New Hourly Forest Fire Risk Index Based on Catboost in South Korea,2020,Applied Sciences,NA,43
+q2a,s2-q2a-index-version,10.1002/asl.1165,Downscaled subseasonal fire danger forecast skill across the contiguous United States,2023,Atmospheric Science Letters,NA,5
+q2a,s2-q2a-index-version,NA,논문 : 디지털예보자료와 Daily Weather Index (DWI) 모델을 적용한 한반도의 산불발생위험 예측,2012,NA,NA,1
+q2a,s2-q2a-index-version,NA,Canadian Forest Fire Danger Rating System [R package cffdrs version 1.8.18],2020,NA,NA,0
+q2a,s2-q2a-index-version,10.1002/2017GL073660,Long‐Lead Prediction of the 2015 Fire and Haze Episode in Indonesia,2017,Geophysical Research Letters,JournalArticle,21
+q2a,s2-q2a-index-version,10.1109/agers53903.2021.9617418,Reanalysis of ECMWF data for updating the Fire Weather Index for the Indonesia Fire Danger Rating System (InaFDRS),2021,"2021 IEEE Asia-Pacific Conference on Geoscience, Electronics and Remote Sensing Technology (AGERS)",Conference,0
+q2a,s2-q2a-index-version,10.5532/KJAFM.2012.14.1.001,Prediction of Forest Fire Danger Rating over the Korean Peninsula with the Digital Forecast Data and Daily Weather Index (DWI) Model,2012,NA,NA,7
+q2a,s2-q2a-index-version,NA,Mapping of the Kabo River Forest Reserve in Ghana towards Community-Based Fire Management,2012,NA,NA,1
+q2a,s2-q2a-index-version,NA,Reinforcing wildfire predictive services with timely weather information,2017,GEOINFORMATICS,Conference,0
+q2a,s2-q2a-index-version,NA,Fire Danger Rating: The next 20 Years,1987,NA,NA,1
+q2a,s2-q2a-index-version,10.1016/j.isprsjprs.2019.10.013,Predicting forest fires burned area and rate of spread from pre-fire multispectral satellite measurements,2019,Isprs Journal of Photogrammetry and Remote Sensing,NA,38
+q2a,s2-q2a-index-version,10.1186/s13717-018-0125-9,Correction to cffdrs: an R package for the Canadian Forest Fire Danger Rating System,2018,Ecological Processes,NA,12
+q2a,s2-q2a-index-version,10.25911/5d6510aa86599,Landscape susceptibility to large fires,2009,NA,NA,0
+q2a,s2-q2a-index-version,10.5194/gmd-17-7713-2024,The Global Forest Fire Emissions Prediction System version 1.0,2024,Geoscientific Model Development,JournalArticle,17
+q2c,s2-q2c-index-input,10.3390/rs18020318,Quantifying VIIRS and ABI Contributions to Hourly Dead Fuel Moisture Content Estimation Using Machine Learning,2026,Remote Sensing,JournalArticle,1
+q2c,s2-q2c-index-input,10.22499/3.6003.00004,"A bias corrected WRF mesoscale fire weather dataset for Victoria, Australia 1972-2012",2016,,,19
+q2c,s2-q2c-index-input,10.1139/CJFR-2014-0294,Assessing the probability of sustained flaming in masticated fuel beds.,2015,,,12
+q2c,s2-q2c-index-input,10.5194/egusphere-egu2020-11639,Climate services for forest fire risk management,2020,,Review,1
+q2c,s2-q2c-index-input,NA,A fire danger climatology for Tasmania,2007,,Review,30
+q2c,s2-q2c-index-input,NA,A climatology of extreme fire weather days in Victoria,2006,,,38
+q2c,s2-q2c-index-input,10.1186/s42408-026-00571-8,Modeling aspect-associated microclimate variation and time-lag effects on surface fine fuel moisture dynamics in subtropical forests,2026,Fire Ecology,JournalArticle,0
+q2c,s2-q2c-index-input,10.1007/s00382-017-3580-6,Multivariate quantile mapping bias correction: an N-dimensional probability density function transform for climate model simulations of multiple variables,2017,Climate Dynamics,,599
+q2c,s2-q2c-index-input,10.1175/JAMC-D-13-0114.1,A Regression Model for Smoke Plume Rise of Prescribed Fires Using Meteorological Conditions,2014,,,12
+q2c,s2-q2c-index-input,10.2737/psw-rp-174,Changes in Fire Weather Distributions : Effects on Predicted Fire Behavior,2007,,,0
+q2c,s2-q2c-index-input,10.1038/s41586-021-04325-1,Warming weakens the night-time barrier to global fire,2022,Nature,JournalArticle,194
+q2c,s2-q2c-index-input,10.1071/wf23190,Climate and weather drivers in southern California Santa Ana Wind and non-Santa Wind fires,2024,International journal of wildland fire,JournalArticle,5
+q2c,s2-q2c-index-input,10.1080/03736245.2024.2398422,Modification of the microclimate and fire danger by Berg winds in the midlands of KwaZulu-Natal,2024,The South African Geographical Journal,JournalArticle,4
+q2c,s2-q2c-index-input,10.1016/j.mex.2026.104174,A daily peat moisture code for monitoring and predicting peatland fire danger,2026,MethodsX,JournalArticle,0
+q2c,s2-q2c-index-input,NA,On the relation between heat wave events and fire risk indices over Chalkidiki- Greece,2014,,,0
+q2c,s2-q2c-index-input,10.1071/WF02003,The Oklahoma Fire Danger Model: An operational tool for mesoscale fire danger rating in Oklahoma,2002,,,34
+q2c,s2-q2c-index-input,10.1139/X00-032,Prediction of diurnal change in 10-h fuel stick moisture content,2000,,,210
+q2c,s2-q2c-index-input,10.1071/WF06021,Predicting forest floor moisture for burned and unburned Pinus banksiana forests in the Canadian Northwest Territories,2007,,,19
+q2c,s2-q2c-index-input,10.3390/f16121861,Extreme Climate Drivers and Their Interactions in Lightning-Ignited Fires: Insights from Machine Learning Models,2025,Forests,JournalArticle,3
+q2c,s2-q2c-index-input,10.1071/wf23144,Australian Fire Danger Rating System Research Prototype: a climatology†,2024,International journal of wildland fire,JournalArticle,6
+q2c,s2-q2c-index-input,10.1002/joc.7262,"Extreme winds and fire weather in coastal Santa Barbara County, CA: An observational analysis",2021,International Journal of Climatology,,12
+q2c,s2-q2c-index-input,NA,A climatology of extreme fire weather days in Victoria,2006,,,0
+q2c,s2-q2c-index-input,10.1080/10962247.2019.1640808,A statistical model for predicting PM2.5 for the western United States,2019,Journal of the Air and Waste Management Association,JournalArticle,30
+q2c,s2-q2c-index-input,10.5220/0015063700004091,Enhancing Wildfire Prevention: An Operational Pipeline Integrating WRF Mesoscale Modelling and Automated CFFDRS Calculation,2026,International Conference on Data Technologies and Applications,JournalArticle,0
+q2c,s2-q2c-index-input,10.5194/essd-18-5995-2026,"A daily gridded dataset of the Fire Weather Index across Canada, with calculations based on the sun's elevation",2026,Earth System Science Data,JournalArticle,0
+q2c,s2-q2c-index-input,10.1175/JAMC-D-15-0062.1,Characteristics of Some Days Involving Abrupt Increases in Fire Danger,2015,,,8
+q2c,s2-q2c-index-input,10.23919/AEIT63317.2024.10736821,Fire Danger Characterization in Italy: Mitigating the Impact on Real Time Operation of the Power System,2024,AEIT International Annual Conference,Conference,2
+q2c,s2-q2c-index-input,NA,A COMPARISON OF HOURLY FINE FUEL MOISTURE CODE CALCULATIONS WITHIN CANADA,2009,,,5
+q2c,s2-q2c-index-input,10.1134/S0001433811090143,System analysis of weather fire danger in predicting large fires in Siberian forests,2011,,,7
+q2c,s2-q2c-index-input,10.1088/1748-9326/11/3/035003,Measurement of inter- and intra-annual variability of landscape fire activity at a continental scale: the Australian case,2016,,,59
+q2c,s2-q2c-index-input,10.1071/wf24113,Sub-hourly forecasting of fire potential using machine learning on time series of surface weather variables,2025,International journal of wildland fire,JournalArticle,6
+q2c,s2-q2c-index-input,10.36334/modsim.2011.a2.grose,Bushfire conditions under a warming climate – the value of regional climate modelling,2011,,,1
+q2c,s2-q2c-index-input,NA,Incorporating solar radiation into the litter moisture model in the Canadian Forest Fire Danger Rating System,2010,,,0
+q2c,s2-q2c-index-input,NA,A meteorolgical investigation of the 'springtime bump' : an early season peak in the fire danger experienced in Tasmania,2014,,,1
+q2c,s2-q2c-index-input,10.1071/es08011,A fire danger climatology for Tasmania,2008,Australian meteorological magazine,JournalArticle,1
+q2c,s2-q2c-index-input,10.1080/00049158.1989.10674540,Assessment of existing fine fuel moisture models applied to Eucalyptus litter,1989,,,36
+q2c,s2-q2c-index-input,10.3390/f17040484,"Study on Model Construction and Extrapolation Accuracy of Surface Branch Moisture Content for Typical Stands in Qipanshan Area, Northeastern China",2026,Forests,JournalArticle,4
+q2c,s2-q2c-index-input,NA,"Web-based teaching, learning and research using real-time data from field-based agrometeorological measurement systems.",2014,,,4
+q2c,s2-q2c-index-input,10.5849/FORSCI.11-037,Comparing Measured Duff Moisture with a Water Budget Model and the Duff and Drought Codes of the Canadian Fire Weather Index,2013,,,14
+q2c,s2-q2c-index-input,NA,Field verification of the Nelson dead fuel moisture model and comparisons with National Fire Danger Rating System (NFDRS) predictions,2005,,,1
+q2c,s2-q2c-index-input,NA,An hourly based meteorological fire danger system,2018,,,1
+q2c,s2-q2c-index-input,10.3390/RS10111777,Relating Spatiotemporal Patterns of Forest Fires Burned Area and Duration to Diurnal Land Surface Temperature Anomalies,2018,Remote Sensing,JournalArticle,41
+q2c,s2-q2c-index-input,10.1111/jtsa.12732,Transformed‐Linear Models for Time Series Extremes,2020,Journal of Time Series Analysis,JournalArticle,9
+q2c,s2-q2c-index-input,10.5194/NHESS-13-2157-2013,Forest fire danger rating in complex topography - results from a case study in the Bavarian Alps in autumn 2011,2013,,,24
+q2c,s2-q2c-index-input,10.1071/wf25023,Fuel-aware forest fire danger rating system RISICO: a comparative study for Italy,2025,International journal of wildland fire,JournalArticle,4
+q2c,s2-q2c-index-input,10.13287/j.1001-9332.202608.010,"Driving mechanisms and predictive modeling of lightning-caused fires in the Greater Khingan Mountains, China.",2026,Ying yong sheng tai xue bao = The journal of applied ecology,JournalArticle,0
+q2c,s2-q2c-index-input,NA,Modeling the probability of sustained flaming in Canadian fuel types: predictive value of fire weather index components compared with observations of site weather and fuel moisture conditions,2005,,,2
+q2c,s2-q2c-index-input,10.21829/MYB.2018.2411565,Puntos de calor en la Sierra Madre Oriental de San Luis Potosí: patrones espaciales y factores asociados,2018,,,4
+q2c,s2-q2c-index-input,10.14195/978-989-26-16-506,Advances in forest fire research 2018,2018,,,10
+q2c,s2-q2c-index-input,10.3390/app10228213,Developing a New Hourly Forest Fire Risk Index Based on Catboost in South Korea,2020,Applied Sciences,,43
+q2c,s2-q2c-index-input,10.1175/waf-d-23-0226.1,Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment using Numerical Weather Prediction,2024,Weather and forecasting,JournalArticle,7
+q2c,s2-q2c-index-input,10.1007/s11676-020-01109-7,Diurnal variation models for fine fuel moisture content in boreal forests in China,2020,Journal of Forest Research,,0
+q2c,s2-q2c-index-input,NA,FORECASTING DIURNAL VARIATION IN FIRE INTENSITY FOR USE IN WILDLAND FIRE MANAGEMENT APPLICATIONS,2001,,Review,6
+q2c,s2-q2c-index-input,10.7075/TJFS.199909.0339,Modeling Probability of Ignition in Taiwan Red Pine Forests,1999,,,16
+q2c,s2-q2c-index-input,10.3390/FIRE2010002,Moisture Sorption Models for Fuel Beds of Standing Dead Grass in Alaska,2018,Fire,,8
+q2c,s2-q2c-index-input,NA,DIURNAL FINE FUEL MOISTURE CHARACTERISTICS AT A NORTHERN LATITUDE,2012,,,10
+q2c,s2-q2c-index-input,10.1175/JAMC-D-11-0219.1,Atmospheric and Fuel Moisture Characteristics Associated with Lightning-Attributed Fires,2012,,,65
+q2c,s2-q2c-index-input,10.1175/BAMS-D-21-0013.1,Meteorologically Stratified Gust Factors for Forecasting Peak Wind Gusts Across the United States,2021,Bulletin of The American Meteorological Society - (BAMS),,11
+q2c,s2-q2c-index-input,10.3390/rs18010147,Estimating Cloud Base Height via Shadow-Based Remote Sensing,2026,Remote Sensing,JournalArticle,0
+q2c,s2-q2c-index-input,10.1071/WF14041,Modifying the Canadian Fine Fuel Moisture Code for masticated surface fuels,2015,,,15
+q2c,s2-q2c-index-input,10.1071/WF02002,Forecasting diurnal variations in fire intensity to enhance wildland firefighter safety,2002,,,37
+q2c,s2-q2c-index-input,10.3390/f17040486,A Comparative Review of Wildfire Danger Rating Systems: Focus on Fuel Moisture Modeling Frameworks,2026,Forests,JournalArticle Review,1
+q2c,s2-q2c-index-input,NA,SATELLITE-DERIVED PM 2 . 5 EMISSIONS FROM WILDFIRES FOR AIR QULAITY FORECAST,2006,,,1
+q2c,s2-q2c-index-input,10.1071/wf19185,Comparing the performance of daily forest fire danger summary metrics for estimating fire activity in southern Australian forests,2020,,,4
+q2c,s2-q2c-index-input,10.1038/s41597-024-03832-w,A national-scale sampled temperate fuel moisture database,2024,Scientific Data,JournalArticle,9
+q2c,s2-q2c-index-input,10.1175/waf-d-24-0068.1,An hourly wildfire potential index for predicting sub-daily fire activity based on rapidly-updating convection-allowing model forecasts,2025,Weather and forecasting,JournalArticle,4
+q2c,s2-q2c-index-input,10.1016/B978-012386660-8/50006-4,Water Relations of Forest Fuels,2001,,Review,163
+q2c,s2-q2c-index-input,NA,HOURLY BIOMASS BURNING EMISSIONS INVENTORY DERIVED FROM GOES DATA,2008,,,0
+q2c,s2-q2c-index-input,10.1007/s10584-012-0667-2,On the projection of future fire danger conditions with various instantaneous/mean-daily data sources,2013,Climatic Change,,33
+q2c,s2-q2c-index-input,NA,Implementation of models and the forecast system for the National Fire Danger Rating System,2019,,,0
+q2c,s2-q2c-index-input,10.1016/J.FIRESAF.2014.05.012,The timing of vegetation fire occurrence in a human landscape,2014,,,36
+q2c,s2-q2c-index-input,10.1071/WF02019,"Temporal simulation of diurnal temperature and relative humidity evolution at a forested mountainous site in Attica, Greece",2002,,,9
+q2c,s2-q2c-index-input,10.1175/JAMC-D-10-05001.1,Impact of More Frequent Observations on the Understanding of Tasmanian Fire Danger,2011,,,10
+q2c,s2-q2c-index-input,NA,An Hourly Operational Fire Danger Monitoring Tool,2015,,,0
+q2c,s2-q2c-index-input,10.1016/J.AGRFORMET.2005.03.012,A comparison of three models of 1-h time lag fuel moisture in Hawaii,2005,,,30
+q2c,s2-q2c-index-input,10.36334/modsim.2013.a3.mills,A 40-year mesoscale gridded fire weather climatology for Victoria - an overview,2013,,Review,1
+q2c,s2-q2c-index-input,10.1007/s11676-020-01109-7,Diurnal variation models for fine fuel moisture content in boreal forests in China,2020,Journal of Forest Research,,12
+q2c,s2-q2c-index-input,NA,Spatiotemporal Variations In Burned Areas And Biomass Burning Emissions Derived From Multiple Satellite-based Active Fires Across The USA,2009,,,1
+q2c,s2-q2c-index-input,10.1038/s41598-026-68923-7,Machine learning for one day ahead prediction of high fire weather index conditions from area weighted ERA5 data in mersin,2026,Scientific Reports,JournalArticle,0
+q2c,s2-q2c-index-input,10.3390/eesp2026046003,Impact of Increased Resolution on FWI in High-Resolution Meso-NH Simulations,2026,X-Fire 2026,,0
+q2c,s2-q2c-index-input,10.1038/s41598-026-72729-y,From daily to hourly scale: improving fire weather index with high-resolution Meso-NH simulations,2026,Scientific Reports,JournalArticle,0
+q2c,s2-q2c-index-input,10.36334/modsim.2019.h7.harris,Victorian fire weather trends and variability,2019,"El Sawah, S. (ed.) MODSIM2019, 23rd International Congress on Modelling and Simulation.",,4
+q2c,s2-q2c-index-input,10.1016/J.ATMOSENV.2007.12.040,"Biomass burning emissions over northern Australia constrained by aerosol measurements: II-Model validation, and impacts on air quality and radiative forcing",2008,,,44
+q2c,s2-q2c-index-input,10.1002/met.1367,Climatological evaluation of Haines forest fire weather index over the Mediterranean Basin,2014,,,43
+q2c,s2-q2c-index-input,10.5194/gmd-17-7713-2024,The Global Forest Fire Emissions Prediction System version 1.0,2024,Geoscientific Model Development,JournalArticle,17
+q2c,s2-q2c-index-input,10.1175/JAM2146.1,The Effect of Model Resolution in Predicting Meteorological Parameters Used in Fire Danger Rating,2004,,,18
+q2c,s2-q2c-index-input,10.1016/J.ATMOSENV.2007.10.089,Biomass burning emissions over northern Australia constrained by aerosol measurements : I-Modelling the distribution of hourly emissions,2008,,,40
+q2c,s2-q2c-index-input,10.36334/modsim.2011.a2.lin,Estimate of Maximum Insurance Loss due to Bushfires,2011,,,1
+q2c,s2-q2c-index-input,10.1127/0941-2948/2005/0017,A single-layer litter-moisture model for estimating forest-fire danger,2005,,,24

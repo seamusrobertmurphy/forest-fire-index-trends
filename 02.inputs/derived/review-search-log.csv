@@ -26,3 +26,42 @@ openalex-chase,chase-references 10.1071/wf17008,10.1071/wf17008,2026-10-13,62,62
 openalex-chase,chase-citations 10.1175/waf-d-23-0226.1,10.1175/waf-d-23-0226.1,2026-10-13,9,9,NA,FALSE,NA
 openalex-chase,chase-references 10.1175/waf-d-23-0226.1,10.1175/waf-d-23-0226.1,2026-10-13,27,27,NA,FALSE,NA
 openalex-chase,chase-citations 10.4095/st000101,10.4095/st000101,2026-10-13,2,2,NA,FALSE,NA
+library-science,store-q1a-index-trend-estimator,fire danger|fire weather index AND trend* AND theil-sen|mann-kendall,2026-10-14,0,0,NA,FALSE,NA
+library-science,store-q2b-index-homogeneity,fire danger|fire weather index AND homogen*,2026-10-14,0,0,NA,FALSE,NA
+library-science,store-q2c-index-input,fire danger|fire weather index AND hourly|diurnal,2026-10-14,1,1,NA,FALSE,NA
+library-science,store-q2d-index-threshold,fire danger|fire weather index AND percentile|threshold*,2026-10-14,0,0,NA,FALSE,NA
+library-science,store-q3a-index-occurrence-place,fire danger|fire weather index AND fire occurrence|ignition* AND british columbia|canadian,2026-10-14,0,0,NA,FALSE,NA
+library-science,store-q1b-place-fire,okanagan AND wildfire*,2026-10-14,0,0,NA,FALSE,NA
+library-science,store-q2a-index-version,fire danger rating system AND update|version,2026-10-14,0,0,NA,FALSE,NA
+openalex,openalex-q1a-index-trend-estimator,"(""fire danger"" OR ""fire weather index"") AND (trend) AND (theil-sen OR mann-kendall)",2026-10-14,11,11,3000,FALSE,NA
+openalex,openalex-q2b-index-homogeneity,"(""fire danger"" OR ""fire weather index"") AND (homogen)",2026-10-14,0,0,3000,FALSE,NA
+openalex,openalex-q2c-index-input,"(""fire danger"" OR ""fire weather index"") AND (hourly OR diurnal)",2026-10-14,140,140,3000,FALSE,NA
+openalex,openalex-q1b-place-fire,(okanagan) AND (wildfire),2026-10-14,31,31,3000,FALSE,NA
+openalex,openalex-q2a-index-version,"(""fire danger rating system"") AND (update OR version)",2026-10-14,39,39,3000,FALSE,NA
+ads,ads-q1a-index-trend-estimator,"abs:(""fire danger"" OR ""fire weather index"") AND (theil-sen OR mann-kendall) year:1987-",2026-10-14,12,12,2000,FALSE,stopword concept dropped: trend*
+ads,ads-q2b-index-homogeneity,"abs:(""fire danger"" OR ""fire weather index"") AND (homogen) year:1987-",2026-10-14,0,0,2000,FALSE,NA
+ads,ads-q2c-index-input,"abs:(""fire danger"" OR ""fire weather index"") AND (hourly OR diurnal) year:1987-",2026-10-14,181,181,2000,FALSE,NA
+ads,ads-q2d-index-threshold,"abs:(""fire danger"" OR ""fire weather index"") AND (percentile OR threshold) year:1987-",2026-10-14,240,240,2000,FALSE,NA
+ads,ads-q3a-index-occurrence-place,"abs:(""fire danger"" OR ""fire weather index"") AND (""fire occurrence"" OR ignition) AND (""british columbia"" OR canadian) year:1987-",2026-10-14,183,183,2000,FALSE,NA
+ads,ads-q1b-place-fire,abs:(okanagan) AND (wildfire) year:1987-,2026-10-14,9,9,2000,FALSE,NA
+ads,ads-q2a-index-version,"abs:(""fire danger rating system"") AND (update OR version) year:1987-",2026-10-14,31,31,2000,FALSE,NA
+openalex,openalex-q2d-index-threshold,"(""fire danger"" OR ""fire weather index"") AND (percentile OR threshold)",2026-10-14,318,318,3000,FALSE,NA
+openalex,openalex-q3a-index-occurrence-place,"(""fire danger"" OR ""fire weather index"") AND (""fire occurrence"" OR ignition) AND (""british columbia"" OR canadian)",2026-10-14,227,227,3000,FALSE,NA
+semantic-scholar,s2-q1a-index-trend-estimator,"(""fire danger"" | ""fire weather index"") + (trend) + (theil-sen | mann-kendall)",2026-10-14,4,4,3000,FALSE,NA
+semantic-scholar,s2-q2b-index-homogeneity,"(""fire danger"" | ""fire weather index"") + (homogen)",2026-10-14,0,0,3000,FALSE,NA
+semantic-scholar,s2-q2d-index-threshold,"(""fire danger"" | ""fire weather index"") + (percentile | threshold)",2026-10-14,215,215,3000,FALSE,NA
+semantic-scholar,s2-q3a-index-occurrence-place,"(""fire danger"" | ""fire weather index"") + (""fire occurrence"" | ignition) + (""british columbia"" | canadian)",2026-10-14,148,148,3000,FALSE,NA
+semantic-scholar,s2-q1b-place-fire,(okanagan) + (wildfire),2026-10-14,13,13,3000,FALSE,NA
+semantic-scholar,s2-q2a-index-version,"(""fire danger rating system"") + (update | version)",2026-10-14,35,35,3000,FALSE,NA
+semantic-scholar,s2-q2c-index-input,"(""fire danger"" | ""fire weather index"") + (hourly | diurnal)",2026-10-14,89,89,3000,FALSE,NA
+consensus,consensus-q1-index-trend-place,fire danger or fire weather index trend Okanagan British Columbia Canada,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q2-index-input,fire danger or fire weather index computed from hourly weather,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q3-index-occurrence-place,fire danger or fire weather index and fire occurrence in British Columbia or Canada,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q4-version,FWI2025 Canadian Fire Weather Index System 2025 update,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q1a-index-trend-estimator,fire danger or fire weather index trend estimated with Theil-Sen or Mann-Kendall,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q1b-place-fire,Okanagan wildfire,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q2a-index-version,fire danger rating system update or new version compared with the previous version on one record,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q2b-index-homogeneity,fire danger or fire weather index station record homogeneity and instrument change,2026-10-14,2,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q2c-index-input,fire danger or fire weather index hourly or diurnal input,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q2d-index-threshold,fire danger or fire weather index percentile or absolute threshold,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+consensus,consensus-q3a-index-occurrence-place,fire danger or fire weather index and fire occurrence or ignitions in British Columbia or Canada,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"

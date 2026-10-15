@@ -1,0 +1,33 @@
+question,route,doi,title,year,venue,type,citations,first_author
+q1,consensus-q1-index-trend-place,10.1111/j.1365-2486.2007.01517.x,"Climatic change and fire potential in South-Central British Columbia, Canada",2007,Global Change Biology,,62,Nitschke
+q1,consensus-q1-index-trend-place,10.1088/2515-7620/acdfad,The influence of variability on fire weather conditions in high latitude regions under present and future global warming,2023,Environmental Research Communications,,28,Lund
+q1,consensus-q1-index-trend-place,10.1201/9781351190831-3,Fire-Weather Index and Climate Change,2020,,,6,Hubnerova
+q2,consensus-q2-index-input,10.1175/waf-d-23-0226.1,Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment using Numerical Weather Prediction,2024,Weather and Forecasting,,7,Rodell
+q2,consensus-q2-index-input,10.1175/waf-d-24-0068.1,An hourly wildfire potential index for predicting sub-daily fire activity based on rapidly-updating convection-allowing model forecasts,2025,Weather and Forecasting,,4,James
+q2,consensus-q2-index-input,10.3390/f16091417,Fire Danger Climatology Using the Hot-Dry-Windy Index: Case Studies from Portugal,2025,Forests,,4,Andrade
+q3,consensus-q3-index-occurrence-place,10.1016/j.foreco.2025.122796,"Assessing wildfire potential in a coastal forest watershed, British Columbia, Canada",2025,Forest Ecology and Management,,5,Perrakis
+q3,consensus-q3-index-occurrence-place,10.1088/1748-9326/acd2ee,Accounting for fuel in fire danger forecasts: the fire occurrence probability index (FOPI),2023,Environmental Research Letters,,13,Di Giuseppe
+q3,consensus-q3-index-occurrence-place,10.1088/1748-9326/ad97cf,Assessing fire danger classes and extreme thresholds of the Canadian Fire Weather Index across global environmental zones: a review,2024,Environmental Research Letters,,18,Kudlackova
+q4,consensus-q4-version,,Development and structure of the Canadian Forest Fire Weather Index System,1987,,,1307,Van Wagner
+q4,consensus-q4-version,10.1088/1748-9326/ad97cf,Assessing fire danger classes and extreme thresholds of the Canadian Fire Weather Index across global environmental zones: a review,2024,Environmental Research Letters,,18,Kudlackova
+q4,consensus-q4-version,10.5194/essd-15-2153-2023,Fire weather index data under historical and shared socioeconomic pathway projections in the 6th phase of the Coupled Model Intercomparison Project from 1850 to 2100,2023,,,62,Quilcaille
+q1a,consensus-q1a-index-trend-estimator,10.1071/wf17008,Trend analysis of fire season length and extreme fire weather in North America between 1979 and 2015,2017,International Journal of Wildland Fire,,141,Jain
+q1a,consensus-q1a-index-trend-estimator,10.1071/wf24002,Fire weather severity in southern Africa is increasing faster and more extensively in the late than in the early dry season,2025,International Journal of Wildland Fire,,9,Catarino
+q1a,consensus-q1a-index-trend-estimator,,"Wildfires In Xerophytic Shrublands of Lihue Calel National Park, La Pampa, Argentina",2025,Cuadernos de Investigacion Geografica,,0,Rossini
+q1b,consensus-q1b-place-fire,10.1186/s42408-024-00335-2,Wildfire assessment using machine learning algorithms in different regions,2024,Fire Ecology,,50,Moghim
+q1b,consensus-q1b-place-fire,10.1111/j.1365-2486.2007.01517.x,"Climatic change and fire potential in South-Central British Columbia, Canada",2007,Global Change Biology,,62,Nitschke
+q1b,consensus-q1b-place-fire,10.24908/cpp-apc.v2026i2.19927,"The Housing-Climate Nexus: How Planning and Wildfire Drive Displacement in the Central Okanagan, British Columbia",2026,Canadian Planning and Policy,,0,Oscilowicz
+q2a,consensus-q2a-index-version,10.1016/j.envsoft.2024.106181,Modernizing the US National Fire Danger Rating System (version 4): Simplified fuel models and improved live and dead fuel moisture calculations,2024,Environmental Modelling and Software,,40,Jolly
+q2a,consensus-q2a-index-version,10.5962/bhl.title.98707,The National Fire-Danger Rating System,2018,,,165,Deeming
+q2a,consensus-q2a-index-version,10.1071/wf23140,Introduction to the Australian Fire Danger Rating System,2024,International Journal of Wildland Fire,,37,Hollis
+q2b,consensus-q2b-index-homogeneity,10.1016/j.agrformet.2018.07.005,Comparisons of fire weather indices using Canadian raw and homogenized weather data,2018,Agricultural and Forest Meteorology,,9,Tsinko
+q2b,consensus-q2b-index-homogeneity,10.1038/s41598-025-04200-3,70 Years of observational weather data show increasing fire danger for boreal Europe and reveal bias of ERA5 reanalysed data,2025,Scientific Reports,,3,Sjostrom
+q2c,consensus-q2c-index-input,10.1175/waf-d-23-0226.1,Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment using Numerical Weather Prediction,2024,Weather and Forecasting,,7,Rodell
+q2c,consensus-q2c-index-input,10.1038/s41612-025-01163-0,Challenges in assessing Fire Weather changes in a warming climate,2025,npj Climate and Atmospheric Science,,13,Matteo
+q2c,consensus-q2c-index-input,10.1175/waf-d-24-0068.1,An hourly wildfire potential index for predicting sub-daily fire activity based on rapidly-updating convection-allowing model forecasts,2025,Weather and Forecasting,,4,James
+q2d,consensus-q2d-index-threshold,10.1088/1748-9326/ad97cf,Assessing fire danger classes and extreme thresholds of the Canadian Fire Weather Index across global environmental zones: a review,2024,Environmental Research Letters,,18,Kudlackova
+q2d,consensus-q2d-index-threshold,10.3390/fire9040147,Characterizing Human-Caused Wildfire Based on the Fire Weather Index in South Korea,2026,Fire,,2,Lim
+q2d,consensus-q2d-index-threshold,10.3390/f16091417,Fire Danger Climatology Using the Hot-Dry-Windy Index: Case Studies from Portugal,2025,Forests,,4,Andrade
+q3a,consensus-q3a-index-occurrence-place,10.1016/j.foreco.2025.122796,"Assessing wildfire potential in a coastal forest watershed, British Columbia, Canada",2025,Forest Ecology and Management,,5,Perrakis
+q3a,consensus-q3a-index-occurrence-place,10.1088/1748-9326/ad97cf,Assessing fire danger classes and extreme thresholds of the Canadian Fire Weather Index across global environmental zones: a review,2024,Environmental Research Letters,,18,Kudlackova
+q3a,consensus-q3a-index-occurrence-place,10.1016/j.scitotenv.2023.161831,Critical fire weather conditions during active fire spread days in Canada,2023,Science of the Total Environment,,37,Wang

@@ -2779,13 +2779,26 @@ boolean_query <- function(concepts, or = " OR ", and = " AND ") {
     }), collapse = or), ")")) |>
     paste(collapse = and)
 }
+# A query is sent to a source once. The search log names every query a source
+# has answered, so a later pass sends only the queries added to the terms file
+# since the pass before, and each pass extends the log and the hits files rather
+# than replacing them.
+search_log_path <- "../02.inputs/derived/review-search-log.csv"
+read_search_log <- function() if (file.exists(search_log_path)) readr::read_csv(search_log_path, col_types = readr::cols(.default = "c")) else tibble::tibble(strand = character(), route = character())
+pending_queries <- function(prefix) queries[!paste0(prefix, queries$route) %in% read_search_log()$route, ]
+append_csv <- function(rows, path) {
+  rows <- dplyr::mutate(rows, dplyr::across(dplyr::everything(), as.character))
+  old <- if (file.exists(path)) readr::read_csv(path, col_types = readr::cols(.default = "c")) else NULL
+  readr::write_csv(dplyr::bind_rows(old, rows), path)
+}
 ```
 
 ```{r}
 #| label: review-store
 #| echo: true
 #| output: false
-if (!file.exists("../02.inputs/derived/review-store-hits.csv")) {
+pending <- pending_queries("store-")
+if (nrow(pending) > 0) {
   # library-science manifest, https://github.com/seamusrobertmurphy/library-science/blob/main/library/manifest.csv
   manifest <- readr::read_csv("../../library-science/library/manifest.csv", show_col_types = FALSE)
   # library-science source notes, https://github.com/seamusrobertmurphy/library-science/tree/main/sources
@@ -2795,7 +2808,7 @@ if (!file.exists("../02.inputs/derived/review-store-hits.csv")) {
     dplyr::filter(status %in% c("verified", "filed", "unverified"), !is.na(title) | !is.na(key)) |>
     dplyr::left_join(dplyr::select(notes, key, note), by = "key") |>
     dplyr::mutate(text = stringr::str_to_lower(paste(title, note)))
-  hits <- queries |>
+  hits <- pending |>
     purrr::pmap(\(question, route, concepts) {
       groups <- stringr::str_split_1(concepts, " AND ")
       term <- \(x) if (stringr::str_ends(x, "\\*")) paste0(stringr::str_remove(x, "\\*$"), "\\w*") else paste0(x, "\\b")
@@ -2804,12 +2817,11 @@ if (!file.exists("../02.inputs/derived/review-store-hits.csv")) {
       store[keep, ] |> dplyr::transmute(question, route = paste0("store-", route), key, doi, title, year, venue = container, source_note = dplyr::if_else(has_source_note == "yes", key, NA))
     }) |>
     purrr::list_rbind()
-  readr::write_csv(hits, "../02.inputs/derived/review-store-hits.csv")
-  queries |>
+  if (nrow(hits) > 0) append_csv(hits, "../02.inputs/derived/review-store-hits.csv")
+  pending |>
     dplyr::transmute(strand = "library-science", route = paste0("store-", route), query = concepts, date = as.character(Sys.Date())) |>
-    dplyr::left_join(dplyr::count(hits, route, name = "retrieved"), by = "route") |>
-    dplyr::mutate(retrieved = tidyr::replace_na(retrieved, 0L), reported_total = retrieved, cap = NA, capped = FALSE, error = NA) |>
-    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+    dplyr::mutate(retrieved = purrr::map_int(route, \(r) sum(hits$route == r)), reported_total = retrieved, cap = NA, capped = FALSE, error = NA) |>
+    append_csv(search_log_path)
 }
 ```
 
@@ -2820,7 +2832,8 @@ if (!file.exists("../02.inputs/derived/review-store-hits.csv")) {
 # OpenAlex searches titles and abstracts. Abstracts are publisher text and are
 # written only under 02.inputs/searches, which is not committed; the committed
 # hits file carries bibliographic fields alone.
-if (!file.exists("../02.inputs/derived/review-openalex-hits.csv")) {
+pending <- pending_queries("openalex-")
+if (nrow(pending) > 0) {
   abstract_text <- function(inv) {
     if (is.null(inv)) return(NA_character_)
     pos <- unlist(inv, use.names = FALSE)
@@ -2829,21 +2842,23 @@ if (!file.exists("../02.inputs/derived/review-openalex-hits.csv")) {
   }
   search_oa <- function(question, route, concepts, cap = 3000) {
     query <- boolean_query(concepts)
-    works <- list(); cursor <- "*"; total <- NA; err <- NA
+    # Pages are numbered, because paging past the first page with a cursor
+    # needs an API key as of 2026-10-14 and numbered pages do not.
+    works <- list(); page <- 1; total <- NA; err <- NA
     repeat {
       # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works/search-works
       resp <- httr2::request("https://api.openalex.org/works") |>
         httr2::req_url_query(filter = paste0("title_and_abstract.search:", query, ",from_publication_date:1987-01-01"),
                              select = "id,doi,title,publication_year,primary_location,type,cited_by_count,abstract_inverted_index",
-                             `per-page` = 200, cursor = cursor, mailto = "seamusrobertmurphy@gmail.com") |>
+                             `per-page` = 200, page = page, mailto = "seamusrobertmurphy@gmail.com") |>
         httr2::req_retry(max_tries = 6) |>
         httr2::req_error(is_error = \(r) FALSE) |>
         httr2::req_perform()
       if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
       body <- httr2::resp_body_json(resp)
-      total <- body$meta$count; cursor <- body$meta$next_cursor
+      total <- body$meta$count; page <- page + 1
       works <- c(works, body$results)
-      if (is.null(cursor) || length(body$results) == 0 || length(works) >= cap) break
+      if (length(works) >= total || length(body$results) == 0 || length(works) >= cap) break
     }
     rows <- works |>
       purrr::map(\(w) tibble::tibble(
@@ -2854,18 +2869,19 @@ if (!file.exists("../02.inputs/derived/review-openalex-hits.csv")) {
         type = w$type %||% NA_character_, citations = w$cited_by_count %||% NA_integer_,
         abstract = abstract_text(w$abstract_inverted_index))) |>
       purrr::list_rbind()
+    if (nrow(rows) == 0) rows <- tibble::tibble(doi = character(), title = character(), abstract = character())
     list(hits = dplyr::mutate(rows, question, route = paste0("openalex-", route), .before = 1),
          log = tibble::tibble(strand = "openalex", route = paste0("openalex-", route), query, date = as.character(Sys.Date()),
                               retrieved = nrow(rows), reported_total = total, cap, capped = isTRUE(total > cap), error = err))
   }
-  runs <- purrr::pmap(queries, search_oa)
+  runs <- purrr::pmap(pending, search_oa)
   oa <- purrr::map(runs, "hits") |> purrr::list_rbind()
   dir.create("../02.inputs/searches", showWarnings = FALSE)
-  readr::write_csv(oa, "../02.inputs/searches/review-openalex-records.csv")
-  readr::write_csv(dplyr::select(oa, -abstract), "../02.inputs/derived/review-openalex-hits.csv")
-  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
-    dplyr::bind_rows(purrr::map(runs, "log") |> purrr::list_rbind() |> dplyr::mutate(dplyr::across(dplyr::everything(), as.character))) |>
-    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+  if (nrow(oa) > 0) {
+    append_csv(oa, "../02.inputs/searches/review-openalex-records.csv")
+    append_csv(dplyr::select(oa, -abstract), "../02.inputs/derived/review-openalex-hits.csv")
+  }
+  append_csv(purrr::map(runs, "log") |> purrr::list_rbind(), search_log_path)
 }
 ```
 
@@ -2876,7 +2892,8 @@ if (!file.exists("../02.inputs/derived/review-openalex-hits.csv")) {
 # NASA ADS searches abstracts with a personal token read from outside the
 # repository. The token "trend" is a stopword in ADS, so any query carrying it
 # is run without that concept and logged as such.
-if (!file.exists("../02.inputs/derived/review-ads-hits.csv")) {
+pending <- pending_queries("ads-")
+if (nrow(pending) > 0) {
   token_file <- path.expand("~/.ads/dev_key")
   search_ads <- function(question, route, concepts, cap = 2000) {
     groups <- stringr::str_split_1(concepts, " AND ")
@@ -2905,18 +2922,19 @@ if (!file.exists("../02.inputs/derived/review-ads-hits.csv")) {
       start <- start + 200
       if (nrow(page) == 0 || start >= total || nrow(rows) >= cap) break
     }
+    if (nrow(rows) == 0) rows <- tibble::tibble(doi = character(), title = character(), abstract = character())
     list(hits = dplyr::mutate(rows, question, route = paste0("ads-", route), .before = 1),
          log = tibble::tibble(strand = "ads", route = paste0("ads-", route), query, date = as.character(Sys.Date()),
                               retrieved = nrow(rows), reported_total = total, cap, capped = isTRUE(total > cap),
                               error = dplyr::coalesce(err, if (length(dropped)) paste("stopword concept dropped:", dropped) else NA)))
   }
-  runs <- purrr::pmap(queries, search_ads)
+  runs <- purrr::pmap(pending, search_ads)
   ads <- purrr::map(runs, "hits") |> purrr::list_rbind()
-  readr::write_csv(ads, "../02.inputs/searches/review-ads-records.csv")
-  readr::write_csv(dplyr::select(ads, -abstract), "../02.inputs/derived/review-ads-hits.csv")
-  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
-    dplyr::bind_rows(purrr::map(runs, "log") |> purrr::list_rbind() |> dplyr::mutate(dplyr::across(dplyr::everything(), as.character))) |>
-    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+  if (nrow(ads) > 0) {
+    append_csv(ads, "../02.inputs/searches/review-ads-records.csv")
+    append_csv(dplyr::select(ads, -abstract), "../02.inputs/derived/review-ads-hits.csv")
+  }
+  append_csv(purrr::map(runs, "log") |> purrr::list_rbind(), search_log_path)
 }
 ```
 
@@ -2926,8 +2944,12 @@ if (!file.exists("../02.inputs/derived/review-ads-hits.csv")) {
 #| output: false
 # Semantic Scholar is the index the library protocol names. Without a key it
 # rate limits, so a refusal is logged against the query rather than stopping
-# the render, and the log row says which strand is missing.
-if (!file.exists("../02.inputs/derived/review-s2-hits.csv")) {
+# the render, and the log row says which strand is missing. A key, when one is
+# held, is read from outside the repository and sent as a header.
+pending <- pending_queries("s2-")
+if (nrow(pending) > 0) {
+  key_file <- path.expand("~/.s2/api_key")
+  s2_key <- if (file.exists(key_file)) readLines(key_file, warn = FALSE)[1] else NULL
   search_s2 <- function(question, route, concepts, cap = 3000) {
     query <- boolean_query(concepts, or = " | ", and = " + ")
     papers <- list(); token <- NULL; total <- NA; err <- NA
@@ -2935,6 +2957,7 @@ if (!file.exists("../02.inputs/derived/review-s2-hits.csv")) {
       # Semantic Scholar Academic Graph bulk search, https://api.semanticscholar.org/api-docs/graph#tag/Paper-Data/operation/get_graph_paper_bulk_search
       resp <- httr2::request("https://api.semanticscholar.org/graph/v1/paper/search/bulk") |>
         httr2::req_url_query(query = query, year = "1987-", fields = "title,year,venue,externalIds,citationCount,publicationTypes", token = token) |>
+        httr2::req_headers(`x-api-key` = s2_key) |>
         httr2::req_throttle(rate = 1 / 2) |>
         httr2::req_retry(max_tries = 3, backoff = \(i) 5 * i) |>
         httr2::req_error(is_error = \(r) FALSE) |>
@@ -2948,14 +2971,14 @@ if (!file.exists("../02.inputs/derived/review-s2-hits.csv")) {
     works <- papers |>
       purrr::map(\(w) tibble::tibble(doi = w$externalIds$DOI %||% NA_character_, title = w$title %||% NA_character_, year = w$year %||% NA_integer_, venue = w$venue %||% NA_character_, type = paste(unlist(w$publicationTypes), collapse = " "), citations = w$citationCount %||% NA_integer_)) |>
       purrr::list_rbind()
+    if (nrow(works) == 0) works <- tibble::tibble(doi = character(), title = character())
     list(hits = dplyr::mutate(works, question, route = paste0("s2-", route), .before = 1),
          log = tibble::tibble(strand = "semantic-scholar", route = paste0("s2-", route), query, date = as.character(Sys.Date()), retrieved = nrow(works), reported_total = total, cap, capped = isTRUE(total > cap), error = err))
   }
-  runs <- purrr::pmap(queries, search_s2)
-  readr::write_csv(purrr::map(runs, "hits") |> purrr::list_rbind(), "../02.inputs/derived/review-s2-hits.csv")
-  readr::read_csv("../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
-    dplyr::bind_rows(purrr::map(runs, "log") |> purrr::list_rbind() |> dplyr::mutate(dplyr::across(dplyr::everything(), as.character))) |>
-    readr::write_csv("../02.inputs/derived/review-search-log.csv")
+  runs <- purrr::pmap(pending, search_s2)
+  s2 <- purrr::map(runs, "hits") |> purrr::list_rbind()
+  if (nrow(s2) > 0) append_csv(s2, "../02.inputs/derived/review-s2-hits.csv")
+  append_csv(purrr::map(runs, "log") |> purrr::list_rbind(), search_log_path)
 }
 ```
 
@@ -3003,23 +3026,46 @@ if (length(central) > 0 && !file.exists("../02.inputs/derived/review-chase-hits.
 # One row per unique record across every strand. A record already cited by this
 # manuscript is marked, by DOI against the bibliography, so screening can see
 # what the earlier reading had reached.
-if (!file.exists("../02.inputs/derived/review-records.csv")) {
-  read_hits <- \(p) if (file.exists(p)) readr::read_csv(p, col_types = readr::cols(.default = "c")) else tibble::tibble()
-  bib <- paste(readLines("../04.references/references.bib", warn = FALSE), collapse = " ")
-  bib_dois <- stringr::str_to_lower(unlist(stringr::str_extract_all(bib, "10\\.[0-9]{4,9}/[^\\s,}\"]+")))
-  dplyr::bind_rows(
-    read_hits("../02.inputs/derived/review-store-hits.csv"),
-    read_hits("../02.inputs/derived/review-openalex-hits.csv"),
-    read_hits("../02.inputs/derived/review-ads-hits.csv"),
-    read_hits("../02.inputs/derived/review-s2-hits.csv"),
-    read_hits("../02.inputs/derived/review-chase-hits.csv") |> dplyr::mutate(question = "chase")
-  ) |>
-    dplyr::mutate(doi = stringr::str_to_lower(doi),
-                  id = dplyr::coalesce(doi, stringr::str_squish(stringr::str_to_lower(stringr::str_replace_all(title, "[^[:alnum:] ]", " "))))) |>
-    dplyr::filter(!is.na(id), id != "") |>
-    dplyr::summarise(.by = id, doi = dplyr::first(stats::na.omit(doi)), title = dplyr::first(stats::na.omit(title)), year = dplyr::first(stats::na.omit(year)), venue = dplyr::first(stats::na.omit(venue)), type = dplyr::first(stats::na.omit(type)), questions = paste(sort(unique(question)), collapse = " "), routes = paste(sort(unique(route)), collapse = " "), duplicates_merged = dplyr::n(), key = dplyr::first(stats::na.omit(key)), source_note = dplyr::first(stats::na.omit(source_note))) |>
-    dplyr::mutate(cited = dplyr::if_else(!is.na(doi) & doi %in% bib_dois, "yes", "no"), decision = NA, reason = NA, full_text = NA) |>
-    readr::write_csv("../02.inputs/derived/review-records.csv", na = "")
+records_path <- "../02.inputs/derived/review-records.csv"
+read_hits <- \(p) if (file.exists(p)) readr::read_csv(p, col_types = readr::cols(.default = "c")) else tibble::tibble()
+bib <- paste(readLines("../04.references/references.bib", warn = FALSE), collapse = " ")
+bib_dois <- stringr::str_to_lower(unlist(stringr::str_extract_all(bib, "10\\.[0-9]{4,9}/[^\\s,}\"]+")))
+fresh <- dplyr::bind_rows(
+  read_hits("../02.inputs/derived/review-store-hits.csv"),
+  read_hits("../02.inputs/derived/review-openalex-hits.csv"),
+  read_hits("../02.inputs/derived/review-ads-hits.csv"),
+  read_hits("../02.inputs/derived/review-s2-hits.csv"),
+  # The Consensus route was run by hand through the session's search tool on
+  # 2026-10-14, three results per query, and its hits file was typed from them.
+  read_hits("../02.inputs/derived/review-consensus-hits.csv"),
+  read_hits("../02.inputs/derived/review-chase-hits.csv") |> dplyr::mutate(question = "chase")
+) |>
+  dplyr::mutate(doi = stringr::str_to_lower(doi),
+                id = dplyr::coalesce(doi, stringr::str_squish(stringr::str_to_lower(stringr::str_replace_all(title, "[^[:alnum:] ]", " "))))) |>
+  dplyr::filter(!is.na(id), id != "") |>
+  dplyr::summarise(.by = id, doi = dplyr::first(stats::na.omit(doi)), title = dplyr::first(stats::na.omit(title)), year = dplyr::first(stats::na.omit(year)), venue = dplyr::first(stats::na.omit(venue)), type = dplyr::first(stats::na.omit(type)), questions = paste(sort(unique(question)), collapse = " "), routes = paste(sort(unique(route)), collapse = " "), duplicates_merged = dplyr::n(), key = dplyr::first(stats::na.omit(key)), source_note = dplyr::first(stats::na.omit(source_note))) |>
+  dplyr::mutate(cited = dplyr::if_else(!is.na(doi) & doi %in% bib_dois, "yes", "no")) |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+if (!file.exists(records_path)) {
+  fresh |>
+    dplyr::mutate(decision = NA, reason = NA, full_text = NA) |>
+    readr::write_csv(records_path, na = "")
+} else {
+  # A later pass adds its records as new rows and refreshes the questions and
+  # routes of the rows it found again. Every decision, reason, full text flag,
+  # note and hand typed key already in the table is kept, and a row added by
+  # hand, such as a grey literature record, is kept as it stands.
+  old <- readr::read_csv(records_path, col_types = readr::cols(.default = "c"))
+  kept <- old |> dplyr::select(id, old_key = key, old_source_note = source_note, decision, reason, full_text, dplyr::any_of("note"))
+  merged <- dplyr::bind_rows(
+    fresh |>
+      dplyr::left_join(kept, by = "id") |>
+      dplyr::mutate(key = dplyr::coalesce(old_key, key), source_note = dplyr::coalesce(old_source_note, source_note)) |>
+      dplyr::select(-old_key, -old_source_note),
+    old |> dplyr::filter(!id %in% fresh$id)
+  )
+  merged <- dplyr::mutate(merged, dplyr::across(dplyr::everything(), as.character))
+  if (!identical(merged, old)) readr::write_csv(merged, records_path, na = "")
 }
 ```
 
@@ -3035,7 +3081,9 @@ rule with the code not-research), attaches each remaining record's abstract from
 uncommitted search files under 02.inputs/searches, fetches the abstract from OpenAlex by
 DOI where no search file holds it, and writes one batch per question under
 02.inputs/searches/review-batches/. Abstracts are publisher text and never leave
-02.inputs/searches. Runs only while no batch folder exists.
+02.inputs/searches. Runs only while a record has no decision or stands undecided, and
+names each batch by the day it was built so an earlier pass's batches are never
+overwritten.
 """
 import csv, json, os, sys, time, urllib.parse, urllib.request
 
@@ -3090,7 +3138,7 @@ def main():
         if not os.path.exists(p): continue
         for r in read(p):
             key = (r.get("doi") or "").lower() or r["title"].lower()
-            if r.get("abstract"): abstracts.setdefault(key, r["abstract"])
+            if r.get("abstract") and r["abstract"] != "NA": abstracts.setdefault(key, r["abstract"])
     need = [r["doi"] for r in records if r["doi"] and r["doi"].lower() not in abstracts]
     fetched = fetch_openalex(need)
     for d, (a, t) in fetched.items():
@@ -3099,13 +3147,13 @@ def main():
     for r in records:
         if not r["type"] and r["doi"] and r["doi"].lower() in fetched:
             r["type"] = fetched[r["doi"].lower()][1]
-        if r["type"] in INELIGIBLE:
+        if r["type"] in INELIGIBLE and (not r["decision"] or r["decision"] == "undecided"):
             r["decision"], r["reason"] = "exclude", "not-research"; n_rule += 1
     write(os.path.join(DERIVED, "review-records.csv"), records, list(records[0].keys()))
     os.makedirs(BATCHES, exist_ok=True)
     batches = {}
     for r in records:
-        if r["decision"]: continue
+        if r["decision"] and r["decision"] != "undecided": continue
         key = (r["doi"] or "").lower() or r["id"]
         row = {"id": r["id"], "doi": r["doi"], "title": r["title"], "year": r["year"], "venue": r["venue"],
                "type": r["type"], "questions": r["questions"], "cited": r["cited"],
@@ -3113,19 +3161,22 @@ def main():
         q = r["questions"].split()[0] if r["questions"] else "chase"
         batches.setdefault(q, []).append(row)
     fields = ["id", "doi", "title", "year", "venue", "type", "questions", "cited", "abstract"]
+    tag = "" if not os.path.isdir(BATCHES) or not os.listdir(BATCHES) else "-" + time.strftime("%Y-%m-%d")
     for q, rows in batches.items():
         if q == "chase" and len(rows) > 220:
             half = (len(rows) + 1) // 2
-            write(os.path.join(BATCHES, "chase-a.csv"), rows[:half], fields)
-            write(os.path.join(BATCHES, "chase-b.csv"), rows[half:], fields)
+            write(os.path.join(BATCHES, f"chase-a{tag}.csv"), rows[:half], fields)
+            write(os.path.join(BATCHES, f"chase-b{tag}.csv"), rows[half:], fields)
         else:
-            write(os.path.join(BATCHES, f"{q}.csv"), rows, fields)
+            write(os.path.join(BATCHES, f"{q}{tag}.csv"), rows, fields)
     print("records", len(records), "excluded by type rule", n_rule,
           "to screen", sum(len(v) for v in batches.values()),
           "with abstract", sum(1 for v in batches.values() for r in v if r["abstract"]))
     for q, rows in batches.items(): print(" ", q, len(rows))
 
-if not os.path.isdir(BATCHES):
+with open(os.path.join(DERIVED, "review-records.csv"), encoding="utf-8", newline="") as f:
+    open_rows = [r for r in csv.DictReader(f) if not r.get("decision") or r["decision"] == "undecided"]
+if open_rows:
     main()
 ```
 
@@ -3139,7 +3190,8 @@ Reads every decisions-*.csv under 02.inputs/searches/review-batches/, checks tha
 was decided exactly once and that every exclusion carries a code from the protocol, and
 writes decision, reason and note into 02.inputs/derived/review-records.csv. A record that
 already carries a decision in the table (hand-found records, records excluded by the
-document-type rule) keeps it. Runs only while a row of the table has no decision.
+document-type rule) keeps it, and a record standing undecided takes the decision of a
+later batch. Runs only while a row of the table has no decision or stands undecided.
 """
 import csv, glob, os, sys
 
@@ -3157,20 +3209,28 @@ def main():
     for p in sorted(glob.glob(os.path.join(BATCHES, "decisions-*.csv"))):
         with open(p, encoding="utf-8", newline="") as f:
             for d in csv.DictReader(f):
-                if d["id"] in decided:
-                    sys.exit(f"id decided twice: {d['id']} in {p}")
                 if d["decision"] not in {"include", "exclude", "undecided"}:
                     sys.exit(f"bad decision {d['decision']!r} for {d['id']} in {p}")
                 if d["decision"] == "exclude" and d["reason"] not in CODES:
                     sys.exit(f"bad reason {d['reason']!r} for {d['id']} in {p}")
+                if d["id"] in decided:
+                    # A later batch may settle a record an earlier batch left
+                    # undecided; two settled decisions for one record stop the render.
+                    if decided[d["id"]]["decision"] == "undecided":
+                        decided[d["id"]] = d
+                    elif d["decision"] != "undecided":
+                        sys.exit(f"id decided twice: {d['id']} in {p}")
+                    continue
                 decided[d["id"]] = d
     n_set = 0
     for r in rows:
         r.setdefault("note", "")
-        if r.get("decision"):
+        if r.get("decision") and r["decision"] != "undecided":
             continue
         d = decided.get(r["id"])
-        if d:
+        if d and d["decision"] != "undecided":
+            r["decision"], r["reason"], r["note"] = d["decision"], d["reason"], d.get("note", ""); n_set += 1
+        elif d and not r.get("decision"):
             r["decision"], r["reason"], r["note"] = d["decision"], d["reason"], d.get("note", ""); n_set += 1
     missing = [r["id"] for r in rows if not r.get("decision")]
     with open(TABLE, "w", encoding="utf-8", newline="") as f:
@@ -3182,7 +3242,7 @@ def main():
     if missing: print("first missing ids", missing[:10])
 
 with open(TABLE, encoding="utf-8", newline="") as f:
-    undecided_rows = [r for r in csv.DictReader(f) if not r.get("decision")]
+    undecided_rows = [r for r in csv.DictReader(f) if not r.get("decision") or r["decision"] == "undecided"]
 if undecided_rows:
     main()
 ```
@@ -3198,8 +3258,8 @@ OpenAlex for the work's best open-access location and downloads the PDF into
 04.references/literature/review/, which is not committed. Writes one row per record to
 02.inputs/derived/review-fulltext-log.csv with the route and the outcome, so the count of
 records whose full text could not be obtained is measured rather than estimated. Downloaded
-files are untrusted data and nothing is executed from that folder. Runs only while the
-log does not exist.
+files are untrusted data and nothing is executed from that folder. Runs only while an
+included record has no row in the log, and then retries every record not yet saved.
 """
 import csv, json, os, re, time, urllib.parse, urllib.request
 
@@ -3264,7 +3324,16 @@ def main():
     from collections import Counter
     print(Counter(v["status"][:20] for v in done.values()).most_common())
 
-if not os.path.exists(LOG):
+def pending_includes():
+    with open(TABLE, encoding="utf-8", newline="") as f:
+        wanted = {r["doi"] for r in csv.DictReader(f) if r["decision"] == "include" and r["doi"]}
+    logged = set()
+    if os.path.exists(LOG):
+        with open(LOG, encoding="utf-8", newline="") as f:
+            logged = {r["doi"] for r in csv.DictReader(f)}
+    return wanted - logged
+
+if pending_includes():
     main()
 ```
 
