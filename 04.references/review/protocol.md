@@ -146,3 +146,85 @@ generation page dated 2025-11-18, the last two saved under `04.references/report
 
 2026-10-13. Screening was done by four readers, one per batch, each reading every
 abstract in its batch, under the single-reader limit the Screening section states.
+
+2026-10-14. A second pass was opened on Seamus's instruction of 2026-10-14 for "a extra
+large and extensive literature review", under escalation case 1 of the library protocol,
+because the manuscript's contribution rests on the sentence that no study has separated the
+FWI2025 version change from the hourly input change. The second pass runs as the full
+scoping review of the `scoping-review` skill, following Arksey and O'Malley (2005), Levac
+et al. (2010) and Peters et al. (2020), and reports to PRISMA-ScR (Tricco et al. 2018). The
+four questions, the adjudication rules and the criteria above stand unchanged. Eight
+keywords were added to the front matter so that the strands below could be searched, and
+the terms selected from them were committed with this entry before any second pass query
+ran. The first pass protocol was itself committed on 2026-10-14, after its searches,
+which the deviation of 2026-10-13 records.
+
+## Second pass
+
+The second pass opened on 2026-10-14, the questions are the four above, and no question
+was added. Each strand below names the question it serves, and the search strings are
+built from the selected terms by the `review-queries` chunk, one sub-query per strand,
+labelled q1a to q3a.
+
+Strands.
+
+1. The Canadian Forest Fire Weather Index System and its 2025 update, question 4 and the
+   Data section. Searched through the citing works of the 2025 report and of the hourly
+   Fine Fuel Moisture Code paper, not by string.
+2. Fire danger and fire weather trends in British Columbia, Canada and western North
+   America, question 1. The first pass q1 string stands, and the named leads enter by DOI.
+3. Hourly against once-daily input, question 2, sub-query q2c.
+4. Danger rating systems revised elsewhere, as comparators for a version change on a long
+   record, question 2, sub-query q2a. The 2016 revision of the United States National Fire
+   Danger Rating System, the Australian Fire Danger Rating System of 2022 and the Fire
+   Weather Index in the European Forest Fire Information System are the named cases.
+5. Station weather homogeneity and instrument change, question 2 and the Methods,
+   sub-query q2b, with the general homogenisation papers entered by DOI.
+6. Percentile against absolute thresholds, question 2, sub-query q2d.
+7. Daily fire occurrence models and the stationarity of the danger to occurrence link,
+   question 3, sub-query q3a.
+8. Trend estimation and resampling, question 1 and the Methods, sub-query q1a, with every
+   cited methods paper retrieved in full.
+9. The Okanagan basin's fire and climate record, question 1 and the Discussion, sub-query
+   q1b, with the 2003, 2017, 2021 and 2023 seasons and the independent reviews of 2017 and
+   2023 entered by hand as grey records.
+
+Sources, in order, each logged by route in `review-search-log.csv`.
+
+1. `library-science`, through the `review-store` chunk.
+2. OpenAlex, titles and abstracts, unkeyed, cap 3,000 per query.
+3. NASA ADS, abstracts, under the token held outside the repository; q1a runs there
+   without its trend concept and the log says so.
+4. Semantic Scholar, bulk search, only if a key is obtained; otherwise logged as missing
+   for the second pass.
+5. The Consensus search tool of the session, logged as the route `consensus`, one row per
+   query, with its results folded into `review-records.csv` by DOI.
+6. Crossref, for bibliographic records of the named leads only.
+7. Grey literature by hand from Natural Resources Canada, the Canadian Wildland Fire
+   Information System and BC Wildfire Service, route `grey`, with URL and date.
+8. A second round of citation chasing through OpenAlex, from every record read in full in
+   either pass rather than from six seeds, each chase logged by DOI.
+
+Screening. The agent screens title and abstract as single reader, as the Screening section
+states, and every one of the 37 undecided records of the first pass is resolved to include
+or exclude or has its failed abstract and full text routes logged.
+
+Full text. Every one of the 285 kept records and every record kept in the second pass is
+tried in order through the publisher's DOI landing page, Unpaywall, the Internet Archive,
+the author's institutional repository and the session's browser, and the route or the
+failure is logged in `review-fulltext-log.csv`. A text reached through the browser is
+downloaded only with Seamus's approval of that file. Where no route reaches a text the
+note says so and the manuscript claims only what the abstract carries.
+
+No reading budget is set, so the novelty question and every absence claim are checked
+against the full text of every candidate.
+
+Charting. `review-attributes.csv` holds one row per model variable and one row per
+expectation in the Introduction's expectation table, with direction, reasoning and key,
+and is the charting table PRISMA-ScR item 11 asks for. No critical appraisal is made, and
+the Methods say so.
+
+Reporting. The Methods report both passes together, with counts read from
+`review_counts`, the flow diagram drawn by the `fig-review-flow` chunk, and the coverage
+gaps named, among them the ADS stopword, any Semantic Scholar refusal, every reached cap
+and the publisher blocks of 2026-10-13 that `review-fulltext-log.csv` records.

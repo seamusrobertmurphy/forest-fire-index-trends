@@ -1,14 +1,24 @@
 term,source,question,concept
-fire danger,keywords,q1 q2 q3,index
-fire weather index,keywords,q1 q2 q3,index
+fire danger,keywords,q1 q2 q3 q1a q2b q2c q2d q3a,index
+fire weather index,keywords,q1 q2 q3 q1a q2b q2c q2d q3a,index
 fwi2025,keywords,q4,version
-hourly,keywords,q2,input
-fire occurrence,keywords,q3,occurrence
-trend*,keywords,q1,trend
-theil-sen,keywords,,
-okanagan,keywords,q1,place
-british columbia,keywords,q1 q3,place
+hourly,keywords,q2 q2c,input
+fire occurrence,keywords,q3 q3a,occurrence
+trend*,keywords,q1 q1a,trend
+theil-sen,keywords,q1a,estimator
+okanagan,keywords,q1 q1b,place
+british columbia,keywords,q1 q3 q3a,place
 fire danger trends across,title,,
 2025 update,title,,
-canadian,title,q1 q3,place
+canadian,title,q1 q3 q3a,place
 okanagan basin,title,,
+fire danger rating system,keywords,q2a,index
+update,title,q2a,version
+version,keywords,q2a,version
+homogen*,keywords,q2b,homogeneity
+diurnal,keywords,q2c,input
+percentile,keywords,q2d,threshold
+threshold*,keywords,q2d,threshold
+ignition*,keywords,q3a,occurrence
+mann-kendall,keywords,q1a,estimator
+wildfire*,keywords,q1b,fire

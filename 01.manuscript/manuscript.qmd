@@ -11,6 +11,14 @@ keywords:
   - Theil-Sen
   - Okanagan
   - British Columbia
+  - fire danger rating system
+  - index version
+  - homogeneity
+  - percentile threshold
+  - ignition
+  - Mann-Kendall
+  - wildfire
+  - diurnal
 author:
   - name: Seamus Murphy
     orcid: 0000-0002-1792-0351
