@@ -50,9 +50,12 @@ inputs <- file.path(root, "02.inputs")
 outputs <- file.path(root, "03.outputs")
 derived <- file.path(inputs, "derived")
 
-easypackages::packages("flextable", "ggplot2", "ggrepel", "ggspatial", "knitr",
-                       "MASS", "modifiedmk", "patchwork", "rmarkdown", "sf",
-                       "terra", "tools", prompt = FALSE)
+easypackages::packages("elevatr", "flextable", "ggplot2", "ggrepel", "ggspatial",
+                       "knitr", "MASS", "modifiedmk", "patchwork", "reticulate",
+                       "rmarkdown", "sf", "terra", "tools", prompt = FALSE)
+# The Python chunks run through reticulate on the MacPorts interpreter the
+# retrieval and computation were written for.
+reticulate::use_python("/opt/local/bin/python3", required = TRUE)
 
 # Write figures into the committed outputs folder rather than the render
 # sidecar. With embed-resources the sidecar is deleted once its contents are
@@ -60,7 +63,6 @@ easypackages::packages("flextable", "ggplot2", "ggrepel", "ggspatial", "knitr",
 # Writing them here keeps a copy that survives the render and is in the
 # repository.
 knitr::opts_chunk$set(fig.path = file.path("..", "03.outputs", "figures", "mfig-"))
-source(file.path(root, "05.scripts", "analysis_functions.R"))
 
 # House table format: 9 pt, centred headers, numeric right, text left, single
 # line spacing. Every table goes through fmt_tbl, so the house style is defined
@@ -109,6 +111,2052 @@ station_prose <- function(x) {
   gsub("\\bMccuddy\\b", "McCuddy", x)
 }
 
+```
+
+```{r}
+#| label: analysis-functions
+#| echo: true
+#| output: false
+## ---------------------------------------------------------------------------
+## Statistical functions for forest-fire-index-trends.
+##
+## Written 2026-08-15. These are defined here and called from the chunks that
+## follow, so that the manuscript carries the machinery it runs.
+##
+## Three things are done here and each carries a decision that has to be stated
+## wherever a number from it is reported.
+##
+## Trend estimation. The estimator is the Theil-Sen slope, the median of all
+## pairwise slopes, chosen because seasonal counts of extreme days are skewed and
+## a least squares slope on them is pulled by single seasons. Significance is
+## Mann-Kendall with the Hamed and Rao (1998) variance correction, which inflates
+## the variance of the S statistic by the autocorrelation actually present in the
+## series rather than assuming independence. Serial correlation in seasonal fire
+## danger is real and untreated Mann-Kendall over-rejects in its presence, so the
+## uncorrected test is reported alongside only to show the size of the effect.
+##
+## Slope differences between series. The three series are computed from one
+## weather record, so they are strongly dependent and a two-sample test on their
+## slopes is wrong. The difference is bootstrapped by resampling whole seasons
+## with replacement, recomputing both slopes on the same resampled seasons each
+## time. The pairing is preserved by construction, so the interval is on the
+## difference and not on two separately noisy slopes.
+##
+## Multiple testing. A metric family is corrected within each series by the
+## Benjamini and Hochberg (1995) false discovery rate procedure. The family is
+## declared at the call site, not here, because what counts as one family is a
+## judgement about the question and not about the arithmetic.
+## ---------------------------------------------------------------------------
+
+## Theil-Sen slope with a Mann-Kendall test corrected for serial correlation.
+##
+## Returns one row: the slope, its bootstrap interval, the corrected and
+## uncorrected p values, Kendall's tau, and the effective sample size ratio that
+## the correction used. A series shorter than `min_n` returns NA rather than a
+## number, because a slope over eight seasons is not an estimate.
+## Moving-block bootstrap indices over an ordered season sequence.
+##
+## Resampling single seasons keeps the pairing between series that share a
+## weather record but discards serial correlation within a series. Blocks of
+## consecutive seasons keep it (Kunsch 1989). Block length is the cube root of
+## the number of seasons, rounded up and at least two, which grows with the
+## record but more slowly than it, as Kunsch's consistency condition requires.
+## Blocks are drawn from the seasons in order of occurrence, so a gap in the
+## record falls inside a block rather than being closed up.
+block_length <- function(n) max(2L, as.integer(ceiling(n^(1/3))))
+block_indices <- function(n, l = block_length(n)) {
+  starts <- sample.int(n - l + 1L, ceiling(n / l), replace = TRUE)
+  idx <- as.vector(vapply(starts, function(s) s:(s + l - 1L), integer(l)))
+  idx[seq_len(n)]
+}
+
+trend_test <- function(year, value, min_n = 15, n_boot = 2000, seed = 20260815) {
+  ok <- is.finite(year) & is.finite(value)
+  year <- year[ok]; value <- value[ok]
+  o <- order(year); year <- year[o]; value <- value[o]
+  n <- length(value)
+
+  na_row <- data.frame(n = n, slope = NA_real_, lower = NA_real_, upper = NA_real_,
+                       p_corrected = NA_real_, p_uncorrected = NA_real_,
+                       tau = NA_real_, n_over_nstar = NA_real_)
+  if (n < min_n || length(unique(value)) < 3) return(na_row)
+
+  mk <- tryCatch(modifiedmk::mmkh(as.vector(value)), error = function(e) NULL)
+  if (is.null(mk)) return(na_row)
+
+  ## Theil-Sen on the actual years, so a gap in the season sequence is honoured
+  ## rather than treated as a step of one.
+  slope <- theil_sen(year, value)
+
+  set.seed(seed)
+  bs <- vapply(seq_len(n_boot), function(i) {
+    k <- block_indices(n)
+    theil_sen(year[k], value[k])
+  }, numeric(1))
+
+  data.frame(
+    n = n,
+    slope = slope,
+    lower = unname(quantile(bs, 0.025, na.rm = TRUE)),
+    upper = unname(quantile(bs, 0.975, na.rm = TRUE)),
+    p_corrected = unname(mk["new P-value"]),
+    p_uncorrected = unname(mk["old P.value"]),
+    tau = unname(mk["Tau"]),
+    n_over_nstar = unname(mk["N/N*"])
+  )
+}
+
+## Median of all pairwise slopes. Returns NA when fewer than two distinct x
+## values survive, which happens inside a bootstrap resample.
+##
+## Written with outer() rather than an index expansion because the bootstraps
+## above call it several hundred thousand times and the allocation cost of
+## building index vectors on every call dominated the runtime.
+theil_sen <- function(x, y) {
+  n <- length(x)
+  if (n < 3) return(NA_real_)
+  dx <- outer(x, x, "-")
+  dy <- outer(y, y, "-")
+  keep <- lower.tri(dx) & dx != 0
+  if (!any(keep)) return(NA_real_)
+  median(dy[keep] / dx[keep])
+}
+
+## Paired bootstrap on the difference between two series' Theil-Sen slopes.
+##
+## `wide` must hold one row per season with columns `year`, `a` and `b`. Seasons
+## are resampled whole, so both slopes are recomputed on the same seasons in
+## every replicate and the dependence between the series is carried through.
+slope_difference <- function(wide, n_boot = 4000, seed = 20260815) {
+  wide <- wide[is.finite(wide$a) & is.finite(wide$b), ]
+  n <- nrow(wide)
+  if (n < 15) {
+    return(data.frame(n = n, slope_a = NA_real_, slope_b = NA_real_,
+                      difference = NA_real_, lower = NA_real_, upper = NA_real_,
+                      p_two_sided = NA_real_))
+  }
+  sa <- theil_sen(wide$year, wide$a)
+  sb <- theil_sen(wide$year, wide$b)
+
+  wide <- wide[order(wide$year), ]
+  set.seed(seed)
+  d <- vapply(seq_len(n_boot), function(i) {
+    k <- block_indices(n)
+    theil_sen(wide$year[k], wide$b[k]) - theil_sen(wide$year[k], wide$a[k])
+  }, numeric(1))
+  d <- d[is.finite(d)]
+
+  ## Two sided bootstrap p value computed under the null hypothesis, following
+  ## the first guideline of Hall and Wilson (1991): the resampled differences
+  ## are centred on the observed difference, and p is the share whose distance
+  ## from it is at least as large as the observed difference is from zero,
+  ## floored at the resolution the number of replicates can resolve.
+  obs <- sb - sa
+  p <- mean(abs(d - obs) >= abs(obs))
+  data.frame(
+    n = n, slope_a = sa, slope_b = sb, difference = sb - sa,
+    lower = unname(quantile(d, 0.025)), upper = unname(quantile(d, 0.975)),
+    p_two_sided = max(p, 1 / length(d))
+  )
+}
+
+## Benjamini and Hochberg false discovery rate over a declared family.
+fdr <- function(p) p.adjust(p, method = "BH")
+
+## Negative binomial count model of daily ignitions on daily fire danger.
+##
+## Season is a factor, so the danger coefficient is identified only from
+## day-to-day variation inside a season. That is deliberate. Reporting
+## completeness and cause coding both change between seasons and neither changes
+## within one, so a between-season contrast would confound the danger effect with
+## the record keeping, and a within-season contrast cannot.
+##
+## Day of year enters as a pair of annual harmonics, which absorbs the seasonal
+## march of both fuel dryness and human activity without spending a parameter per
+## day.
+ignition_model <- function(d, response, danger, extra = NULL) {
+  d <- d[is.finite(d[[danger]]) & is.finite(d[[response]]), ]
+  d$.y <- d[[response]]
+  d$.x <- d[[danger]]
+  d$.s1 <- sin(2 * pi * d$doy / 365.25); d$.c1 <- cos(2 * pi * d$doy / 365.25)
+  d$.s2 <- sin(4 * pi * d$doy / 365.25); d$.c2 <- cos(4 * pi * d$doy / 365.25)
+  d$.year <- factor(d$year)
+  f <- ".y ~ .x + .s1 + .c1 + .s2 + .c2 + .year"
+  if (!is.null(extra)) f <- paste(f, "+", extra)
+  MASS::glm.nb(as.formula(f), data = d, control = glm.control(maxit = 100))
+}
+
+## Out of sample predictive skill, by leaving one season out at a time.
+##
+## Returns the mean held-out log likelihood per day under the negative binomial
+## fitted without that season. Comparing series on held-out likelihood rather
+## than on in-sample fit is the point: three series computed from one weather
+## record will all fit, and the question is which predicts.
+loso_skill <- function(d, response, danger, extra = "n_stations") {
+  years <- sort(unique(d$year))
+  ll <- numeric(0)
+  ## A coefficient can come back NA when its term is collinear inside a training
+  ## fold; treating it as zero keeps the fold rather than dropping it silently.
+  cf <- function(co, nm) if (nm %in% names(co) && is.finite(co[[nm]])) co[[nm]] else 0
+
+  for (y in years) {
+    train <- d[d$year != y, ]
+    test <- d[d$year == y, ]
+    if (nrow(test) < 30 || length(unique(train$year)) < 5) next
+    m <- tryCatch(ignition_model(train, response, danger, extra = extra),
+                  error = function(e) NULL)
+    if (is.null(m)) next
+    ## The held-out season has no fitted year effect, so prediction uses the mean
+    ## of the fitted year effects: the model is asked for a typical season, which
+    ## is what a forecast for an unobserved season can know.
+    co <- coef(m)
+    yr_terms <- co[grepl("^\\.year", names(co))]
+    eta <- cf(co, "(Intercept)") + mean(c(0, yr_terms), na.rm = TRUE) +
+      cf(co, ".x") * test[[danger]] +
+      cf(co, ".s1") * sin(2 * pi * test$doy / 365.25) +
+      cf(co, ".c1") * cos(2 * pi * test$doy / 365.25) +
+      cf(co, ".s2") * sin(4 * pi * test$doy / 365.25) +
+      cf(co, ".c2") * cos(4 * pi * test$doy / 365.25)
+    if (!is.null(extra) && extra == "n_stations")
+      eta <- eta + cf(co, "n_stations") * test$n_stations
+    mu <- exp(eta)
+    ll <- c(ll, dnbinom(test[[response]], size = m$theta, mu = mu, log = TRUE))
+  }
+  if (!length(ll)) return(data.frame(n_days = 0L, mean_loglik = NA_real_,
+                                     total_loglik = NA_real_))
+  data.frame(n_days = length(ll), mean_loglik = mean(ll), total_loglik = sum(ll))
+}
+
+## Minimum trend a window of n seasons can detect, at the observed noise level.
+##
+## Solves for the slope at which a Mann-Kendall test would reject at alpha with
+## power 1 - beta, given the residual standard deviation of the series about its
+## own Theil-Sen line. This is the quantitative form of what a 35 season window
+## cannot resolve, and it is computed rather than asserted.
+minimum_detectable_trend <- function(year, value, alpha = 0.05, power = 0.8) {
+  ok <- is.finite(year) & is.finite(value)
+  year <- year[ok]; value <- value[ok]
+  n <- length(value)
+  if (n < 10) return(NA_real_)
+  s <- theil_sen(year, value)
+  resid <- value - (s * (year - mean(year)) + median(value - s * (year - mean(year))))
+  sigma <- sd(resid)
+  ## Standard error of an ordinary least squares slope is the relevant scale;
+  ## Theil-Sen is about 93 per cent as efficient as least squares under normal
+  ## errors, so the result is divided by that efficiency to stay honest.
+  se <- sigma / sqrt(sum((year - mean(year))^2))
+  ## Serial correlation inflates the standard error of a trend by
+  ## sqrt((1 + phi) / (1 - phi)) for first-order autoregressive noise with lag-one
+  ## autocorrelation phi (Weatherhead et al. 1998). phi is estimated from the
+  ## residuals in season order and bounded to [0, 0.9], so that a negative sample
+  ## estimate cannot shrink the detectable trend below the independent case.
+  r <- resid[order(year)]
+  phi <- if (length(r) > 2) suppressWarnings(stats::cor(r[-1], r[-length(r)])) else 0
+  phi <- min(max(ifelse(is.finite(phi), phi, 0), 0), 0.9)
+  (qnorm(1 - alpha / 2) + qnorm(power)) * se * sqrt((1 + phi) / (1 - phi)) / 0.93
+}
+
+
+## Percentile exceedance counts with the in-base bootstrap correction of Zhang,
+## Hegerl, Zwiers and Kenyon (2005).
+##
+## A threshold estimated from a fixed base period carries sampling error that
+## biases counts low inside the base period and high outside it, which a trend
+## fitted across the boundary reads as a trend. Zhang et al. removed the jump by
+## estimating the count for each in-base year from thresholds that exclude that
+## year. For each in-base season j, the base sample is rebuilt with season j
+## removed and another base season i duplicated in its place, the threshold is
+## re-estimated, and the count in season j is taken; the count for j is the mean
+## over every i other than j. Out-of-base seasons use the threshold from the whole
+## base period. Zhang et al. estimated calendar-day thresholds; here, as in the
+## uncorrected metric, the threshold is estimated from all days of the season
+## pooled, so the procedure is adapted to a seasonal rather than daily threshold.
+## Quantiles use type 7, the numpy default the uncorrected metric used, and the
+## comparison is strictly greater than, as in the uncorrected metric.
+inbase_corrected_counts <- function(daily, series, probs = c(90, 95),
+                                    reference = c(1991, 2020), min_ref = 500) {
+  col <- paste0(series, "_fwi")
+  out <- list()
+  for (stn in unique(daily$station_name)) {
+    g <- daily[daily$station_name == stn & is.finite(daily[[col]]), c("year", col)]
+    names(g)[2] <- "v"
+    by_year <- split(g$v, g$year)
+    years <- as.integer(names(by_year))
+    base <- years[years >= reference[1] & years <= reference[2]]
+    base_vals <- unlist(by_year[as.character(base)], use.names = FALSE)
+    for (p in probs) {
+      if (length(base_vals) < min_ref) {
+        cnt <- rep(NA_real_, length(years))
+      } else {
+        full <- unname(stats::quantile(base_vals, p / 100, type = 7))
+        cnt <- vapply(years, function(y) {
+          v <- by_year[[as.character(y)]]
+          if (!(y %in% base)) return(sum(v > full))
+          others <- setdiff(base, y)
+          without <- unlist(by_year[as.character(others)], use.names = FALSE)
+          mean(vapply(others, function(i) {
+            thr <- stats::quantile(c(without, by_year[[as.character(i)]]), p / 100,
+                                   type = 7, names = FALSE)
+            sum(v > thr)
+          }, numeric(1)))
+        }, numeric(1))
+      }
+      out[[length(out) + 1]] <- data.frame(station_name = stn, series = series,
+                                           year = years, prob = p, count = cnt)
+    }
+  }
+  do.call(rbind, out)
+}
+```
+
+```{r}
+#| label: resolve-study-area-boundary
+#| echo: true
+#| output: false
+# ---------------------------------------------------------------------------
+# Which official boundary is "the entire Okanagan watershed"?
+#
+# Written 2026-08-14, on Seamus's instruction to settle the study area from
+# official government geographic data rather than from the identifier the
+# framing document carried. The framing named Freshwater Atlas identifier 212,
+# which is Turnagain River in the far north of the province and cannot be what
+# was meant.
+#
+# Three official definitions exist and they disagree by a factor of two, so the
+# choice has to be made on evidence rather than on the first layer that returns
+# a polygon named Okanagan. This script retrieves all three, measures them, and
+# measures what the differences between them consist of. Every number the
+# framing document and the review protocol quote about the study-area ruling is
+# computed here.
+#
+#   1. WHSE_BASEMAPPING.FWA_WATERSHED_GROUPS_POLY, WATERSHED_GROUP_ID 161, code
+#      OKAN. The Freshwater Atlas is the province's authoritative hydrological
+#      framework at 1:20,000.
+#   2. WHSE_BASEMAPPING.BC_MAJOR_WATERSHEDS, MAJOR_WATERSHED_CODE WA2, named
+#      "Okanagan River".
+#   3. WHSE_IMAGERY_AND_BASE_MAPS.DRP_SUB_SUB_DRAINAGES_1M_SP, sub-sub-drainage
+#      08NM, named "Okanagan". This is the federal Standard Drainage Area
+#      Classification of the Water Survey of Canada, generalised to 1:1,000,000
+#      and independent of the provincial framework.
+#
+# Nothing here computes an outcome. It measures polygons.
+#
+# ---------------------------------------------------------------------------
+
+# The comparison is planar in BC Albers over areas of a few thousand square
+# kilometres, where the projection is the appropriate measurement surface and
+# s2's spherical predicates only introduce edge cases on the boundary overlaps.
+sf::sf_use_s2(FALSE)
+
+CRS_WORK <- 3005                    # NAD83 / BC Albers, metric, per framing
+
+derived_dir <- file.path(root, "02.inputs", "derived")
+boundary_csv <- file.path(derived_dir, "study-area-boundary-candidates.csv")
+
+WFS <- "https://openmaps.gov.bc.ca/geo/pub/wfs"
+
+wfs_get <- function(layer, cql = NULL, page = 10000) {
+  q <- c(service = "WFS", version = "2.0.0", request = "GetFeature",
+         typeName = layer, outputFormat = "application/json",
+         srsName = paste0("EPSG:", CRS_WORK), count = page)
+  url <- paste0(WFS, "?", paste0(names(q), "=",
+                                 vapply(q, utils::URLencode, "", reserved = TRUE),
+                                 collapse = "&"))
+  if (!is.null(cql))
+    url <- paste0(url, "&CQL_FILTER=", utils::URLencode(cql, reserved = TRUE))
+  sf::st_make_valid(sf::st_read(url, quiet = TRUE))
+}
+
+ha <- function(x) as.numeric(sum(sf::st_area(x))) / 1e4
+msg <- function(...) cat(sprintf(...), "\n")
+
+if (!file.exists(boundary_csv)) {
+# --- The three candidates --------------------------------------------------
+# Freshwater Atlas Watershed Groups, https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-watershed-groups
+fwa <- wfs_get("WHSE_BASEMAPPING.FWA_WATERSHED_GROUPS_POLY",
+               "WATERSHED_GROUP_ID=161")
+# BC Major Watersheds, https://catalogue.data.gov.bc.ca/dataset/bc-major-watersheds
+bcmw <- wfs_get("WHSE_BASEMAPPING.BC_MAJOR_WATERSHEDS",
+                "MAJOR_WATERSHED_SYSTEM LIKE '%kanagan%'")
+# Water Survey of Canada Sub-Sub-Drainage Areas, https://catalogue.data.gov.bc.ca/dataset/water-survey-of-canada-sub-sub-drainage-areas
+wsc <- wfs_get("WHSE_IMAGERY_AND_BASE_MAPS.DRP_SUB_SUB_DRAINAGES_1M_SP",
+               "SUB_SUB_DRAINAGE_AREA_CD='08NM'")
+# Freshwater Atlas Watershed Groups, https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-watershed-groups
+groups <- wfs_get("WHSE_BASEMAPPING.FWA_WATERSHED_GROUPS_POLY")
+# Province of British Columbia, https://catalogue.data.gov.bc.ca/dataset/province-of-british-columbia-legally-defined-administrative-areas-of-bc
+prov <- wfs_get("WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_PROVINCE_SP")
+
+msg("FWA watershed group 161 OKAN   %10.0f ha", ha(fwa))
+msg("BC major watershed WA2         %10.0f ha", ha(bcmw))
+msg("WSC sub-sub-drainage 08NM      %10.0f ha", ha(wsc))
+
+# --- What BC's major watershed adds ----------------------------------------
+# Decomposing WA2 against the Freshwater Atlas groups, rather than eyeballing
+# the polygon, is what identifies the extra basin by name.
+decompose <- function(target, label) {
+  ix <- suppressWarnings(sf::st_intersection(groups, sf::st_union(target)))
+  ix$ha <- as.numeric(sf::st_area(ix)) / 1e4
+  ix$frac <- ix$ha / groups$AREA_HA[match(ix$WATERSHED_GROUP_ID,
+                                          groups$WATERSHED_GROUP_ID)]
+  ix <- ix[ix$frac > 0.01, ]
+  ix <- ix[order(-ix$ha), ]
+  msg("\nFreshwater Atlas groups making up %s:", label)
+  for (i in seq_len(nrow(ix)))
+    msg("  %-20s %9.0f ha  %5.1f%% of that group",
+        ix$WATERSHED_GROUP_NAME[i], ix$ha[i], 100 * ix$frac[i])
+  ix
+}
+wa2_parts <- decompose(bcmw, "BC major watershed WA2 Okanagan River")
+nm_parts <- decompose(wsc, "WSC sub-sub-drainage 08NM Okanagan")
+
+# --- Where the federal unit's excess lies ----------------------------------
+# 08NM is larger than the Freshwater Atlas group. The question is whether that
+# excess is Canadian drainage the provincial group omits, which would matter, or
+# the United States portion of the basin, which does not, because the ignition
+# record and the fire weather network are both provincial.
+resid <- suppressWarnings(sf::st_difference(sf::st_union(wsc), sf::st_union(fwa)))
+resid_bc <- suppressWarnings(sf::st_intersection(resid, sf::st_union(prov)))
+resid_ha <- ha(resid)
+resid_bc_ha <- ha(resid_bc)
+msg("\n08NM outside the Freshwater Atlas group: %.0f ha", resid_ha)
+msg("  inside British Columbia:  %8.0f ha", resid_bc_ha)
+msg("  outside British Columbia: %8.0f ha", resid_ha - resid_bc_ha)
+
+ll <- sf::st_bbox(sf::st_transform(wsc, 4326))
+msg("08NM southern limit: %.3f degrees north (the border is 49.000)", ll["ymin"])
+
+# --- Record ----------------------------------------------------------------
+similkameen <- wa2_parts$ha[wa2_parts$WATERSHED_GROUP_NAME == "Similkameen River"]
+out <- data.frame(
+  item = c("fwa_okan_ha", "bcmw_wa2_ha", "wsc_08nm_ha",
+           "wa2_similkameen_ha", "nm_outside_fwa_ha", "nm_outside_fwa_in_bc_ha",
+           "nm_outside_fwa_outside_bc_ha", "nm_south_limit_deg",
+           "agreement_fwa_vs_wsc_in_bc_pct"),
+  value = c(round(ha(fwa)), round(ha(bcmw)), round(ha(wsc)),
+            round(if (length(similkameen)) similkameen else NA_real_),
+            round(resid_ha), round(resid_bc_ha), round(resid_ha - resid_bc_ha),
+            round(as.numeric(ll["ymin"]), 3),
+            round(100 * resid_bc_ha / ha(fwa), 2)),
+  stringsAsFactors = FALSE)
+write.csv(out, boundary_csv, row.names = FALSE)
+msg("\nWritten 02.inputs/derived/study-area-boundary-candidates.csv")
+}
+
+# --- The ruling this evidence supports --------------------------------------
+# Recorded here so the reasoning sits beside the numbers rather than only in the
+# framing document.
+#
+# BC's major watershed WA2 is the Freshwater Atlas Okanagan group plus the
+# Similkameen group. The two are joined in that layer because the Similkameen
+# reaches the Okanogan River in Washington State, not because the Similkameen
+# drains to Okanagan Lake. It is a separate valley with its own climate and its
+# own fire regime, and no ordinary use of "the Okanagan watershed" includes it.
+#
+# The federal unit 08NM is the whole binational basin. Almost all of its excess
+# over the Freshwater Atlas group is south of the international boundary. Within
+# Canada the two frameworks describe the same basin, differing by about one per
+# cent, which is what a 1:1,000,000 generalisation costs against 1:20,000.
+#
+# The study area is therefore Freshwater Atlas watershed group 161, OKAN,
+# Okanagan River: the Canadian portion of the Okanagan watershed, entire. The
+# United States portion is excluded because the ignition record is the BC
+# Wildfire Service historical incident layer and the validation weather is the
+# BC Fire Weather Network, neither of which crosses the border. That exclusion
+# is a stated boundary of the study, not an oversight.
+```
+
+```{r}
+#| label: fetch-study-area
+#| echo: true
+#| output: false
+# ---------------------------------------------------------------------------
+# Study area layers for the located methods figure.
+#
+# Written 2026-08-14. Retrieves every layer the study-area map draws, from the
+# BC Data Catalogue WFS and the AWS terrain tiles, and writes them to one
+# GeoPackage with a checksum manifest. Nothing is hand-digitised and nothing is
+# hand-placed: every feature on the map comes from a named public layer that
+# this script fetched, so the figure regenerates from code alone.
+#
+# Study area. Settled 2026-08-14 by Seamus's ruling that the study area is the
+# entire Okanagan watershed as official government data defines it. The framing
+# document had named "Freshwater Atlas identifier 212", which is Turnagain River
+# in the far north and cannot have been meant.
+#
+# Three official boundaries carry the name and they disagree by a factor of two.
+# The chunk above retrieves and measures all three, and
+# writes 02.inputs/derived/study-area-boundary-candidates.csv. Its finding: BC's
+# major watershed WA2 "Okanagan River", 1,554,467 ha, is this group plus the
+# Similkameen, joined only because the Similkameen reaches the Okanogan River in
+# Washington; and the federal Water Survey of Canada sub-sub-drainage 08NM,
+# 1,203,045 ha, is the whole binational basin, 402,172 ha of it south of the
+# border. Within Canada the federal and provincial frameworks agree to 10,327
+# ha, 1.3 per cent.
+#
+# The study area is therefore WATERSHED_GROUP_ID 161, code OKAN, Okanagan River,
+# 795,417 ha: the Canadian portion of the Okanagan watershed, entire. The United
+# States portion is excluded because neither the BC Wildfire Service incident
+# record nor the BC Fire Weather Network crosses the border, and that exclusion
+# is a stated boundary of the study.
+#
+# Nothing here computes an outcome. It retrieves geometry and counts features.
+#
+# ---------------------------------------------------------------------------
+
+GROUP_ID <- 161                     # FWA watershed group, Okanagan River
+FIRST_YEAR <- 1980                  # Framing: 1980 to 2025 fire seasons
+LAST_YEAR <- 2025
+CRS_WORK <- 3005                    # NAD83 / BC Albers, metric, per framing
+
+spatial_dir <- file.path(root, "02.inputs", "spatial")
+derived_dir <- file.path(root, "02.inputs", "derived")
+dir.create(spatial_dir, recursive = TRUE, showWarnings = FALSE)
+gpkg <- file.path(spatial_dir, "study-area.gpkg")
+
+WFS <- "https://openmaps.gov.bc.ca/geo/pub/wfs"
+
+# The service caps a response at 10,000 features, so every call pages by
+# startIndex until a page comes back short. A silent truncation here would put
+# the wrong ignition count on the figure, which is exactly the kind of number
+# that never gets questioned once it is drawn.
+wfs_get <- function(layer, cql = NULL, page = 5000) {
+  out <- list()
+  start <- 0
+  repeat {
+    q <- c(service = "WFS", version = "2.0.0", request = "GetFeature",
+           typeName = layer, outputFormat = "application/json",
+           srsName = paste0("EPSG:", CRS_WORK), count = page,
+           startIndex = start)
+    url <- paste0(WFS, "?", paste0(names(q), "=", vapply(q, utils::URLencode,
+                                                         "", reserved = TRUE),
+                                   collapse = "&"))
+    if (!is.null(cql))
+      url <- paste0(url, "&CQL_FILTER=", utils::URLencode(cql, reserved = TRUE))
+    got <- sf::st_read(url, quiet = TRUE)
+    out[[length(out) + 1]] <- got
+    if (nrow(got) < page) break
+    start <- start + page
+  }
+  do.call(rbind, out)
+}
+
+msg <- function(...) cat(sprintf(...), "\n")
+
+if (!file.exists(gpkg)) {
+# --- Basin -----------------------------------------------------------------
+# Freshwater Atlas Watershed Groups, https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-watershed-groups
+basin <- wfs_get("WHSE_BASEMAPPING.FWA_WATERSHED_GROUPS_POLY",
+                 sprintf("WATERSHED_GROUP_ID=%d", GROUP_ID))
+stopifnot(nrow(basin) == 1)
+msg("Basin: %s (%s), %.0f ha", basin$WATERSHED_GROUP_NAME,
+    basin$WATERSHED_GROUP_CODE, basin$AREA_HA)
+bb <- sf::st_bbox(basin)
+bbox_cql <- sprintf("BBOX(SHAPE,%f,%f,%f,%f,'EPSG:%d')",
+                    bb["xmin"], bb["ymin"], bb["xmax"], bb["ymax"], CRS_WORK)
+
+# --- Ignitions -------------------------------------------------------------
+# Retrieved on the bounding box, then clipped to the basin polygon, because the
+# WFS spatial filter is a rectangle. The clip is what the count reports.
+# BC Wildfire Fire Incident Locations, Historical, https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-fire-incident-locations-historical
+inc <- wfs_get("WHSE_LAND_AND_NATURAL_RESOURCE.PROT_HISTORICAL_INCIDENTS_SP",
+               sprintf("%s AND FIRE_YEAR>=%d AND FIRE_YEAR<=%d",
+                       bbox_cql, FIRST_YEAR, LAST_YEAR))
+msg("Incidents in bounding box, %d to %d: %d", FIRST_YEAR, LAST_YEAR, nrow(inc))
+inc <- inc[lengths(sf::st_intersects(inc, basin)) > 0, ]
+msg("Incidents inside the basin: %d", nrow(inc))
+
+# --- Landscape features ----------------------------------------------------
+# Freshwater Atlas Lakes, https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes
+lakes <- wfs_get("WHSE_BASEMAPPING.FWA_LAKES_POLY",
+                 sprintf("WATERSHED_GROUP_ID=%d AND AREA_HA>100", GROUP_ID))
+lakes <- lakes[lengths(sf::st_intersects(lakes, basin)) > 0, ]
+msg("Lakes over 100 ha: %d, of which named: %d", nrow(lakes),
+    sum(!is.na(lakes$GNIS_NAME_1)))
+
+# Freshwater Atlas Stream Network, https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-stream-network
+streams <- wfs_get("WHSE_BASEMAPPING.FWA_STREAM_NETWORKS_SP",
+                   sprintf("WATERSHED_GROUP_ID=%d AND STREAM_ORDER>=5",
+                           GROUP_ID))
+msg("Stream segments of order 5 or greater: %d", nrow(streams))
+
+# --- Placenames ------------------------------------------------------------
+# Municipal boundaries carry the authoritative name; the label goes on the
+# centroid. BCGN geographical names is not served on this endpoint.
+# Municipalities, Legally Defined Administrative Areas of BC, https://catalogue.data.gov.bc.ca/dataset/municipalities-legally-defined-administrative-areas-of-bc
+munis <- wfs_get("WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_MUNICIPALITIES_SP",
+                 bbox_cql)
+munis <- munis[lengths(sf::st_intersects(munis, basin)) > 0, ]
+places <- sf::st_centroid(sf::st_geometry(munis))
+places <- sf::st_sf(name = munis$ADMIN_AREA_NAME,
+                    type = munis$ADMIN_AREA_BOUNDARY_TYPE,
+                    geometry = places)
+msg("Municipalities intersecting the basin: %d", nrow(places))
+
+# --- Weather ---------------------------------------------------------------
+# BC Fire Weather Network stations. The framing names these as the validation
+# source for whatever gridded product is adopted at the design gate.
+# BC Wildfire Active Weather Stations, https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-active-weather-stations
+stations <- wfs_get("WHSE_LAND_AND_NATURAL_RESOURCE.PROT_WEATHER_STATIONS_SP",
+                    bbox_cql)
+stations <- stations[lengths(sf::st_intersects(stations, basin)) > 0, ]
+msg("Fire weather stations inside the basin: %d", nrow(stations))
+
+# ERA5-Land grid, the leading candidate weather input. Its cells are a fixed
+# 0.1 degree geographic graticule, so the geometry is constructed rather than
+# downloaded: drawing it states the support at which a candidate climate input
+# would be resolved, which is the point of putting it on a methods map. No
+# ERA5-Land values are retrieved, because the weather source is not settled.
+b_ll <- sf::st_bbox(sf::st_transform(basin, 4326))
+gx <- seq(floor(b_ll["xmin"] * 10) / 10, ceiling(b_ll["xmax"] * 10) / 10, 0.1)
+gy <- seq(floor(b_ll["ymin"] * 10) / 10, ceiling(b_ll["ymax"] * 10) / 10, 0.1)
+era5 <- sf::st_as_sf(sf::st_make_grid(
+  sf::st_as_sfc(sf::st_bbox(c(xmin = min(gx), ymin = min(gy),
+                              xmax = max(gx), ymax = max(gy)),
+                            crs = 4326)),
+  cellsize = 0.1, offset = c(min(gx), min(gy))))
+names(era5)[1] <- "geometry"
+sf::st_geometry(era5) <- "geometry"
+era5 <- sf::st_transform(era5, CRS_WORK)
+era5 <- era5[lengths(sf::st_intersects(era5, basin)) > 0, ]
+msg("ERA5-Land 0.1 degree cells intersecting the basin: %d", nrow(era5))
+
+# --- Province, for the inset -----------------------------------------------
+# Province of British Columbia, https://catalogue.data.gov.bc.ca/dataset/province-of-british-columbia-legally-defined-administrative-areas-of-bc
+prov <- wfs_get("WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_PROVINCE_SP")
+msg("Province polygons: %d", nrow(prov))
+
+# --- Terrain ---------------------------------------------------------------
+# Landscape relief. AWS terrain tiles via elevatr, zoom 9, roughly 300 m in
+# these latitudes, which is enough for a hillshade at page scale and small
+# enough to keep on an 8 GB machine.
+dem_path <- file.path(spatial_dir, "dem-z9.tif")
+if (!file.exists(dem_path)) {
+  # AWS Terrain Tiles, https://registry.opendata.aws/terrain-tiles/
+  dem <- elevatr::get_elev_raster(
+    locations = sf::st_as_sf(sf::st_as_sfc(sf::st_bbox(
+      sf::st_buffer(basin, 5000)))),
+    z = 9, clip = "bbox", prj = sf::st_crs(basin)$wkt)
+  terra::writeRaster(terra::rast(dem), dem_path, overwrite = TRUE)
+}
+dem <- terra::rast(dem_path)
+msg("DEM: %d by %d cells, %.0f m resolution, elevation %.0f to %.0f m",
+    nrow(dem), ncol(dem), terra::res(dem)[1],
+    terra::global(dem, "min", na.rm = TRUE)[1, 1],
+    terra::global(dem, "max", na.rm = TRUE)[1, 1])
+
+# --- Write -----------------------------------------------------------------
+if (file.exists(gpkg)) file.remove(gpkg)
+w <- function(x, layer) sf::st_write(x, gpkg, layer, quiet = TRUE, append = FALSE)
+w(basin, "basin"); w(inc, "ignitions"); w(lakes, "lakes"); w(streams, "streams")
+w(places, "places"); w(stations, "stations"); w(era5, "era5_grid")
+w(prov, "province")
+msg("\nWritten %s", gpkg)
+
+# --- Counts the manuscript cites -------------------------------------------
+# Written to derived/ and committed, because the prose quotes them and no number
+# may be quoted from code that was not saved.
+cause <- as.character(inc$FIRE_CAUSE)
+cause[is.na(cause) | cause == ""] <- "Unknown"
+counts <- data.frame(
+  item = c("watershed_group_id", "watershed_group_name", "basin_area_ha",
+           "first_year", "last_year", "n_seasons",
+           "ignitions_total", sprintf("ignitions_%s", sort(unique(cause))),
+           "fire_weather_stations", "era5_land_cells",
+           "dem_min_elev_m", "dem_max_elev_m"),
+  value = c(GROUP_ID, basin$WATERSHED_GROUP_NAME, round(basin$AREA_HA),
+            FIRST_YEAR, LAST_YEAR, LAST_YEAR - FIRST_YEAR + 1,
+            nrow(inc), as.integer(table(cause)[sort(unique(cause))]),
+            nrow(stations), nrow(era5),
+            round(terra::global(dem, "min", na.rm = TRUE)[1, 1]),
+            round(terra::global(dem, "max", na.rm = TRUE)[1, 1])),
+  stringsAsFactors = FALSE)
+write.csv(counts, file.path(derived_dir, "study-area-counts.csv"),
+          row.names = FALSE)
+
+# Per-season ignition counts by cause, so the figure's inset series and any
+# prose about the record come from one saved file.
+season <- data.frame(year = inc$FIRE_YEAR, cause = cause)
+tab <- as.data.frame(table(season$year, season$cause))
+names(tab) <- c("fire_year", "fire_cause", "n")
+tab$fire_year <- as.integer(as.character(tab$fire_year))
+write.csv(tab[order(tab$fire_year, tab$fire_cause), ],
+          file.path(derived_dir, "ignitions-by-season.csv"), row.names = FALSE)
+
+msg("Written %s and %s", "02.inputs/derived/study-area-counts.csv",
+    "02.inputs/derived/ignitions-by-season.csv")
+
+# --- Integrity manifest ----------------------------------------------------
+files <- list.files(spatial_dir, full.names = TRUE, pattern = "[.](gpkg|tif)$")
+sums <- vapply(files, function(f) as.character(tools::md5sum(f)), "")
+writeLines(sprintf("%s  %s", sums, basename(files)),
+           file.path(spatial_dir, "MD5SUMS.txt"))
+msg("Retrieved %s. No outcome variable computed.", format(Sys.Date()))
+}
+```
+
+```{python}
+#| label: fetch-fire-weather
+#| echo: true
+#| output: false
+"""Retrieve the hourly fire weather record for the Okanagan basin stations.
+
+Written 2026-08-15. Source is the BC Wildfire Service weather data mart, a public
+directory published by the BC Ministry of Forests at
+
+    https://www.for.gov.bc.ca/ftp/HPR/external/!publish/BCWS_DATA_MART/
+
+The archive is stored two ways and this script reads both. Seasons 1987 to 2023
+are one comma-separated file per year, province wide, named
+``<year>/<year>_BCWS_WX_OBS.csv``, the largest of which is roughly 210 MB.
+Seasons 2024 onward are one file per calendar day, named ``<year>/<date>.csv``.
+Nothing here holds a whole provincial year in memory: each response is streamed
+and every row whose station code is not one of the basin stations is dropped as
+it arrives.
+
+Station selection is not by bounding box. The five stations are the ones the
+BC Data Catalogue layer ``WHSE_LAND_AND_NATURAL_RESOURCE.PROT_WEATHER_STATIONS_SP``
+places inside Freshwater Atlas watershed group 161, already clipped to the basin
+polygon by the study area chunk above and stored in the ``stations`` layer
+of ``02.inputs/spatial/study-area.gpkg``. This script reads that layer rather
+than repeating the spatial test, so the two cannot disagree.
+
+The columns kept are the raw hourly observations, the operational FWI1987 codes
+that BC Wildfire Service itself computed at the time, and the daily
+accumulated precipitation. The operational codes are kept for one purpose: they
+are an independent check on this project's own FWI1987 implementation, computed
+by a different party with different code, and the series computation chunk
+reports the agreement.
+
+Output is written uncompressed to ``02.inputs/weather/bcws-okanagan-hourly.csv``,
+which is gitignored for size, together with a small retrieval log at
+``02.inputs/derived/fire-weather-retrieval-log.csv`` that is committed.
+"""
+
+from __future__ import annotations
+
+import csv
+import datetime as dt
+import io
+import os
+import sys
+import time
+
+import requests
+
+BASE = "https://www.for.gov.bc.ca/ftp/HPR/external/!publish/BCWS_DATA_MART"
+
+# Columns carried forward from the data mart. The names are the data mart's own.
+KEEP = [
+    "STATION_CODE",
+    "STATION_NAME",
+    "DATE_TIME",
+    "HOURLY_PRECIPITATION",
+    "HOURLY_TEMPERATURE",
+    "HOURLY_RELATIVE_HUMIDITY",
+    "HOURLY_WIND_SPEED",
+    "HOURLY_WIND_DIRECTION",
+    "HOURLY_FINE_FUEL_MOISTURE_CODE",
+    "HOURLY_INITIAL_SPREAD_INDEX",
+    "HOURLY_FIRE_WEATHER_INDEX",
+    "PRECIPITATION",
+    "FINE_FUEL_MOISTURE_CODE",
+    "DUFF_MOISTURE_CODE",
+    "DROUGHT_CODE",
+    "INITIAL_SPREAD_INDEX",
+    "BUILDUP_INDEX",
+    "FIRE_WEATHER_INDEX",
+]
+
+
+def basin_station_codes(root: str) -> dict[str, str]:
+    """Station codes inside watershed group 161, read from the study area package."""
+    import geopandas as gpd
+
+    gpkg = os.path.join(root, "02.inputs", "spatial", "study-area.gpkg")
+    st = gpd.read_file(gpkg, layer="stations")
+    return {str(int(c)): str(n) for c, n in zip(st["STATION_CODE"], st["STATION_NAME"])}
+
+
+def stream_csv(url: str, session: requests.Session, retries: int = 4):
+    """Yield dict rows from a remote CSV without holding the file in memory."""
+    for attempt in range(retries):
+        try:
+            with session.get(url, stream=True, timeout=(30, 600)) as r:
+                if r.status_code == 404:
+                    return
+                r.raise_for_status()
+                lines = (
+                    b.decode("utf-8-sig", errors="replace")
+                    for b in r.iter_lines(chunk_size=1 << 20)
+                )
+                for row in csv.DictReader(lines):
+                    yield row
+                return
+        except Exception as exc:  # network faults are expected over 4 GB of transfer
+            if attempt == retries - 1:
+                raise
+            print(f"    retry {attempt + 1} after {type(exc).__name__}: {exc}", flush=True)
+            time.sleep(5 * (attempt + 1))
+
+
+def main() -> None:
+    first, last = 1987, 2025
+    root = os.path.abspath("..")
+    stations = basin_station_codes(root)
+    print("Basin stations:", ", ".join(f"{c} {n}" for c, n in sorted(stations.items())), flush=True)
+
+    out_dir = os.path.join(root, "02.inputs", "weather")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "bcws-okanagan-hourly.csv")
+    log_path = os.path.join(root, "02.inputs", "derived", "fire-weather-retrieval-log.csv")
+
+    session = requests.Session()
+    session.headers["User-Agent"] = "forest-fire-index-trends/1.0 (research; contact repository owner)"
+
+    log: list[dict] = []
+    kept_total = 0
+
+    with open(out_path, "w", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=KEEP, extrasaction="ignore")
+        writer.writeheader()
+
+        for year in range(first, last + 1):
+            t0 = time.time()
+            kept = 0
+            seen = 0
+
+            # BCWS Weather Data Mart, https://www.for.gov.bc.ca/ftp/HPR/external/!publish/BCWS_DATA_MART/
+            # Seasons 1987 to 2023: one provincial file per year.
+            annual = f"{BASE}/{year}/{year}_BCWS_WX_OBS.csv"
+            got_annual = False
+            for row in stream_csv(annual, session):
+                got_annual = True
+                seen += 1
+                if str(row.get("STATION_CODE", "")).strip().strip('"') in stations:
+                    writer.writerow(row)
+                    kept += 1
+
+            # Seasons 2024 onward: one file per calendar day.
+            if not got_annual:
+                day = dt.date(year, 1, 1)
+                end = dt.date(year, 12, 31)
+                while day <= end:
+                    url = f"{BASE}/{year}/{day.isoformat()}.csv"
+                    for row in stream_csv(url, session):
+                        seen += 1
+                        if str(row.get("STATION_CODE", "")).strip().strip('"') in stations:
+                            writer.writerow(row)
+                            kept += 1
+                    day += dt.timedelta(days=1)
+
+            kept_total += kept
+            elapsed = round(time.time() - t0, 1)
+            layout = "annual" if got_annual else "daily"
+            print(f"{year}  {layout:6s}  rows seen {seen:>9,}  kept {kept:>7,}  {elapsed:>7.1f}s", flush=True)
+            log.append(
+                {"year": year, "layout": layout, "rows_seen": seen, "rows_kept": kept, "seconds": elapsed}
+            )
+
+    with open(log_path, "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=["year", "layout", "rows_seen", "rows_kept", "seconds"])
+        w.writeheader()
+        w.writerows(log)
+
+    print(f"\nWrote {kept_total:,} hourly observations to {out_path}", flush=True)
+    print(f"Retrieval log at {log_path}", flush=True)
+
+
+if not os.path.exists(os.path.join("..", "02.inputs", "weather", "bcws-okanagan-hourly.csv")):
+    main()
+```
+
+```{python}
+#| label: fwi1987-system
+#| echo: true
+#| output: false
+"""The 1987 Canadian Forest Fire Weather Index System, daily, from the 13:00 observation.
+
+Written 2026-08-15. This is FWI1987 as specified by Van Wagner (1987), Forestry
+Technical Report 35, whose equations are the FORTRAN listing of Van Wagner and
+Pickett (1985), Forestry Technical Report 33. The two changes FWI2025 makes to
+the fire behaviour outputs are deliberately NOT applied here: the Initial Spread
+Index uses the original wind function, not the Fire Behaviour Prediction System
+limiter, because the point of this module is to reproduce the legacy system that
+every published Canadian fire danger trend rests on.
+
+Day length factors are the standard Canadian tables. The Duff Moisture Code
+factors Le are Van Wagner's table for 46 degrees north and the Drought Code
+factors Lf are his table for the same latitude. Canadian operational practice
+applies these tables across the country rather than interpolating by latitude,
+and BC Wildfire Service does so at the stations used here, so the same tables are
+used rather than a latitude adjustment that the comparison series would not share.
+
+Nothing in this module is original. It exists so that FWI1987 and FWI2025 are
+computed inside one process from one weather record, and it is checked twice:
+against the CRAN package cffdrs, an independent published implementation, and
+against the FWI1987 codes BC Wildfire Service itself computed operationally at
+these stations at the time. Both checks are run by
+the next two chunks and their results are reported in the Results rather than
+asserted here.
+
+References
+    Van Wagner, C.E. 1987. Development and structure of the Canadian Forest Fire
+        Weather Index System. Forestry Technical Report 35. Canadian Forestry
+        Service, Ottawa.
+    Van Wagner, C.E.; Pickett, T.L. 1985. Equations and FORTRAN program for the
+        Canadian Forest Fire Weather Index System. Forestry Technical Report 33.
+        Canadian Forestry Service, Ottawa.
+"""
+
+from __future__ import annotations
+
+import math
+
+import numpy as np
+import pandas as pd
+
+# Van Wagner (1987) Table 3.1: effective day length for the DMC, 46 degrees north.
+DAY_LENGTH_DMC = [6.5, 7.5, 9.0, 12.8, 13.9, 13.9, 12.4, 10.9, 9.4, 8.0, 7.0, 6.0]
+
+# Van Wagner (1987) Table 4.1: day length adjustment for the DC, 46 degrees north.
+DAY_LENGTH_DC = [-1.6, -1.6, -1.6, 0.9, 3.8, 5.8, 6.4, 5.0, 2.4, 0.4, -1.6, -1.6]
+
+# The exact coefficient of the FFMC to moisture content transform. Van Wagner
+# (1987) prints 147.2; the FORTRAN listing carries 147.2772, which is the value
+# that makes the scale close, since 59.5 * 250 / 101 = 147.27722772. The exact
+# value is used here because the published implementations use it and a rounded
+# constant would put a spurious difference into a version comparison.
+FFMC_COEFFICIENT = 147.2772277227723
+
+# Startup values, Van Wagner (1987) section 6, and the defaults the NG-CFFDRS
+# reference implementation uses, so the three series start from one point.
+FFMC_START = 85.0
+DMC_START = 6.0
+DC_START = 15.0
+
+
+def ffmc(temp: float, rh: float, ws: float, prec: float, ffmc_prev: float) -> float:
+    """Fine Fuel Moisture Code. Van Wagner (1987) equations 1 to 10."""
+    mo = FFMC_COEFFICIENT * (101.0 - ffmc_prev) / (59.5 + ffmc_prev)  # eq 1
+
+    if prec > 0.5:                                                  # eq 2, 3a, 3b
+        rf = prec - 0.5
+        # Both the test and the second term take the moisture content before the
+        # rain is applied, not after it. Van Wagner writes mo on the right hand
+        # side of 3b throughout.
+        wetting = 42.5 * rf * math.exp(-100.0 / (251.0 - mo)) * (1.0 - math.exp(-6.93 / rf))
+        if mo > 150.0:
+            wetting += 0.0015 * (mo - 150.0) ** 2 * math.sqrt(rf)
+        mo = min(mo + wetting, 250.0)
+
+    ed = (                                                          # eq 4
+        0.942 * rh ** 0.679
+        + 11.0 * math.exp((rh - 100.0) / 10.0)
+        + 0.18 * (21.1 - temp) * (1.0 - math.exp(-0.115 * rh))
+    )
+
+    if mo > ed:
+        ko = 0.424 * (1.0 - (rh / 100.0) ** 1.7) + 0.0694 * math.sqrt(ws) * (
+            1.0 - (rh / 100.0) ** 8
+        )                                                           # eq 6a
+        kd = ko * 0.581 * math.exp(0.0365 * temp)                    # eq 6b
+        m = ed + (mo - ed) * 10.0 ** (-kd)                           # eq 8
+    else:
+        ew = (                                                       # eq 5
+            0.618 * rh ** 0.753
+            + 10.0 * math.exp((rh - 100.0) / 10.0)
+            + 0.18 * (21.1 - temp) * (1.0 - math.exp(-0.115 * rh))
+        )
+        if mo < ew:
+            kl = 0.424 * (1.0 - ((100.0 - rh) / 100.0) ** 1.7) + 0.0694 * math.sqrt(
+                ws
+            ) * (1.0 - ((100.0 - rh) / 100.0) ** 8)                  # eq 7a
+            kw = kl * 0.581 * math.exp(0.0365 * temp)                # eq 7b
+            m = ew - (ew - mo) * 10.0 ** (-kw)                       # eq 9
+        else:
+            m = mo
+
+    return max(0.0, min(101.0, 59.5 * (250.0 - m) / (FFMC_COEFFICIENT + m)))  # eq 10
+
+
+def dmc(temp: float, rh: float, prec: float, dmc_prev: float, month: int) -> float:
+    """Duff Moisture Code. Van Wagner (1987) equations 11 to 17."""
+    p = dmc_prev
+
+    if prec > 1.5:                                                   # eq 11
+        re = 0.92 * prec - 1.27
+        # eq 12, in the FORTRAN listing's form, 280 / exp(0.023 P), rather than
+        # the paper's 20 + exp((244.72 - P) / 43.43). The two agree to about one
+        # part in four thousand and the listing is what the published code runs.
+        mo = 20.0 + 280.0 / math.exp(0.023 * p)                       # eq 12
+        if p <= 33.0:                                                # eq 13a
+            b = 100.0 / (0.5 + 0.3 * p)
+        elif p <= 65.0:                                              # eq 13b
+            b = 14.0 - 1.3 * math.log(p)
+        else:                                                        # eq 13c
+            b = 6.2 * math.log(p) - 17.2
+        mr = mo + 1000.0 * re / (48.77 + b * re)                      # eq 14
+        # eq 15, again in the listing's form: 43.43 (5.6348 - ln(Mr - 20)) rather
+        # than the paper's 244.72 - 43.43 ln(Mr - 20). 43.43 x 5.6348 = 244.7194.
+        p = max(0.0, 43.43 * (5.6348 - math.log(mr - 20.0)))          # eq 15
+
+    if temp > -1.1:                                                   # eq 16
+        k = 1.894 * (temp + 1.1) * (100.0 - rh) * DAY_LENGTH_DMC[month - 1] * 1e-6
+    else:
+        k = 0.0
+
+    return max(0.0, p + 100.0 * k)                                    # eq 17
+
+
+def dc(temp: float, prec: float, dc_prev: float, month: int) -> float:
+    """Drought Code. Van Wagner (1987) equations 18 to 23."""
+    d = dc_prev
+
+    if prec > 2.8:                                                    # eq 18
+        rd = 0.83 * prec - 1.27
+        qo = 800.0 * math.exp(-d / 400.0)                              # eq 19
+        qr = qo + 3.937 * rd                                           # eq 20
+        d = max(0.0, 400.0 * math.log(800.0 / qr))                     # eq 21
+
+    v = 0.36 * (max(temp, -2.8) + 2.8) + DAY_LENGTH_DC[month - 1]      # eq 22
+    v = max(0.0, v)
+
+    return max(0.0, d + 0.5 * v)                                       # eq 23
+
+
+def isi(ws: float, ffmc_val: float) -> float:
+    """Initial Spread Index, the original wind function. Van Wagner (1987) eq 24 to 26.
+
+    FWI2025 replaces the wind function here with the Fire Behaviour Prediction
+    System form, which limits the effect of winds above 40 km/h. That change is
+    not applied in this module by design.
+    """
+    m = FFMC_COEFFICIENT * (101.0 - ffmc_val) / (59.5 + ffmc_val)      # eq 1
+    fw = math.exp(0.05039 * ws)                                        # eq 24
+    ff = 91.9 * math.exp(-0.1386 * m) * (1.0 + m ** 5.31 / 4.93e7)     # eq 25
+    return 0.208 * fw * ff                                             # eq 26
+
+
+def bui(dmc_val: float, dc_val: float) -> float:
+    """Buildup Index. Van Wagner (1987) equations 27a and 27b."""
+    if dmc_val == 0.0 and dc_val == 0.0:
+        return 0.0
+    if dmc_val <= 0.4 * dc_val:                                        # eq 27a
+        u = 0.8 * dmc_val * dc_val / (dmc_val + 0.4 * dc_val)
+    else:                                                              # eq 27b
+        u = dmc_val - (1.0 - 0.8 * dc_val / (dmc_val + 0.4 * dc_val)) * (
+            0.92 + (0.0114 * dmc_val) ** 1.7
+        )
+    return max(0.0, u)
+
+
+def fwi(isi_val: float, bui_val: float) -> float:
+    """Fire Weather Index. Van Wagner (1987) equations 28 to 31."""
+    if bui_val <= 80.0:                                                # eq 28a
+        fd = 0.626 * bui_val ** 0.809 + 2.0
+    else:                                                              # eq 28b
+        fd = 1000.0 / (25.0 + 108.64 * math.exp(-0.023 * bui_val))
+    b = 0.1 * isi_val * fd                                             # eq 29
+    if b > 1.0:                                                        # eq 30
+        return math.exp(2.72 * (0.434 * math.log(b)) ** 0.647)
+    return b                                                           # eq 31
+
+
+def dsr(fwi_val: float) -> float:
+    """Daily Severity Rating. Van Wagner (1987) equation 32."""
+    return 0.0272 * fwi_val ** 1.77
+
+
+def fwi1987_run(
+    df: pd.DataFrame,
+    ffmc_old: float = FFMC_START,
+    dmc_old: float = DMC_START,
+    dc_old: float = DC_START,
+) -> pd.DataFrame:
+    """Run FWI1987 over one station-season of daily 13:00 observations.
+
+    Parameters
+    ----------
+    df
+        Daily weather with columns ``yr``, ``mon``, ``day``, ``temp``, ``rh``,
+        ``ws``, ``prec``, in chronological order, one row per day, no gaps.
+        Temperature in degrees Celsius, relative humidity in per cent, wind speed
+        in kilometres per hour at 10 m, precipitation the 24 hour total in
+        millimetres ending at the observation.
+    ffmc_old, dmc_old, dc_old
+        Startup values carried into the first day.
+
+    Returns
+    -------
+    The input frame with ``ffmc``, ``dmc``, ``dc``, ``isi``, ``bui``, ``fwi`` and
+    ``dsr`` appended.
+    """
+    out = {k: np.empty(len(df)) for k in ("ffmc", "dmc", "dc", "isi", "bui", "fwi", "dsr")}
+    f, p, d = ffmc_old, dmc_old, dc_old
+
+    for i, row in enumerate(df.itertuples(index=False)):
+        t, h, w, r, mon = row.temp, row.rh, row.ws, row.prec, int(row.mon)
+        # Van Wagner's equations are undefined outside these ranges and the
+        # operational convention is to clamp rather than to drop the day.
+        h = min(max(h, 0.0), 100.0)
+        w = max(w, 0.0)
+        r = max(r, 0.0)
+
+        f = ffmc(t, h, w, r, f)
+        p = dmc(t, h, r, p, mon)
+        d = dc(t, r, d, mon)
+        i_ = isi(w, f)
+        u = bui(p, d)
+        s = fwi(i_, u)
+
+        out["ffmc"][i], out["dmc"][i], out["dc"][i] = f, p, d
+        out["isi"][i], out["bui"][i], out["fwi"][i] = i_, u, s
+        out["dsr"][i] = dsr(s)
+
+    return df.assign(**out)
+```
+
+```{python}
+#| label: validate-fwi1987
+#| echo: true
+#| output: false
+"""Check this project's FWI1987 module against an independent implementation.
+
+Written 2026-08-15. The FWI1987 chunk above is code written for this study, so
+no number it produces is reportable until something else produces the same
+number. This script runs the first of two checks: the CRAN package ``cffdrs``,
+the implementation published with Wang et al. (2017) and maintained by the
+Canadian Forest Service, run over the same input through R.
+
+The test input is the Petawawa Research Forest 2007 daily weather that ships
+with the NG-CFFDRS repository, used here only because it is a public file with a
+known provenance that both implementations can read. The second check, against
+the FWI1987 codes BC Wildfire Service computed operationally at the Okanagan
+stations, is run inside the series computation chunk where those codes are
+already in hand.
+
+Writes ``02.inputs/derived/fwi1987-validation.csv``, which is committed.
+"""
+
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
+import tempfile
+
+import numpy as np
+import pandas as pd
+
+ROOT = os.path.abspath("..")
+HERE = os.path.join(ROOT, "05.scripts")
+
+R_BIN = "/usr/local/bin/R"
+
+R_SCRIPT = r"""
+suppressPackageStartupMessages(library(cffdrs))
+inp <- read.csv("{inp}")
+inp$long <- -abs(inp$long)
+# lat.adjust = FALSE holds the day length tables at Van Wagner's 46 degrees north
+# values, which is what the Python module uses and what Canadian operational
+# practice applies across the country.
+out <- fwi(inp, init = c(ffmc = 85, dmc = 6, dc = 15, lat = inp$lat[1]),
+           lat.adjust = FALSE)
+write.csv(out[, c("FFMC", "DMC", "DC", "ISI", "BUI", "FWI", "DSR")],
+          "{out}", row.names = FALSE)
+"""
+
+
+def main() -> None:
+    # NG-CFFDRS reference implementation test record, https://github.com/nrcan-cfs-fire/cffdrs-ng
+    src = os.path.join(HERE, "vendor", "cffdrs-ng", "PRF2007_daily_wx.csv")
+    daily = pd.read_csv(src)
+
+    mine = fwi1987_run(daily.copy())
+
+    with tempfile.TemporaryDirectory() as tmp:
+        inp = os.path.join(tmp, "in.csv")
+        outp = os.path.join(tmp, "out.csv")
+        daily.to_csv(inp, index=False)
+        script = os.path.join(tmp, "run.R")
+        with open(script, "w") as fh:
+            fh.write(R_SCRIPT.format(inp=inp, out=outp))
+        res = subprocess.run(
+            [R_BIN, "--vanilla", "--quiet", "-f", script],
+            capture_output=True,
+            text=True,
+        )
+        if not os.path.exists(outp):
+            sys.exit(f"cffdrs run failed:\n{res.stdout}\n{res.stderr}")
+        theirs = pd.read_csv(outp)
+
+    rows = []
+    for a, b in [("ffmc", "FFMC"), ("dmc", "DMC"), ("dc", "DC"),
+                 ("isi", "ISI"), ("bui", "BUI"), ("fwi", "FWI"), ("dsr", "DSR")]:
+        x, y = mine[a].to_numpy(float), theirs[b].to_numpy(float)
+        rows.append(
+            {
+                "component": b,
+                "n": len(x),
+                "max_abs_diff": float(np.nanmax(np.abs(x - y))),
+                "mean_abs_diff": float(np.nanmean(np.abs(x - y))),
+                "max_value": float(np.nanmax(y)),
+            }
+        )
+
+    res = pd.DataFrame(rows)
+    dest = os.path.join(ROOT, "02.inputs", "derived", "fwi1987-validation.csv")
+    res.to_csv(dest, index=False)
+    print(res.to_string(index=False))
+    print(f"\nWrote {dest}")
+
+
+if not os.path.exists(os.path.join("..", "02.inputs", "derived", "fwi1987-validation.csv")):
+    main()
+```
+
+```{python}
+#| label: compute-fwi-series
+#| echo: true
+#| output: false
+"""Compute the three fire danger series from one Okanagan weather record.
+
+Written 2026-08-15. The design question is that FWI1987 and FWI2025 differ in two
+respects at once, the version of the system and the resolution of the weather
+driving it, so a two way comparison could not attribute a difference to either.
+Three series are computed from a single hourly weather record so that each
+contrast moves one thing:
+
+    S1  FWI1987, driven by the daily 13:00 observation.
+    S2  FWI2025, driven by the same daily 13:00 observation, pathway C.
+    S3  FWI2025, driven by the observed hourly weather, pathway A.
+
+S1 against S2 isolates the version change at fixed input. S2 against S3 isolates
+the input resolution change at fixed version. S1 against S3 is the operational
+contrast an agency faces and is the sum of the other two.
+
+Weather record
+    BC Wildfire Service hourly observations at the five fire weather stations
+    inside Freshwater Atlas watershed group 161, retrieved by
+    the retrieval chunk above. Timestamps are Pacific Standard Time
+    year round, which this script does not assume but verifies: the daily
+    FWI1987 codes that BC Wildfire Service computed operationally appear in the
+    record at hour 12 and at no other hour, and the standard fire weather
+    observation is 13:00 Local Daylight Time, so hour 12 is 13:00 LDT and the
+    stamp is Local Standard Time, UTC-8.
+
+Season window
+    A fixed calendar window, not a weather derived one. The Canadian rule in
+    GLC-X-42 section C-2.3, three days above 12 degrees Celsius where snow cover
+    cannot be observed, was implemented first and then abandoned, because these
+    stations do not report through the winter and the rule fired on whatever day
+    a station was switched on. It produced a "season" of three days at Brenda
+    Mines in 1991 and 244 days at Fintry in 1999, and those numbers describe
+    field operations rather than climate.
+
+    The window is therefore 1 May to 30 September, 153 days, with the calculation
+    spun up from 1 April so that thirty days of weather precede the first reported
+    day. One consequence is stated rather than repaired: fire season length cannot
+    be estimated from a network whose stations are switched on and off for
+    operational reasons, so it is not among the metrics, and the seasonal metrics
+    that remain are counts and sums over a window of fixed length.
+
+Startup and overwintering
+    Each station season starts from FFMC 85, DMC 6, DC 15, the values Van Wagner
+    (1987) gives and the NG-CFFDRS reference implementation defaults to. The
+    Drought Code is not overwintered. These stations do not report through the
+    winter, so an overwintering calculation would have no weather to run on. The
+    same startup is used for all three series, so it cannot bias a contrast
+    between them.
+
+Daily summary of the hourly series
+    FWI1987 produces one value per day. FWI2025 produces one per hour, and
+    GLC-X-42 section 3.1.1 says the daily interpretation may be taken either at a
+    user selected hour or at the modelled peak. This script writes both. The
+    primary daily value is taken at 16:00 LST, which is 17:00 Local Daylight Time,
+    the conventional peak burn hour and, in this record, the modal hour of daily
+    maximum temperature. The daily maximum over all 24 hours is written alongside
+    it as ``*_max``, and is a sensitivity rather than the primary, because the
+    maximum of 24 draws exceeds a single daily value for reasons that have
+    nothing to do with the version change.
+
+Gaps
+    The reference implementation requires a gap free hourly stream. Runs of
+    missing temperature, humidity or wind up to 24 hours are filled by linear
+    interpolation; missing precipitation is filled with zero, since rain cannot be
+    invented. A station season is kept only when at least 95 per cent of the hours
+    from 1 April to 30 September were observed and no single gap exceeded 24
+    hours. Every drop is recorded in the coverage table rather than being silently
+    absorbed.
+
+    Filling a gap with no rain makes a missing wet spell look dry and pushes fire
+    danger up. The direction matters and is stated here: coverage is worse in the
+    early record than the late, so this bias, where it acts at all, inflates
+    danger early and therefore works against an increasing trend rather than for
+    one. It is identical across S1, S2 and S3 by construction, since all three run
+    on the same filled record, so it cannot move a contrast between versions.
+
+Outputs, all written to ``02.inputs/derived``:
+    ``fwi-series-daily.csv``          one row per station-day, the three series.
+    ``fwi-station-season-coverage.csv``  what was kept, what was dropped, and why.
+    ``fwi1987-operational-check.csv``    S1 against BC Wildfire Service's own codes.
+
+Each station season is independent, because the moisture codes are carried forward
+within a season and reset at its start, so nothing crosses the boundary. The work
+could be split across processes; the hourly loop inside the reference
+implementation is pure Python and is the whole cost of this chunk.
+"""
+
+from __future__ import annotations
+
+import os
+import sys
+import warnings
+
+import numpy as np
+import pandas as pd
+
+ROOT = os.path.abspath("..")
+HERE = os.path.join(ROOT, "05.scripts")
+# NG-CFFDRS reference implementation, https://github.com/nrcan-cfs-fire/cffdrs-ng,
+# vendored at the commit recorded in 05.scripts/vendor/cffdrs-ng/COMMIT.txt.
+sys.path.insert(0, os.path.join(HERE, "vendor", "cffdrs-ng"))
+from make_minmax import daily_to_minmax  # noqa: E402
+from make_hourly import minmax_to_hourly  # noqa: E402
+from NG_FWI import hFWI  # noqa: E402
+from daily_summaries import generate_daily_summaries  # noqa: E402
+
+warnings.filterwarnings("ignore", category=FutureWarning)
+
+TIMEZONE = -8.0          # Pacific Standard Time, verified below, not assumed
+NOON_HOUR = 12           # 13:00 Local Daylight Time, the standard observation
+PEAK_HOUR = 16           # 17:00 Local Daylight Time, the conventional peak burn hour
+
+SPINUP_MONTH_DAY = (4, 1)   # calculation starts here, 30 days before reporting
+WINDOW_START = (5, 1)       # metrics are reported from here
+WINDOW_END = (9, 30)        # to here, 153 days
+
+MAX_GAP_HOURS = 24
+MIN_OBSERVED_FRACTION = 0.95
+
+COMPONENTS = ["ffmc", "dmc", "dc", "isi", "bui", "fwi", "dsr"]
+
+# The station season whose hourly output is written out whole for the mechanism
+# figure. Penticton RS, station 328, is the longest record in the basin, and 2003
+# is the season of the Okanagan Mountain Park fire.
+EXAMPLE_SEASON = ("328", 2003)
+
+
+def load_hourly(path: str | None = None) -> pd.DataFrame:
+    """Read the retrieved record and put it into the reference implementation's names."""
+    path = path or os.path.join(ROOT, "02.inputs", "weather", "bcws-okanagan-hourly.csv")
+    d = pd.read_csv(path, low_memory=False)
+    d["DATE_TIME"] = d["DATE_TIME"].astype(str).str.strip().str.strip('"')
+    d = d[d["DATE_TIME"].str.len() == 10].copy()
+
+    d["yr"] = d["DATE_TIME"].str[0:4].astype(int)
+    d["mon"] = d["DATE_TIME"].str[4:6].astype(int)
+    d["day"] = d["DATE_TIME"].str[6:8].astype(int)
+    d["hr"] = d["DATE_TIME"].str[8:10].astype(int)
+
+    for src, dst in [
+        ("HOURLY_TEMPERATURE", "temp"),
+        ("HOURLY_RELATIVE_HUMIDITY", "rh"),
+        ("HOURLY_WIND_SPEED", "ws"),
+        ("HOURLY_PRECIPITATION", "prec"),
+    ]:
+        d[dst] = pd.to_numeric(d[src], errors="coerce")
+
+    d["id"] = d["STATION_CODE"].astype(str).str.strip().str.strip('"')
+    d["timestamp"] = pd.to_datetime(
+        dict(year=d.yr, month=d.mon, day=d.day, hour=d.hr), errors="coerce"
+    )
+    d = d[d["timestamp"].notna()].copy()
+    return d.sort_values(["id", "timestamp"]).reset_index(drop=True)
+
+
+def verify_timezone(d: pd.DataFrame) -> dict:
+    """Confirm that the operational daily codes sit at hour 12 and nowhere else."""
+    by_hour = d.groupby("hr")["FINE_FUEL_MOISTURE_CODE"].apply(lambda s: s.notna().sum())
+    at_noon = int(by_hour.get(NOON_HOUR, 0))
+    elsewhere = int(by_hour.drop(index=NOON_HOUR, errors="ignore").sum())
+    if at_noon == 0 or elsewhere > 0:
+        sys.exit(
+            "Daily codes are not stamped exclusively at hour 12; the timezone "
+            f"assumption fails. At hour 12: {at_noon}. At other hours: {elsewhere}."
+        )
+    summer = d[(d.mon.isin([6, 7, 8])) & d.temp.notna()].copy()
+    peak = summer.loc[summer.groupby(["id", "yr", "mon", "day"])["temp"].idxmax(), "hr"]
+    return {
+        "daily_codes_at_hour_12": at_noon,
+        "daily_codes_at_other_hours": elsewhere,
+        "modal_hour_of_max_temp_summer": int(peak.mode().iloc[0]),
+    }
+
+
+def quality_control(d: pd.DataFrame) -> pd.DataFrame:
+    """Void observations outside the physically possible range for this basin."""
+    d.loc[(d.temp < -50) | (d.temp > 50), "temp"] = np.nan
+    d.loc[(d.rh < 0) | (d.rh > 100), "rh"] = np.nan
+    d.loc[(d.ws < 0) | (d.ws > 200), "ws"] = np.nan
+    d.loc[(d.prec < 0) | (d.prec > 200), "prec"] = np.nan
+    return d
+
+
+def window_bounds(year: int) -> tuple[pd.Timestamp, pd.Timestamp, pd.Timestamp]:
+    """Spin-up start, reporting start and reporting end for one season."""
+    spin = pd.Timestamp(year, *SPINUP_MONTH_DAY)
+    start = pd.Timestamp(year, *WINDOW_START)
+    end = pd.Timestamp(year, *WINDOW_END)
+    return spin, start, end
+
+
+def fill_gaps(h: pd.DataFrame) -> tuple[pd.DataFrame, int, int]:
+    """Reindex to a complete hourly stream and fill short gaps.
+
+    Returns the filled frame, the number of hours filled, and the longest run of
+    consecutive filled hours.
+    """
+    full = pd.date_range(h["timestamp"].min(), h["timestamp"].max(), freq="h")
+    h = h.set_index("timestamp").reindex(full)
+    h.index.name = "timestamp"
+
+    missing = h[["temp", "rh", "ws"]].isna().any(axis=1)
+    n_filled = int(missing.sum())
+    longest = 0
+    run = 0
+    for flag in missing.to_numpy():
+        run = run + 1 if flag else 0
+        longest = max(longest, run)
+
+    for c in ("temp", "rh", "ws"):
+        h[c] = h[c].interpolate(limit_direction="both")
+    h["prec"] = h["prec"].fillna(0.0)
+
+    h = h.reset_index()
+    h["yr"] = h.timestamp.dt.year
+    h["mon"] = h.timestamp.dt.month
+    h["day"] = h.timestamp.dt.day
+    h["hr"] = h.timestamp.dt.hour
+    return h, n_filled, longest
+
+
+def noon_daily(h: pd.DataFrame) -> pd.DataFrame:
+    """The daily 13:00 LDT observation with the preceding 24 hours of rain.
+
+    The 24 hour total is accumulated from the hourly record over the window that
+    ends at the observation, which is what the FWI1987 input is defined to be,
+    rather than the calendar day total.
+    """
+    h = h.sort_values("timestamp").reset_index(drop=True)
+    # Rolling 24 hour rainfall ending at each hour, inclusive of that hour.
+    h = h.set_index("timestamp")
+    h["prec24"] = h["prec"].rolling("24h").sum()
+    h = h.reset_index()
+
+    noon = h[h.hr == NOON_HOUR].copy()
+    noon["prec"] = noon["prec24"]
+    noon["date"] = noon["timestamp"].dt.normalize()
+    return noon[["id", "lat", "long", "timezone", "yr", "mon", "day", "date",
+                 "temp", "rh", "ws", "prec"]].reset_index(drop=True)
+
+
+def summarise_hourly(res: pd.DataFrame, tag: str) -> pd.DataFrame:
+    """Reduce an hourly FWI2025 run to one row per day, three ways.
+
+    The primary daily value is taken at a fixed hour, so that it is one draw and
+    not the maximum of 24. The daily maximum is carried alongside as a
+    sensitivity. The specification's own daily summary is carried too, because it
+    reports two quantities FWI1987 cannot produce at all: the hour at which peak
+    burning conditions occur, and the number of hours the burning window stays
+    open. Those are a capability difference rather than a level difference and
+    they are reported as such.
+    """
+    res = res.copy()
+    res["date"] = pd.to_datetime(dict(year=res.yr, month=res.mon, day=res.day))
+
+    at_peak = res[res.hr == PEAK_HOUR].set_index("date")[COMPONENTS]
+    at_peak.columns = [f"{tag}_{c}" for c in COMPONENTS]
+
+    daily_max = res.groupby("date")[COMPONENTS].max()
+    daily_max.columns = [f"{tag}_{c}_max" for c in COMPONENTS]
+
+    out = at_peak.join(daily_max, how="outer")
+
+    try:
+        rep = generate_daily_summaries(res, silent=True)
+        rep["date"] = pd.to_datetime(dict(year=rep.yr, month=rep.mon, day=rep.day))
+        rep = rep.set_index("date")[["peak_hr", "duration", "isi_smooth"]]
+        rep.columns = [f"{tag}_{c}" for c in rep.columns]
+        out = out.join(rep, how="left")
+    except Exception as exc:  # the summary is supplementary, not load bearing
+        print(f"    daily summaries unavailable for {tag}: {exc}", flush=True)
+
+    return out
+
+
+def _run_station_season(task):
+    """Compute the three series for one station season.
+
+    Returns a tuple of (coverage record, daily output or None, operational check
+    rows, example frame or None, progress message). Written as a free function
+    taking one argument so that it can be handed to a process pool: the season is
+    the natural unit of parallelism, because the moisture codes are carried
+    forward within a season and reset at its start, so nothing crosses the
+    boundary.
+    """
+    sid, yr, (lat, lon, name, elev), g = task
+
+    if g is None:
+        return ({
+            "station_code": sid, "station_name": name, "year": int(yr),
+            "elevation_m": elev, "expected_hours": np.nan, "observed_hours": 0,
+            "observed_fraction": 0.0, "filled_hours": np.nan,
+            "longest_gap_h": np.nan, "status": "station not reporting",
+        }, None, [], None, None)
+
+    g = g.sort_values("timestamp")
+    spin, wstart, wend = window_bounds(int(yr))
+    expected = int((wend + pd.Timedelta(days=1) - spin).total_seconds() // 3600)
+
+    window = g[(g.timestamp >= spin) & (g.timestamp < wend + pd.Timedelta(days=1))].copy()
+    # One row per hour: the data mart occasionally repeats a timestamp.
+    window = window.drop_duplicates(subset="timestamp", keep="first")
+    observed = int(window[["temp", "rh", "ws"]].notna().all(axis=1).sum())
+
+    rec = {
+        "station_code": sid,
+        "station_name": name,
+        "year": int(yr),
+        "elevation_m": elev,
+        "expected_hours": expected,
+        "observed_hours": observed,
+        "observed_fraction": round(observed / expected, 4),
+    }
+
+    if observed == 0:
+        rec.update(status="no data in window", filled_hours=np.nan, longest_gap_h=np.nan)
+        return (rec, None, [], None, None)
+
+    # Reindex over the whole spin-up-to-window span, not merely over the hours the
+    # station happened to report, so that a station switched on in July counts the
+    # preceding months as missing rather than as absent.
+    window = window.set_index("timestamp").reindex(
+        pd.date_range(spin, wend + pd.Timedelta(hours=23), freq="h")
+    ).reset_index(names="timestamp")
+
+    h, n_filled, longest = fill_gaps(window[["timestamp", "temp", "rh", "ws", "prec"]])
+    h["id"], h["lat"], h["long"], h["timezone"] = sid, lat, lon, TIMEZONE
+
+    rec.update(filled_hours=n_filled, longest_gap_h=longest)
+    if rec["observed_fraction"] < MIN_OBSERVED_FRACTION or longest > MAX_GAP_HOURS:
+        rec["status"] = "dropped, coverage"
+        return (rec, None, [], None, None)
+    rec["status"] = "kept"
+
+    daily = noon_daily(h)
+    if len(daily) < 150:
+        rec["status"] = "dropped, short season"
+        return (rec, None, [], None, None)
+
+    # S1: FWI1987 on the daily 13:00 observation.
+    s1 = fwi1987_run(daily.copy())
+    s1 = s1.set_index("date")[COMPONENTS]
+    s1.columns = [f"s1_{c}" for c in COMPONENTS]
+
+    # S2: FWI2025 pathway C, the same daily observation estimated to hourly.
+    d13 = daily[["id", "lat", "long", "timezone", "yr", "mon", "day",
+                 "temp", "rh", "ws", "prec"]].copy()
+    mm = daily_to_minmax(d13, silent=True)
+    hourly_c = minmax_to_hourly(mm, silent=True)
+    run_c = hFWI(hourly_c, silent=True)
+    s2 = summarise_hourly(run_c, "s2")
+
+    # S3: FWI2025 pathway A, the observed hourly weather.
+    hourly_a = h[["id", "lat", "long", "timezone", "yr", "mon", "day", "hr",
+                  "temp", "rh", "ws", "prec"]].copy()
+    run_a = hFWI(hourly_a, silent=True)
+    s3 = summarise_hourly(run_a, "s3")
+
+    # One station season of the hourly runs is kept whole, so that the mechanism
+    # figure in the manuscript draws real hourly output rather than an illustration.
+    example = None
+    if (sid, int(yr)) == EXAMPLE_SEASON:
+        ex = run_a[["yr", "mon", "day", "hr", "temp", "rh", "ws", "prec",
+                    "ffmc", "isi", "fwi", "sunrise", "sunset"]].copy()
+        ex.columns = [c if c in ("yr", "mon", "day", "hr") else f"s3_{c}"
+                      for c in ex.columns]
+        exc = run_c[["yr", "mon", "day", "hr", "temp", "rh", "ws", "prec",
+                     "ffmc", "isi", "fwi"]].copy()
+        exc.columns = [c if c in ("yr", "mon", "day", "hr") else f"s2_{c}"
+                       for c in exc.columns]
+        example = ex.merge(exc, on=["yr", "mon", "day", "hr"], how="inner")
+
+    out = s1.join(s2, how="left").join(s3, how="left")
+    # April is spin-up only. The codes it produces are still carrying the startup
+    # values and are not reported.
+    out = out[(out.index >= wstart) & (out.index <= wend)]
+    out.insert(0, "station_code", sid)
+    out.insert(1, "station_name", name)
+    out.insert(2, "year", int(yr))
+    out = out.reset_index()
+
+    # Independent check: BC Wildfire Service's own operational FWI1987 codes.
+    checks = []
+    ops = g[g.hr == NOON_HOUR][
+        ["timestamp", "FINE_FUEL_MOISTURE_CODE", "DUFF_MOISTURE_CODE",
+         "DROUGHT_CODE", "INITIAL_SPREAD_INDEX", "BUILDUP_INDEX", "FIRE_WEATHER_INDEX"]
+    ].copy()
+    ops["date"] = ops["timestamp"].dt.normalize()
+    merged = ops.set_index("date").join(s1, how="inner")
+    for a, b in [("FINE_FUEL_MOISTURE_CODE", "s1_ffmc"),
+                 ("DUFF_MOISTURE_CODE", "s1_dmc"),
+                 ("DROUGHT_CODE", "s1_dc"),
+                 ("INITIAL_SPREAD_INDEX", "s1_isi"),
+                 ("BUILDUP_INDEX", "s1_bui"),
+                 ("FIRE_WEATHER_INDEX", "s1_fwi")]:
+        x = pd.to_numeric(merged[a], errors="coerce")
+        y = merged[b]
+        ok = x.notna() & y.notna()
+        if ok.sum() >= 20:
+            checks.append({
+                "station_code": sid, "year": int(yr), "component": a,
+                "n": int(ok.sum()),
+                "pearson_r": float(np.corrcoef(x[ok], y[ok])[0, 1]),
+                "mean_bias": float((y[ok] - x[ok]).mean()),
+                "rmse": float(np.sqrt(((y[ok] - x[ok]) ** 2).mean())),
+            })
+
+    msg = f"  {name:14s} {yr}  days {len(daily):>3}  filled {n_filled:>3}"
+    return (rec, out, checks, example, msg)
+
+
+def main() -> None:
+    # One process. The pool below needs a module to spawn from, which a chunk
+    # is not, so the station seasons run in sequence.
+    jobs = 1
+
+    d = load_hourly()
+    tz_check = verify_timezone(d)
+    print("Timezone verification:", tz_check, flush=True)
+
+    d = quality_control(d)
+
+    stations = pd.read_csv(
+        os.path.join(ROOT, "02.inputs", "derived", "station-metadata.csv")
+    ) if os.path.exists(
+        os.path.join(ROOT, "02.inputs", "derived", "station-metadata.csv")
+    ) else None
+    if stations is None:
+        import geopandas as gpd
+
+        st = gpd.read_file(
+            os.path.join(ROOT, "02.inputs", "spatial", "study-area.gpkg"), layer="stations"
+        )
+        stations = st[["STATION_CODE", "STATION_NAME", "LATITUDE", "LONGITUDE", "ELEVATION"]].copy()
+        stations["STATION_CODE"] = stations["STATION_CODE"].astype(int).astype(str)
+        stations.to_csv(
+            os.path.join(ROOT, "02.inputs", "derived", "station-metadata.csv"), index=False
+        )
+    # The station code is an identifier, not a number. Reading the cached CSV
+    # back turns it into an integer and the join against the weather record,
+    # whose codes are strings, then silently matches nothing.
+    stations["STATION_CODE"] = stations["STATION_CODE"].astype(str).str.strip()
+    meta = {
+        r.STATION_CODE: (float(r.LATITUDE), float(r.LONGITUDE), r.STATION_NAME, float(r.ELEVATION))
+        for r in stations.itertuples()
+    }
+    if not set(meta) & set(d["id"].unique()):
+        sys.exit(f"No station code in the weather record matches the station table: "
+                 f"{sorted(meta)} against {sorted(d['id'].unique())}")
+
+    # Enumerate the full station by season grid rather than only the pairs the
+    # record happens to contain, so that a season a station did not report at all
+    # appears in the coverage table as an absence instead of vanishing from it.
+    present = {k: v for k, v in d.groupby(["id", "yr"], sort=True)}
+    all_years = range(int(d.yr.min()), int(d.yr.max()) + 1)
+    grid = [(sid, yr) for sid in sorted(meta) for yr in all_years]
+
+    tasks = [(sid, int(yr), meta[sid], present.get((sid, yr))) for sid, yr in grid]
+
+    # Each station season is independent: the codes are carried forward within a
+    # season and reset at its start, so nothing crosses the boundary and the work
+    # parallelises exactly. The hourly loop inside the reference implementation is
+    # pure Python and is the whole cost of this script.
+    if jobs > 1:
+        import multiprocessing as mp
+
+        # imap rather than map, so results stream back and the run reports
+        # progress instead of going silent for half an hour.
+        pool = mp.get_context("spawn").Pool(jobs)
+        results = pool.imap(_run_station_season, tasks, chunksize=1)
+    else:
+        pool = None
+        results = (_run_station_season(t) for t in tasks)
+
+    rows, coverage, op_check = [], [], []
+    for rec, out, checks, example, msg in results:
+        coverage.append(rec)
+        if out is not None:
+            rows.append(out)
+        op_check.extend(checks)
+        if example is not None:
+            example.to_csv(
+                os.path.join(ROOT, "02.inputs", "derived", "example-season-hourly.csv"),
+                index=False,
+            )
+        if msg:
+            print(msg, flush=True)
+
+    if pool is not None:
+        pool.close()
+        pool.join()
+
+    derived = os.path.join(ROOT, "02.inputs", "derived")
+    series = pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
+    series.to_csv(os.path.join(derived, "fwi-series-daily.csv"), index=False)
+    pd.DataFrame(coverage).to_csv(
+        os.path.join(derived, "fwi-station-season-coverage.csv"), index=False
+    )
+    pd.DataFrame(op_check).to_csv(
+        os.path.join(derived, "fwi1987-operational-check.csv"), index=False
+    )
+    pd.DataFrame([tz_check]).to_csv(
+        os.path.join(derived, "timezone-verification.csv"), index=False
+    )
+
+    print(f"\nWrote {len(series):,} station-days across "
+          f"{series['station_code'].nunique() if len(series) else 0} stations, "
+          f"{series['year'].nunique() if len(series) else 0} seasons.")
+
+
+if not os.path.exists(os.path.join("..", "02.inputs", "derived", "fwi-series-daily.csv")):
+    main()
+```
+
+```{python}
+#| label: build-seasonal-metrics
+#| echo: true
+#| output: false
+"""Seasonal fire danger metrics, and the daily basin series, from the three series.
+
+Written 2026-08-15. Reads ``02.inputs/derived/fwi-series-daily.csv`` and writes
+three tables the manuscript reads directly.
+
+Thresholding is where the second objective lives, so both schemes are built and
+neither is preferred here.
+
+    Absolute thresholds are fixed numbers on the index scale, applied unchanged
+    to all three series. They are the scheme an agency uses, because a danger
+    class is a number in a manual. Three are used. FFMC 91 is taken from
+    GLC-X-42 section 4.1, which states that "an FFMC of 91 in FWI1987 should
+    correspond to an FFMC of approximately 91 in FWI2025"; counting days above it
+    tests that sentence directly. FWI 19 and FWI 30 are the Canadian high and
+    extreme class boundaries in common use.
+
+    Relative thresholds are percentiles of each series' own distribution over a
+    common reference period, 1991 to 2020, the current World Meteorological
+    Organization normal. A day exceeding a series' own 90th percentile means the
+    same thing in each series by construction, so a difference in trend under
+    relative thresholds cannot be an artefact of the two systems sitting at
+    different levels.
+
+    The prediction under test is that the two schemes disagree: that the version
+    change widens the upper tail without moving the level, so absolute counts
+    diverge and relative counts do not. Agreement under both schemes, or under
+    neither, refutes that mechanism. Building both is what makes the hypothesis
+    falsifiable, so both are computed here whatever they show.
+
+Reference distributions are per station and per series. Pooling stations would
+mix a 492 m valley station with a 1,463 m ridge station, and the percentile would
+then describe the network rather than the site.
+
+Outputs, in ``02.inputs/derived``:
+    ``seasonal-metrics.csv``      one row per station, season and series.
+    ``basin-daily.csv``           basin mean daily danger, for the ignition models.
+    ``threshold-percentiles.csv`` where each absolute threshold falls in each
+                                  series' own distribution, the direct test of the
+                                  comparability claim.
+"""
+
+from __future__ import annotations
+
+import os
+
+import numpy as np
+import pandas as pd
+
+ROOT = os.path.abspath("..")
+DERIVED = os.path.join(ROOT, "02.inputs", "derived")
+
+SERIES = {"s1": "FWI1987, 13:00 observation",
+          "s2": "FWI2025, 13:00 observation",
+          "s3": "FWI2025, hourly observation"}
+
+REFERENCE = (1991, 2020)      # WMO normal, fixed before any metric was computed
+ABSOLUTE = {"ffmc": [91.0], "fwi": [19.0, 30.0]}
+PERCENTILES = [90, 95]
+
+
+def main() -> None:
+    daily = pd.read_csv(os.path.join(DERIVED, "fwi-series-daily.csv"), parse_dates=["date"])
+    if daily.empty:
+        raise SystemExit("fwi-series-daily.csv is empty; the series chunk did not run")
+
+    rows = []
+    pct_rows = []
+
+    for (sid, name), g in daily.groupby(["station_code", "station_name"], sort=True):
+        ref = g[(g.year >= REFERENCE[0]) & (g.year <= REFERENCE[1])]
+
+        for s in SERIES:
+            fwi_col, ffmc_col = f"{s}_fwi", f"{s}_ffmc"
+            if fwi_col not in g.columns:
+                continue
+
+            # Relative thresholds from this station's own reference distribution.
+            rel = {}
+            ref_fwi = ref[fwi_col].dropna()
+            for p in PERCENTILES:
+                rel[p] = float(np.percentile(ref_fwi, p)) if len(ref_fwi) >= 500 else np.nan
+
+            # Where the absolute thresholds fall in this series' own distribution.
+            for comp, cuts in ABSOLUTE.items():
+                col = f"{s}_{comp}"
+                v = ref[col].dropna()
+                for cut in cuts:
+                    pct_rows.append({
+                        "station_code": sid, "station_name": name, "series": s,
+                        "component": comp, "threshold": cut,
+                        "reference_n": len(v),
+                        "percentile_of_threshold": (
+                            float((v < cut).mean() * 100) if len(v) >= 500 else np.nan
+                        ),
+                        "reference_median": float(v.median()) if len(v) else np.nan,
+                    })
+
+            for yr, gy in g.groupby("year"):
+                fwi = gy[fwi_col]
+                rec = {
+                    "station_code": sid, "station_name": name, "series": s, "year": int(yr),
+                    "n_days": int(fwi.notna().sum()),
+                    "mean_fwi": float(fwi.mean()),
+                    "max_fwi": float(fwi.max()),
+                    "mean_ffmc": float(gy[ffmc_col].mean()),
+                    "peak_bui": float(gy[f"{s}_bui"].max()),
+                    "ssr": float(gy[f"{s}_dsr"].sum()),
+                    "n_ffmc_ge91": int((gy[ffmc_col] >= 91.0).sum()),
+                    "n_fwi_ge19": int((fwi >= 19.0).sum()),
+                    "n_fwi_ge30": int((fwi >= 30.0).sum()),
+                }
+                for p in PERCENTILES:
+                    rec[f"n_fwi_p{p}"] = (
+                        int((fwi > rel[p]).sum()) if np.isfinite(rel[p]) else np.nan
+                    )
+                    rec[f"threshold_p{p}"] = rel[p]
+
+                # The two quantities FWI2025 can report and FWI1987 cannot:
+                # when peak burning conditions occur and how long the burning
+                # window stays open. A capability difference, not a level one.
+                if f"{s}_peak_hr" in gy.columns:
+                    rec["mean_peak_hr"] = float(gy[f"{s}_peak_hr"].mean())
+                    rec["mean_duration"] = float(gy[f"{s}_duration"].mean())
+                    rec["n_duration_ge6"] = int((gy[f"{s}_duration"] >= 6).sum())
+
+                # The daily maximum variants, carried as a sensitivity on the
+                # choice of daily summary hour.
+                mx = f"{s}_fwi_max"
+                if mx in gy.columns:
+                    rec["mean_fwi_max"] = float(gy[mx].mean())
+                    rec["n_fwi_max_ge19"] = int((gy[mx] >= 19.0).sum())
+                    rec["n_ffmc_max_ge91"] = int((gy[f"{s}_ffmc_max"] >= 91.0).sum())
+                rows.append(rec)
+
+    metrics = pd.DataFrame(rows)
+    metrics.to_csv(os.path.join(DERIVED, "seasonal-metrics.csv"), index=False)
+    pd.DataFrame(pct_rows).to_csv(
+        os.path.join(DERIVED, "threshold-percentiles.csv"), index=False
+    )
+
+    # The basin daily series for the ignition models. Averaging across whichever
+    # stations happened to report that day would let the basin value jump when a
+    # station joins or leaves, which is a change in the network rather than in
+    # the weather. The mean is therefore taken over a core set: the stations
+    # present in at least 80 per cent of the seasons the analysis keeps.
+    #
+    # No station is present in every kept season, so a strictly balanced panel
+    # would be empty and the 80 per cent rule is the compromise. The residual
+    # composition effect is recorded rather than hidden: ``n_stations`` is
+    # written alongside every day and enters the ignition models as a covariate.
+    # It cannot affect the comparison between series in any case, since all three
+    # are averaged over exactly the same stations on exactly the same days.
+    kept_years = sorted(daily["year"].unique())
+    per_station_years = daily.groupby("station_code")["year"].nunique()
+    core = per_station_years[
+        per_station_years >= 0.8 * len(kept_years)
+    ].index.tolist()
+    if not core:
+        core = [per_station_years.idxmax()]
+    balanced = daily[daily["station_code"].isin(core)]
+    cols = [f"{s}_{c}" for s in SERIES for c in ("ffmc", "dmc", "dc", "isi", "bui", "fwi", "dsr")]
+    cols = [c for c in cols if c in balanced.columns]
+    basin = balanced.groupby("date")[cols].mean().reset_index()
+    basin["n_stations"] = balanced.groupby("date")["station_code"].nunique().values
+    basin["year"] = basin["date"].dt.year
+    basin["doy"] = basin["date"].dt.dayofyear
+    basin["core_stations"] = ";".join(map(str, core))
+    basin.to_csv(os.path.join(DERIVED, "basin-daily.csv"), index=False)
+
+    print(f"Seasonal metrics: {len(metrics):,} rows, "
+          f"{metrics.station_code.nunique()} stations, {metrics.year.nunique()} seasons")
+    print(f"Core panel stations ({len(core)} of {len(per_station_years)}): {core}")
+    print(f"Basin daily series: {len(basin):,} days")
+
+
+if not os.path.exists(os.path.join(DERIVED, "seasonal-metrics.csv")):
+    main()
+```
+
+```{python}
+#| label: build-ignition-series
+#| echo: true
+#| output: false
+"""Daily ignition counts for the Okanagan basin, split by cause and by size.
+
+Written 2026-08-15. The outcome series for the third objective. Source is the BC
+Wildfire Service historical incident record,
+``WHSE_LAND_AND_NATURAL_RESOURCE.PROT_HISTORICAL_INCIDENTS_SP``, already clipped
+to Freshwater Atlas watershed group 161 by the study area chunk above and
+stored in the ``ignitions`` layer of ``02.inputs/spatial/study-area.gpkg``. This
+chunk only counts; it retrieves nothing.
+
+Two threats govern the design and neither is repaired here, because neither can
+be. They are made visible instead.
+
+Cause attribution is not stationary. Of the 8,176 incidents in the basin over the
+1980 to 2025 seasons, 3,633 carry no recorded cause, and the unattributed share
+runs from about five per cent in the 1980s to about sixty-eight per cent in the
+2000s. A lightning caused count that falls after 2000 may therefore be recording
+a change in how cause was coded rather than a change in ignition. Three response
+series are written for that reason: lightning, person, and all causes together.
+The all-cause series cannot be affected by cause coding at all, so it is the one
+that carries the weight when the three disagree.
+
+Reporting of small fires is not stationary either. Detection improved over the
+record, so an apparent rise in ignitions per unit danger is confounded with it.
+The control is a minimum size, and the threshold cannot be chosen by looking at
+the count series, since that is the outcome. Counts are therefore written at
+three fixed sizes, no size limit, one hectare and four hectares, and every
+result that uses them is reported at all three. A conclusion that survives only
+at one threshold is reported as not surviving.
+
+Writes ``02.inputs/derived/ignitions-daily.csv``, one row per basin-day within
+the observed fire season window, and ``02.inputs/derived/ignition-attribution.csv``,
+the decade by decade cause attribution table that documents the first threat.
+"""
+
+from __future__ import annotations
+
+import os
+
+import geopandas as gpd
+import numpy as np
+import pandas as pd
+
+ROOT = os.path.abspath("..")
+
+FIRST_YEAR, LAST_YEAR = 1980, 2025
+SIZE_THRESHOLDS = [0.0, 1.0, 4.0]
+
+
+def main() -> None:
+    # BC Wildfire Fire Incident Locations, Historical, https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-fire-incident-locations-historical
+    gpkg = os.path.join(ROOT, "02.inputs", "spatial", "study-area.gpkg")
+    ig = gpd.read_file(gpkg, layer="ignitions")
+
+    ig["ignition_date"] = pd.to_datetime(ig["IGNITION_DATE"], errors="coerce")
+    ig["size_ha"] = pd.to_numeric(ig["CURRENT_SIZE"], errors="coerce")
+    ig["cause"] = ig["FIRE_CAUSE"].fillna("Unknown").astype(str).str.strip()
+
+    # Completeness, before anything is dropped. This is the table that decides
+    # what the daily series can be asked. Of the 8,176 incidents in the basin,
+    # a substantial minority carry no ignition date at all and so cannot be
+    # placed on any day, and the missing date and the missing cause are largely
+    # the same records. Both concentrate in the recent decades, which is the
+    # opposite of the direction one would guess.
+    comp = ig.groupby(ig["FIRE_YEAR"].astype(int)).agg(
+        n_incidents=("FIRE_NUMBER", "size"),
+        n_dated=("ignition_date", lambda s: int(s.notna().sum())),
+        n_caused=("cause", lambda s: int((s != "Unknown").sum())),
+        n_sized=("size_ha", lambda s: int(s.notna().sum())),
+    )
+    comp["pct_dated"] = (100 * comp.n_dated / comp.n_incidents).round(1)
+    comp["pct_caused"] = (100 * comp.n_caused / comp.n_incidents).round(1)
+    comp.index.name = "year"
+    comp.to_csv(os.path.join(ROOT, "02.inputs", "derived", "ignition-completeness.csv"))
+
+    undated = int(ig["ignition_date"].isna().sum())
+    undated_unknown = int(
+        (ig["ignition_date"].isna() & (ig["cause"] == "Unknown")).sum()
+    )
+
+    # A handful of records carry an ignition date in a different season from the
+    # fire year they are filed under. The date is the event; the year is the file.
+    ig = ig[ig["ignition_date"].notna()].copy()
+    ig["year"] = ig["ignition_date"].dt.year
+    ig = ig[(ig.year >= FIRST_YEAR) & (ig.year <= LAST_YEAR)].copy()
+    ig["date"] = ig["ignition_date"].dt.normalize()
+
+    # The attribution table that documents the cause coding threat.
+    ig["decade"] = (ig["year"] // 10) * 10
+    att = (
+        ig.pivot_table(index="decade", columns="cause", values="FIRE_NUMBER",
+                       aggfunc="count", fill_value=0)
+        .assign(total=lambda t: t.sum(axis=1))
+    )
+    for c in ("Lightning", "Person", "Unknown"):
+        if c in att.columns:
+            att[f"pct_{c.lower()}"] = (100 * att[c] / att["total"]).round(1)
+    att.to_csv(os.path.join(ROOT, "02.inputs", "derived", "ignition-attribution.csv"))
+
+    # Daily counts on a complete calendar, so that zero days are zeros and not
+    # absences. Restricting to the fire season window is left to the analysis,
+    # which does it with the weather derived season, not with a fixed calendar.
+    calendar = pd.date_range(f"{FIRST_YEAR}-01-01", f"{LAST_YEAR}-12-31", freq="D")
+    out = pd.DataFrame({"date": calendar})
+
+    for thr in SIZE_THRESHOLDS:
+        sub = ig[ig["size_ha"].fillna(0.0) >= thr] if thr > 0 else ig
+        tag = "all" if thr == 0 else f"ge{int(thr)}ha"
+        for cause, label in [("Lightning", "lightning"), ("Person", "person"), (None, "total")]:
+            s = sub if cause is None else sub[sub["cause"] == cause]
+            counts = s.groupby("date").size()
+            out[f"n_{label}_{tag}"] = out["date"].map(counts).fillna(0).astype(int)
+
+    out["year"] = out["date"].dt.year
+    out["doy"] = out["date"].dt.dayofyear
+    dest = os.path.join(ROOT, "02.inputs", "derived", "ignitions-daily.csv")
+    out.to_csv(dest, index=False)
+
+    print(f"Incidents with no ignition date: {undated:,}, of which "
+          f"{undated_unknown:,} also carry no cause")
+    print(f"Ignitions in window: {len(ig):,}")
+    print(f"Size recorded for {ig['size_ha'].notna().sum():,}; "
+          f"at least 1 ha {int((ig['size_ha'] >= 1).sum()):,}; "
+          f"at least 4 ha {int((ig['size_ha'] >= 4).sum()):,}")
+    print("\nCause attribution by decade (per cent):")
+    print(att.filter(like="pct_").to_string())
+    print(f"\nWrote {dest} with {len(out):,} basin-days")
+
+
+if not os.path.exists(os.path.join(ROOT, "02.inputs", "derived", "ignitions-daily.csv")):
+    main()
+```
+
+```{r}
+#| label: record-extent
+#| echo: true
+#| output: false
 # The record's extent is read here, before it is described anywhere, so that no
 # sentence in this document states a period the data do not cover.
 cover <- read.csv(file.path(derived, "fwi-station-season-coverage.csv"),
@@ -155,13 +2203,197 @@ This study separated them. Three danger series were computed from one hourly wea
 
 Three questions were asked. The first asked what the `r yr_first` to `r yr_last` trend in seasonal fire danger in the Okanagan basin was under each series, estimated identically. The second asked whether the three series gave different trends, and if so whether the difference lay in the version or in the input resolution. The prediction under test was specific and had two ways to fail. Under thresholds fixed in absolute index units, the faster-drying FWI2025 should widen the upper tail and produce a steeper positive slope in extreme-day counts than FWI1987, whereas under thresholds set as percentiles internal to each series over a common reference period that difference should largely vanish, because a percentile threshold moves with the series it is computed from. Divergence under both schemes, or under neither, would refute the mechanism rather than support it. The third asked whether any of the three predicted daily ignition counts better than the others, and whether the relationship between danger and ignition was stationary across the record.
 
-The Okanagan basin was a suitable place to ask. It is a populated, fire-prone valley in the southern interior of British Columbia, the part of the province @haughian2012climate expected to see the largest increases in fire indices, with a long instrumented fire weather record, and its terrain is steep enough that a station record is preferable to a reanalysis whose fire danger biases are largest in mountainous areas [@vitolo2020era5]. The only station trend test published for the basin found no significant change in seasonal temperature or precipitation at Penticton Airport and Upper Penticton Creek over 1984 to 2016 [@spittlehouse2022interaction]. The study detected change and did not attribute it, in that nothing here separated a change in fire danger from its causes, and no claim about anthropogenic forcing was made or implied.
+The Okanagan basin was a suitable place to ask. It is a populated, fire-prone valley in the southern interior of British Columbia, the part of the province @haughian2012climate expected to see the largest increases in fire indices, with a long instrumented fire weather record, and its terrain is steep enough that a station record is preferable to a reanalysis whose fire danger biases are largest in mountainous areas [@vitolo2020era5]. The only station trend test published for the basin found no significant change in seasonal temperature or precipitation at Penticton Airport and Upper Penticton Creek over 1984 to 2016 [@spittlehouse2022interaction], and the one provincial trend analysis of the Fire Weather Index, generalised extreme value models at 861 stations over 1970 to 2018 fitted by month and region, found that May, July and August had the most stations with rising location parameters, without a slope or a named region in its abstract [@hubnerova2020fire]. The study detected change and did not attribute it, in that nothing here separated a change in fire danger from its causes, and no claim about anthropogenic forcing was made or implied.
 
 The paper is organised as follows. @sec-data describes the basin, the two versions of the System, the hourly weather record and the ignition record. @sec-methods sets out the three-series design, the index computation and its checks, the seasonal metrics and thresholds, and the trend, slope-difference and ignition models. @sec-results reports the implementation checks, the position of each threshold in each series, the mechanism, the trends, the slope differences and the ignition skill. @sec-discussion interprets the opposing directions of the two changes and states what the record can and cannot resolve, and @sec-conclusions closes.
 
 # Data {#sec-data}
 
 ## Study Area
+
+```{r}
+#| label: map-functions
+#| echo: true
+#| output: false
+# ---------------------------------------------------------------------------
+# The located study-area figure for the methods section.
+#
+# Written 2026-08-14. Defines plot_study_area(), which the next chunk calls so
+# the figure is drawn at render time from the GeoPackage the fetch chunk
+# retrieved. Nothing is placed by hand.
+#
+# What the map may honestly show, and what it may not. The study area and the
+# ignition record are settled in the framing document and are drawn as data. The
+# weather input is NOT settled: the framing names ERA5-Land as the leading
+# candidate pending station validation, and the design gate has not chosen. So
+# the map draws the ERA5-Land 0.1 degree cells as a support graticule, labelled
+# candidate, and the Fire Weather Network stations that would validate it. It
+# does not draw a climate variable, because none has been retrieved and drawing
+# one would put a number on the page that no saved code computed.
+#
+# ---------------------------------------------------------------------------
+
+# Municipal names arrive in their legal form, "The Corporation of the District
+# of Peachland". The map wants the placename.
+short_place <- function(x) {
+  x <- sub("^The Corporation of the ", "", x)
+  x <- sub("^(City|Town|District|Village|Township|Corporation) of ", "", x)
+  sub("^District Municipality of ", "", x)
+}
+
+# Representative fraction, computed rather than asserted. The map's ground width
+# divided by its width on the page, both in metres.
+rep_fraction <- function(bbox, panel_width_in) {
+  ground_m <- as.numeric(bbox["xmax"] - bbox["xmin"])
+  page_m <- panel_width_in * 0.0254
+  round(ground_m / page_m / 1000) * 1000
+}
+
+plot_study_area <- function(
+    gpkg = file.path("02.inputs", "spatial", "study-area.gpkg"),
+    dem_path = file.path("02.inputs", "spatial", "dem-z9.tif"),
+    panel_width_in = 5.2,
+    # The ERA5-Land graticule was drawn when a gridded reanalysis was still a
+    # candidate weather source. The weather source is now the station network
+    # itself, so the graticule is off by default and the argument is kept only
+    # so the earlier figure can still be reproduced.
+    show_era5 = FALSE) {
+
+  basin <- sf::st_read(gpkg, "basin", quiet = TRUE)
+  ign <- sf::st_read(gpkg, "ignitions", quiet = TRUE)
+  lakes <- sf::st_read(gpkg, "lakes", quiet = TRUE)
+  streams <- sf::st_read(gpkg, "streams", quiet = TRUE)
+  places <- sf::st_read(gpkg, "places", quiet = TRUE)
+  stations <- sf::st_read(gpkg, "stations", quiet = TRUE)
+  era5 <- sf::st_read(gpkg, "era5_grid", quiet = TRUE)
+  prov <- sf::st_read(gpkg, "province", quiet = TRUE)
+
+  # 6 km of margin, enough that a placename on the basin edge is not clipped by
+  # the panel: Osoyoos sits within a kilometre of the international boundary.
+  bb <- sf::st_bbox(sf::st_buffer(basin, 6000))
+
+  # Relief. Hillshade from the DEM, cropped to the panel and coarsened to keep
+  # the embedded figure small; the basin is 102 km wide, so 200 m cells are
+  # already finer than the page can resolve.
+  dem <- terra::rast(dem_path)
+  dem <- terra::crop(dem, terra::ext(bb["xmin"], bb["xmax"],
+                                     bb["ymin"], bb["ymax"]))
+  dem <- terra::aggregate(dem, fact = 2, fun = "mean")
+  hs <- terra::shade(terra::terrain(dem, "slope", unit = "radians"),
+                     terra::terrain(dem, "aspect", unit = "radians"),
+                     angle = 40, direction = 315)
+  hs_df <- as.data.frame(hs, xy = TRUE)
+  names(hs_df)[3] <- "shade"
+
+  ign$cause <- ifelse(is.na(ign$FIRE_CAUSE) | ign$FIRE_CAUSE == "",
+                      "Unknown", ign$FIRE_CAUSE)
+  ign$cause <- factor(ign$cause, levels = c("Lightning", "Person", "Unknown"))
+  places$label <- short_place(places$name)
+
+  cause_cols <- c(Lightning = "#0B6E4F", Person = "#B3242B",
+                  Unknown = "#8A8A8A")
+
+  # Placenames and lake names go through one repel pass, not two, so that a
+  # settlement label and a lake label push each other apart instead of landing
+  # on top of one another. Colour, face and size travel as plain vectors, since
+  # the colour scale is already carrying ignition cause.
+  lake_lab <- lakes[lakes$AREA_HA >= 300, ]
+  labels <- rbind(
+    data.frame(label = places$label,
+               suppressWarnings(sf::st_coordinates(places)),
+               col = "grey10", face = "plain", size = 2.5),
+    data.frame(label = lake_lab$GNIS_NAME_1,
+               suppressWarnings(sf::st_coordinates(
+                 sf::st_point_on_surface(sf::st_geometry(lake_lab)))),
+               col = "#1F4E79", face = "italic", size = 2.1))
+
+  main <- ggplot() +
+    geom_raster(data = hs_df, aes(x, y, alpha = shade), fill = "grey15",
+                show.legend = FALSE) +
+    scale_alpha(range = c(0.55, 0), guide = "none") +
+    {if (show_era5)
+       geom_sf(data = era5, aes(linetype = "ERA5-Land 0.1 degree cells, candidate"),
+               fill = NA, colour = "grey55", linewidth = 0.15)} +
+    geom_sf(data = streams, colour = "#4A7EBB", linewidth = 0.22,
+            alpha = 0.8) +
+    geom_sf(data = lakes, fill = "#9CC3E5", colour = "#4A7EBB",
+            linewidth = 0.2) +
+    geom_sf(data = ign, aes(colour = cause), size = 0.55, alpha = 0.55,
+            stroke = 0) +
+    geom_sf(data = basin, fill = NA, colour = "grey10", linewidth = 0.7) +
+    geom_sf(data = stations, aes(shape = "BC Wildfire Service fire weather station"),
+            fill = "#F0C808", colour = "grey10", size = 2.1, stroke = 0.4) +
+    scale_shape_manual(name = NULL, values = c(24)) +
+    scale_linetype_manual(name = NULL, values = c(1)) +
+    ggrepel::geom_text_repel(
+      data = labels, aes(X, Y, label = label), colour = labels$col,
+      fontface = labels$face, size = labels$size, bg.colour = "white",
+      bg.r = 0.12, min.segment.length = 0.15, segment.size = 0.18,
+      segment.colour = "grey45", max.overlaps = Inf, max.iter = 20000,
+      box.padding = 0.28, point.padding = 0.1, seed = 1) +
+    scale_colour_manual(values = cause_cols, name = "Ignition cause",
+                        drop = FALSE) +
+    ggspatial::annotation_scale(location = "bl", width_hint = 0.28,
+                                height = unit(0.12, "cm"), text_cex = 0.6,
+                                pad_x = unit(0.35, "cm"),
+                                pad_y = unit(0.35, "cm")) +
+    ggspatial::annotation_north_arrow(
+      location = "tr", which_north = "true",
+      height = unit(0.9, "cm"), width = unit(0.7, "cm"),
+      pad_x = unit(0.3, "cm"), pad_y = unit(0.3, "cm"),
+      style = ggspatial::north_arrow_fancy_orienteering(
+        text_size = 7, line_width = 0.8)) +
+    coord_sf(xlim = c(bb["xmin"], bb["xmax"]),
+             ylim = c(bb["ymin"], bb["ymax"]), expand = FALSE,
+             crs = sf::st_crs(basin), datum = sf::st_crs(4326)) +
+    guides(colour = guide_legend(order = 1,
+                                 override.aes = list(size = 2.4, alpha = 1)),
+           shape = guide_legend(order = 2,
+                                override.aes = list(fill = "#F0C808")),
+           linetype = if (show_era5)
+             guide_legend(order = 3, override.aes = list(colour = "grey55"))
+           else "none") +
+    labs(x = NULL, y = NULL) +
+    theme_bw(base_size = 8) +
+    theme(panel.grid = element_line(colour = "grey85", linewidth = 0.15),
+          legend.position = "bottom",
+          # Three legends side by side overflow the page width, so they stack.
+          legend.box = "vertical",
+          legend.box.just = "left",
+          legend.key.size = unit(0.4, "cm"),
+          legend.text = element_text(size = 7),
+          legend.title = element_text(size = 7),
+          legend.margin = margin(0, 0, 0, 0),
+          legend.spacing.y = unit(0.05, "cm"),
+          legend.box.spacing = unit(0.2, "cm"),
+          axis.text = element_text(size = 6))
+
+  # Locator inset. The province, with the basin shown filled at its true
+  # position rather than as a box, which at this scale is legible.
+  inset <- ggplot() +
+    geom_sf(data = prov, fill = "grey92", colour = "grey40",
+            linewidth = 0.2) +
+    geom_sf(data = basin, fill = "#B3242B", colour = "#B3242B",
+            linewidth = 0.3) +
+    coord_sf(datum = NA, expand = FALSE) +
+    theme_void() +
+    theme(panel.background = element_rect(fill = "white", colour = "grey30",
+                                          linewidth = 0.3))
+
+  rf <- rep_fraction(bb, panel_width_in)
+  # Top left: the only quarter of the panel carrying neither the basin nor a
+  # placename, so the inset covers nothing.
+  list(plot = main + patchwork::inset_element(
+         inset, left = 0.005, bottom = 0.82, right = 0.34, top = 0.995,
+         align_to = "panel"),
+       rf = rf,
+       n_ign = nrow(ign),
+       n_cause = table(ign$cause),
+       n_stations = nrow(stations),
+       n_cells = nrow(era5),
+       crs = sf::st_crs(basin)$input)
+}
+```
 
 ```{r}
 #| label: study-area-inputs
@@ -171,7 +2403,9 @@ sa_counts <- read.csv(file.path(derived, "study-area-counts.csv"),
                       stringsAsFactors = FALSE)
 sa <- function(item) lookup(sa_counts, item)
 
-source(file.path(root, "05.scripts", "map_study_area.R"), local = TRUE)
+boundary <- read.csv(file.path(derived, "study-area-boundary-candidates.csv"),
+                     stringsAsFactors = FALSE)
+bnd <- function(item) lookup(boundary, item)
 study_map <- plot_study_area(
   gpkg = file.path(inputs, "spatial", "study-area.gpkg"),
   dem_path = file.path(inputs, "spatial", "dem-z9.tif"))
@@ -203,7 +2437,7 @@ study_map_cap <- sprintf(
 
 The study area was the `r sa("watershed_group_name")` watershed group of the British Columbia Freshwater Atlas, `r n_fmt(sa("basin_area_ha"))` ha in the southern interior of British Columbia, shown in @fig-study-area, with relief from `r n_fmt(sa("dem_min_elev_m"))` m at the valley floor to `r n_fmt(sa("dem_max_elev_m"))` m on the flanking uplands.
 
-Three official boundaries carry the name Okanagan and they disagree by a factor of two, so the choice is stated. The provincial major watershed WA2 "Okanagan River" [@geobc2026majorwatersheds] measured 1,554,467 ha only because it annexes the Similkameen, a separate valley joined to it in that layer because the Similkameen reaches the Okanogan River in Washington State rather than because it drains to Okanagan Lake. The federal Water Survey of Canada sub-sub-drainage 08NM [@wsc2026subsubdrainage] measured 1,203,045 ha because 402,172 ha of it lies south of the international boundary. Within Canada the federal and provincial frameworks described the same basin to within 1.3 per cent. The study area was therefore the Freshwater Atlas group [@geobc2026fwagroups], the Canadian portion of the Okanagan watershed, entire.
+Three official boundaries carry the name Okanagan and they disagree by a factor of two, so the choice is stated. The provincial major watershed WA2 "Okanagan River" [@geobc2026majorwatersheds] measured `r n_fmt(bnd("bcmw_wa2_ha"))` ha only because it annexes the Similkameen, a separate valley joined to it in that layer because the Similkameen reaches the Okanogan River in Washington State rather than because it drains to Okanagan Lake. The federal Water Survey of Canada sub-sub-drainage 08NM [@wsc2026subsubdrainage] measured `r n_fmt(bnd("wsc_08nm_ha"))` ha because `r n_fmt(bnd("nm_outside_fwa_outside_bc_ha"))` ha of it lies south of the international boundary. Within Canada the federal and provincial frameworks described the same basin to within `r bnd("agreement_fwa_vs_wsc_in_bc_pct")` per cent. The study area was therefore the Freshwater Atlas group [@geobc2026fwagroups], the Canadian portion of the Okanagan watershed, entire.
 
 The United States portion of the basin was out of scope by design and not by oversight, because the ignition record is the BC Wildfire Service incident set, the weather record is the BC Wildfire Service station network, and neither crosses the border, so a binational basin could not be measured with one consistent record. Every result below is for the Canadian basin and no inference is offered about the basin as a whole.
 
@@ -781,6 +3015,251 @@ if (!file.exists("../02.inputs/derived/review-records.csv")) {
 }
 ```
 
+```{python}
+#| label: review-screening-pack
+#| echo: true
+#| output: false
+"""Build the title-and-abstract screening batches for the 2026-10-13 literature review.
+
+Reads the committed screening table 02.inputs/derived/review-records.csv, applies the
+document-type rule of the review protocol (records of an ineligible type are excluded by
+rule with the code not-research), attaches each remaining record's abstract from the
+uncommitted search files under 02.inputs/searches, fetches the abstract from OpenAlex by
+DOI where no search file holds it, and writes one batch per question under
+02.inputs/searches/review-batches/. Abstracts are publisher text and never leave
+02.inputs/searches. Runs only while no batch folder exists.
+"""
+import csv, json, os, sys, time, urllib.parse, urllib.request
+
+ROOT = os.path.abspath("..")
+DERIVED = os.path.join(ROOT, "02.inputs", "derived")
+SEARCHES = os.path.join(ROOT, "02.inputs", "searches")
+BATCHES = os.path.join(SEARCHES, "review-batches")
+MAILTO = "seamusrobertmurphy@gmail.com"
+INELIGIBLE = {"abstract", "conference-abstract", "dataset", "peer-review", "paratext", "erratum", "editorial", "letter", "other"}
+
+def read(p):
+    with open(p, encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f))
+
+def write(p, rows, fields):
+    with open(p, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)
+
+def abstract_from_inverted(inv):
+    if not inv: return ""
+    pos = []
+    for word, idx in inv.items():
+        for i in idx: pos.append((i, word))
+    return " ".join(w for _, w in sorted(pos))
+
+def fetch_openalex(dois):
+    out = {}
+    for i in range(0, len(dois), 50):
+        chunk = dois[i:i + 50]
+        # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works
+        url = "https://api.openalex.org/works?" + urllib.parse.urlencode({
+            "filter": "doi:" + "|".join(chunk), "per-page": 50,
+            "select": "doi,abstract_inverted_index,type", "mailto": MAILTO})
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(url, timeout=60) as r:
+                    body = json.load(r)
+                break
+            except Exception as e:
+                time.sleep(3 * (attempt + 1)); body = {"results": []}
+        for w in body.get("results", []):
+            d = (w.get("doi") or "").replace("https://doi.org/", "").lower()
+            out[d] = (abstract_from_inverted(w.get("abstract_inverted_index")), w.get("type") or "")
+        time.sleep(0.2)
+    return out
+
+def main():
+    records = read(os.path.join(DERIVED, "review-records.csv"))
+    abstracts = {}
+    for name in ("review-openalex-records.csv", "review-ads-records.csv"):
+        p = os.path.join(SEARCHES, name)
+        if not os.path.exists(p): continue
+        for r in read(p):
+            key = (r.get("doi") or "").lower() or r["title"].lower()
+            if r.get("abstract"): abstracts.setdefault(key, r["abstract"])
+    need = [r["doi"] for r in records if r["doi"] and r["doi"].lower() not in abstracts]
+    fetched = fetch_openalex(need)
+    for d, (a, t) in fetched.items():
+        if a: abstracts[d] = a
+    n_rule = 0
+    for r in records:
+        if not r["type"] and r["doi"] and r["doi"].lower() in fetched:
+            r["type"] = fetched[r["doi"].lower()][1]
+        if r["type"] in INELIGIBLE:
+            r["decision"], r["reason"] = "exclude", "not-research"; n_rule += 1
+    write(os.path.join(DERIVED, "review-records.csv"), records, list(records[0].keys()))
+    os.makedirs(BATCHES, exist_ok=True)
+    batches = {}
+    for r in records:
+        if r["decision"]: continue
+        key = (r["doi"] or "").lower() or r["id"]
+        row = {"id": r["id"], "doi": r["doi"], "title": r["title"], "year": r["year"], "venue": r["venue"],
+               "type": r["type"], "questions": r["questions"], "cited": r["cited"],
+               "abstract": abstracts.get(key, "")}
+        q = r["questions"].split()[0] if r["questions"] else "chase"
+        batches.setdefault(q, []).append(row)
+    fields = ["id", "doi", "title", "year", "venue", "type", "questions", "cited", "abstract"]
+    for q, rows in batches.items():
+        if q == "chase" and len(rows) > 220:
+            half = (len(rows) + 1) // 2
+            write(os.path.join(BATCHES, "chase-a.csv"), rows[:half], fields)
+            write(os.path.join(BATCHES, "chase-b.csv"), rows[half:], fields)
+        else:
+            write(os.path.join(BATCHES, f"{q}.csv"), rows, fields)
+    print("records", len(records), "excluded by type rule", n_rule,
+          "to screen", sum(len(v) for v in batches.values()),
+          "with abstract", sum(1 for v in batches.values() for r in v if r["abstract"]))
+    for q, rows in batches.items(): print(" ", q, len(rows))
+
+if not os.path.isdir(BATCHES):
+    main()
+```
+
+```{python}
+#| label: review-screening-merge
+#| echo: true
+#| output: false
+"""Merge the screening decisions of the 2026-10-13 literature review into the screening table.
+
+Reads every decisions-*.csv under 02.inputs/searches/review-batches/, checks that each id
+was decided exactly once and that every exclusion carries a code from the protocol, and
+writes decision, reason and note into 02.inputs/derived/review-records.csv. A record that
+already carries a decision in the table (hand-found records, records excluded by the
+document-type rule) keeps it. Runs only while a row of the table has no decision.
+"""
+import csv, glob, os, sys
+
+ROOT = os.path.abspath("..")
+TABLE = os.path.join(ROOT, "02.inputs", "derived", "review-records.csv")
+BATCHES = os.path.join(ROOT, "02.inputs", "searches", "review-batches")
+CODES = {"off-topic", "wrong-population", "wrong-concept", "not-research", "out-of-window", "not-english", "duplicate"}
+
+def main():
+    with open(TABLE, encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f))
+    fields = list(rows[0].keys())
+    if "note" not in fields: fields.append("note")
+    decided = {}
+    for p in sorted(glob.glob(os.path.join(BATCHES, "decisions-*.csv"))):
+        with open(p, encoding="utf-8", newline="") as f:
+            for d in csv.DictReader(f):
+                if d["id"] in decided:
+                    sys.exit(f"id decided twice: {d['id']} in {p}")
+                if d["decision"] not in {"include", "exclude", "undecided"}:
+                    sys.exit(f"bad decision {d['decision']!r} for {d['id']} in {p}")
+                if d["decision"] == "exclude" and d["reason"] not in CODES:
+                    sys.exit(f"bad reason {d['reason']!r} for {d['id']} in {p}")
+                decided[d["id"]] = d
+    n_set = 0
+    for r in rows:
+        r.setdefault("note", "")
+        if r.get("decision"):
+            continue
+        d = decided.get(r["id"])
+        if d:
+            r["decision"], r["reason"], r["note"] = d["decision"], d["reason"], d.get("note", ""); n_set += 1
+    missing = [r["id"] for r in rows if not r.get("decision")]
+    with open(TABLE, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)
+    from collections import Counter
+    print("decisions merged", n_set, "| undecided rows left without any decision", len(missing))
+    print("by decision", Counter(r["decision"] for r in rows).most_common())
+    print("by reason", Counter(r["reason"] for r in rows if r["decision"] == "exclude").most_common())
+    if missing: print("first missing ids", missing[:10])
+
+with open(TABLE, encoding="utf-8", newline="") as f:
+    undecided_rows = [r for r in csv.DictReader(f) if not r.get("decision")]
+if undecided_rows:
+    main()
+```
+
+```{python}
+#| label: review-fulltext-fetch
+#| echo: true
+#| output: false
+"""Fetch open-access full texts for the included records of the 2026-10-13 literature review.
+
+For every row of 02.inputs/derived/review-records.csv with decision include and a DOI, asks
+OpenAlex for the work's best open-access location and downloads the PDF into
+04.references/literature/review/, which is not committed. Writes one row per record to
+02.inputs/derived/review-fulltext-log.csv with the route and the outcome, so the count of
+records whose full text could not be obtained is measured rather than estimated. Downloaded
+files are untrusted data and nothing is executed from that folder. Runs only while the
+log does not exist.
+"""
+import csv, json, os, re, time, urllib.parse, urllib.request
+
+ROOT = os.path.abspath("..")
+TABLE = os.path.join(ROOT, "02.inputs", "derived", "review-records.csv")
+LOG = os.path.join(ROOT, "02.inputs", "derived", "review-fulltext-log.csv")
+OUT = os.path.join(ROOT, "04.references", "literature", "review")
+MAILTO = "seamusrobertmurphy@gmail.com"
+UA = "forest-fire-index-trends review fetch (mailto:" + MAILTO + ")"
+
+def get_json(url):
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.load(r)
+
+def download(url, path):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/pdf"})
+    with urllib.request.urlopen(req, timeout=90) as r:
+        data = r.read()
+    if not data.startswith(b"%PDF"):
+        return "not a pdf"
+    with open(path, "wb") as f:
+        f.write(data)
+    return "saved"
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    with open(TABLE, encoding="utf-8", newline="") as f:
+        rows = [r for r in csv.DictReader(f) if r["decision"] == "include" and r["doi"]]
+    done = {}
+    if os.path.exists(LOG):
+        with open(LOG, encoding="utf-8", newline="") as f:
+            done = {r["doi"]: r for r in csv.DictReader(f)}
+    log = list(done.values())
+    for r in rows:
+        if r["doi"] in done and done[r["doi"]]["status"] == "saved":
+            continue
+        name = re.sub(r"[^A-Za-z0-9._-]", "_", r["doi"]) + ".pdf"
+        path = os.path.join(OUT, name)
+        status, url = "", ""
+        if os.path.exists(path):
+            status = "saved"
+        else:
+            try:
+                # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works
+                w = get_json("https://api.openalex.org/works/https://doi.org/" + urllib.parse.quote(r["doi"]) + "?mailto=" + MAILTO)
+                loc = w.get("best_oa_location") or {}
+                url = loc.get("pdf_url") or (w.get("open_access") or {}).get("oa_url") or ""
+                if not url:
+                    status = "no open copy"
+                else:
+                    try:
+                        status = download(url, path)
+                    except Exception as e:
+                        status = "download failed " + str(e)[:80]
+            except Exception as e:
+                status = "openalex failed " + str(e)[:80]
+            time.sleep(0.3)
+        done[r["doi"]] = {"id": r["id"], "doi": r["doi"], "year": r["year"], "title": r["title"][:120], "url": url, "file": name if status == "saved" else "", "status": status, "date": time.strftime("%Y-%m-%d")}
+    with open(LOG, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["id", "doi", "year", "title", "url", "file", "status", "date"]); w.writeheader(); w.writerows(done.values())
+    from collections import Counter
+    print(Counter(v["status"][:20] for v in done.values()).most_common())
+
+if not os.path.exists(LOG):
+    main()
+```
+
 ```{r}
 #| label: review-counts
 #| echo: true
@@ -794,6 +3273,36 @@ review_counts <- tibble::tibble(
 review_reasons <- records |>
   dplyr::filter(decision == "exclude") |>
   dplyr::count(reason, name = "Records", sort = TRUE)
+```
+
+```{r}
+#| label: fig-review-flow
+#| echo: true
+#| fig-cap: "Flow of records through the literature review of 13 October 2026, with every count read from the screening table."
+#| fig-width: 6.5
+#| fig-height: 4.6
+#| fig-dpi: 300
+n <- setNames(review_counts$Records, review_counts$Stage)
+n_undecided <- sum(records$decision == "undecided", na.rm = TRUE)
+box <- function(x, y, w, h, label) {
+  rect(x - w / 2, y - h / 2, x + w / 2, y + h / 2, lwd = 0.8)
+  text(x, y, label, cex = 0.72)
+}
+link <- function(x0, y0, x1, y1) arrows(x0, y0, x1, y1, length = 0.07, lwd = 0.8)
+par(mar = c(0, 0, 0, 0))
+plot.new()
+plot.window(xlim = c(0, 10), ylim = c(0, 10))
+box(3, 9, 5, 1.2, sprintf("Records retrieved\nn = %s", n_fmt(n[["Records retrieved"]])))
+box(3, 7, 5, 1.2, sprintf("Unique after removing duplicates\nn = %s", n_fmt(n[["Unique after removing duplicates"]])))
+box(3, 5, 5, 1.2, sprintf("Screened on title and abstract\nn = %s", n_fmt(n[["Unique after removing duplicates"]])))
+box(8, 5.6, 3.6, 1 + 0.32 * nrow(review_reasons),
+    paste(c(sprintf("Excluded, n = %s", n_fmt(n[["Excluded on title and abstract"]])),
+            sprintf("%s, %s", review_reasons$reason, n_fmt(review_reasons$Records))), collapse = "\n"))
+box(8, 2.4, 3.6, 1.2, sprintf("Undecided, abstract not reached\nn = %s", n_fmt(n_undecided)))
+box(3, 3, 5, 1.2, sprintf("Retained\nn = %s", n_fmt(n[["Retained"]])))
+box(3, 1, 5, 1.2, sprintf("Read in full\nn = %s", n_fmt(n[["Read in full"]])))
+link(3, 8.4, 3, 7.6); link(3, 6.4, 3, 5.6); link(5.5, 5.2, 6.2, 5.4)
+link(5.5, 4.8, 6.2, 2.6); link(3, 4.4, 3, 3.6); link(3, 2.4, 3, 1.6)
 ```
 
 ## Study Design
@@ -812,7 +3321,7 @@ S1 against S2 isolated the version change at fixed input, S2 against S3 isolated
 
 Pathway C is the report's own procedure for the legacy observation. The 13:00 observation was converted to estimated daily maxima and minima using national constants, daily maximum temperature being about 2 degrees Celsius above the 13:00 value, minimum wind speed 10 per cent of it and maximum wind speed 30 per cent above it, and humidity carried through at constant vapour content; those maxima and minima were then expanded to an hourly stream by the sinusoidal method of @beck1989diurnal with the default offset and decay coefficients of Table A-1 of @cffdg2025fwi2025. Daily rainfall, whose timing is unknown in a once-daily observation, was placed at the first hour after sunrise, which is the rule the report gives and the rule FWI1987 implicitly used.
 
-The literature behind the expectations set out in the Introduction was gathered under a written protocol on 13 October 2026, with search terms drawn from the title and keywords, run on the author's reference store, OpenAlex, NASA ADS and Semantic Scholar, and followed by one round of citation chasing through OpenAlex from six central papers. The searches retrieved `r n_fmt(review_counts$Records[1])` records, `r n_fmt(review_counts$Records[2])` of them unique, of which `r n_fmt(review_counts$Records[3])` were excluded on title and abstract, `r review_counts$Records[5]` were retained and `r review_counts$Records[4]` were read in full. One reader screened and read, Semantic Scholar refused one of the four queries, and NASA ADS ran the trend query without its trend concept because that word is a stopword there, so that strand is under-searched for the first question.
+The literature behind the expectations set out in the Introduction was gathered under a written protocol on 13 October 2026, with search terms drawn from the title and keywords, run on the author's reference store, OpenAlex, NASA ADS and Semantic Scholar, and followed by one round of citation chasing through OpenAlex from six central papers. The searches (@fig-review-flow) retrieved `r n_fmt(review_counts$Records[1])` records, `r n_fmt(review_counts$Records[2])` of them unique, of which `r n_fmt(review_counts$Records[3])` were excluded on title and abstract, `r review_counts$Records[5]` were retained and `r review_counts$Records[4]` were read in full. One reader screened and read, Semantic Scholar refused one of the four queries, and NASA ADS ran the trend query without its trend concept because that word is a stopword there, so that strand is under-searched for the first question.
 
 ## Index Computation
 
@@ -1172,8 +3681,8 @@ trends <- do.call(rbind, trend_rows)
 if (is.null(trends) || !nrow(trends))
   stop("No station has the 15 seasons the trend estimator requires. ",
        "Kept station-seasons: ", n_kept, " over ", n_seasons, " seasons. ",
-       "Re-run 05.scripts/fetch_fire_weather.py and ",
-       "05.scripts/compute_fwi_series.py over the full archive.")
+       "Delete the weather record and the daily series and render again ",
+       "to rebuild them over the full archive.")
 # The family is the eight metrics within one series at one station.
 trends$q <- ave(trends$p_corrected,
                 paste(trends$series, trends$station), FUN = fdr)
@@ -1719,7 +4228,7 @@ The small difference in ignition skill between the three series agreed with comp
 
 The slope prediction failed. Under neither thresholding scheme did the migration change an estimated trend at any station, the outcome the design had set as refuting the mechanism, and the refutation holds to a resolution of about `r sprintf("%.1f", res_abs * (yr_last - yr_first))` days over the window. The practical consequence for the published record therefore rests on the level result alone, and is narrow and specific. Trends reported as percentile exceedances, where the threshold is computed inside the series being trended, are largely insulated from the version change, because the threshold moves with the distribution. Trends reported as counts above a fixed danger class are not, and neither are seasonal severity ratings, which accumulate a transform of the index level over a season and therefore inherit any level shift. Fixed classes were already uncertain across regions before any version change, since @papagiannaki2020weather found that the Fire Weather Index class thresholds of the European Forest Fire Information System were too low for Greece and that thresholds fitted to Greek fire records predicted wildfire danger significantly better. That insulation is from the version and not from the reference period. @dunn2022reference found that warm-day trends computed from the same data over the same years changed by about 25 to 50 per cent when the percentile reference period moved, and @zhang2005percentile showed that counts outside a base period are biased upward unless the rates inside it are bootstrapped, so a percentile trend is portable across the version change only when its reference period is stated, held fixed and treated for that bias.
 
-Nothing here says the published trends are wrong, only that they are statements about FWI1987, that restating them under FWI2025 will change some of them, and that the size of the change depends on how the metric was defined rather than on the weather. For the Okanagan there was little to restate, since the only station test found no significant trend in seasonal temperature or precipitation at Penticton over 1984 to 2016 [@spittlehouse2022interaction]. A level shift that leaves the relative change alone has been seen before in this index, since @quilcaille2023fire found that computing the Fire Weather Index from mean rather than minimum humidity reduced it "by about −33 % (June) above 20° N" while the reduction was "roughly identical during the fire seasons across the planet, be it over 1994–2014 or 2081–2100". Anyone re-expressing a historical trend in the new system's units should recompute the whole record rather than splice, and should say which metric family the result belongs to.
+Nothing here says the published trends are wrong, only that they are statements about FWI1987, that restating them under FWI2025 will change some of them, and that the size of the change depends on how the metric was defined rather than on the weather. For the Okanagan there was little to restate, since the only station test found no significant trend in seasonal temperature or precipitation at Penticton over 1984 to 2016 [@spittlehouse2022interaction], and the provincial extreme value analysis found the most stations with rising maxima in May, July and August, without a slope in its abstract [@hubnerova2020fire]. A level shift that leaves the relative change alone has been seen before in this index, since @quilcaille2023fire found that computing the Fire Weather Index from mean rather than minimum humidity reduced it "by about −33 % (June) above 20° N" while the reduction was "roughly identical during the fire seasons across the planet, be it over 1994–2014 or 2081–2100". Anyone re-expressing a historical trend in the new system's units should recompute the whole record rather than splice, and should say which metric family the result belongs to.
 
 ## Limitations
 
@@ -1879,6 +4388,740 @@ did not carry across the change and a percentile threshold did.\n",
 )
 cat(abstract_text)
 cat("\n**Keywords:**", paste(unlist(rmarkdown::metadata$keywords), collapse = "; "), "\n")
+```
+
+```{python}
+#| label: verify-quotations
+#| echo: true
+#| output: false
+"""Check every quotation from GLC-X-42 in the manuscript against the report itself.
+
+Written 2026-08-15. The project convention is that a source is quoted verbatim and
+the quotation is checked against the source, because a paraphrase attributed as a
+quotation survives drafts unnoticed. A sibling manuscript in this library spent
+several drafts attributing the word "additive" to an abstract in which it never
+appears, and the error survived because nobody opened the PDF and searched it.
+
+This script opens the PDF and searches it. Each quotation below is the exact
+string the manuscript puts inside quotation marks, paired with the section the
+manuscript attributes it to. The comparison runs against the extracted text layer
+with line-break hyphenation repaired and whitespace collapsed, because a PDF
+breaks words across lines and a naive search would fail on formatting rather than
+on substance. Case is significant: the check is exact.
+
+The check earned its keep on first run. The manuscript had
+"using hourly weather to better reflect maximum burning conditions" with a lower
+case u, taken from a project note rather than from the report. The report's first
+bullet under "Key updates include" reads "Using hourly weather to better reflect
+maximum burning conditions." The substance was right and the transcription was
+not, which is precisely the class of error this check exists to find.
+
+Writes ``02.inputs/derived/quotation-verification.csv``, committed. Exits non-zero
+if any quotation fails, so it can gate a build.
+"""
+
+from __future__ import annotations
+
+import os
+import re
+import sys
+
+import pandas as pd
+import pypdf
+
+ROOT = os.path.abspath("..")
+PDF = os.path.join(ROOT, "04.references", "standards",
+                   "CFS-FireDangerGroup-2025-GLC-X-42-FWI2025.pdf")
+
+# (quotation as the manuscript prints it, section the manuscript attributes it to)
+QUOTATIONS = [
+    ("Using hourly weather to better reflect maximum burning conditions",
+     "section 1, executive summary, first key update"),
+    ("the time lag function used in the FWI2025 for the FFMC has been cut in half",
+     "section 4.1.1"),
+    ("an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025",
+     "section 4.1"),
+    ("should reflect meaningful differences in fuel moisture content",
+     "section 4.1"),
+    ("calculations always use hourly weather",
+     "section 3.1.1.1"),
+    ("a single daily weather observation from approximately solar noon",
+     "section 3.1"),
+    ("numerical weather model outputs are not strictly the same as point observations "
+     "of weather from a weather station",
+     "Appendix C-1"),
+    ("At the grid cell scale, outputs from numerical models typically represent what can "
+     "be thought of as average conditions across that cell",
+     "Appendix C-1"),
+    ("start calculation three days after the disappearance of snow cover",
+     "Appendix C-2.3"),
+]
+
+
+def normalise(text: str) -> str:
+    """Repair line-break hyphenation and collapse whitespace, changing nothing else."""
+    text = re.sub(r"-\s*\n\s*", "", text)
+    return re.sub(r"\s+", " ", text)
+
+
+def main() -> None:
+    if not os.path.exists(PDF):
+        sys.exit(f"The report is not in the tree at {PDF}. "
+                 "04.references/README.md records how to retrieve it.")
+
+    reader = pypdf.PdfReader(PDF)
+    pages = [p.extract_text() or "" for p in reader.pages]
+    whole = normalise("\n".join(pages))
+
+    rows = []
+    failures = 0
+    for quote, attribution in QUOTATIONS:
+        q = normalise(quote)
+        found = q in whole
+        page = None
+        if found:
+            for i, p in enumerate(pages, start=1):
+                if q in normalise(p):
+                    page = i
+                    break
+        rows.append({
+            "quotation": quote,
+            "attributed_to": attribution,
+            "found_verbatim": found,
+            "pdf_page": page,
+        })
+        if not found:
+            failures += 1
+        print(f"{'OK  ' if found else 'FAIL'}  p{page if page else '--':>3}  "
+              f"{quote[:72]}", flush=True)
+
+    dest = os.path.join(ROOT, "02.inputs", "derived", "quotation-verification.csv")
+    pd.DataFrame(rows).to_csv(dest, index=False)
+    print(f"\n{len(QUOTATIONS) - failures} of {len(QUOTATIONS)} verified verbatim")
+    print(f"Wrote {dest}")
+
+    if failures:
+        sys.exit(f"{failures} quotation(s) do not appear in the source as written.")
+
+
+if not os.path.exists(os.path.join(ROOT, "02.inputs", "derived", "quotation-verification.csv")):
+    main()
+```
+
+```{python}
+#| label: verify-literature-quotations
+#| echo: true
+#| output: false
+"""Check every direct quotation the manuscript attributes to a source other than
+the 2025 FWI System report against that source's own text.
+
+Written 2026-09-12, the sibling of the chunk above, which covers the 2025
+report alone. The manuscript is read, every passage in double quotation marks is
+paired with the citation that follows it in the same sentence, and the passage is
+searched for in the source. The source text is the PDF saved as
+04.references/literature/<key>.pdf, extracted with pdftotext, or a saved page or
+text at 04.references/literature/<key>.html, .md or .txt, or, for the two web
+pages in REPORTS, the capture saved under 04.references/reports/, or, for a source
+read from its abstract only, the abstract returned by CrossRef or OpenAlex for the
+DOI in references.bib. Extended 2026-10-13 for the sources the literature review
+added. Comparison is on letters and digits only, so wording must
+match exactly while quotation marks, dashes, ligatures, spacing and line-break
+hyphenation are ignored.
+
+Writes 02.inputs/derived/literature-quotation-verification.csv and exits non-zero
+if any quotation is not found.
+"""
+
+from __future__ import annotations
+
+import csv
+import html
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+import urllib.parse
+import urllib.request
+
+ROOT = os.path.abspath("..")
+QMD = os.path.join(ROOT, "01.manuscript", "manuscript.qmd")
+BIB = os.path.join(ROOT, "04.references", "references.bib")
+LIT = os.path.join(ROOT, "04.references", "literature")
+OUT = os.path.join(ROOT, "02.inputs", "derived", "literature-quotation-verification.csv")
+# Catalogue records are read through the catalogue API.
+CATALOGUE = {"bcws2026psta": "bc-wildfire-psta-head-fire-intensity",
+             "bcws2026stations": "bc-wildfire-active-weather-stations"}
+UA = {"User-Agent": "forest-fire-index-trends/1.0"}
+# Web pages quoted in the manuscript, read from the captures saved on the date in
+# their file names. Added 2026-10-13.
+REPORTS = {"nrcan2026cffdrsng": os.path.join(ROOT, "04.references", "reports", "cffdrs-ng", "README-2026-10-13.md"),
+           "bcws2026datamart": os.path.join(ROOT, "04.references", "reports", "bcws", "predictive-services-page-2026-10-13.html")}
+
+
+def text_of(path: str) -> str:
+    """Plain text of a saved source: pdftotext for a PDF, tags stripped and
+    entities unescaped for a page, the file as read for anything else."""
+    if path.endswith(".pdf"):
+        return subprocess.run(["pdftotext", path, "-"], capture_output=True, text=True).stdout
+    raw = open(path, encoding="utf-8", errors="ignore").read()
+    if path.endswith((".html", ".htm")):
+        raw = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+    return raw
+
+
+def letters(s: str) -> str:
+    s = s.replace("ﬁ", "fi").replace("ﬂ", "fl")
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def get_json(url: str) -> dict | None:
+    for _ in range(3):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=45) as r:
+                return json.load(r)
+        except Exception:
+            time.sleep(3)
+    return None
+
+
+def abstract_for(doi: str) -> str:
+    cr = get_json("https://api.crossref.org/works/" + urllib.parse.quote(doi))
+    text = (cr or {}).get("message", {}).get("abstract", "") if cr else ""
+    oa = get_json("https://api.openalex.org/works/doi:" + urllib.parse.quote(doi))
+    inv = (oa or {}).get("abstract_inverted_index") or {}
+    pos = {i: w for w, idx in inv.items() for i in idx}
+    return text + " " + " ".join(pos[i] for i in sorted(pos))
+
+
+def main() -> None:
+    qmd = open(QMD, encoding="utf-8").read()
+    prose = re.sub(r"```\{(?:r|python)\}.*?\n```", "", qmd, flags=re.S)
+    prose = re.sub(r"^---\n.*?\n---\n", "", prose, count=1, flags=re.S)
+    # Inline R expressions are code, not quotation.
+    prose = re.sub(r"`r [^`]*`", "N", prose)
+    # Quotations from the 2025 report are recorded here against the report's own
+    # text as well, so that quotations added after verify_quotations.py was written
+    # are not left unchecked.
+    glc = os.path.join(ROOT, "04.references", "standards", "CFS-FireDangerGroup-2025-GLC-X-42-FWI2025.pdf")
+    glc_text = letters(subprocess.run(["pdftotext", glc, "-"], capture_output=True, text=True).stdout) if os.path.exists(glc) else ""
+    bib = open(BIB, encoding="utf-8").read()
+    dois = {k: d for k, d in re.findall(r"@\w+\{([^,]+),[^@]*?doi\s*=\s*[{\"]([^}\"]+)", bib, flags=re.S | re.I)}
+
+    # A quotation is paired with the first citation key after it in its sentence.
+    pairs = []
+    for sent in re.split(r"(?<=[.?!])\s+(?=[A-Z@])", prose):
+        for m in re.finditer(r'"([^"]{12,})"', sent):
+            # A quotation of four words or fewer is a name, not a passage.
+            if len(m.group(1).split()) < 5 and not re.search(r"@\w+, p\.", sent[m.end():m.end() + 40]):
+                continue
+            if glc_text and letters(m.group(1)) in glc_text:
+                pairs.append(("cffdg2025fwi2025", m.group(1)))
+                continue
+            after = sent[m.end():]
+            # The key after the quotation in its sentence, or, failing that, the
+            # nearest key before it, since a sentence may cite two sources in turn.
+            k = re.search(r"@([a-z][a-z0-9]+)", after)
+            before = re.findall(r"@([a-z][a-z0-9]+)", sent[:m.start()])
+            if not k and not before:
+                continue
+            key = k.group(1) if k else before[-1]
+            if key.startswith(("tbl", "fig", "sec")):
+                continue
+            pairs.append((key, m.group(1)))
+
+    cache: dict[str, str] = {}
+    rows, failed = [], 0
+    for key, quote in pairs:
+        if key not in cache:
+            pdf = os.path.join(LIT, key + ".pdf")
+            if key == "cffdg2025fwi2025":
+                cache[key] = subprocess.run(["pdftotext", glc, "-"], capture_output=True, text=True).stdout
+                src = "2025 report pdf"
+            elif key in CATALOGUE:
+                j = get_json("https://catalogue.data.gov.bc.ca/api/3/action/package_show?id=" + CATALOGUE[key])
+                cache[key] = ((j or {}).get("result") or {}).get("notes", "")
+                src = "catalogue record"
+            elif os.path.exists(pdf):
+                cache[key] = subprocess.run(["pdftotext", pdf, "-"], capture_output=True, text=True).stdout
+                src = "pdf"
+            elif any(os.path.exists(os.path.join(LIT, key + ext)) for ext in (".html", ".md", ".txt")):
+                ext = next(e for e in (".html", ".md", ".txt") if os.path.exists(os.path.join(LIT, key + e)))
+                cache[key] = text_of(os.path.join(LIT, key + ext))
+                src = "saved text"
+            elif key in REPORTS and os.path.exists(REPORTS[key]):
+                cache[key] = text_of(REPORTS[key])
+                src = "saved page"
+            elif key in dois:
+                cache[key] = abstract_for(dois[key])
+                src = "abstract"
+            else:
+                cache[key] = ""
+                src = "no source text"
+            cache[key + "::src"] = src
+        found = letters(quote) in letters(cache[key])
+        failed += not found
+        rows.append({"key": key, "quotation": quote, "source_text": cache[key + "::src"], "found_verbatim": found})
+        print(f"{'ok  ' if found else 'FAIL'}  {key:32s} {quote[:70]}")
+
+    with open(OUT, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["key", "quotation", "source_text", "found_verbatim"])
+        w.writeheader()
+        w.writerows(rows)
+    print(f"\n{len(rows)} quotations checked, {failed} not found. Wrote {OUT}")
+    if failed:
+        raise SystemExit(f"{failed} quotation(s) not found verbatim")
+
+
+if not os.path.exists(OUT):
+    main()
+```
+
+```{python}
+#| label: verify-references
+#| echo: true
+#| output: false
+"""Verify every candidate citation against Crossref before it enters the bibliography.
+
+Written 2026-08-15. The project convention is that a bibliography entry is taken
+from the registry and never from memory, because a DOI recalled from memory
+resolves to the wrong paper often enough to be dangerous and the error is
+invisible until a referee follows it. This project has already recorded two such
+failures.
+
+The script takes a candidate list of works, each with the title as remembered and
+either a DOI as remembered or nothing. For each it does two things. It asks
+Crossref to resolve the DOI, if one was offered, and compares the title that
+comes back against the title that was offered. Separately, and regardless, it
+searches Crossref for the offered title and reports the best match with its
+score. A candidate is only usable when both agree.
+
+Similarity is a token overlap on lowercased alphanumeric words, which is crude
+but sufficient to catch the failure that matters: a DOI that resolves to an
+entirely different paper.
+
+Writes ``02.inputs/derived/reference-verification.csv``, committed, and prints
+Crossref's own BibTeX for every candidate that passed, ready to paste into
+``04.references/references.bib``.
+"""
+
+from __future__ import annotations
+
+import os
+import re
+import sys
+import time
+
+import pandas as pd
+import requests
+
+MAILTO = "seamusrobertmurphy@gmail.com"
+UA = f"forest-fire-index-trends/1.0 (mailto:{MAILTO})"
+
+# Government and agency dataset entries in references.bib (keys geobc2026*,
+# bcws2026*, wsc2026subsubdrainage, bc2026municipalities, aws2026terraintiles,
+# nrcan2026cffdrsng, wang2026cffdrspkg) have no DOI and are outside this check;
+# their titles and owners were read from the BC Data Catalogue API on
+# 2026-09-12 and are recorded in 02.inputs/README.md.
+
+# Candidates. The title is what is being claimed; the DOI is what is being
+# tested. Nothing here is trusted until Crossref agrees with it.
+CANDIDATES = [
+    # Added 2026-09-12 for the literature revisions (Revisions 1, 4, 7, 10, 13).
+    # Titles as returned by CrossRef for each DOI on that date.
+    ('Techniques of trend analysis for monthly water quality data',
+     '10.1029/wr018i001p00107'),
+    ('Trend analysis of fire season length and extreme fire weather in North America between 1979 and 2015',
+     '10.1071/wf17008'),
+    ('Temporal variations and change in forest fire danger  in Europe for 1960–2012',
+     '10.5194/nhess-14-1477-2014'),
+    ('Climate-induced variations in global wildfire danger from 1979 to 2013',
+     '10.1038/ncomms8537'),
+    ('To prewhiten or not to prewhiten in trend analysis?',
+     '10.1623/hysj.52.4.611'),
+    ('The influence of autocorrelation on the ability to detect trend in hydrological series',
+     '10.1002/hyp.1095'),
+    ('Block bootstrap for Mann–Kendall trend test of serially dependent data',
+     '10.1002/hyp.8438'),
+    ('The control of the false discovery rate in multiple testing under dependency',
+     '10.1214/aos/1013699998'),
+    ('“The Stippling Shows Statistically Significant Grid Points”: How Research Results are Routinely Overstated and Overinterpreted, and What to Do about It',
+     '10.1175/bams-d-15-00267.1'),
+    ('Resampling Hypothesis Tests for Autocorrelated Fields',
+     '10.1175/1520-0442(1997)010<0065:rhtfaf>2.0.co;2'),
+    ('The Jackknife and the Bootstrap for General Stationary Observations',
+     '10.1214/aos/1176347265'),
+    ('The Stationary Bootstrap',
+     '10.1080/01621459.1994.10476870'),
+    ('Better Bootstrap Confidence Intervals',
+     '10.1080/01621459.1987.10478410'),
+    ('Bootstrap confidence intervals',
+     '10.1214/ss/1032280214'),
+    ('Two Guidelines for Bootstrap Hypothesis Testing',
+     '10.2307/2532163'),
+    ('Statistical significance of trends and trend differences in layer‐average atmospheric temperature time series',
+     '10.1029/1999jd901105'),
+    ('Avoiding Inhomogeneity in Percentile-Based Indices of Temperature Extremes',
+     '10.1175/jcli3366.1'),
+    ('Factors affecting the detection of trends: Statistical considerations and applications to environmental data',
+     '10.1029/98jd00995'),
+    ('Effects of autocorrelation and temporal sampling schemes on estimates of trend and spatial correlation',
+     '10.1029/jd095id12p20507'),
+    ('Detection Probability of Trends in Rare Events: Theory and Application to Heavy Precipitation in the Alpine Region',
+     '10.1175/1520-0442(2001)014<1568:dpotir>2.0.co;2'),
+    ('Re-evaluation of the Power of the Mann-Kendall Test for Detecting Monotonic Trends in Hydrometeorological Time Series',
+     '10.3389/feart.2020.00014'),
+    ('Wildfire Prediction to Inform Fire Management: Statistical Science Challenges',
+     '10.1214/13-sts451'),
+    ('Prediction of daily lightning- and human-caused fires in British Columbia',
+     '10.1071/wf11088'),
+    ('A lightning fire occurrence model for Ontario',
+     '10.1139/x05-071'),
+    ('A logistic model for predicting daily people-caused forest fire occurrence in Ontario',
+     '10.1139/x87-068'),
+    ('Modelling seasonal variation in daily people-caused forest fire occurrence',
+     '10.1139/x89-237'),
+    ('A cautionary note regarding comparisons of fire danger indices',
+     '10.5194/nhess-12-927-2012'),
+    ('Negative binomial and mixed Poisson regression',
+     '10.2307/3314912'),
+    ('Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure',
+     '10.1111/ecog.02881'),
+    ('Strictly Proper Scoring Rules, Prediction, and Estimation',
+     '10.1198/016214506000001437'),
+    ('Predicting the number of daily human-caused bushfires to assist suppression planning in south-west Western Australia',
+     '10.1071/wf13090'),
+    ('Lightning and lightning fire, central cordillera, Canada',
+     '10.1071/wf01048'),
+    ('Lightning ignition efficiency in Canadian forests',
+     '10.1186/s42408-025-00376-1'),
+    ('Cloud-to-Ground Lightning in Canada: 20 Years of CLDN Data',
+     '10.1080/07055900.2020.1845117'),
+    ('Lightning-ignited forest fires in northwestern Ontario',
+     '10.1139/x91-035'),
+    ('Modeling Forest Fire Occurrences Using Count-Data Mixed Models in Qiannan Autonomous Prefecture of Guizhou Province in China',
+     '10.1371/journal.pone.0120621'),
+    ('A comparative analysis of fire-weather indices for enhanced fire activity prediction with probabilistic approaches',
+     '10.1016/j.agrformet.2024.110315'),
+    ('Indices for monitoring changes in extremes based on daily temperature and precipitation data',
+     '10.1002/wcc.147'),
+    ('On the effect of reference periods on trends in percentile-based extreme temperature indices',
+     '10.1088/1748-9326/ac52c8'),
+    ('Development of a Global Fire Weather Database',
+     '10.5194/nhess-15-1407-2015'),
+    ('Science, technology, and human factors in fire danger rating: the Canadian experience.',
+     '10.1071/wf05021'),
+    ('Defining fire spread event days for fire-growth modelling',
+     '10.1071/wf09001'),
+    ('A methodology for investigating trends in changes in the timing of the fire season with applications to lightning-caused forest fires in Alberta and Ontario, Canada',
+     '10.1139/cjfr-2011-0432'),
+    ('Using observed fires to study changes in fire season timing across Ontario, Canada',
+     '10.1071/wf25164'),
+    ('Increasing western US forest wildfire activity: sensitivity to changes in the timing of spring',
+     '10.1098/rstb.2015.0178'),
+    ('A high-resolution reanalysis of global fire weather from 1979 to 2018 – overwintering the Drought Code',
+     '10.5194/essd-12-1823-2020'),
+    ('Preceding Fall Drought Conditions and Overwinter Precipitation Effects on Spring Wildland Fire Activity in Canada',
+     '10.3390/fire3020024'),
+    ('Spatial variation of trends in wildfire and summer drought in British Columbia, Canada, 1920–2000',
+     '10.1071/wf09055'),
+    ('Interannual climate variability drives regional fires in west central British Columbia, Canada',
+     '10.1002/2016jg003661'),
+    ('Mixed-severity fire regimes in dry forests of southern interior British Columbia, Canada',
+     '10.1139/x11-160'),
+    ('Regional drought synchronised historical fires in dry forests of the Montane Cordillera Ecozone, Canada',
+     '10.1071/wf21035'),
+    ('A Disrupted Historical Fire Regime in Central British Columbia',
+     '10.3389/fevo.2021.676961'),
+    ('The contribution of Indigenous stewardship to an historical mixed‐severity fire regime in British Columbia, Canada',
+     '10.1002/eap.2736'),
+    ('Expected Effects of Climate Change on Forest Disturbance Regimes in British Columbia',
+     '10.22230/jem.2012v13n1a152'),
+    ('Climate, Environment, and Disturbance History Govern Resilience of Western North American Forests',
+     '10.3389/fevo.2019.00239'),
+    ('Direct and indirect impacts of climate change on forests: three case studies from British Columbia',
+     '10.1080/07060661.2011.563906'),
+    ('Transforming fire governance in British Columbia, Canada: an emerging vision for coexisting with fire',
+     '10.1007/s10113-022-01895-2'),
+    ('On the limited consensus of mountain pine beetle impacts on wildfire',
+     '10.1007/s10980-023-01720-z'),
+    ('Climatic change and fire potential in South‐Central British Columbia, Canada',
+     '10.1111/j.1365-2486.2007.01517.x'),
+    ('Record-breaking fire weather in North America in 2021 was initiated by the Pacific northwest heat dome',
+     '10.1038/s43247-024-01346-2'),
+    ('Identifying and analyzing spatial and temporal patterns of lightning-ignited wildfires in Western Canada from 1981 to 2018',
+     '10.1139/cjfr-2021-0353'),
+    ('A thirty year, fine-scale, characterization of area burned in Canadian forests shows evidence of regionally increasing trends in the last decade',
+     '10.1371/journal.pone.0197218'),
+    ('A Multiscalar Drought Index Sensitive to Global Warming: The Standardized Precipitation Evapotranspiration Index',
+     '10.1175/2009jcli2909.1'),
+    ('Benchmarking homogenization algorithms for monthly data',
+     '10.5194/cp-8-89-2012'),
+    ('Can climate trends be calculated from reanalysis data?',
+     '10.1029/2004jd004536'),
+    ('Reanalyses Suitable for Characterizing Long-Term Trends',
+     '10.1175/2009bams2858.1'),
+    ('An intercomparison of temperature trends in the U.S. Historical Climatology Network and recent atmospheric reanalyses',
+     '10.1029/2012gl051387'),
+    ('The Canadian Forest Fire Danger Rating System: An Overview',
+     '10.5558/tfc65450-6'),
+    ('Stand-specific litter moisture content calibrations for the Canadian Fine Fuel Moisture Code',
+     '10.1071/wf06087'),
+    ('Moisture diffusivity and response time in fine forest fuels',
+     '10.1139/x90-046'),
+    ('Evaluating the applicability of predicting dead fine fuel moisture based on the hourly Fine Fuel Moisture Code in the south-eastern Great Xing’an Mountains of China',
+     '10.1071/wf16040'),
+    ('The Role of Field Measurements of Fine Dead Fuel Moisture Content in the Canadian Fire Weather Index System A Study Case in the Central Region of Portugal',
+     '10.3390/f15081429'),
+    ('Evaluation of new methods for drought estimation in the Canadian Forest Fire Danger Rating System',
+     '10.1071/wf22112'),
+    ('Characterisation of the fuel and fire environment in southern Ontario’s tallgrass prairie',
+     '10.1071/wf14214'),
+    ('Forecasting Hourly Wildfire Risk: Enhancing Fire Danger Assessment Using Numerical Weather Prediction',
+     '10.1175/waf-d-23-0226.1'),
+    ('On the projection of future fire danger conditions with various instantaneous/mean-daily data sources',
+     '10.1007/s10584-012-0667-2'),
+    ('Sensitivity of fire weather index to different reanalysis products in the Iberian Peninsula',
+     '10.5194/nhess-12-699-2012'),
+    ('Evaluation of Global Fire Weather Database reanalysis and short-term forecast products',
+     '10.5194/nhess-20-1123-2020'),
+    ('ERA5-based global meteorological wildfire danger maps',
+     '10.1038/s41597-020-0554-z'),
+    ('Index sensitivity analysis applied to the Canadian Forest Fire Weather Index and the McArthur Forest Fire Danger Index',
+     '10.1002/met.170'),
+    ('A comparison of fire danger rating systems for use in forests',
+     '10.22499/2.5801.005'),
+    ('Contrasting Trends in Colorado Fire Weather Index from Reanalysis and Observations',
+     '10.1175/jamc-d-24-0043.1'),
+
+    ("Estimates of the regression coefficient based on Kendall's tau",
+     "10.1080/01621459.1968.10480934"),
+    ("A modified Mann-Kendall trend test for autocorrelated data",
+     "10.1016/S0022-1694(97)00125-X"),
+    ("Controlling the false discovery rate: a practical and powerful approach to multiple testing",
+     "10.1111/j.2517-6161.1995.tb02031.x"),
+    # The DOI first offered here, 10.1139/x89-121, resolves to a paper on soil
+    # nitrogen mineralization in Douglas-fir. It was recalled from memory and it
+    # is wrong by one digit. The correct DOI, found by title search, is below.
+    # This is the failure the whole script exists to catch and it is left in the
+    # record rather than quietly fixed.
+    ("Forecasting diurnal variations in meteorological parameters for predicting fire behaviour",
+     "10.1139/x89-120"),
+    ("cffdrs: an R package for the Canadian Forest Fire Danger Rating System",
+     "10.1186/s13717-017-0070-z"),
+    ("Interpreting and using outputs from the Canadian Forest Fire Danger Rating System in research applications",
+     "10.1007/s10651-007-0084-2"),
+    ("Forest fire occurrence and climate change in Canada",
+     "10.1071/WF09002"),
+    ("Abrupt, climate-induced increase in wildfires in British Columbia since the mid-2000s",
+     None),
+    ("Implications of changing climate for global wildland fire",
+     "10.1071/WF08187"),
+    ("Fuel moisture sensitivity to temperature and precipitation: climate change implications",
+     None),
+    ("Climate change presents increased potential for very large fires in the contiguous United States",
+     None),
+    ("Warming and earlier spring increase western U.S. forest wildfire activity",
+     "10.1126/science.1128834"),
+    ("Attribution of the influence of human-induced climate change on an extreme fire season",
+     None),
+    ("A method of computing fine fuel moisture content throughout the diurnal cycle",
+     None),
+    ("Nonparametric tests against trend", "10.2307/1907187"),
+    ("Applicability of prewhitening to eliminate the influence of serial correlation on the Mann-Kendall test",
+     "10.1029/2001WR000861"),
+    ("Impact of anthropogenic climate change on wildfire across western US forests",
+     "10.1073/pnas.1607171113"),
+
+    ("Wildfire response to changing daily temperature extremes in California's Sierra Nevada",
+     None),
+    ("Lightning-caused forest fire risk in Northwestern Ontario, Canada, is increasing and associated with anomalies in fire weather",
+     None),
+    ("Increasing frequency of extreme fire weather in Canada with climate change", None),
+    ("Fire-regime changes in Canada over the last half century", None),
+    ("Relationships between fire, climate oscillations, and drought in British Columbia, Canada, 1920-2000",
+     None),
+    ("Length of the fire season in a changing climate", None),
+    ("Summer moisture and wildfire risks across Canada", None),
+    ("Drivers and impacts of the record-breaking 2023 wildfire season in Canada", None),
+    ("Scientists' warning on wildfire: a Canadian perspective", None),
+    ("A study of the drying rates of forest floor materials", None),
+    # Dropped: the title search returns a Springer book chapter and the identity
+    # of the work intended could not be established from the registry alone. A
+    # citation that cannot be resolved is not entered.
+
+    # Agricultural and Forest Meteorology wildfire papers closest to this study,
+    # screened on 2026-09-12 from a Crossref pull of every article the journal
+    # published from 2012, listed in
+    # docs/science-superpowers/prior-work/2026-09-12-afm-wildfire-citations.md.
+    # The DOIs came from that pull, so this check confirms each resolves to the
+    # title it was listed under.
+    ("Recent climate change: Long-term trends in meteorological forest fire danger in the Alps",
+     "10.1016/j.agrformet.2012.04.001"),
+    ("Large-scale weather types, forest fire danger, and wildfire occurrence in the Alps",
+     "10.1016/j.agrformet.2012.08.011"),
+    ("Fire weather and large fire potential in the northern Sierra Nevada",
+     "10.1016/j.agrformet.2014.01.005"),
+    ("Global patterns in the sensitivity of burned area to fire-weather: Implications for climate change",
+     "10.1016/j.agrformet.2015.09.002"),
+    ("Fine fuel moisture for site- and species-specific fire danger assessment in comparison to fire danger indices",
+     "10.1016/j.agrformet.2016.12.007"),
+    ("Comparisons of fire weather indices using Canadian raw and homogenized weather data",
+     "10.1016/j.agrformet.2018.07.005"),
+    ("Dynamic and thermodynamic changes conducive to the increased occurrence of extreme spring fire weather over western Canada under possible anthropogenic climate change",
+     "10.1016/j.agrformet.2018.11.026"),
+    ("Identifying large fire weather typologies in the Iberian Peninsula",
+     "10.1016/j.agrformet.2019.107789"),
+    ("Recent evolution of spatial and temporal patterns of burnt areas and fire weather risk in the Iberian Peninsula",
+     "10.1016/j.agrformet.2020.107923"),
+    ("Weather-related thresholds for wildfire danger in a Mediterranean region: The case of Greece",
+     "10.1016/j.agrformet.2020.108076"),
+    ("Trends and patterns in annually burned forest areas and fire weather across the European boreal zone in the 20th and early 21st centuries",
+     "10.1016/j.agrformet.2021.108467"),
+    ("Observed and estimated consequences of climate change for the fire weather regime in the moist-temperate climate of the Czech Republic",
+     "10.1016/j.agrformet.2021.108583"),
+    ("Integrating burned area as a complementary performance measure for daily fire danger assessment: A large-scale test",
+     "10.1016/j.agrformet.2023.109746"),
+    ("Changes in European fire weather extremes and related atmospheric drivers",
+     "10.1016/j.agrformet.2023.109749"),
+    ("On the sensitivity of fire-weather climate projections to empirical fire models",
+     "10.1016/j.agrformet.2024.109928"),
+    ("Multifactorial interactions contribute to contrasting wildfire trends at mid–high latitudes of the Northern Hemisphere",
+     "10.1016/j.agrformet.2025.110507"),
+    ("Decreasing frequency of low and moderate fire weather days may be contributing to large wildfire occurrence in the northern Sierra Nevada",
+     "10.1016/j.agrformet.2025.110688"),
+    ("A satellite-based forest fire weather index for characterizing fire danger variability in the Himalaya",
+     "10.1016/j.agrformet.2026.111169"),
+    ("Distinct seasonality and trends of natural and anthropogenic wildfires in boreal forests",
+     "10.1016/j.agrformet.2026.111436"),
+]
+
+
+def norm(s: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9]+", (s or "").lower())) - {
+        "the", "a", "an", "of", "for", "in", "to", "and", "on", "with"
+    }
+
+
+def similarity(a: str, b: str) -> float:
+    x, y = norm(a), norm(b)
+    return len(x & y) / max(len(x | y), 1)
+
+
+def get(url: str, **params) -> dict | None:
+    for attempt in range(3):
+        try:
+            r = requests.get(url, params=params, headers={"User-Agent": UA}, timeout=45)
+            if r.status_code == 404:
+                return None
+            r.raise_for_status()
+            return r.json()
+        except Exception:
+            if attempt == 2:
+                return None
+            time.sleep(3)
+    return None
+
+
+def bibtex(doi: str) -> str | None:
+    try:
+        r = requests.get(
+            f"https://doi.org/{doi}",
+            headers={"Accept": "application/x-bibtex", "User-Agent": UA},
+            timeout=45,
+        )
+        return r.text.strip() if r.ok else None
+    except Exception:
+        return None
+
+
+def main() -> None:
+    root = os.path.abspath("..")
+    rows = []
+    passed = []
+
+    for claimed_title, claimed_doi in CANDIDATES:
+        rec = {"claimed_title": claimed_title, "claimed_doi": claimed_doi}
+
+        # 1. Does the offered DOI resolve, and to this paper?
+        if claimed_doi:
+            j = get(f"https://api.crossref.org/works/{claimed_doi}")
+            if j is None:
+                rec.update(doi_resolves=False, doi_title=None, doi_title_similarity=None)
+            else:
+                m = j["message"]
+                t = (m.get("title") or [""])[0]
+                rec.update(
+                    doi_resolves=True,
+                    doi_title=t,
+                    doi_title_similarity=round(similarity(claimed_title, t), 3),
+                )
+        else:
+            rec.update(doi_resolves=None, doi_title=None, doi_title_similarity=None)
+
+        # 2. Independently, what does Crossref return for the title?
+        j = get("https://api.crossref.org/works", **{
+            "query.bibliographic": claimed_title, "rows": 3, "mailto": MAILTO
+        })
+        best_doi = best_title = None
+        if j and j["message"]["items"]:
+            items = j["message"]["items"]
+            # Prefer the version of record. Crossref frequently ranks a preprint
+            # above the journal article that superseded it, and the project
+            # convention is that a preprint is distinguished from a peer reviewed
+            # source rather than silently substituted for one.
+            article = [
+                x for x in items
+                if x.get("type") in ("journal-article", "proceedings-article")
+                and similarity(claimed_title, (x.get("title") or [""])[0]) >= 0.7
+            ]
+            it = article[0] if article else items[0]
+            rec["search_type"] = it.get("type")
+            best_doi = it.get("DOI")
+            best_title = (it.get("title") or [""])[0]
+            rec.update(
+                search_doi=best_doi,
+                search_title=best_title,
+                search_title_similarity=round(similarity(claimed_title, best_title), 3),
+                search_year=(it.get("issued", {}).get("date-parts", [[None]])[0][0]),
+                search_container=(it.get("container-title") or [""])[0],
+            )
+
+        agree = (
+            claimed_doi and rec.get("doi_title_similarity", 0) is not None
+            and (rec.get("doi_title_similarity") or 0) >= 0.7
+        ) or (
+            not claimed_doi and (rec.get("search_title_similarity") or 0) >= 0.8
+        )
+        rec["verdict"] = "verified" if agree else "REJECTED"
+        chosen = claimed_doi if (claimed_doi and (rec.get("doi_title_similarity") or 0) >= 0.7) else best_doi
+        rec["chosen_doi"] = chosen if agree else None
+        rows.append(rec)
+        if agree and chosen:
+            passed.append((claimed_title, chosen))
+
+        print(f"{rec['verdict']:9s}  {claimed_title[:64]:64s}  -> {rec['chosen_doi']}", flush=True)
+
+    df = pd.DataFrame(rows)
+    dest = os.path.join(root, "02.inputs", "derived", "reference-verification.csv")
+    df.to_csv(dest, index=False)
+    print(f"\nWrote {dest}")
+    print(f"Verified {len(passed)} of {len(CANDIDATES)} candidates\n")
+
+    print("=" * 70)
+    print("BibTeX from Crossref for the verified entries")
+    print("=" * 70)
+    for title, doi in passed:
+        bt = bibtex(doi)
+        print(f"\n% verified against Crossref {time.strftime('%Y-%m-%d')}; "
+              f"title matched: {title}")
+        print(bt if bt else f"% BibTeX retrieval failed for {doi}")
+
+
+if not os.path.exists(os.path.join("..", "02.inputs", "derived", "reference-verification.csv")):
+    main()
 ```
 
 ```{r}
