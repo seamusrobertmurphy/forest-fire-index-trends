@@ -1,29 +1,21 @@
-Fire danger trends in the Okanagan basin of British Columbia carried across the
-2025 update to the Canadian Forest Fire Weather Index System when they were
-reported as days above a percentile threshold and did not when they were reported
-as days in a fixed danger class, and the hourly weather the new System runs on
-added the hour and the daily duration of peak burning conditions, which the 1987
-System could not report. The Canadian Forest Service replaced the 1987 System in
-2025 with a version that changed the calculation and the resolution of the
-weather driving it at once, almost every published Canadian fire danger trend is
-in the old units, and no study had separated the two changes. This study
-computed three danger series from one hourly weather record (5 fire weather
-stations, 104 station-seasons, 31 fire seasons, 1991 to 2025, Canadian Okanagan basin,
-British Columbia), FWI1987 from the 13:00 observation, FWI2025 from the same
-observation through the legacy pathway, and FWI2025 from observed hourly weather.
-Trends were estimated with the Theil-Sen slope and the Mann-Kendall test under
-the Hamed and Rao correction, series differences were bootstrapped over blocks of
-consecutive seasons, and daily ignition counts were modelled as negative binomial with
-season as a fixed effect. The comparability claimed by the 2025 report held for
-levels and failed for tails, in that a Fine Fuel Moisture Code of 91 sat at percentile
-65.1 of the legacy series and percentile 62.5 of the hourly series, 57
-against 62 days per season. Of 12 station-metric combinations under absolute
-thresholds, 0 gave a migration slope difference excluding zero, against 0 of
-8 under percentile thresholds, at a resolution of about 16.8 days over the
-window, which refuted the predicted slope divergence at that resolution, so the
-version change moved the level and left no slope difference the record could resolve. On
-held-out seasons the three series differed by 0.0005 in mean log likelihood per
-day, with FWI1987 on the 13:00 observation ranking first. Fire danger trends should therefore be reported as percentile
-exceedances with the version of the System stated, because a fixed danger class
-did not carry across the change and a percentile threshold did.
+In 2025 the Canadian Forest Fire Weather Index System, a process model of fuel
+moisture and fire behaviour, changed its calculation and weather input, from
+daily to hourly. In the Okanagan basin of British Columbia trends were
+comparable across that change as days above a percentile threshold and not
+above a fixed value. Almost every published Canadian trend was in the 1987
+units, and no study had separated the two changes. This study computed three
+series from one hourly weather record (5 stations, 104 station-seasons, 31
+seasons, 1991 to 2025), FWI1987, the 1987 version, on the 13:00 observation and
+FWI2025 on that observation and hourly weather. Trends were estimated by
+Theil-Sen slope and Mann-Kendall test with the Hamed and Rao autocorrelation
+correction, series differences by bootstrap over blocks of seasons, and daily
+ignitions by negative binomial regression with season fixed effects. The
+version change moved the level; a Fine Fuel Moisture Code of 91 was at
+percentiles 65.1 and 62.5 of the 1987 and hourly series, 57 against 62 days
+per season. Of 12 between-version slope differences under fixed thresholds, 0
+excluded zero, against 0 of 8 under percentile thresholds, at a resolution
+of about 16.8 days over the window, refuting the predicted slope divergence. On
+held-out seasons the three series differed by 0.0005 in mean lightning ignition
+log likelihood per day, with FWI1987 on the 13:00 observation ranking first. Trends should therefore be reported as days above a
+percentile threshold, with the version stated.
 

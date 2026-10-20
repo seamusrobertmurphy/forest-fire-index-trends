@@ -52,3 +52,11 @@ note rather than from the report.
 - `references.bib`, committed, CrossRef-verified entries only.
 - `apa.csl`, citation style for the HTML build.
 - `style-formal.docx`, reference document for the Word submission build.
+
+## Citation style file
+
+`elsevier-harvard.csl`, "Elsevier (author-date/Harvard, with titles)", fetched 2026-10-19
+from https://raw.githubusercontent.com/citation-style-language/styles/master/elsevier-harvard.csl
+for the Ecological Modelling submission, whose guide (read the same day) applies a name and
+year style at proof and accepts any consistent style at submission. `apa.csl` stays for the
+record of earlier renders.

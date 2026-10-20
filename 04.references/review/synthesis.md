@@ -1,229 +1,117 @@
 # Synthesis
 
-Written 2026-10-13 from the screening table `02.inputs/derived/review-records.csv` and the
-source notes under `04.references/review/notes/`, question by question, in the four parts
-the library protocol asks for. Every quotation below was checked letter for letter against
-the text named in its note, and a paper read from its abstract alone is marked so. Of the
-1,840 records retrieved, 1,278 were unique, 956 were excluded with a code, 37 stayed
-undecided for want of an abstract, 285 were kept, and 53 were read in full or to the limit
-the publisher allowed, 32 of them end to end.
+Rewritten 2026-10-19 after the second pass, from the screening table
+`02.inputs/derived/review-records.csv`, the full text log `review-fulltext-log.csv` and the
+116 reading notes under `04.references/review/notes/`, question by question, in the
+four parts the library protocol asks for. Every quotation below was checked letter for letter
+against the text named in its note, and a paper read from its abstract alone is marked so.
+The two passes ran 66 queries and chases over six routes; after merging 3810 duplicate
+retrievals the table holds 1,738 unique records, of which 1399 were excluded with a code and
+339 kept. Full text was sought for the 348 kept and cited records with a DOI and reached
+for 85, and 92 records carry a note written from the whole text, the rest from the
+abstract. Each section ends with the verdict on its adjudication rule.
 
 ## Question 1
 
-What trends in fire danger from the Fire Weather Index System have been reported for
-British Columbia, the southern interior or the Okanagan, and for Canada, with which
-estimator, period, autocorrelation treatment and multiple-testing correction?
+What trends in fire danger computed from the Canadian Forest Fire Weather Index System had been reported for British Columbia, its southern interior and the Okanagan, and for Canada, from station or gridded weather since 1987, and with which estimator, period, autocorrelation treatment and multiple-testing correction.
 
-**Established methods.** The pairing the manuscript adopted, the Theil-Sen slope with the
-Mann-Kendall test, is the pairing the Canadian fire literature uses, but mostly on fire
-counts rather than on danger. Aftergood and Flannigan (2022) estimated lightning fire
-trends across western Canada 1981 to 2018 with "the nonparametric block bootstrapping and
-bias corrected prewhitening method and a modified Mann-Kendall test to account for type 1
-errors and serial correlation in the data (Hamed, 2009) using the modifiedmk package"
-(manuscript p. 12), which is the same package and correction this study used. Ahmed and
-Hassan (2023) and Dastour and others (2024, abstract only) ran Mann-Kendall with Sen's
-slope on Alberta fire counts and season length without stating an autocorrelation
-treatment or a multiple-testing correction. For danger itself the Canadian estimates are
-gridded and parametric. Jain and others (2017), already cited, used Theil-Sen and
-Mann-Kendall with field significance on reanalysis. Queen and others (2025) fitted least
-squares slopes to ERA5 May to October mean Fire Weather Index over western North America
-and attributed them by optimal fingerprinting, finding "Over the 1951–2021 time window,
-d4PDF-G results indicate an anthropogenic contribution of 103% and a natural contribution
-of −33%" (p. 4), with the ERA5 series falling into the 1980s and rising after, so the
-linear slope depends on its endpoints. Barnes and others (2025, abstract only) regressed
-accumulated Daily Severity Rating on global mean temperature by ecozone. Hubnerova,
-Esterby and Taylor (2020, abstract only) fitted generalised extreme value distributions
-with linear trends in location and scale to monthly maximum Fire Weather Index at "861
-stations in British Columbia, Canada" over 1970 to 2018, and Németh and others (2020,
-abstract only) built the bootstrap-corrected likelihood ratio test for that model on the
-same stations. Neither abstract gives a slope, a region below the province, an
-autocorrelation treatment or a correction for 861 tests.
+## Established methods
 
-**Known confounds.** Large interannual variability, which Amiro and others (2004, abstract
-only) gave as the reason that "Most FWI System parameters did not show trends over the
-41-year period"; endpoint sensitivity in a series that fell then rose (Queen and others
-2025); the oscillation phases at the ends of the window, which the manuscript already
-states; and the inhomogeneity of the weather record itself, treated under Question 2.
+The Theil-Sen slope with the Mann-Kendall test was the estimator the fire weather trend literature settled on between 2014 and 2025, on gridded reanalysis, and the three studies that applied it to the Canadian system differed on serial correlation and multiple tests. Jain and others (2021) [10.1038/s41558-021-01224-1], read from the Research Square preprint rather than the version of record, trended the yearly 95th percentile of the Fire Weather Index from hourly ERA5 sampled at local noon for 1979 to 2020, with "Multiple testing and spatial autocorrelation were respectively accounted for by controlling the False Discovery Rate (FDR; Wilks 2006)" (p. 24), but stated no treatment of serial correlation. Venäläinen and others (2014) [venalainen2014europe] did the reverse on ERA-40 and ERA-Interim over Europe for 1960 to 2012, with "a correction factor ... accounting for the effective sample size in the presence of temporal autocorrelation" (p. 1479) and no correction across grid cells. Only Matteo and others (2025) [matteo2025challenges] combined all three, on the global count of days above the local 95th percentile for 1980 to 2023, with "the modified Mann-Kendall test for serially correlated data, including the variance correction proposed by Hamed and Rao (1998)" and "the False Discovery Rate (FDR) method (Benjamini and Hochberg, 1995) for multiple testing correction across the spatial grid" (preprint, PDF p. 6). The manuscript took its estimator from that pairing, its variance correction from Venäläinen and others (2014) and Matteo and others (2025), and its false discovery rate from Ventura, Paciorek and Risbey (2004) [10.1175/3199.1], who found on 3024 grid cells that the traditional, Bonferroni and false discovery rate procedures flagged 941, 19 and 338 locations (section 1), and from Wilks (2006) [10.1175/jam2404.1], whose finding that the procedure "can be computed under the assumption of independence" (section 3c) licensed its use across one station's eight correlated metrics.
 
-**Prior effect sizes.** No study reports an observed Fire Weather Index slope for the
-Okanagan or the southern interior. The only Okanagan station test found is Spittlehouse
-and Dymond (2022), who reported "no significant (p<0.2) increasing or decreasing trends in
-the seasonal precipitation or air temperature over the 1984 to 2016 period at Penticton
-Airport and P1" (manuscript p. 9), with a historic fire season of 209, 135 and 107 days
-by elevation and projections of 14 to 32 more days by the 2050s. Nitschke and Innes (2008,
-abstract only), already cited, is a projection, "a 30% increase in fire season length was
-modelled to occur by 2070". Wang and others (2025, abstract only) found "About 6% (0.54 to
-14.64%) of the modeled areas show significant increases in the number of days conducive
-to high-severity burning during 1981 to 2020". Ahmed and Hassan (2023) found Alberta
-season length "significantly longer in three ecoregions (LBH, NM, and KU) ... with the
-rates ranging from 1.1 to 1.7 day/year" (p. 12). Boulanger and others (2026, abstract
-only) found observed spread days per fire "more than doubled (+138%)" over 2002 to 2024.
+The Canadian precedents on the same estimator trended fires rather than danger. Aftergood and Flannigan (2022) [aftergood2022lightning] tested western Canadian lightning fire counts for 1981 to 2018 with "a modified Mann-Kendall test to account for type 1 errors and serial correlation in the data (Hamed, 2009)" (manuscript p. 12), and Hanes and others (2025) [10.1139/cjfr-2025-0209] updated the national fire regime series to 1959 to 2024 with the same pairing but fitted no fire weather. The block bootstrap the manuscript used for slope intervals had its nearest precedent in Richardson and others (2022) [10.1038/s41612-022-00248-4], who drew Mann-Kendall p values from 1000 block bootstrap series on the McArthur index. Station series, Sjöström, Vermina Plathner and Granström (2025) [10.1038/s41598-025-04200-3] at nine Swedish stations and Harris and Lucas (2019) [10.1371/journal.pone.0222328] at 39 Australian stations, used least squares. The one Canadian station study of the codes, Tsinko (2016) [tsinko2016thesis], ran "Robust non-parametric sen slopes (Fernandes & Leblanc, 2005) ... alongside more popular linear regression coefficients, their significance tested with the Mann Kendall trend test" (p. 29) under a Benjamini and Hochberg field test at 31 Environment Canada stations, four in British Columbia and none in the Okanagan. Jain, Wang and Flannigan (2017) [jain2017seasonlength], already cited in the manuscript, had no reading note and is not quoted here.
 
-**Where the study sits.** New work for the region. It is the first station-based
-Theil-Sen estimate of Fire Weather Index trends for the Okanagan, and the first anywhere
-in Canada to pair that estimator with the Hamed and Rao correction, a false discovery rate
-correction and a block bootstrap on danger metrics rather than on fire counts. The
-Discussion can compare its null slopes with Spittlehouse and Dymond's null weather trends
-at Penticton over 1984 to 2016 and with the provincial GEV result of Hubnerova and others,
-once that chapter is read in full.
+## Known confounds
+
+Six confounds recurred. First, interannual variability, since Amiro and others (2004, abstract only) [10.1071/wf03066] found that "Most FWI System parameters did not show trends over the 41-year period because of large inter-annual variability" (abstract) for 1959 to 1999, and Girardin and Wotton (2009) [girardin2009summer] found that "trends can hardly be distinguished from the (multi) decadal variability when analyzed over a short period" (section 5b). Second, endpoint sensitivity, since Queen and others (2025) [10.1038/s43247-025-02372-4] showed "ERA5 FWI values decreasing into the 1980s before increasing into the current decade, making a linear trend analysis sensitive to endpoint selection" (p. 2). Third, the homogeneity of the station input, since Tsinko (2016) found that "Trend significance of up to 50% of the Canadian weather stations considered was affected if computed using the homogenized data instead of the raw inhomogeneous records" (p. ii), and Wan, Wang and Swail (2010) [wan2010homogenization] found raw and homogenised wind trends often of opposite sign in the western mountains. Fourth, the same problem in reanalysis, since Rienecker and others (2011) [10.1175/jcli-d-11-00015.1] recorded "a trend (or series of jumps and different trends) in MERRA associated with the introduction of SSM/I observations in July 1987" (section 7a), Silver (2025) [silver2025colorado], read from the thesis rather than the article, found a tower with no trend (p = 0.464) beside ERA5 at the same point over the same 22 years rising with p near zero, and Sjöström and others (2025) found ERA5 trends "between 23 and 82% lower than that from the observational data" (p. 8). Fifth, the hour and form of the input, since Harris, Mills and Brown (2019) [10.36334/modsim.2019.h7.harris] found the Victorian 3 am and 9 am index "lacking the upward trend found for most other temporal periods" (p. 750), and Matteo and others (2025) found daily substitutes for noon input "exceed the baseline trend by 0.22 to 0.39 days per decade" (preprint, PDF p. 7) with "additional positive trends appear in western Canada" (PDF p. 10). Sixth, the startup rule, since McElhinny and others (2020) [mcelhinny2020era5] showed the Drought Code startup choice moved values "particularly at the beginning of the fire season" (p. 1830).
+
+## Prior estimates
+
+For the Okanagan no study reported a Theil-Sen or Mann-Kendall trend, or any trend, in a Fire Weather Index metric. Spittlehouse and Dymond (2022) [spittlehouse2022interaction] found "no significant (p<0.2) increasing or decreasing trends in the seasonal precipitation or air temperature over the 1984 to 2016 period at Penticton Airport and P1 (calculated using the zyp R package Bronaugh and Werner 2013)" (manuscript p. 9) and projected a season 14 to 32 days longer by the 2050s, and Nitschke and Innes (2008, abstract only) [nitschke2008okanagan] projected for the North Okanagan "a 30% increase in fire season length ... by 2070" (abstract). For the southern interior as a whole the literature was equally silent.
+
+For British Columbia the only station-wide analysis was Hubnerova, Esterby and Taylor (2020, abstract only) [hubnerova2020fire], who fitted generalised extreme value distributions with linear trends in location and scale to monthly maximum Fire Weather Index at 861 stations over 1970 to 2018 and found "May, July and August had the most stations with stronger increasing trends in location parameter of maximum FWI" (abstract), with no slope, no region and no correction for 861 tests. Tsinko (2016) covered Quesnel, Smithers, Terrace and Fort St John, all outside the southern interior. Luo (2026) [luo2026weakened] found potential burning hours in British Columbia, Alberta and Yukon "increased by 4-5 PBH/year across 66-89% of their burnable area" (thesis p. 52) over 1975 to 2024, by Theil-Sen and Mann-Kendall with no autocorrelation or multiple-testing treatment. Girardin and Wotton (2009) found a July Monthly Drought Code decline of 0.37 units per year in western Canada over 1901 to 2002 and, over 1951 to 2002, change in "less than 4% of all cells, hence less than expected by chance alone" (section 5b).
+
+For Canada the estimates were gridded. Jain and others (2021) found significant rises in the 95th percentile over 12.5 per cent of North America for 1979 to 2020, with the mean of significant trends rising from 34.4 to 46.7, and boreal trends "generally smaller compared with tropical, subtropical, and temperate biomes" (p. 6). Jolly and others (2015) found North American season length rose 0.1519 days per year (p < 0.01) over 1979 to 2013 with no significant boreal trend. Benoît and others (2025) [10.1007/s10980-025-02230-w] found Quebec mean head fire intensity rose 12.9 kW per metre per decade over 1978 to 2023 at p below 0.1, with autocorrelation inspected but not corrected. Matteo and others (2025) found the global count of days above the 95th percentile rose 2.65 days per decade over 1980 to 2023. Kirchmeier-Young and others (2017) [10.1007/s10584-017-2030-0] estimated no observed trend, only risk ratios of 1.5 to 6 for northern Alberta. Queen and others (2025) attributed "an anthropogenic contribution of 103% and a natural contribution of −33%" (p. 4) to the 1951 to 2021 least squares slope over western North America, and Boulanger and others (2026, abstract only) [10.1139/cjfr-2026-0100] found spread days per fire "more than doubled (+138%)" (abstract) over 2002 to 2024. On fires rather than danger, Aftergood and Flannigan (2022) found a Sen slope of minus 20.44 lightning fires per year (tau minus 0.17, bootstrap p 0.05) over 1981 to 2018.
+
+## Where it sits
+
+Against Jain and others (2021) and Matteo and others (2025) this study was an extension, carrying their estimator from a reanalysis grid to a station record with the block bootstrap of Richardson and others (2022); against Tsinko (2016) an extension from four northern stations ending in 2016 to the Okanagan and 2025; against Spittlehouse and Dymond (2022) and Hubnerova, Esterby and Taylor (2020, abstract only) new work, in metric for the first and in estimator and region for the second. On adjudication rule 1 no paper met the condition. Spittlehouse and Dymond (2022) met the region and the estimator, the zyp package being a prewhitened Sen slope, but failed the metric, since the series tested were seasonal temperature and precipitation. Hubnerova, Esterby and Taylor (2020, abstract only) met the metric and the province but failed the estimator, a generalised extreme value fit, and the region, with nothing below the province named. Luo (2026) met the estimator and the province but failed the metric, potential burning hours from a random forest rather than an index, and the region, reported only as 66 to 89 per cent of provincial burnable area. Tsinko (2016) met the estimator and the metric but failed the region. Jain and others (2021) and Matteo and others (2025) met the estimator and the metric but gave no value for any Canadian area below a biome. The Introduction's statement that the basin's trend was unreported therefore stood, phrased as the absence of a published Theil-Sen or Mann-Kendall trend in a Fire Weather Index metric for the Okanagan or the southern interior, and the Discussion's comparison with the null weather trends at Penticton and the provincial extreme value result stayed as it was.
 
 ## Question 2
 
-What is known about how the weather input, hourly against once daily, and a change of
-version or of record homogeneity, move the level, the tail and the trend of a fire danger
-index?
+What was known about how the weather input of a fire danger index, hourly against once daily, changed its level, its tail and its trend, and how a change of index version or of weather input had been handled as a homogeneity problem.
 
-**Established methods.** Three strands. First, input timing studies compare one index
-under two inputs on the same days. Rodell and others (2024) and Herrera and others (2013),
-already cited, did this for hourly against daily and instantaneous against mean daily
-input. Matteo and others (2025) did it for the trend, computing the global 1980 to 2023
-trend in days above the 95th percentile of the Fire Weather Index from noon weather and
-from four daily aggregate approximations, and testing the difference series with the
-Hamed and Rao modified Mann-Kendall test. Campos and others (2026), Fox-Hughes (2011,
-abstract only), Plucinski and others (2020, abstract only) and Perello and others (2025)
-compared hourly or sub-daily indices with daily ones for level, timing of the peak and
-skill against fire activity. Second, version comparisons run two algorithms on one input.
-Quilcaille and others (2023) ran the default Fire Weather Index algorithm against one
-using mean rather than minimum relative humidity and reported the level shift and its
-constancy over time. The 2016 update to the United States National Fire Danger Rating
-System is the only other operational version change found, and no paper evaluating it was
-retrieved. Third, homogeneity studies treat a change in the observing system as a break to
-be detected and adjusted before trending, the climate-science approach the manuscript
-already cites through Vose and others (2012) and Santer and others (2000). Tsinko (2016)
-applied it to the Fire Weather Index System itself at Canadian stations with Sen slopes,
-Mann-Kendall and a Benjamini-Hochberg correction, and Wan and others (2010) to Canadian
-wind, with a linear trend and lag-one autoregression fitted jointly.
+## Established methods
 
-**Known confounds.** The Drought Code startup, since McElhinny and others (2020) found
-"there can be a significant difference in DC (and therefore also BUI, FWI, and DSR)
-values, particularly at the beginning of the fire season, depending on which procedure is
-employed" (p. 1830), which this study holds constant across its three series by starting
-every series on 1 April. The humidity sensor change, since van Wijngaarden and Vincent
-(2005, abstract only) found "the replacement of the psychrometer by the dewcel has
-produced a decreasing step in relative humidity at a number of stations" and that "the
-relative humidity still decreased by several percent in the spring during 1953–2003 in
-western Canada"; the BC Wildfire Service record used here postdates the dewcel but its own
-sensor history is not documented and is a stated limitation. Anemometer changes, since Wan
-and others (2010) found that raw and homogenised wind trends in "the western mountainous
-regions of Canada" were "often of the opposite signs".
+Prior work ran in four strands, and one reached the trend. The first computed one index from sub-daily and from once-daily readings on the same days. Fox-Hughes (2011) [10.1175/jamc-d-10-05001.1] built the McArthur index from half-hourly reports at three Tasmanian airports over 1990 to 2010 and set the daily maximum against the synoptic reports and the single 1500 reading; Schunk and others (2013) [10.5194/nhess-13-2157-2013] ran the hourly Fine Fuel Moisture Code of Van Wagner (1977) beside the daily code in the Bavarian Alps; Rodell and others (2024) [rodell2024hourly] computed an hourly and a daily Fire Weather Index from one 4 km forecast and scored both against observation-derived daily values at 917 Canadian stations for 2021 and 2022; Campos and others (2026) [10.1038/s41598-026-72729-y] set an hourly 500 m simulation against the daily Copernicus product in Iberia. None estimated a trend, and Rodell and others noted that "the daily and hourly FFMC values are not expected to align perfectly due to the inherent variability in hour-to-hour weather conditions and differing equations" (pp. 930 to 931). Only Harris and others (2019) [10.36334/modsim.2019.h7.harris], on an hourly gridded McArthur index for Victoria over 1972 to 2017, read a trend by hour of day, from running means without an estimator.
 
-**Prior effect sizes.** For input timing on the trend, Matteo and others (2025) found
-"none of the daily approximations (C1–C4; see Table 1) preserve the C0 trend exactly, and
-all combinations overestimate the trend, ranging from 2.86 to 3.06 days per decade"
-against 2.65 days per decade from noon weather, an excess of 0.22 to 0.39 days per decade
-that was significant on the difference series. That is the one measured effect of input
-timing on a slope, and it is about a tenth of the 16.8 days over the window, or about 4.9
-days per decade, that this record could resolve. For input timing on the level and tail,
-Campos and others (2026) found hourly 500 m simulations against the daily product gave "a
-positive BIAS of 3.02 and 4.53" at two Portuguese sites and "− 5.71" in Galicia (p. 17);
-Mirones and others (2026) found a daily aggregate proxy "overestimates spell lengths in
-Galicia and Portugal (by up to 4 d)" (p. 3424); Fox-Hughes (2011) found at Hobart "only
-one-half of diurnal FFDI peaks over a critical warning level occur at 1500 LT"; Benoit
-and others (2026) found that sampling hourly ERA5 at legal rather than solar noon produced
-"discontinuities between time zones (up to +3.4 in July west of Alberta ...)" (p. 6002).
-For a version change on the level, Quilcaille and others (2023) found "the FWI is reduced
-by about −33 % (June) above 20° N" (p. 2162) under mean humidity and that "the reduction
-... is roughly identical during the fire seasons across the planet, be it over 1994–2014
-or 2081–2100" (p. 2164), a level shift that left the relative change alone, which is the
-same shape as this study's level-not-slope result. For homogeneity, Tsinko (2016) found
-"Up to 50% of the stations experienced a change in linear trend significance in P90 of
-the code values, up to 40% in IQR and up to 20% in median values" (p. 48), and Tsinko and
-others (2018), already cited, gave the 0.7 to 8.4 per cent level change. For the hourly
-quantity itself, Luo and others (2026) found from hourly reanalysis and a random forest of
-hourly burning that "annual potential burning hours were estimated to rise 36% over
-1975–2024" across North America, with boreal western Canada rising by 4 to 5 hours per
-year over 66 to 89 per cent of its burnable area, which is the nearest published
-counterpart to the burning window this study reports from FWI2025.
+The second strand compared a noon instant with daily aggregates of the same gridded weather. Matteo and others (2025) [matteo2025challenges] computed the index from ERA5 for 1980 to 2023 at noon and from four daily substitutes, took the annual count of days above the 95th percentile, and tested the difference series by "the Theil–Sen estimator" and "the modified Mann–Kendall test with the Hamed–Rao variance correction to account for serial correlation" (Methods), with the Benjamini-Hochberg rate across the grid in the preprint [10.48550/arxiv.2503.01818] (PDF p. 6). That is the estimator set the manuscript used, and the difference-series test is the precedent for its slope-difference bootstrap. Quilcaille and others (2023) [quilcaille2023fire] ran the index with daily minimum and with daily mean relative humidity across 1,321 climate model runs, a version change on one input. The third strand changed the source of the weather at a fixed hour, station against reanalysis, in Sjöström and others (2025) [10.1038/s41598-025-04200-3], Silver (2025) [silver2025colorado], Bedia and others (2012) [bedia2012reanalysis] and Field and others (2015) [field2015gfwed], the last at 48 stations including Kelowna and Penticton.
 
-**Where the study sits.** An extension of the input-timing strand to the operational
-system that now runs hourly, and the first to put a version change and an input change of
-the same index side by side on one observed record. The expectation table's statement that
-input resolution moves only the count must be loosened, because Matteo and others measured
-a slope effect, and the Discussion should say that the measured slope effect of input
-timing is an order of magnitude below this record's resolution.
+The fourth strand was homogenisation, taken from climate science. Reeves and others (2007) [10.1175/jam2493.1] held that "Before one studies trends, the relative homogeneity of the series should be assessed" (section 1), Wang (2008) [10.1175/2008jamc1741.1] supplied the PMTred and PMFred tests for mean shifts under lag-one autocorrelation, and Venema and others (2012) [venema2012homogenization] benchmarked thirteen algorithms blind. Tsinko (2016) [tsinko2016thesis] carried this into fire weather, recomputing the codes at 31 Canadian stations from raw and homogenised weather with "Robust non-parametric sen slopes" tested by "the Mann Kendall trend test" (p. 29) under a Benjamini and Hochberg field test. A version change of the index was documented by Donaldson and Paul (1990) [10.2737/se-gtr-61], Yang and others (2015) [10.1175/jamc-d-14-0090.1], Heemstra and others (2022) [10.14195/978-989-26-2298-9_160] and Mortelmans and others (2024) [10.5194/nhess-24-445-2024], and only Mortelmans corrected it, by matching the cumulative distribution of the new input "to those of the corresponding moisture codes for each grid cell" (pp. 448 to 449). This study held the Drought Code startup fixed across its three series, which McElhinny and others (2020) [mcelhinny2020era5] showed was necessary, and took percentile thresholds from each series' own record, the practice of Mortelmans and others.
+
+## Known confounds
+
+Six quantities had to be held constant before an input or version effect could be read. The Drought Code startup, since McElhinny and others (2020) [mcelhinny2020era5] found "there can be a significant difference in DC (and therefore also BUI, FWI, and DSR) values, particularly at the beginning of the fire season, depending on which procedure is employed" (p. 1830), and Wang and others (2017) [10.1186/s13717-017-0070-z] showed the same on Penticton weather of 2013 and 2014 (p. 5). The sampling hour, because Benoit and others (2026) [10.5194/essd-18-5995-2026] found that moving ERA5 from legal to solar noon raised July means by "up to +3.4 in July west of Alberta" (p. 6002). The humidity sensor, since van Wijngaarden and Vincent (2005, abstract only) [vanwijngaarden2005examination] found "the replacement of the psychrometer by the dewcel has produced a decreasing step in relative humidity at a number of stations" (Abstract), Tsinko (2016) [tsinko2016thesis] placed the breaks "in 1970s - 1990s" (p. 25), and substituting relative humidity "exerts the strongest effect on FWI trends" in Matteo and others [10.48550/arxiv.2503.01818] (PDF p. 11). The anemometer, because Wan and others (2010) [wan2010homogenization] found raw and homogenised wind trends "often of the opposite signs" in "the western mountainous regions of Canada" (section 4b). Precipitation error carried in the slow codes, since Jain and Flannigan (2017) [10.1139/cjfr-2017-0101] found "any errors in estimation of moisture codes can propagate to estimations made for successive days" (p. 7 of 47). The automation of stations, which Mills and others (2013) [10.36334/modsim.2013.a3.mills] called an inhomogeneity "particularly evident during the period of transition from mostly manual synoptic (3-hourly at best) observations to hourly or half-hourly Automatic Weather Station observations" (p. 207).
+## Prior estimates
+
+For the Okanagan the only estimate was a level effect of the precipitation source, since Field and others (2015) [field2015gfwed] found at Kelowna and Penticton over 1980 to 2006 that station Drought Code peaked "in September with values approaching DC= 450" while the Sheffield input "peaks closer to DC = 350" (p. 1413); no study computed an hourly against a once-daily index, or a trend under either, for the Okanagan. For the southern interior, Chavardès and others (2019, abstract only) [10.1071/wf18119] compared monthly Drought Code adaptations at Palliser and gave no number, so none was found. For British Columbia, Tsinko (2016) [tsinko2016thesis], with Quesnel, Smithers, Terrace and Fort St John among 31 stations, found "Up to 50% of the stations experienced a change in linear trend significance in P90 of the code values, up to 40% in IQR and up to 20% in median values" (p. 48) when homogenised weather replaced raw, and Luo and others (2026) [luo2026weakened] found from hourly ERA5 that "British Columbia, Alberta, and Yukon" gained "4 to 5 PBH/year across 66 to 89% of their burnable area" over 1975 to 2024 (Trends in annual PBH). For Canada, Matteo and others [10.48550/arxiv.2503.01818] found substitutes using minimum relative humidity put "additional positive trends" in "western Canada" (PDF p. 10).
+
+Outside Canada the trend effect of input had four measurements. Matteo and others (2025) [matteo2025challenges] found globally over 1980 to 2023 that "the baseline FWI95d (C0) increased by 2.65 days per decade" while "all combinations overestimate the trend, ranging from 2.86 to 3.06 days per decade" (Results and discussion), an excess of 0.22 to 0.39 days per decade significant on every difference series. Sjöström and others (2025) [10.1038/s41598-025-04200-3] found at nine Swedish stations over 1951 to 2020 that reanalysis trends were "between 23 and 82% lower than that from the observational data" and that ERA5 "underestimated FWI-values by 5 points for FWI = 20 and 8 points for FWI = 30" (p. 8). Harris and others (2019) [10.36334/modsim.2019.h7.harris] found over Victoria "an upward trend since the early 2000s" at 3pm and 9pm and "no upward trend" at 3am and 9am (p. 753). Silver (2025) [silver2025colorado] found no trend at the tower (p = 0.464) against "p ≈ 0" in ERA5 at the same point (pp. 17 to 18). The level and tail effects were larger. Fox-Hughes (2011) [10.1175/jamc-d-10-05001.1] found the 1500 reading resolved "some 53% of days on which peak FFDI exceeded 38" (section 4); Rodell and others (2024) [rodell2024hourly] found a day one bias of minus 2.97 for the noon hourly index and plus 2.25 for its daily maximum against minus 0.35 for the daily index; Quilcaille and others (2023) [quilcaille2023fire] found mean humidity cut the index "by about −33 % (June) above 20° N" (p. 2162) by a reduction "roughly identical" in 1994 to 2014 and 2081 to 2100 (p. 2164).
+
+## Where it sits
+
+Against Rodell and others (2024) [rodell2024hourly] this study was an extension, carrying the hourly against daily comparison from two forecast seasons to 39 observed seasons and adding the trend; against Matteo and others (2025) [matteo2025challenges] it was a replication of the difference-series design on station weather with the direction of input reversed, hourly observation against the once-daily reading rather than daily aggregate against noon instant; against Tsinko (2016) [tsinko2016thesis] it was new work, because Tsinko changed the weather and held the index fixed while this study changed the index and the input on one record. On the first condition of rule 2, Matteo and others (2025) met it in the adjacent form, a significant 0.22 to 0.39 days per decade trend excess from input timing, Harris and others (2019) met it without an estimator, Sjöström and others (2025) and Silver (2025) met it for a change of source rather than of timing, and Rodell and others (2024), Fox-Hughes (2011) and Campos and others (2026) failed it because they measured level and tail only; the expectation table and the reading of the null slope result therefore had to say that input timing was shown to move a trend, by 0.75 to 1.33 days over the 34 years from 1991 to 2025, well under the 16.8 days this record could resolve (corrected 2026-10-19 from "about a tenth", which set a rate per decade against a total over the window). On the second condition no study met it, because Tsinko (2016) corrected the weather and not the index, Venäläinen and others (2014) [venalainen2014europe] spliced two reanalyses "on the basis of the estimated coefficient" from their overlap (p. 1479) without a changepoint test, Mortelmans and others (2024) matched distributions across versions in one period rather than across a break in time, and Quilcaille and others (2023) measured the version shift without correcting it; the Methods credited no precedent, and the Discussion compared percentile reporting with Quilcaille's constant relative change and Mortelmans' distribution matching as the two published ways of carrying an index across a version.
 
 ## Question 3
 
-How have daily fire occurrence counts been modelled against fire danger in Canada and
-British Columbia, with what distribution, seasonal terms and validation, and has the
-danger to occurrence relationship been tested for change over time?
+How have daily fire occurrence counts been modelled against fire danger in Canada and British Columbia, with what distribution, what seasonal terms and what validation, and has the danger to occurrence relationship been tested for change over time?
 
-**Established methods.** Canadian practice models presence, not counts. Nadeem and
-others (2019, abstract only) built "three models of daily human- and lightning-caused
-fire occurrence ... using a lasso-logistic framework" across British Columbia with areas
-under the curve above 0.9, and Taylor and others (2022, abstract only) linked such models
-to initial attack demand. Magnussen and Taylor (2012), already cited, used logistic
-regression with leave-one-year-out validation and reported that "Because the influence of
-the explanatory variables in the models varied from year to year, model coefficients were
-estimated for each year". Count models with overdispersion appear in Hanes and others
-(2020), a zero-inflated Poisson of daily spring counts on a Fine Fuel Moisture Code
-polynomial chosen after "Over-dispersion was observed in the fitted Poisson Generalized
-Linear Models (GLM) in all regions" (p. 5), and in Boateng and Granville (2026), negative
-binomial monthly counts with month indicators tested on a held-out 2011 to 2023, whose
-dispersion estimates ran from 29 to 194. Plucinski and others (2014, abstract only)
-remains the only daily negative binomial precedent, in Western Australia, "evaluated using
-data from an independent year". Phelps and Woolford (2021, abstracts only) set out the
-evaluation guidelines, including "choosing a testing dataset" and "using temporal and
-spatial visualisations to assess model performance", and found logistic generalised
-additive models matched machine learning. Coogan and others (2025) fitted a quadratic in
-day of year to lightning ignition efficiency and found the peak "81 flashes per fire on 09
-August" (p. 7), which supports a seasonal term beside danger.
+## Established methods
 
-**Known confounds.** Reporting completeness and cause coding between seasons, which this
-study's season fixed effect absorbs; the absence of a strike record, which Wotton and
-Martell (2005), already cited, showed matters; population and fuel change, for which Hanes
-and others (2020) chose a 40 year window "to reduce non-stationarity in the records due to
-population fluctuations and potential fuel type changes" (p. 4).
+Canadian practice modelled the presence of fire on a day rather than the count, and the count models that exist ran at a monthly step or without a seasonal term. The practice began with Andrews and Bradshaw (1997) [10.2737/int-gtr-367], who fitted a logistic regression of a binary fire day on the index with no seasonal term, no cross-validation and no test of change over time. In British Columbia, Magnussen and Taylor (2012) [magnussen2012bc] carried that presence model to the 20 by 20 km cells of the National Forest Inventory grid over the fire seasons of 1981 to 2000, 1 April to 30 September, and modelled the count on a fire day separately, "by a random draw from a zero-truncated Poisson regression model fitted to a subset of the explanatory variables in Table 1" (p. 346). They fitted twenty year-specific logistic models on the expectation of "a significant amount of random year-variation in the logistic regression coefficients" (p. 345), and they excluded seasonal terms by design, because "Including variables like month, week or day as explanatory variables could mask the influence of physical process drivers" (p. 353) and "seasonal trends in human- and lightning-caused fire occurrence are not stable" (p. 346). Validation was leave-one-year-out, with "18 predictions are generated from the 19 year-specific models" (p. 348).
 
-**Prior effect sizes.** One Canadian study tested change over time in the danger to
-occurrence relationship. Granville and others (2022) fitted period by intensity
-interactions in a conditional logistic model of industrial fires in Ontario 1976 to 2019
-and found "insufficient evidence to justify the inclusion of interaction terms for low
-HFI (p-value > 0.3, Table 3). That is, it was OK to consider a single term for low HFI to
-represent this linear relationship for all three considered time periods" (pp. 232 to
-233), with a difference at high intensity only against the period before 1989. Woolford
-and others (2014, abstract only), already cited, found "statistically significant
-increases in lightning-caused fire risk between 1963 and 2009" in northwestern Ontario
-"associated with temperature and fire danger rating index anomalies", a trend in
-occurrence rather than a changed slope. Hanes and others (2025) found Montane Cordillera
-large lightning fires rising at "β = 0.50 fires·yr-1" and that "human-caused fires, which
-were previously detected as decreasing in annual area burned, have now been increasing
-with high confidence since the mid-2000's", without a fire weather term.
+Three count models frame the choice of distribution. Hanes and others (2020) [hanes2020overwinter] modelled daily human-caused spring fires in eight Alberta and Ontario regions over 1979 to 2018 by zero-inflated Poisson regression on a polynomial of the Fine Fuel Moisture Code, after finding that "Over-dispersion was observed in the fitted Poisson Generalized Linear Models (GLM) in all regions" (p. 5), with selection by "Akaike's Information Criterion (AIC)" (p. 6) and no hold-out. Boateng and Granville (2026) [10.3390/fire9010044] modelled monthly counts in northwest and northeast Ontario over 1960 to 2023 by a negative binomial autoregressive model after the Cameron and Trivedi test gave "dispersion estimates of 34.45 for human-caused fires in the NER and 29.22 in the NWR, while lightning-caused fire counts had dispersion estimates of 193.68 in the NWR and 106.59 in the NER" (p. 7), carried seasonality "by introducing monthly indicator variables" (p. 14), and scored forecasts on "a testing period (2011–2023; 13 years)" (p. 14), though no fire weather covariate entered. Plucinski and others (2014, abstract only) [plucinski2014bushfires], in south-west Western Australia, supplied the one daily negative binomial precedent, "developed using negative binomial regression with a dataset covering 3 years and evaluated using data from an independent year" (abstract). Granville and others (2022) [granville2022case] modelled the daily odds of an industrial fire in Ontario over 1976 to 2019 by conditional logistic regression, "Rather than modelling counts" (p. 220), and Bates and others (2021) [10.1007/s00382-021-05764-2], in Western Australia, scored monthly counts by rolling origin evaluation because k-fold cross-validation of a time series suffers from "the possible presence of non-stationarity in the series" (p. 1213).
 
-**Where the study sits.** The negative binomial daily count model with season fixed
-effects and two harmonics has no Canadian precedent and is reported as adopted from
-Plucinski and others (2014) and Martell and others (1989); the stationarity interaction is
-a replication, in count form, of the period interaction test of Granville and others
-(2022), and the null result here agrees with their null at low intensity.
+This study adopted the negative binomial from the overdispersion that Hanes and others (2020) and Boateng and Granville (2026) reported in Canadian counts, the daily step and the held-out period from Plucinski and others (2014, abstract only), the season as the validation unit from the leave-one-year-out design of Magnussen and Taylor (2012), and the season fixed effect as the fixed-effect form of the random year variation those authors read in their coefficients. The two annual harmonics rest on Coogan and others (2025) [coogan2025lightning], whose day of year quadratic over 2000 to 2020 "predicted the highest efficiency to be 81 flashes per fire on 09 August" (p. 7) and who held that occurrence models "may benefit by accounting for seasonal lightning efficiency" (p. 1), against the refusal of any seasonal term by Magnussen and Taylor (2012). Phelps and Woolford (2021, abstracts only) [10.1071/wf20134; 10.1071/wf20139] set the standard of "choosing a testing dataset" (abstract).
+
+## Known confounds
+
+The literature named five things to control. The first was strike data, because Magnussen and Taylor (2012) found that without lightning counts "the correlation between the recorded and the predicted number of daily lightning-caused fires was 0.36" (p. 351) against 0.83 with them, and Wierzchowski and others (2002) [wierzchowski2002lightning] reported that "lightning effectiveness in British Columbia is 1 fire for about every 50 strikes, while in Alberta there is about 1 fire for every 1400 strikes" (p. 45). The second was the fire record, in that Rorig and Ferguson (1999) [10.1175/1520-0450(1999)038<1565:colawf>2.0.co;2] found that "the date assigned to each fire is the date when the fire was first detected" (Spatial application), and Donis and others (2017) [10.14214/sf.7746] noted that "the thresholds of forest fires to be recorded have been slightly shifting" (p. 8). The third was population and fuel, for which Hanes and others (2020) chose their window "to reduce non-stationarity in the records due to population fluctuations and potential fuel type changes" (p. 4), and Granville and others (2022) separated three regulatory periods. The fourth was within-season timing, the day of year effect of Coogan and others (2025) set against the unstable seasonal pattern of Magnussen and Taylor (2012). The fifth was dependence between days and cells, which Magnussen and Taylor (2012) found small, with day-to-day autocorrelation rejected "in only six plots" (p. 345) and "an average spatial autocorrelation between adjacent grid cells of 0.034" (p. 345).
+
+## Prior estimates
+
+No prior estimate of the danger to occurrence relationship was found for the Okanagan. For the southern interior, the nearest was Wierzchowski and others (2002), whose discriminant analysis of 1961 to 1994 lightning fire density zones against 1989 to 1994 Daily Severity Rating means reached "low overall classification accuracy (38%)" (p. 49), with no count model and no test of change. For British Columbia as a whole, Magnussen and Taylor (2012) reported a daily correlation of 0.55 for human-caused fires in 1985, 0.83 for lightning fires in south-eastern British Columbia in 1991 with strike counts, and 0.36 without them in 1995, and Hanes and others (2025) [10.1139/cjfr-2025-0209] found large lightning fires in the Montane Cordillera rising over 1959 to 2024 at "β = 0.50 fires·yr-1" (manuscript pp. 7 to 8) with no fire weather term. For Canada, Hanes and others (2020) found spring human-caused counts "increases between 20% and 259% for Lac La Biche and Rocky Mountain House in Alberta, and 27% to 65% for Kenora and Kirkland Lake in Ontario" (p. 7) between low and high fall Drought Code.
+
+On change over time, one Canadian study tested the slope. Granville and others (2022) found "insufficient evidence to justify the inclusion of interaction terms for low HFI (p-value > 0.3, Table 3)" (pp. 232 to 233) across three periods of 1976 to 2019, with a difference at high intensity only for the period before 1989. Magnussen and Taylor (2012) made no formal test, but reported that "Expressed in terms of the coefficient of variation, the year-to-year variation was typically in excess of 100%" (p. 346) in every coefficient over 1981 to 2000. Woolford and others (2014, abstract only) [10.1002/env.2278] found "statistically significant increases in lightning-caused fire risk between 1963 and 2009" (abstract) in northwestern Ontario "associated with temperature and fire danger rating index anomalies" (abstract), a trend in the probability of fire rather than in its slope on danger. Outside Canada, Donis and others (2017) found the share of Latvian fires on high or extremely high days rose "from 23.4% (1975–1984) to 33.8% (2007–2012)" (p. 7) while such days stayed near 4.5 per cent of the season.
+
+## Where it sits
+
+Against Magnussen and Taylor (2012) this study is an extension, in that it keeps the British Columbia fire season, the cause split and the leave-one-season-out validation but replaces the year-specific presence models and the zero-truncated Poisson with one negative binomial count model carrying season fixed effects and harmonics; against Hanes and others (2020) and Boateng and Granville (2026) it takes the daily step of the first and the negative binomial and held-out period of the second; against Granville and others (2022) the season by danger interaction is a replication in count form of their period by intensity interaction. On adjudication rule 3, the first condition is met by Granville and others (2022), the only Canadian study that tested the danger to occurrence relationship for change over time with interaction terms and a likelihood ratio test, so the stationarity test here is reported as a replication of it and its null at low intensity is the comparator; Magnussen and Taylor (2012) fail the condition as a formal test, because they fitted no trend in their coefficients, but their year-specific models are the British Columbia precedent for year to year change and the Discussion compares the interaction with their coefficient of variation above 100 per cent; Woolford and others (2014, abstract only) cannot be confirmed as a slope test from the abstract. The second condition is not met, because no Canadian study fitted a negative binomial to daily counts with a season fixed effect, Hanes and others (2020) being zero-inflated Poisson without a season term, Boateng and Granville (2026) being negative binomial at a monthly step without a danger covariate, and Plucinski and others (2014, abstract only) being daily and negative binomial but Australian, so the Methods credit the distribution to Hanes and others (2020) and Boateng and Granville (2026), the daily form to Plucinski and others (2014, abstract only), the season effect to Magnussen and Taylor (2012), and state that no Canadian precedent combines them.
 
 ## Question 4
 
-Has FWI2025 been evaluated, compared with FWI1987 on an observed record, or used in a trend
-or occurrence study since its release, and has any study separated the version change
-from the input change?
+# Synthesis, question 4
 
-**Established methods.** None. The search term returned one record, an Icelandic thesis
-excluded for language. OpenAlex lists two works citing the 2025 report. Wilkinson and
-others (2026) name the update three times and compare nothing, writing that their daily
-code "will serve as the methodological basis for the hourly PMC that is to be
-incorporated into the next-generation Canadian Forest Fire Danger Rating System (CFFDRS)
-FWI2025". The Russian review of 2026 cites the report in one sentence on the need for new
-generation models and never names FWI2025. Han and others (2026), reviewing five national
-systems in April 2026, wrote that "CFFDRS and KFDRS primarily rely on daily index-based
-predictions". Benoit and others (2026), building a daily gridded Canadian dataset from
-hourly ERA5, followed Van Wagner (1987) and did not name the update. The Canadian Forest
-Service repository's February 2026 notice says agencies "can implement FWI2025 in parallel
-with FWI1987 to take advantage of its new capabilities and help us with ongoing testing",
-that "Work is ongoing to quantify the differences between FWI2025 and FWI1987 in relation
-to the effect on fire behaviour using the current FBP System (FBP1992)", and that
-"FWI2025 should not be used as an input to the FBP System".
+Has FWI2025 been evaluated, compared with FWI1987 on an observed weather record for levels, tails or trends, or used in a trend or occurrence study since its release in 2025, and has any study separated the change of version from the change of weather input?
 
-**Known confounds.** The search reached only indexed and web-visible work; a provincial
-agency comparison run internally would not appear.
+## Established methods
 
-**Prior effect sizes.** None published.
+No published study had done any of those things by October 2026. The claim rests on the full texts of 25 reading notes, every note in the review folder that names FWI2025, the 2025 update, a next generation system or NG-CFFDRS, each searched for those terms, plus the two OpenAlex records citing the update report GLC-X-42. Three papers named the update and did nothing with it. Wilkinson and others (2026) [wilkinson2026daily] published a daily Peat Moisture Code, named FWI2025 three times and cited GLC-X-42 as their reference 3, writing that "The daily PMC presented here will serve as the methodological basis for the hourly PMC that is to be incorporated into the next-generation Canadian Forest Fire Danger Rating System (CFFDRS) FWI2025 [3]" (Background); the note records that the 7,429 word text compares no index series. Lozhkina (2026) [10.61260/1998-8990-2026-2-31-44], a Russian-language review, cited GLC-X-42 as reference 14 on page 41 in one sentence on the need for new generation models and never used the name FWI2025. Before release, Mortelmans and others (2024) [10.5194/nhess-24-445-2024] recorded the plan, that "These updates are planned to be published in 2025 and will add new data sources and a more process-based approach" (p. 446), and evaluated their own peat-specific index instead. Set against those three, Han and others (2026) [10.3390/f17040486] reviewed five national systems in April 2026 as though the update had not happened, with "In contrast, CFFDRS and KFDRS primarily rely on daily index-based predictions" (Abstract) and no occurrence of FWI2025, the 2025 update or NG-CFFDRS in 10,781 words. The remaining mentions of a next generation are older and unrelated, Wang and others (2017) [10.1186/s13717-017-0070-z] anticipating "the ongoing development of a next generation of the CFFDRS" (p. 10), and Rienecker and others (2011) [10.1175/jcli-d-11-00015.1] on reanalyses.
 
-**Where the study sits.** New work. The sentence "no study has separated them" stands on
-the full texts of every record that cites or names the update, and the Methods should
-state the search that supports it. The Canadian Forest Service's own quantification is
-announced as ongoing and concerns fire behaviour, not danger trends.
+The nearest published comparisons of an hourly against a once-daily Canadian index on observed weather all held the 1987 equations fixed. Rodell and others (2024) [rodell2024hourly] built an hourly index from Weather Research and Forecasting output with the Van Wagner (1977) hourly Fine Fuel Moisture Code and a daily index from the same forecast with the Van Wagner (1987) equations, verified both against the observation-derived daily index at 917 Canadian stations over the 2021 and 2022 seasons, and found the daily forecast closer, "because the observation-derived DFWI values use the same empirical formulas as the DFWI forecast, whereas HFWI variables are derived from different formulas" (p. 931); the paper named no 2025 update. Benoit and others (2026) [10.5194/essd-18-5995-2026] computed a daily Canadian index from hourly ERA5 for 1950 to 2024 and compared two once-daily sampling hours, solar noon against legal noon, following Van Wagner (1987) throughout. Luo and others (2026) [luo2026weakened] and the thesis behind it, Luo (2026) [10.7939/84061], kept the fine fuel code hourly by the 1977 diurnal method and set no daily series against it. Outside Canada, Campos and others (2026) [10.1038/s41598-026-72729-y; 10.3390/eesp2026046003], Oliveira and others (2026) [10.5220/0015063700004091], Perello and others (2025) [10.1071/wf25023] and Akdagli (2026) [10.1038/s41598-026-68923-7] each ran the 1987 system hourly as their own extension, and none named the update.
+
+This study therefore had no FWI2025 precedent to adopt. It took the three-series arrangement, the old version on the 13:00 observation, the new version on the same observation through pathway C, and the new version on hourly weather through pathway A, from the update report, Canadian Forest Service Fire Danger Group (2025) [cffdg2025fwi2025], whose "calculations always use hourly weather" (p. 8), and from Matteo and others (2025) [matteo2025challenges], who held the 1987 version fixed, varied the input and tested the difference series by the estimators this study used, "(1) computed the difference time series (e.g., C1 – C0), (2) estimated the trend of this difference series using the Theil–Sen estimator, and (3) applied the modified Mann–Kendall test with the Hamed–Rao variance correction to account for serial correlation" (Methods).
+
+## Known confounds
+
+The literature names two confounds a version comparison must hold apart. The first is the weather input, which alone moves the level, tail and trend of the 1987 index. Matteo and others (2025) [matteo2025challenges] found on ERA5 for 1980 to 2023 that "the baseline FWI95d (C0) increased by 2.65 days per decade between 1980 and 2023" (Results and discussion) and that "the daily approximations exceed the baseline trend by 0.22 to 0.39 days per decade, a difference statistically significant for all combinations" (preprint PDF p. 7), Mirones and others (2026) [10.5194/nhess-26-3417-2026] found over Iberia that the daily-aggregate proxy biased the count of days above the 95th percentile in both directions by region, and Quilcaille and others (2023) [quilcaille2023fire] found the relative change held, "be it over 1994–2014 or 2081–2100" (p. 2164). Running FWI1987 on noon weather against FWI2025 on hourly weather cannot attribute a difference to either change, which is why this study ran the new version on both inputs.
+
+The second confound is the equation set. Rodell and others (2024) [rodell2024hourly] showed that even within the 1987 family the hourly and daily fine fuel codes "are not expected to align perfectly due to the inherent variability in hour-to-hour weather conditions and differing equations" (pp. 930 to 931), and Vitolo and others (2019) [10.1038/sdata.2019.32] showed that two implementations of one version fed the same test input gave a Fire Weather Index of 10.10 against 9.46. The earlier version changes were each measured on the same observed weather, the control this study kept. Yang and others (2015) [10.1175/jamc-d-14-0090.1] reformulated the Drought Code at 28 New Zealand stations over two years and found the original "underestimated the drought status (by up to 300 points) with a moist bias, especially in summer" (section 6), moving the final index by up to six points at Winchmore, and Mortelmans and others (2024) [10.5194/nhess-24-445-2024] matched the cumulative distribution of each replacement to the code it displaced and still found the thresholds "are not equal after CDF matching of the soil moisture codes because they are nonlinearly propagated into the FWI" (p. 451). Neither treated the change as a break in a long series, so no documented correction exists to credit. Hanes and others (2023) [hanes2023drought], the Drought Code evaluation the update drew on, predates it, names no hourly version, and warned that "the high autocorrelation (up to 26 days) of the daily time series data would also need to be taken into account" (Discussion, Limitations).
+
+## Prior estimates
+
+No estimate of the difference between FWI2025 and FWI1987 on an observed record was found for the Okanagan, for the southern interior, for British Columbia or for Canada, and none was found for any other region. The Canadian Forest Service's own quantification was unfinished in February 2026, Natural Resources Canada (2026) [nrcan2026cffdrsng] stating that "Work is ongoing to quantify the differences between FWI2025 and FWI1987 in relation to the effect on fire behaviour using the current FBP System (FBP1992)", which concerned fire behaviour, not danger levels, tails or trends. The report's only statement on the size of the difference is the continuity claim that "an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025" (p. 18), set beside the design change that "the time lag function used in the FWI2025 for the FFMC has been cut in half" (p. 19). The nearest numbers come from input changes at a fixed version. Rodell and others (2024) [rodell2024hourly] reported, at 4 km against the station-derived daily index at 917 stations in 2021 and 2022, a mean bias of minus 0.35 for the daily forecast index, minus 2.97 for the noon hourly index and plus 2.25 for the hourly daily maximum. Benoit and others (2026) [10.5194/essd-18-5995-2026] found the sampling hour alone raised the July mean index by up to 3.4 units west of Alberta over 1950 to 2024. For trend, the one estimate is the 0.22 to 0.39 days per decade of Matteo and others (2025) [matteo2025challenges] on a 2.65 base, global, 1980 to 2023, Theil-Sen with the Hamed and Rao correction, an input effect and not a version effect.
+
+## Where it sits
+
+This study is new work. Against Matteo and others (2025) [matteo2025challenges] it extends a gridded input-only design to a station record that varies version and input separately; against Rodell and others (2024) [rodell2024hourly] it is an extension from forecast weather and the 1977 hourly equations to observed hourly weather and the 2025 equations; against Wilkinson and others (2026) [wilkinson2026daily] and Lozhkina (2026) [10.61260/1998-8990-2026-2-31-44] it shares only the citation of the report. On adjudication rule 4, the condition that triggers withdrawal is a published comparison of FWI2025 with FWI1987 on an observed record for levels, tails or trends, and no paper meets it. Wilkinson and others (2026) and Lozhkina (2026) name or cite the update and compare nothing; Mortelmans and others (2024) predates the release; Rodell and others (2024), Benoit and others (2026), Luo and others (2026) and the four non-Canadian hourly studies compare inputs or sampling hours with the 1987 equations held fixed; Matteo and others (2025), Mirones and others (2026) and Quilcaille and others (2023) vary input at a fixed version; Yang and others (2015) and Vitolo and others (2019) vary the equations of an earlier version; and the Natural Resources Canada notice reports unpublished work on fire behaviour. The sentence "no study has separated them" stands, and the Methods state the search that supports it, naming the terms, the 25 notes, the two OpenAlex citing records and the date, noting that an agency comparison run internally would not appear in indexed work.

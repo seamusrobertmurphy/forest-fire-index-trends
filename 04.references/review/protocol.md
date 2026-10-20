@@ -159,6 +159,55 @@ the terms selected from them were committed with this entry before any second pa
 ran. The first pass protocol was itself committed on 2026-10-14, after its searches,
 which the deviation of 2026-10-13 records.
 
+2026-10-14. The second pass ran on 2026-10-14 and 2026-10-15 after the protocol section
+and the terms were committed as b7df8e8. OpenAlex now refuses cursor paging past the first
+page without a key, so the `review-openalex` chunk pages by number, and the two queries that
+had stopped at 200 records were rerun in full after their rows were removed from the log and
+the hits. Semantic Scholar ran without a key, because Seamus holds none, at one request every
+two seconds, and all seven new queries answered after a single retry of one HTTP 429. The
+Consensus route gives three records per query without an account and no DOI, so it is logged
+with a cap of three and its hits were typed from the session's results with DOIs matched on
+Crossref by exact title, 30 of 32. Google Scholar was not used because it has no search
+interface for scripts, blocks automated queries behind CAPTCHAs, and returns counts that
+change between sessions, so a query there cannot be logged and rerun. The screening pack had
+treated the text "NA" as an abstract, so the 37 undecided records of the first pass had never
+had their abstracts fetched from OpenAlex; that was fixed, and the 413 records left open
+after the document type rule, the 37 among them, were screened by hand on 2026-10-14, 47
+included. Grey literature for strands 1 and 9 entered by hand as eight rows with route grey
+or crossref, each address read on 2026-10-15; the Canadian Forest Service publication
+warehouse links have moved to the NRCan Open Science and Technology Repository, and the Van
+Wagner 1977 report is logged as out of window and retained through citation.
+
+2026-10-19. Twenty-one of the files the fetch step had logged as saved from the
+publisher's landing page, all from American Meteorological Society journals, were two-page
+first-page previews rather than articles, found when their text layers were extracted for
+note writing. The fetch step now removes any downloaded PDF of two pages or fewer and tries
+the next route, and those twenty-one records were refetched through the remaining routes.
+Notes with page-cited verbatim quotations were written for the 43 saved full texts that had
+none, and every quotation was checked by script against the page text, letters and digits
+only, with running headers and manuscript line numbers removed. Three saved files were not
+the article their DOI names, a thesis, a preprint and an accepted manuscript, and their notes
+record that in the text route.
+
+2026-10-19, write-back. The 64 texts reached in full were written back to library-science
+the same day, the PDFs into its store, one source note per paper with the quotations checked
+by its own checker, which passes a quotation only inside one page, so a quotation crossing a
+page was split or left out and the note says so. The 22 American Meteorological Society
+records answered HTTP 403 to every scripted route and wait on the browser.
+
+2026-10-19, browser route. With Seamus's approval the 25 American Meteorological Society
+records were read in Chrome and the text of the article page saved for 20 of them, cited by
+section because a page carries no page numbers; the other five, scanned articles from before
+2005 and two reanalysis descriptions, show only the abstract on the page and stay abstract
+only until their PDF is approved for download one file at a time.
+
+2026-10-19, synthesis and checklist. `synthesis.md` was rewritten question by question in
+the four parts, `review-attributes.csv` refilled with fifteen rows, and the eleven checklist
+items scripted. Nine pass. Items 8 and 10 fail for the 28 records read from an article web
+page rather than a PDF, which the library's checker cannot verify, so they hold no library
+source note and no `library.bib` entry. Seamus accepted them as read on 2026-10-19 with that
+gap recorded, and the manuscript's own tables are the record of what was read.
+
 ## Second pass
 
 The second pass opened on 2026-10-14, the questions are the four above, and no question
