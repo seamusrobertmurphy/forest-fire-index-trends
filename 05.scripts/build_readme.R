@@ -5,12 +5,14 @@
 ## abstract, and the figures and tables, and nothing else. No prose sections, no
 ## restatement of the methods.
 ##
-## The rule that makes this safe is that the README quotes rather than recomputes.
-## Every number in it comes from a file the render wrote: the abstract from
-## `03.outputs/abstract.txt`, each table from `03.outputs/tables/<label>.csv`, and
-## each figure from the PNG knitr produced. So the README cannot say something the
-## manuscript does not, and it goes stale in an obvious way, by disappearing, if
-## the render has not been run.
+## Rewritten 2026-10-26. The README quotes rather than recomputes, and since that
+## day it quotes the rendered HTML itself: every figure and table caption, every
+## table body and the order and numbering of both are read from
+## `01.manuscript/manuscript.html`, so the README shows exactly what the
+## manuscript shows, including the two tables typed as Markdown in the prose and
+## the figure in the appendix. The abstract and title come from the text files the
+## `export-artefacts` chunk writes, and each figure from the PNG knitr wrote. The
+## README goes stale in an obvious way, by disappearing, if the render has not run.
 ##
 ## GitHub renders this file, not Pandoc, so tables are written as GFM pipe tables.
 ## Pandoc grid tables, the `+---+---+` style Quarto emits, print on GitHub as a
@@ -26,65 +28,75 @@ while (!all(dir.exists(file.path(root, c("01.manuscript", "03.outputs"))))) {
   root <- up
 }
 outputs <- file.path(root, "03.outputs")
-tbl_dir <- file.path(outputs, "tables")
 fig_dir <- file.path(outputs, "figures")
+html_file <- file.path(root, "01.manuscript", "manuscript.html")
 
-need <- file.path(outputs, "abstract.txt")
-if (!file.exists(need))
-  stop("No render artefacts at ", need,
-       ". Render 01.manuscript/manuscript.qmd first; this script only quotes it.")
+for (f in c(file.path(outputs, "abstract.txt"), html_file))
+  if (!file.exists(f))
+    stop("No render artefact at ", f,
+         ". Render 01.manuscript/manuscript.qmd to HTML first; this script only quotes it.")
 
-## The manuscript writes its figures straight into `fig_dir` by setting knitr's
-## fig.path, because with embed-resources Quarto deletes the render sidecar once
-## it has inlined the images, leaving nothing on disk. Nothing to copy here.
-dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+html <- paste(readLines(html_file, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
 
-## A GFM pipe table. Cells have their pipes escaped and their newlines replaced,
-## because either would break the row.
-pipe_table <- function(df) {
-  clean <- function(x) {
-    x <- format(x, trim = TRUE, big.mark = "", scientific = FALSE)
-    x <- gsub("\\|", "\\\\|", x)
-    trimws(gsub("[\r\n]+", " ", x))
-  }
-  cells <- as.data.frame(lapply(df, clean), stringsAsFactors = FALSE)
-  hdr <- paste0("| ", paste(gsub("\\|", "\\\\|", names(df)), collapse = " | "), " |")
-  ## Numeric columns right aligned, everything else left, which is the house
-  ## style the manuscript's own tables use.
-  align <- vapply(df, function(col) if (is.numeric(col)) "---:" else ":---", "")
-  sep <- paste0("| ", paste(align, collapse = " | "), " |")
-  rows <- apply(cells, 1, function(r) paste0("| ", paste(r, collapse = " | "), " |"))
-  c(hdr, sep, rows)
+## Plain text from a fragment of HTML: tags removed, entities decoded, whitespace
+## collapsed. Nothing is reworded.
+plain <- function(x) {
+  x <- gsub("<[^>]+>", "", x)
+  x <- gsub("\u00a0", " ", x)
+  for (e in list(c("&amp;", "&"), c("&lt;", "<"), c("&gt;", ">"), c("&quot;", "\""),
+                 c("&#39;", "'"), c("&nbsp;", " "), c("&ndash;", "–"), c("&mdash;", "—")))
+    x <- gsub(e[1], e[2], x, fixed = TRUE)
+  trimws(gsub("\\s+", " ", x))
 }
 
-read_caption <- function(label) {
-  f <- file.path(tbl_dir, paste0(label, ".caption.txt"))
-  if (file.exists(f)) paste(readLines(f, warn = FALSE), collapse = " ") else ""
-}
+## Every float caption in document order, with its label and the number Quarto
+## gave it. The caption text is kept as rendered, minus the "Figure 3: " prefix,
+## which the README restates in its own bold form.
+cap_pat <- '(?s)<figcaption class="[^"]*" id="((fig|tbl)-[A-Za-z0-9_-]+)-caption-[^"]*">(.*?)</figcaption>'
+caps <- regmatches(html, gregexpr(cap_pat, html, perl = TRUE))[[1]]
+floats <- lapply(caps, function(m) {
+  parts <- regmatches(m, regexec(cap_pat, m, perl = TRUE))[[1]]
+  txt <- plain(parts[4])
+  num <- sub("^(Figure|Table) ([0-9A-Z.]+):.*$", "\\2", txt)
+  list(label = parts[2], kind = parts[3], number = num,
+       caption = sub("^(Figure|Table) [0-9A-Z.]+:\\s*", "", txt))
+})
 
-## Order of appearance in the manuscript. Anything the render did not write is
-## skipped silently here and is therefore visibly absent from the README.
-TABLE_ORDER <- c("tbl-stations", "tbl-completeness", "tbl-verify", "tbl-thresholds",
-                 "tbl-capability", "tbl-trends", "tbl-slopediff", "tbl-sensitivity",
-                 "tbl-ignition", "tbl-stationarity", "tbl-shift", "tbl-limits")
-FIGURE_ORDER <- c("fig-study-area", "fig-distributions", "fig-mechanism",
-                  "fig-trends", "fig-slopediff", "fig-ignition")
-
-figcaps <- character(0)
-capfile <- file.path(fig_dir, "captions.tsv")
-if (file.exists(capfile)) {
-  cc <- strsplit(readLines(capfile, warn = FALSE), "\t")
-  figcaps <- setNames(vapply(cc, function(x) x[2], ""), vapply(cc, function(x) x[1], ""))
+## A GFM pipe table from the rendered <table> that follows a float's id. Cells
+## have their pipes escaped and their newlines replaced, because either would
+## break the row. Right alignment is kept where the render set it.
+pipe_table <- function(label) {
+  start <- regexpr(paste0('<div id="', label, '"'), html, fixed = TRUE)
+  if (start < 0) return(NULL)
+  rest <- substr(html, start, nchar(html))   # substring() stops at one million characters
+  t0 <- regexpr("<table", rest, fixed = TRUE)
+  if (t0 < 0) return(NULL)
+  t1 <- regexpr("</table>", substring(rest, t0), fixed = TRUE)
+  if (t1 < 0) return(NULL)
+  tbl <- substring(rest, t0, t0 + t1 + 6)
+  rows <- regmatches(tbl, gregexpr("(?s)<tr[^>]*>.*?</tr>", tbl, perl = TRUE))[[1]]
+  cells <- lapply(rows, function(r) {
+    cs <- regmatches(r, gregexpr("(?s)<t[hd][^>]*>.*?</t[hd]>", r, perl = TRUE))[[1]]
+    txt <- vapply(cs, function(c) gsub("\\|", "\\\\|", plain(c)), "")
+    right <- grepl('text-align:\\s*right|class="[^"]*right[^"]*"', cs)
+    list(txt = txt, right = right)
+  })
+  hdr <- cells[[1]]$txt
+  align <- vapply(seq_along(hdr), function(j) {
+    col_right <- vapply(cells[-1], function(r) length(r$right) >= j && r$right[j], logical(1))
+    if (length(col_right) && all(col_right)) "---:" else ":---"
+  }, "")
+  c(paste0("| ", paste(hdr, collapse = " | "), " |"),
+    paste0("| ", paste(align, collapse = " | "), " |"),
+    vapply(cells[-1], function(r) paste0("| ", paste(r$txt, collapse = " | "), " |"), ""))
 }
 
 title <- paste(readLines(file.path(outputs, "title.txt"), warn = FALSE), collapse = " ")
-subtitle <- paste(readLines(file.path(outputs, "subtitle.txt"), warn = FALSE), collapse = " ")
-abstract <- readLines(file.path(outputs, "abstract.txt"), warn = FALSE)
+abstract <- paste(readLines(file.path(outputs, "abstract.txt"), warn = FALSE), collapse = " ")
 
 out <- c(
   paste("#", title),
   "",
-  if (nzchar(subtitle)) c(paste0("*", subtitle, "*"), "") else NULL,
   "Seamus Murphy, ORCID 0000-0002-1792-0351.",
   "",
   paste("Everything below is generated from the render of",
@@ -100,15 +112,15 @@ out <- c(
 )
 
 n_fig <- 0
-for (lab in FIGURE_ORDER) {
-  png <- file.path(fig_dir, paste0("mfig-", lab, "-1.png"))
-  if (!file.exists(png)) next
+for (fl in floats) {
+  if (fl$kind != "fig") next
+  png <- file.path(fig_dir, paste0("mfig-", fl$label, "-1.png"))
+  if (!file.exists(png)) { message("no PNG for ", fl$label, ", skipped"); next }
   n_fig <- n_fig + 1
-  cap <- if (lab %in% names(figcaps)) figcaps[[lab]] else ""
   out <- c(out,
-           paste0("**Figure ", n_fig, ".** ", cap),
+           paste0("**Figure ", fl$number, ".** ", fl$caption),
            "",
-           paste0("![", lab, "](03.outputs/figures/", basename(png), ")"),
+           paste0("![", fl$label, "](03.outputs/figures/", basename(png), ")"),
            "")
 }
 if (n_fig == 0) out <- c(out, "No figure files found. Render the manuscript first.", "")
@@ -116,19 +128,15 @@ if (n_fig == 0) out <- c(out, "No figure files found. Render the manuscript firs
 out <- c(out, "## Tables", "")
 
 n_tbl <- 0
-for (lab in TABLE_ORDER) {
-  f <- file.path(tbl_dir, paste0(lab, ".csv"))
-  if (!file.exists(f)) next
+for (fl in floats) {
+  if (fl$kind != "tbl") next
+  body <- pipe_table(fl$label)
+  if (is.null(body)) { message("no table body for ", fl$label, ", skipped"); next }
   n_tbl <- n_tbl + 1
-  df <- read.csv(f, check.names = FALSE, stringsAsFactors = FALSE)
-  out <- c(out,
-           paste0("**Table ", n_tbl, ".** ", read_caption(lab)),
-           "",
-           pipe_table(df),
-           "")
+  out <- c(out, paste0("**Table ", fl$number, ".** ", fl$caption), "", body, "")
 }
-if (n_tbl == 0) out <- c(out, "No table files found. Render the manuscript first.", "")
+if (n_tbl == 0) out <- c(out, "No tables found. Render the manuscript first.", "")
 
-writeLines(out, file.path(root, "README.md"))
+writeLines(out, file.path(root, "README.md"), useBytes = TRUE)
 cat(sprintf("Wrote README.md: %d figures, %d tables, %d lines.\n",
             n_fig, n_tbl, length(out)))

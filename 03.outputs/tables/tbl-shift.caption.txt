@@ -1,1 +1,1 @@
-How each change moves the seasonal count of extreme days, in days per season.
+How each change moved the level of each metric, in its own unit.
