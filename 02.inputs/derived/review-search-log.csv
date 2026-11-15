@@ -65,3 +65,36 @@ consensus,consensus-q2b-index-homogeneity,fire danger or fire weather index stat
 consensus,consensus-q2c-index-input,fire danger or fire weather index hourly or diurnal input,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
 consensus,consensus-q2d-index-threshold,fire danger or fire weather index percentile or absolute threshold,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
 consensus,consensus-q3a-index-occurrence-place,fire danger or fire weather index and fire occurrence or ignitions in British Columbia or Canada,2026-10-14,3,3,3,TRUE,"session search tool, three results per query without an account, DOI by Crossref title match"
+ostr,ostr-q5-fwi-system,"""Fire Weather Index""",2026-11-05,399,399,3000,FALSE,NA
+ostr,ostr-q5-danger-rating,"""fire danger rating""",2026-11-05,1267,1267,3000,FALSE,NA
+ostr,ostr-q5-ffmc,"""Fine Fuel Moisture Code""",2026-11-05,159,159,3000,FALSE,NA
+ostr,ostr-q5-dmc,"""Duff Moisture Code""",2026-11-05,125,125,3000,FALSE,NA
+ostr,ostr-q5-dc,"""Drought Code""",2026-11-05,164,164,3000,FALSE,NA
+ostr,ostr-q5-isi,"""Initial Spread Index""",2026-11-05,125,125,3000,FALSE,NA
+ostr,ostr-q5-bui,"""Buildup Index"" OR ""Build-up Index""",2026-11-05,105,105,3000,FALSE,NA
+ostr,ostr-q5-hourly-ffmc,"hourly AND ""fine fuel moisture""",2026-11-05,117,117,3000,FALSE,NA
+ostr,ostr-q5-diurnal,diurnal AND (fire OR moisture),2026-11-05,261,261,3000,FALSE,NA
+ostr,ostr-q5-overwinter,"overwinter* AND (""Drought Code"" OR fire)",2026-11-05,4,4,3000,FALSE,NA
+ostr,ostr-q5-startup,"(""start-up"" OR startup OR ""starting values"") AND fire",2026-11-05,276,276,3000,FALSE,NA
+ostr,ostr-q5-danger-class,"(""danger class"" OR ""danger classes"" OR ""adjective rating"") AND fire",2026-11-05,52,52,3000,FALSE,NA
+ostr,ostr-q5-cffdrs,CFFDRS,2026-11-05,128,128,3000,FALSE,NA
+ostr,ostr-q5-fwi2025,"FWI2025 OR ""FWI 2025"" OR CFFDRS2025 OR ""2025 update""",2026-11-05,187,187,3000,FALSE,NA
+ostr,ostr-q5-next-generation,"""next generation"" AND ""fire danger""",2026-11-05,30,30,3000,FALSE,NA
+ostr,ostr-q5-bc,"""fire danger"" AND ""British Columbia""",2026-11-05,1153,1153,3000,FALSE,NA
+ostr,ostr-q5-fwi-abbrev,"""FWI System""",2026-11-05,171,171,3000,FALSE,NA
+chase,chase-cites-cffdg2025fwi2025,"OpenAlex works citing https://openalex.org/W7085199387 (The 2025 Update to the FWI System: Structure, Changes and Interpretation)",2026-11-05,2,2,NA,FALSE,NA
+chase,chase-cites-beck1989diurnal,OpenAlex works citing https://openalex.org/W2024732948 (Forecasting diurnal variations in meteorological parameters for predicting fire behaviour),2026-11-05,26,26,NA,FALSE,NA
+chase,chase-cites-wang2017cffdrs,OpenAlex works citing https://openalex.org/W2581034649 (cffdrs: an R package for the Canadian Forest Fire Danger Rating System),2026-11-05,156,156,NA,FALSE,NA
+chase,chase-cites-vanwagner1987fwi,OpenAlex works citing https://openalex.org/W2545119860 (Development and Structure of the Canadian Forest FireWeather Index System),2026-11-05,868,868,NA,FALSE,NA
+chase,chase-cites-vanwagner1977hourly,OpenAlex works citing https://openalex.org/W2185948870 (A METHOD OF COMPUTING FINE FUEL MOISTURE CONTENT THROUGHOUT THE DIURNAL CYCLE),2026-11-05,28,28,NA,FALSE,NA
+chase,chase-cites-lawson2008weather,OpenAlex works citing https://openalex.org/W1969601839 (Canadian Forest Fire Danger Rating System: An Overview),2026-11-05,377,377,NA,FALSE,NA
+chase,chase-cites-lawson2008weather,OpenAlex works citing https://openalex.org/W4254518604 (The Canadian Forest Fire Danger Rating System: An Overview),2026-11-05,311,311,NA,FALSE,NA
+chase,chase-cites-nrcan2026cffdrsng,title cffdrs-ng,2026-11-05,0,0,NA,FALSE,no OpenAlex work matched the title
+openalex,openalex-q5-system-method,"(""Canadian Forest Fire Danger Rating System"" OR CFFDRS OR ""Fire Weather Index System"" OR ""FWI System"" OR ""Fine Fuel Moisture Code"" OR ""Duff Moisture Code"" OR ""Drought Code"" OR ""Initial Spread Index"" OR ""Buildup Index"") AND (hourly OR diurnal OR overwinter OR overwintering OR ""start-up"" OR startup OR ""danger class"" OR ""danger classes"" OR FWI2025 OR CFFDRS2025 OR ""next generation"" OR version OR calibration OR ""observation time"")",2026-11-05,2015,2015,3000,FALSE,NA
+openalex,openalex-q5-system-only,"""Canadian Forest Fire Danger Rating System"" OR CFFDRS OR ""Fire Weather Index System"" OR ""FWI System"" OR ""Fine Fuel Moisture Code"" OR ""Duff Moisture Code"" OR ""Drought Code"" OR ""Initial Spread Index"" OR ""Buildup Index""",2026-11-05,3000,3337,3000,TRUE,NA
+openalex,openalex-q5-fwi2025,"FWI2025 OR CFFDRS2025 OR ""FWI 2025"" OR ""2025 update"" ""Fire Weather Index""",2026-11-05,3000,4209,3000,TRUE,NA
+ads,ads-q5-system-method,"abs:(""Canadian Forest Fire Danger Rating System"" OR CFFDRS OR ""Fire Weather Index System"" OR ""FWI System"" OR ""Fine Fuel Moisture Code"" OR ""Duff Moisture Code"" OR ""Drought Code"" OR ""Initial Spread Index"" OR ""Buildup Index"") AND abs:(hourly OR diurnal OR overwinter OR overwintering OR ""start-up"" OR startup OR ""danger class"" OR ""danger classes"" OR FWI2025 OR CFFDRS2025 OR ""next generation"" OR version OR calibration OR ""observation time"")",2026-11-05,172,172,6000,FALSE,NA
+ads,ads-q5-system-only,"abs:(""Canadian Forest Fire Danger Rating System"" OR CFFDRS OR ""Fire Weather Index System"" OR ""FWI System"" OR ""Fine Fuel Moisture Code"" OR ""Duff Moisture Code"" OR ""Drought Code"" OR ""Initial Spread Index"" OR ""Buildup Index"") OR title:(""Canadian Forest Fire Danger Rating System"" OR CFFDRS OR ""Fire Weather Index System"" OR ""FWI System"" OR ""Fine Fuel Moisture Code"" OR ""Duff Moisture Code"" OR ""Drought Code"" OR ""Initial Spread Index"" OR ""Buildup Index"")",2026-11-05,1039,1039,6000,FALSE,NA
+ads,ads-q5-fwi2025,"abs:(FWI2025 OR CFFDRS2025 OR ""FWI 2025"") OR title:(FWI2025 OR CFFDRS2025)",2026-11-05,0,0,6000,FALSE,NA
+s2,s2-q5-system-method,"(""Canadian Forest Fire Danger Rating System""|CFFDRS|""Fire Weather Index System""|""FWI System""|""Fine Fuel Moisture Code""|""Duff Moisture Code""|""Drought Code""|""Initial Spread Index""|""Buildup Index"") + (hourly|diurnal|overwinter|overwintering|""start-up""|startup|""danger class""|""danger classes""|FWI2025|CFFDRS2025|""next generation""|version|calibration|""observation time"")",2026-11-05,86,86,5000,FALSE,NA
+s2,s2-q5-fwi2025,"FWI2025|CFFDRS2025|""FWI 2025""",2026-11-05,0,0,5000,FALSE,NA

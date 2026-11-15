@@ -104,7 +104,7 @@ Search terms are selected in `04.references/review/search-terms.csv`, from candi
 `review-terms` chunk drew from the manuscript's title and keywords, and committed with this
 file. The keywords "hourly weather" and "fire occurrence" were added to the front matter on
 2026-10-13 so that the search could carry those concepts. The queries are built from that
-selection by the `review-queries` chunk in `01.manuscript/manuscript.qmd`. Calibration
+selection by the `review-queries` chunk in `04.references/review/review.qmd`. Calibration
 counts read from OpenAlex on 2026-10-13 before freezing: question 1, 113 records; question
 2, 109; question 3, 105 with the place concept and 404 without it, so the place concept is
 kept; question 4, 1 record for the term alone, which is why the chase from the report is
@@ -277,3 +277,40 @@ Reporting. The Methods report both passes together, with counts read from
 `review_counts`, the flow diagram drawn by the `fig-review-flow` chunk, and the coverage
 gaps named, among them the ADS stopword, any Semantic Scholar refusal, every reached cap
 and the publisher blocks of 2026-10-13 that `review-fulltext-log.csv` records.
+
+## Third pass
+
+2026-11-05, third pass opened. Seamus asked on 2026-11-05 for an exhaustive pass on one
+subject, the methodology of the Canadian Forest Fire Danger Rating System, its Fire
+Weather Index System and the 2025 revision, in every form of publication. His reason was
+that the manuscript examines a federal revision closely and its authors are the likely
+referees. The request is `05.tasks/TASK-REQUEST-LITREVIEW-CFFDRS-EXHAUSTIVE-2026-11-05.md`.
+The four questions, the adjudication rules and the exclusion codes stand. The pass is
+subject led rather than question led. A record is kept when it describes the System's
+components, equations, calibration, weather inputs, observation time, start-up,
+overwintering, danger classes, versions or implementations, whatever question it serves.
+Document types widen to the Canadian Forest Service report series in full, provincial
+agency documents, theses, proceedings, preprints and any commentary on the revision. The
+1987 opening year is lifted for this subject, because the System's own reports run from
+1933. Routes run in this order. First, a backward chase from the 31 references of the
+2025 report, from Van Wagner 1987, the 1985 listing and Lawson and Armitage 2008, and
+from the sources the reference implementation's comments cite. Seamus ruled on 2026-11-05
+that every one of the 31 is read in full and that the references found inside them enter
+the review as well. Second, a forward chase through OpenAlex and CrossRef from the keys
+`cffdg2025fwi2025`, `vanwagner1987fwi`, `vanwagner1977hourly`, `lawson2008weather`,
+`beck1989diurnal`, `wang2017cffdrs` and `nrcan2026cffdrsng`. Third, registry search on
+OpenAlex, CrossRef, NASA ADS, Semantic Scholar and Consensus under the label q5, with
+these terms, "Canadian Forest Fire Danger Rating System", "CFFDRS", "Fire Weather Index
+System", "Fine Fuel Moisture Code", "Duff Moisture Code", "Drought Code", "Initial Spread
+Index", "Buildup Index", "hourly FFMC", "diurnal", "overwinter", "start-up", "danger
+class", "FWI2025", "CFFDRS2025" and "next generation", added to `search-terms.csv` under
+q5. Fourth, the grey literature portals, the Natural Resources Canada repository,
+Government of Canada Publications, the Canadian Wildland Fire Information System, BC
+Wildfire Service and the BC Data Catalogue, the other provincial agencies, the Canadian
+Interagency Forest Fire Centre, FPInnovations, the Library and Archives Canada theses
+portal and the university repositories. The central store is searched before any
+registry. Canadian Forest Service reports are fetched from the DSpace back end of the
+Open Science and Technology Repository, the handle resolved through its `pid/find`
+endpoint and the file taken from the ORIGINAL bundle. Every record retrieved is merged
+into `review-records.csv` by DOI or handle with a decision and a reason, every text read
+gets a note under `notes/`, and the gap table is `05.tasks/LITREVIEW-GAPS-2026-11-05.md`.

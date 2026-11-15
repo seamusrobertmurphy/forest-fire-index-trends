@@ -5,9 +5,9 @@
 "Version change, input held at 13:00","level","Mean ISI",4,-0.001,0,0
 "Version change, input held at 13:00","level","Mean DMC",4,0.042,0,0
 "Version change, input held at 13:00","level","Peak DC",4,0.455,0,0
-"Version change, input held at 13:00","absolute","Days FFMC >= 91",4,-0.029,0,0
-"Version change, input held at 13:00","absolute","Days FWI >= 19",4,-0.023,0,0
-"Version change, input held at 13:00","absolute","Days FWI >= 30",4,-0.057,0,0
+"Version change, input held at 13:00","absolute","Days FFMC > 91",4,-0.029,0,0
+"Version change, input held at 13:00","absolute","Days FWI > 19",4,-0.023,0,0
+"Version change, input held at 13:00","absolute","Days FWI > 30",4,-0.057,0,0
 "Version change, input held at 13:00","relative","Days FWI above own 90th percentile",4,0.044,0,0
 "Version change, input held at 13:00","relative","Days FWI above own 95th percentile",4,0.031,0,0
 "Version change, input held at 13:00","relative","Days ISI above own 95th percentile",4,-0.02,0,0
@@ -17,9 +17,9 @@
 "Input resolution change, version held at FWI2025","level","Mean ISI",4,0.01,0,0
 "Input resolution change, version held at FWI2025","level","Mean DMC",4,-0.022,0,0
 "Input resolution change, version held at FWI2025","level","Peak DC",4,0.271,0,0
-"Input resolution change, version held at FWI2025","absolute","Days FFMC >= 91",4,-0.021,0,0
-"Input resolution change, version held at FWI2025","absolute","Days FWI >= 19",4,-0.062,0,0
-"Input resolution change, version held at FWI2025","absolute","Days FWI >= 30",4,-0.048,0,0
+"Input resolution change, version held at FWI2025","absolute","Days FFMC > 91",4,-0.021,0,0
+"Input resolution change, version held at FWI2025","absolute","Days FWI > 19",4,-0.062,0,0
+"Input resolution change, version held at FWI2025","absolute","Days FWI > 30",4,-0.048,0,0
 "Input resolution change, version held at FWI2025","relative","Days FWI above own 90th percentile",4,-0.038,0,0
 "Input resolution change, version held at FWI2025","relative","Days FWI above own 95th percentile",4,-0.03,0,0
 "Input resolution change, version held at FWI2025","relative","Days ISI above own 95th percentile",4,0.017,0,0
@@ -29,9 +29,9 @@
 "Operational migration, both changes","level","Mean ISI",4,0.006,0,0
 "Operational migration, both changes","level","Mean DMC",4,0.036,0,0
 "Operational migration, both changes","level","Peak DC",4,0.593,0,0
-"Operational migration, both changes","absolute","Days FFMC >= 91",4,-0.061,0,0
-"Operational migration, both changes","absolute","Days FWI >= 19",4,-0.101,0,0
-"Operational migration, both changes","absolute","Days FWI >= 30",4,-0.105,0,0
+"Operational migration, both changes","absolute","Days FFMC > 91",4,-0.061,0,0
+"Operational migration, both changes","absolute","Days FWI > 19",4,-0.101,0,0
+"Operational migration, both changes","absolute","Days FWI > 30",4,-0.105,0,0
 "Operational migration, both changes","relative","Days FWI above own 90th percentile",4,0.019,0,0
 "Operational migration, both changes","relative","Days FWI above own 95th percentile",4,0.001,0,0
 "Operational migration, both changes","relative","Days ISI above own 95th percentile",4,-0.035,0,0

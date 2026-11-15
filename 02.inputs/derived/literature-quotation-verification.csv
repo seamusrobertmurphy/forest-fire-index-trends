@@ -1,23 +1,93 @@
 key,quotation,source_text,found_verbatim
 cffdg2025fwi2025,Using hourly weather to better reflect maximum burning conditions,2025 report pdf,True
-cffdg2025fwi2025,the time lag function used in the FWI2025 for the FFMC has been cut in half,2025 report pdf,True
+vanwagner1987hindsight,the weakest link in the present chain,pdf,True
+vanwagner1987hindsight,"four elements read once daily at noon, one instantaneous sample of a 24-hr continuum",pdf,True
+cffdg2025fwi2025,"eliminate the differences that arise in the values of the daily FFMC, the hourly FFMC and the diurnally adjusted FFMC",2025 report pdf,True
+lawson2008weather,for each hour around the clock without the need for hourly weather data,pdf,True
+cffdg2025fwi2025,"to better match field observations of litter moisture content variation throughout the day, the time lag function used in the FWI2025 for the FFMC has been cut in half",2025 report pdf,True
+cffdg2025fwi2025,may be more granular than necessary,2025 report pdf,True
+cffdg2025fwi2025,ensures consistency across all System components,2025 report pdf,True
 cffdg2025fwi2025,will err to the dry side of fuel moisture,2025 report pdf,True
-cffdg2025fwi2025,limits the impact of high wind speeds on the ISI at wind speeds over 40km/h,2025 report pdf,True
+cffdg2025fwi2025,"the latitude, longitude of the weather observation location measured in decimal degrees and date",2025 report pdf,True
+lawson2008weather,any past calibrations between fire danger ratings and fire activity,pdf,True
+lawson2008weather,rendered invalid,pdf,True
+cffdg2025fwi2025,the original ISI formula in the FWI System can lead to excessively high values at extreme wind speeds,2025 report pdf,True
+cffdg2025fwi2025,"limits the impact of high wind speeds on the ISI at wind speeds over 40km/h, ensuring a more realistic representation of fire behaviour",2025 report pdf,True
 cffdg2025fwi2025,will remain unchanged,2025 report pdf,True
+hanes2019regime,whereas human-caused fires are either stable or declining throughout the country,abstract,True
+jain2017seasonlength,potential fire spread days and the 99th percentile of FWI,pdf,True
+jain2017seasonlength,although the trends of largest magnitude and statistical significance were mostly positive,pdf,True
 rodell2024hourly,standard noon local time usually does not coincide with the timing of peak fire behavior,pdf,True
 matteo2025challenges,"all combinations overestimate the trend, ranging from 2.86 to 3.06 days per decade",saved text,True
+tsinko2018comparisons,reduced the indices values approximately 0.7–8.4% and also reversed the long-term trend in some stations such as Kapuskasing,pdf,True
+jolly2024nfdrs,across six US National Forests was very similar,abstract,True
+jolly2024nfdrs,V4 was as good or better than V2 at predicting fire days in 92% of the cases tested,abstract,True
+hollis2024afdrs,"was implemented in 2022, the most significant change to fire danger forecasting in Australia in more than 50 years",abstract,True
+andrews2003evaluation,evaluating proposed changes to a fire danger rating system,abstract,True
+beverly2007flaming,were as effective as models developed with site variables at predicting the probability of short-duration sustained flaming in most fuel categories,abstract,True
+cffdg2025fwi2025,to ensure compatibility with a wider range of input data while maintaining the consistency of output values,2025 report pdf,True
 cffdg2025fwi2025,an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025,2025 report pdf,True
-cffdg2025fwi2025,should reflect meaningful differences in fuel moisture content,2025 report pdf,True
+cffdg2025fwi2025,"should reflect meaningful differences in fuel moisture content, as FWI2025 more accurately models diurnal drying and wetting processes",2025 report pdf,True
 queen2025fingerprint,"ERA5 FWI values decreasing into the 1980s before increasing into the current decade, making a linear trend analysis sensitive to endpoint selection",pdf,True
-kirchmeieryoung2017attributing,1.5 to 6 times as likely,pdf,True
 richardson2022global,"increasing trends and change points for many parts of the world, including western North America",pdf,True
 cffdg2025fwi2025,primarily relevant for extreme fire conditions,2025 report pdf,True
 girardin2009summer,recorded a trend toward decreasing dryness,abstract,True
 cffdg2025fwi2025,will err to the dry side of fuel moisture,2025 report pdf,True
+cffdg2025fwi2025,days where two rainfall events are spaced apart by more than six hours,2025 report pdf,True
+heyerdahl2012mixed,a mean plot-composite fire scar interval of 21 years (1700–1900),abstract,True
+heyerdahl2012mixed,"was mixed severity over the past several centuries, with low-severity fires most common",abstract,True
+chavardes2021drought,"After 1945, decreased fire occurrence and synchrony reflects fire exclusion, suppression and climatic variation",abstract,True
 cffdg2025fwi2025,a generalized pine forest (similar to C-3),2025 report pdf,True
+cffdg2025fwi2025,a better approximation of the diurnal change in moisture associated with the actual day,2025 report pdf,True
+cffdg2025fwi2025,under the right temperature and relative humidity conditions,2025 report pdf,True
+cffdg2025fwi2025,a six-hour time constant is introduced to account for canopy drying,2025 report pdf,True
+cffdg2025fwi2025,a simple approximation of drying,2025 report pdf,True
+cffdg2025fwi2025,primarily relevant for extreme fire conditions,2025 report pdf,True
+cffdg2025fwi2025,not significantly impact fire agency classification thresholds,2025 report pdf,True
 cffdg2025fwi2025,using a modification of the original drying rate functions,2025 report pdf,True
+cffdg2025fwi2025,to modify the original methods such that they provided reasonable and consistent outputs in an hourly calculation,2025 report pdf,True
+cffdg2025fwi2025,gain and lose moisture much more quickly than the litter layer,2025 report pdf,True
+cffdg2025fwi2025,may be the only daily observation available for historical analysis,2025 report pdf,True
+cffdg2025fwi2025,provides the most accurate representation of diurnal weather patterns,2025 report pdf,True
+cffdg2025fwi2025,these general methods for using the 13:00 weather observation should be adequate for most purposes,2025 report pdf,True
+cffdg2025fwi2025,produce satisfactory results over the Canadian fire season,2025 report pdf,True
+cffdg2025fwi2025,the way the 13:00 rainfall was treated in the FWI1987 System,2025 report pdf,True
+lawson2008weather,on the third successive day that noon temperatures of 12 °C or higher have been recorded,pdf,True
+cffdg2025fwi2025,simply surrogates for the harder to observe state where the organic layer in the forest has thawed,2025 report pdf,True
+cffdg2025fwi2025,estimates of moisture content in these fuel layers after three days of drying from a fully saturated starting point,2025 report pdf,True
 hanes2020overwinter,the western provinces regularly overwinter the DC,pdf,True
+vanwagner1987fwi,"really represents fire danger at its midafternoon peak, generally specified as 1600 hours",pdf,True
+cffdg2025fwi2025,lacks a precise definition for the time to which its outputs are correlated to the peak burning conditions of the day,2025 report pdf,True
+cffdg2025fwi2025,training material often suggests 16:00 or 17:00 as general approximations,2025 report pdf,True
+cffdg2025fwi2025,"at a specific time the user selects as 'peak burn,' or from the actual time at which peak fire behaviour would be expected",2025 report pdf,True
+cffdg2025fwi2025,"the hour corresponding to a maximum, smoothed ISI during the day",2025 report pdf,True
+field2015gfwed,will be different in other regions,pdf,True
+podur2011spread,Based on our results for Ontario,pdf,True
+eccc2016cldn,was established in 1998 and consists of over 80 lightning sensors distributed across Canada,saved page,True
+eccc2018lightningfaq,does not have a website for historical lightning,saved page,True
+eccc2018lightningfaq,by contacting your weather service,saved page,True
 magnussen2012bc,typically in excess of 100%,pdf,True
+cffdg2025fwi2025,an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025,2025 report pdf,True
+hanes2021classes,"while modifications to the FWI System are being planned to reproduce the general existing range in observed outputs, some differences in the frequency of occurrence of different codes or index values may result",pdf,True
+cffdg2025fwi2025,as examples and starting points,2025 report pdf,True
+cffdg2025fwi2025,"equal to or greater than five, which corresponds to spreading surface fires",2025 report pdf,True
+cffdg2025fwi2025,might be useful for understanding the impacts of non-standard conditions,2025 report pdf,True
+matteo2025challenges,increased by 2.65 days per decade,saved text,True
+wastl2013large,"Regional differences were highest for the FFMC, followed by the DMC and the DC, and could be attributed to the time lag of different forest soil layers",saved text,True
+rodrigues2020identifying,a same result may be produced by different combinations of weather variables,saved text,True
+cffdg2025fwi2025,err to the dry side of fuel moisture,2025 report pdf,True
+cffdg2025fwi2025,days where two rainfall events are spaced apart by more than six hours,2025 report pdf,True
+cffdg2025fwi2025,little to no difference,2025 report pdf,True
+matthews2009comparison,cancelled out some of the differences in structure,pdf,True
+cffdg2025fwi2025,"any weather estimate, including those derived from our methods, involves inherent assumptions",2025 report pdf,True
+cffdg2025fwi2025,represents a mathematical maximum and does not provide an indication of how sharp or flat that 'peak' is,2025 report pdf,True
+cffdg2025fwi2025,the width of the burning window on a particular day may also be a useful addition,2025 report pdf,True
+castelclavera2025comparative,the Canadian FWI remains the most skillful indicator among the tested indices,abstract,True
+castelclavera2025comparative,relying solely on fire-weather indices is insufficient,abstract,True
+castelclavera2025comparative,the inclusion of spatial and seasonal effects in the models is crucial,abstract,True
+heinsch2009percentiles,a similar number of days fall in each class,pdf,True
+hanes2021classes,2% of fire season days,pdf,True
+hanes2021classes,would still be warranted as the values no longer reflect the original frequency of occurrence expectations,pdf,True
 quilcaille2023fire,by about −33 % (June) above 20° N,pdf,True
 quilcaille2023fire,"roughly identical during the fire seasons across the planet, be it over 1994–2014 or 2081–2100",pdf,True
 mortelmans2024peatland,matched the temporal cumulative density functions (CDFs) of the PEATCLSM output variables,pdf,True

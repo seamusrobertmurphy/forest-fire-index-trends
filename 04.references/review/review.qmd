@@ -1,0 +1,719 @@
+---
+title: "Review searches"
+engine: knitr
+execute:
+  echo: true
+---
+
+This file holds the search and screening code of the manuscript's literature review. On
+2026-11-14 it was moved here from Appendix A.1 of `01.manuscript/manuscript.qmd`, because a
+journal article does not describe how its review was searched. The relative paths were
+moved one level deeper, and `review-terms` now reads the manuscript's front matter by name.
+Nothing else was changed. Render from this folder.
+
+```{r}
+#| label: review-setup
+#| output: false
+# The helper the counts paragraph uses, copied from the manuscript's setup chunk,
+# and the MacPorts interpreter the Python chunks were written for.
+n_fmt <- function(x) format(as.numeric(x), big.mark = ",", trim = TRUE)
+reticulate::use_python("/opt/local/bin/python3", required = TRUE)
+```
+
+```{r}
+#| label: review-terms
+#| output: false
+# Candidate search terms were first written from the title and keywords as they
+# stood on 13 October 2026; the selection was typed into the file and is never
+# overwritten by a render. The keywords were cut to the journal's limit on
+# 26 October 2026, so the file, not the front matter, is the record of the
+# protocol that was run.
+if (!file.exists("../../04.references/review/search-terms.csv")) {
+  front <- rmarkdown::yaml_front_matter("../../01.manuscript/manuscript.qmd")
+  small <- c("a", "an", "and", "as", "at", "by", "do", "does", "for", "from", "how", "in", "into", "is", "its", "of", "on", "or", "the", "to", "under", "using", "versus", "what", "why", "with")
+  phrases <- \(x) x |>
+    stringr::str_to_lower() |>
+    stringr::str_remove_all("[*_]") |>
+    stringr::str_replace_all("[^[:alnum:][:space:]-]", " | ") |>
+    stringr::str_replace_all(paste0("\\b(", paste(small, collapse = "|"), ")\\b"), " | ") |>
+    stringr::str_split_1("\\|") |>
+    stringr::str_squish() |>
+    purrr::keep(\(p) nchar(p) > 2)
+  dir.create("../../04.references/review", recursive = TRUE, showWarnings = FALSE)
+  dplyr::bind_rows(
+    tibble::tibble(term = stringr::str_squish(stringr::str_to_lower(unlist(stringr::str_split(unlist(front$keywords), "[;,]")))), source = "keywords"),
+    tibble::tibble(term = phrases(front$title), source = "title"),
+    tibble::tibble(term = phrases(front$subtitle %||% ""), source = "subtitle")
+  ) |>
+    dplyr::distinct(term, .keep_all = TRUE) |>
+    dplyr::mutate(question = NA, concept = NA) |>
+    readr::write_csv("../../04.references/review/search-terms.csv", na = "")
+}
+```
+
+```{r}
+#| label: review-queries
+#| output: false
+terms <- readr::read_csv("../../04.references/review/search-terms.csv", col_types = readr::cols(.default = "c")) |>
+  dplyr::filter(!is.na(question), !is.na(concept)) |>
+  dplyr::mutate(term = stringr::str_to_lower(term)) |>
+  tidyr::separate_longer_delim(question, " ")
+if (nrow(terms) == 0) stop("No search terms selected in 04.references/review/search-terms.csv")
+queries <- terms |>
+  dplyr::summarise(.by = c(question, concept), group = paste(term, collapse = "|")) |>
+  dplyr::summarise(.by = question, route = paste(c(dplyr::first(question), concept), collapse = "-"), concepts = paste(group, collapse = " AND "))
+# One boolean string per query for the external indexes. A term ending in * is a
+# stem; the external indexes stem on their own, so the star is dropped there.
+boolean_query <- function(concepts, or = " OR ", and = " AND ") {
+  stringr::str_split_1(concepts, " AND ") |>
+    purrr::map_chr(\(g) paste0("(", paste(purrr::map_chr(stringr::str_split_1(g, "\\|"), \(x) {
+      x <- stringr::str_remove(x, "\\*$")
+      if (grepl(" ", x)) paste0('"', x, '"') else x
+    }), collapse = or), ")")) |>
+    paste(collapse = and)
+}
+# A query is sent to a source once. The search log names every query a source
+# has answered, so a later pass sends only the queries added to the terms file
+# since the pass before, and each pass extends the log and the hits files rather
+# than replacing them.
+search_log_path <- "../../02.inputs/derived/review-search-log.csv"
+read_search_log <- function() if (file.exists(search_log_path)) readr::read_csv(search_log_path, col_types = readr::cols(.default = "c")) else tibble::tibble(strand = character(), route = character())
+pending_queries <- function(prefix) queries[!paste0(prefix, queries$route) %in% read_search_log()$route, ]
+append_csv <- function(rows, path) {
+  rows <- dplyr::mutate(rows, dplyr::across(dplyr::everything(), as.character))
+  old <- if (file.exists(path)) readr::read_csv(path, col_types = readr::cols(.default = "c")) else NULL
+  readr::write_csv(dplyr::bind_rows(old, rows), path)
+}
+```
+
+```{r}
+#| label: review-store
+#| output: false
+pending <- pending_queries("store-")
+if (nrow(pending) > 0) {
+  # library-science manifest, https://github.com/seamusrobertmurphy/library-science/blob/main/library/manifest.csv
+  manifest <- readr::read_csv("../../../library-science/library/manifest.csv", show_col_types = FALSE)
+  # library-science source notes, https://github.com/seamusrobertmurphy/library-science/tree/main/sources
+  notes <- tibble::tibble(path = list.files("../../../library-science/sources", "\\.md$", full.names = TRUE)) |>
+    dplyr::mutate(key = tools::file_path_sans_ext(basename(path)), note = purrr::map_chr(path, \(p) paste(readLines(p, warn = FALSE), collapse = " ")))
+  store <- manifest |>
+    dplyr::filter(status %in% c("verified", "filed", "unverified"), !is.na(title) | !is.na(key)) |>
+    dplyr::left_join(dplyr::select(notes, key, note), by = "key") |>
+    dplyr::mutate(text = stringr::str_to_lower(paste(title, note)))
+  hits <- pending |>
+    purrr::pmap(\(question, route, concepts) {
+      groups <- stringr::str_split_1(concepts, " AND ")
+      term <- \(x) if (stringr::str_ends(x, "\\*")) paste0(stringr::str_remove(x, "\\*$"), "\\w*") else paste0(x, "\\b")
+      patterns <- purrr::map_chr(groups, \(g) paste0("\\b(", paste(purrr::map_chr(stringr::str_split_1(g, "\\|"), term), collapse = "|"), ")"))
+      keep <- purrr::map(patterns, \(r) stringr::str_detect(store$text, r)) |> purrr::reduce(`&`)
+      store[keep, ] |> dplyr::transmute(question, route = paste0("store-", route), key, doi, title, year, venue = container, source_note = dplyr::if_else(has_source_note == "yes", key, NA))
+    }) |>
+    purrr::list_rbind()
+  if (nrow(hits) > 0) append_csv(hits, "../../02.inputs/derived/review-store-hits.csv")
+  pending |>
+    dplyr::transmute(strand = "library-science", route = paste0("store-", route), query = concepts, date = as.character(Sys.Date())) |>
+    dplyr::mutate(retrieved = purrr::map_int(route, \(r) sum(hits$route == r)), reported_total = retrieved, cap = NA, capped = FALSE, error = NA) |>
+    append_csv(search_log_path)
+}
+```
+
+```{r}
+#| label: review-openalex
+#| output: false
+# OpenAlex searches titles and abstracts. Abstracts are publisher text and are
+# written only under 02.inputs/searches, which is not committed; the committed
+# hits file carries bibliographic fields alone.
+pending <- pending_queries("openalex-")
+if (nrow(pending) > 0) {
+  abstract_text <- function(inv) {
+    if (is.null(inv)) return(NA_character_)
+    pos <- unlist(inv, use.names = FALSE)
+    words <- rep(names(inv), lengths(inv))
+    paste(words[order(pos)], collapse = " ")
+  }
+  search_oa <- function(question, route, concepts, cap = 3000) {
+    query <- boolean_query(concepts)
+    # Pages are numbered, because paging past the first page with a cursor
+    # needs an API key as of 2026-10-14 and numbered pages do not.
+    works <- list(); page <- 1; total <- NA; err <- NA
+    repeat {
+      # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works/search-works
+      resp <- httr2::request("https://api.openalex.org/works") |>
+        httr2::req_url_query(filter = paste0("title_and_abstract.search:", query, ",from_publication_date:1987-01-01"),
+                             select = "id,doi,title,publication_year,primary_location,type,cited_by_count,abstract_inverted_index",
+                             `per-page` = 200, page = page, mailto = "seamusrobertmurphy@gmail.com") |>
+        httr2::req_retry(max_tries = 6) |>
+        httr2::req_error(is_error = \(r) FALSE) |>
+        httr2::req_perform()
+      if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
+      body <- httr2::resp_body_json(resp)
+      total <- body$meta$count; page <- page + 1
+      works <- c(works, body$results)
+      if (length(works) >= total || length(body$results) == 0 || length(works) >= cap) break
+    }
+    rows <- works |>
+      purrr::map(\(w) tibble::tibble(
+        openalex = w$id %||% NA_character_,
+        doi = stringr::str_remove(w$doi %||% NA_character_, "^https://doi.org/"),
+        title = w$title %||% NA_character_, year = w$publication_year %||% NA_integer_,
+        venue = w$primary_location$source$display_name %||% NA_character_,
+        type = w$type %||% NA_character_, citations = w$cited_by_count %||% NA_integer_,
+        abstract = abstract_text(w$abstract_inverted_index))) |>
+      purrr::list_rbind()
+    if (nrow(rows) == 0) rows <- tibble::tibble(doi = character(), title = character(), abstract = character())
+    list(hits = dplyr::mutate(rows, question, route = paste0("openalex-", route), .before = 1),
+         log = tibble::tibble(strand = "openalex", route = paste0("openalex-", route), query, date = as.character(Sys.Date()),
+                              retrieved = nrow(rows), reported_total = total, cap, capped = isTRUE(total > cap), error = err))
+  }
+  runs <- purrr::pmap(pending, search_oa)
+  oa <- purrr::map(runs, "hits") |> purrr::list_rbind()
+  dir.create("../../02.inputs/searches", showWarnings = FALSE)
+  if (nrow(oa) > 0) {
+    append_csv(oa, "../../02.inputs/searches/review-openalex-records.csv")
+    append_csv(dplyr::select(oa, -abstract), "../../02.inputs/derived/review-openalex-hits.csv")
+  }
+  append_csv(purrr::map(runs, "log") |> purrr::list_rbind(), search_log_path)
+}
+```
+
+```{r}
+#| label: review-ads
+#| output: false
+# NASA ADS searches abstracts with a personal token read from outside the
+# repository. The token "trend" is a stopword in ADS, so any query carrying it
+# is run without that concept and logged as such.
+pending <- pending_queries("ads-")
+if (nrow(pending) > 0) {
+  token_file <- path.expand("~/.ads/dev_key")
+  search_ads <- function(question, route, concepts, cap = 2000) {
+    groups <- stringr::str_split_1(concepts, " AND ")
+    dropped <- groups[stringr::str_detect(groups, "^trend")]
+    groups <- groups[!stringr::str_detect(groups, "^trend")]
+    query <- paste0("abs:", boolean_query(paste(groups, collapse = " AND ")), " year:1987-")
+    rows <- tibble::tibble(); total <- NA; err <- NA; start <- 0
+    if (!file.exists(token_file)) err <- "no token" else repeat {
+      # NASA ADS search API, https://ui.adsabs.harvard.edu/help/api/api-docs.html
+      resp <- httr2::request("https://api.adsabs.harvard.edu/v1/search/query") |>
+        httr2::req_headers(Authorization = paste("Bearer", readLines(token_file, warn = FALSE)[1])) |>
+        httr2::req_url_query(q = query, fl = "bibcode,title,year,pub,doi,doctype,abstract", rows = 200, start = start) |>
+        httr2::req_retry(max_tries = 4) |>
+        httr2::req_error(is_error = \(r) FALSE) |>
+        httr2::req_perform()
+      if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
+      body <- httr2::resp_body_json(resp)$response
+      total <- body$numFound
+      page <- body$docs |>
+        purrr::map(\(d) tibble::tibble(bibcode = d$bibcode %||% NA_character_, doi = unlist(d$doi)[1] %||% NA_character_,
+                                       title = unlist(d$title)[1] %||% NA_character_, year = as.integer(d$year %||% NA),
+                                       venue = d$pub %||% NA_character_, type = d$doctype %||% NA_character_,
+                                       abstract = d$abstract %||% NA_character_)) |>
+        purrr::list_rbind()
+      rows <- dplyr::bind_rows(rows, page)
+      start <- start + 200
+      if (nrow(page) == 0 || start >= total || nrow(rows) >= cap) break
+    }
+    if (nrow(rows) == 0) rows <- tibble::tibble(doi = character(), title = character(), abstract = character())
+    list(hits = dplyr::mutate(rows, question, route = paste0("ads-", route), .before = 1),
+         log = tibble::tibble(strand = "ads", route = paste0("ads-", route), query, date = as.character(Sys.Date()),
+                              retrieved = nrow(rows), reported_total = total, cap, capped = isTRUE(total > cap),
+                              error = dplyr::coalesce(err, if (length(dropped)) paste("stopword concept dropped:", dropped) else NA)))
+  }
+  runs <- purrr::pmap(pending, search_ads)
+  ads <- purrr::map(runs, "hits") |> purrr::list_rbind()
+  if (nrow(ads) > 0) {
+    append_csv(ads, "../../02.inputs/searches/review-ads-records.csv")
+    append_csv(dplyr::select(ads, -abstract), "../../02.inputs/derived/review-ads-hits.csv")
+  }
+  append_csv(purrr::map(runs, "log") |> purrr::list_rbind(), search_log_path)
+}
+```
+
+```{r}
+#| label: review-semantic-scholar
+#| output: false
+# Semantic Scholar is the index the library protocol names. Without a key it
+# rate limits, so a refusal is logged against the query rather than stopping
+# the render, and the log row says which strand is missing. A key, when one is
+# held, is read from outside the repository and sent as a header.
+pending <- pending_queries("s2-")
+if (nrow(pending) > 0) {
+  key_file <- path.expand("~/.s2/api_key")
+  s2_key <- if (file.exists(key_file)) readLines(key_file, warn = FALSE)[1] else NULL
+  search_s2 <- function(question, route, concepts, cap = 3000) {
+    query <- boolean_query(concepts, or = " | ", and = " + ")
+    papers <- list(); token <- NULL; total <- NA; err <- NA
+    repeat {
+      # Semantic Scholar Academic Graph bulk search, https://api.semanticscholar.org/api-docs/graph#tag/Paper-Data/operation/get_graph_paper_bulk_search
+      resp <- httr2::request("https://api.semanticscholar.org/graph/v1/paper/search/bulk") |>
+        httr2::req_url_query(query = query, year = "1987-", fields = "title,year,venue,externalIds,citationCount,publicationTypes", token = token) |>
+        httr2::req_headers(`x-api-key` = s2_key) |>
+        httr2::req_throttle(rate = 1 / 2) |>
+        httr2::req_retry(max_tries = 3, backoff = \(i) 5 * i) |>
+        httr2::req_error(is_error = \(r) FALSE) |>
+        httr2::req_perform()
+      if (httr2::resp_status(resp) != 200) { err <- paste("HTTP", httr2::resp_status(resp)); break }
+      body <- httr2::resp_body_json(resp)
+      total <- body$total; token <- body$token
+      papers <- c(papers, body$data)
+      if (is.null(token) || length(papers) >= cap) break
+    }
+    works <- papers |>
+      purrr::map(\(w) tibble::tibble(doi = w$externalIds$DOI %||% NA_character_, title = w$title %||% NA_character_, year = w$year %||% NA_integer_, venue = w$venue %||% NA_character_, type = paste(unlist(w$publicationTypes), collapse = " "), citations = w$citationCount %||% NA_integer_)) |>
+      purrr::list_rbind()
+    if (nrow(works) == 0) works <- tibble::tibble(doi = character(), title = character())
+    list(hits = dplyr::mutate(works, question, route = paste0("s2-", route), .before = 1),
+         log = tibble::tibble(strand = "semantic-scholar", route = paste0("s2-", route), query, date = as.character(Sys.Date()), retrieved = nrow(works), reported_total = total, cap, capped = isTRUE(total > cap), error = err))
+  }
+  runs <- purrr::pmap(pending, search_s2)
+  s2 <- purrr::map(runs, "hits") |> purrr::list_rbind()
+  if (nrow(s2) > 0) append_csv(s2, "../../02.inputs/derived/review-s2-hits.csv")
+  append_csv(purrr::map(runs, "log") |> purrr::list_rbind(), search_log_path)
+}
+```
+
+```{r}
+#| label: review-chase
+#| output: false
+# One round of backward and forward chasing from the central records, through
+# OpenAlex, which lists both the references of a work and the works citing it.
+central <- c("10.4095/st000101", "10.1175/waf-d-23-0226.1", "10.1016/j.agrformet.2018.07.005",
+             "10.1007/s10584-012-0667-2", "10.1071/wf17008", "10.1071/wf11088")
+if (length(central) > 0 && !file.exists("../../02.inputs/derived/review-chase-hits.csv")) {
+  oa_get <- function(url, query = list()) {
+    resp <- httr2::request(url) |> httr2::req_url_query(!!!query, mailto = "seamusrobertmurphy@gmail.com") |>
+      httr2::req_retry(max_tries = 6) |> httr2::req_error(is_error = \(r) FALSE) |> httr2::req_perform()
+    if (httr2::resp_status(resp) != 200) return(NULL)
+    httr2::resp_body_json(resp)
+  }
+  as_row <- \(w) tibble::tibble(openalex = w$id %||% NA_character_, doi = stringr::str_remove(w$doi %||% NA_character_, "^https://doi.org/"), title = w$title %||% NA_character_, year = w$publication_year %||% NA_integer_, venue = w$primary_location$source$display_name %||% NA_character_)
+  chase <- function(seed_doi) {
+    # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works
+    seed <- oa_get(paste0("https://api.openalex.org/works/https://doi.org/", seed_doi))
+    if (is.null(seed)) return(tibble::tibble(seed = seed_doi, route = "chase", error = "seed not found"))
+    refs <- if (length(seed$referenced_works)) oa_get("https://api.openalex.org/works", list(filter = paste0("ids.openalex:", paste(basename(unlist(seed$referenced_works)), collapse = "|")), `per-page` = 200, select = "id,doi,title,publication_year,primary_location")) else NULL
+    cites <- oa_get("https://api.openalex.org/works", list(filter = paste0("cites:", basename(seed$id)), `per-page` = 200, select = "id,doi,title,publication_year,primary_location"))
+    dplyr::bind_rows(
+      purrr::map(refs$results %||% list(), as_row) |> purrr::list_rbind() |> dplyr::mutate(route = "chase-references"),
+      purrr::map(cites$results %||% list(), as_row) |> purrr::list_rbind() |> dplyr::mutate(route = "chase-citations")
+    ) |> dplyr::mutate(seed = seed_doi, .before = 1)
+  }
+  chased <- purrr::map(central, chase) |> purrr::list_rbind()
+  readr::write_csv(chased, "../../02.inputs/derived/review-chase-hits.csv")
+  readr::read_csv("../../02.inputs/derived/review-search-log.csv", col_types = readr::cols(.default = "c")) |>
+    dplyr::bind_rows(chased |> dplyr::count(seed, route, name = "retrieved") |>
+      dplyr::transmute(strand = "openalex-chase", route = paste(route, seed), query = seed, date = as.character(Sys.Date()),
+                       retrieved = as.character(retrieved), reported_total = retrieved, cap = NA, capped = "FALSE", error = NA)) |>
+    readr::write_csv("../../02.inputs/derived/review-search-log.csv")
+}
+```
+
+```{r}
+#| label: review-records
+#| output: false
+# One row per unique record across every strand. A record already cited by this
+# manuscript is marked, by DOI against the bibliography, so screening can see
+# what the earlier reading had reached.
+records_path <- "../../02.inputs/derived/review-records.csv"
+read_hits <- \(p) if (file.exists(p)) readr::read_csv(p, col_types = readr::cols(.default = "c")) else tibble::tibble()
+bib <- paste(readLines("../../04.references/references.bib", warn = FALSE), collapse = " ")
+bib_dois <- stringr::str_to_lower(unlist(stringr::str_extract_all(bib, "10\\.[0-9]{4,9}/[^\\s,}\"]+")))
+fresh <- dplyr::bind_rows(
+  read_hits("../../02.inputs/derived/review-store-hits.csv"),
+  read_hits("../../02.inputs/derived/review-openalex-hits.csv"),
+  read_hits("../../02.inputs/derived/review-ads-hits.csv"),
+  read_hits("../../02.inputs/derived/review-s2-hits.csv"),
+  # The Consensus route was run by hand through the session's search tool on
+  # 2026-10-14, three results per query, and its hits file was typed from them.
+  read_hits("../../02.inputs/derived/review-consensus-hits.csv"),
+  read_hits("../../02.inputs/derived/review-chase-hits.csv") |> dplyr::mutate(question = "chase")
+) |>
+  dplyr::mutate(doi = stringr::str_to_lower(doi),
+                id = dplyr::coalesce(doi, stringr::str_squish(stringr::str_to_lower(stringr::str_replace_all(title, "[^[:alnum:] ]", " "))))) |>
+  dplyr::filter(!is.na(id), id != "") |>
+  dplyr::summarise(.by = id, doi = dplyr::first(stats::na.omit(doi)), title = dplyr::first(stats::na.omit(title)), year = dplyr::first(stats::na.omit(year)), venue = dplyr::first(stats::na.omit(venue)), type = dplyr::first(stats::na.omit(type)), questions = paste(sort(unique(question)), collapse = " "), routes = paste(sort(unique(route)), collapse = " "), duplicates_merged = dplyr::n(), key = dplyr::first(stats::na.omit(key)), source_note = dplyr::first(stats::na.omit(source_note))) |>
+  dplyr::mutate(cited = dplyr::if_else(!is.na(doi) & doi %in% bib_dois, "yes", "no")) |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+if (!file.exists(records_path)) {
+  fresh |>
+    dplyr::mutate(decision = NA, reason = NA, full_text = NA) |>
+    readr::write_csv(records_path, na = "")
+} else {
+  # A later pass adds its records as new rows and refreshes the questions and
+  # routes of the rows it found again. Every decision, reason, full text flag,
+  # note and hand typed key already in the table is kept, and a row added by
+  # hand, such as a grey literature record, is kept as it stands.
+  old <- readr::read_csv(records_path, col_types = readr::cols(.default = "c"))
+  kept <- old |> dplyr::select(id, old_key = key, old_source_note = source_note, decision, reason, full_text, dplyr::any_of("note"))
+  merged <- dplyr::bind_rows(
+    fresh |>
+      dplyr::left_join(kept, by = "id") |>
+      dplyr::mutate(key = dplyr::coalesce(old_key, key), source_note = dplyr::coalesce(old_source_note, source_note)) |>
+      dplyr::select(-old_key, -old_source_note),
+    old |> dplyr::filter(!id %in% fresh$id)
+  )
+  merged <- dplyr::mutate(merged, dplyr::across(dplyr::everything(), as.character))
+  if (!identical(merged, old)) readr::write_csv(merged, records_path, na = "")
+}
+```
+
+```{python}
+#| label: review-screening-pack
+#| output: false
+"""Build the title-and-abstract screening batches for the 2026-10-13 literature review.
+
+Reads the committed screening table 02.inputs/derived/review-records.csv, applies the
+document-type rule of the review protocol (records of an ineligible type are excluded by
+rule with the code not-research), attaches each remaining record's abstract from the
+uncommitted search files under 02.inputs/searches, fetches the abstract from OpenAlex by
+DOI where no search file holds it, and writes one batch per question under
+02.inputs/searches/review-batches/. Abstracts are publisher text and never leave
+02.inputs/searches. Runs only while a record has no decision or stands undecided, and
+names each batch by the day it was built so an earlier pass's batches are never
+overwritten.
+"""
+import csv, json, os, sys, time, urllib.parse, urllib.request
+
+ROOT = os.path.abspath("../..")
+DERIVED = os.path.join(ROOT, "02.inputs", "derived")
+SEARCHES = os.path.join(ROOT, "02.inputs", "searches")
+BATCHES = os.path.join(SEARCHES, "review-batches")
+MAILTO = "seamusrobertmurphy@gmail.com"
+INELIGIBLE = {"abstract", "conference-abstract", "dataset", "peer-review", "paratext", "erratum", "editorial", "letter", "other"}
+
+def read(p):
+    with open(p, encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f))
+
+def write(p, rows, fields):
+    with open(p, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)
+
+def abstract_from_inverted(inv):
+    if not inv: return ""
+    pos = []
+    for word, idx in inv.items():
+        for i in idx: pos.append((i, word))
+    return " ".join(w for _, w in sorted(pos))
+
+def fetch_openalex(dois):
+    out = {}
+    for i in range(0, len(dois), 50):
+        chunk = dois[i:i + 50]
+        # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works
+        url = "https://api.openalex.org/works?" + urllib.parse.urlencode({
+            "filter": "doi:" + "|".join(chunk), "per-page": 50,
+            "select": "doi,abstract_inverted_index,type", "mailto": MAILTO})
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(url, timeout=60) as r:
+                    body = json.load(r)
+                break
+            except Exception as e:
+                time.sleep(3 * (attempt + 1)); body = {"results": []}
+        for w in body.get("results", []):
+            d = (w.get("doi") or "").replace("https://doi.org/", "").lower()
+            out[d] = (abstract_from_inverted(w.get("abstract_inverted_index")), w.get("type") or "")
+        time.sleep(0.2)
+    return out
+
+def main():
+    records = read(os.path.join(DERIVED, "review-records.csv"))
+    abstracts = {}
+    for name in ("review-openalex-records.csv", "review-ads-records.csv"):
+        p = os.path.join(SEARCHES, name)
+        if not os.path.exists(p): continue
+        for r in read(p):
+            key = (r.get("doi") or "").lower() or r["title"].lower()
+            if r.get("abstract") and r["abstract"] != "NA": abstracts.setdefault(key, r["abstract"])
+    need = [r["doi"] for r in records if r["doi"] and r["doi"].lower() not in abstracts]
+    fetched = fetch_openalex(need)
+    for d, (a, t) in fetched.items():
+        if a: abstracts[d] = a
+    n_rule = 0
+    for r in records:
+        if not r["type"] and r["doi"] and r["doi"].lower() in fetched:
+            r["type"] = fetched[r["doi"].lower()][1]
+        if r["type"] in INELIGIBLE and (not r["decision"] or r["decision"] == "undecided"):
+            r["decision"], r["reason"] = "exclude", "not-research"; n_rule += 1
+    write(os.path.join(DERIVED, "review-records.csv"), records, list(records[0].keys()))
+    os.makedirs(BATCHES, exist_ok=True)
+    batches = {}
+    for r in records:
+        if r["decision"] and r["decision"] != "undecided": continue
+        key = (r["doi"] or "").lower() or r["id"]
+        row = {"id": r["id"], "doi": r["doi"], "title": r["title"], "year": r["year"], "venue": r["venue"],
+               "type": r["type"], "questions": r["questions"], "cited": r["cited"],
+               "abstract": abstracts.get(key, "")}
+        q = r["questions"].split()[0] if r["questions"] else "chase"
+        batches.setdefault(q, []).append(row)
+    fields = ["id", "doi", "title", "year", "venue", "type", "questions", "cited", "abstract"]
+    tag = "" if not os.path.isdir(BATCHES) or not os.listdir(BATCHES) else "-" + time.strftime("%Y-%m-%d")
+    for q, rows in batches.items():
+        if q == "chase" and len(rows) > 220:
+            half = (len(rows) + 1) // 2
+            write(os.path.join(BATCHES, f"chase-a{tag}.csv"), rows[:half], fields)
+            write(os.path.join(BATCHES, f"chase-b{tag}.csv"), rows[half:], fields)
+        else:
+            write(os.path.join(BATCHES, f"{q}{tag}.csv"), rows, fields)
+    print("records", len(records), "excluded by type rule", n_rule,
+          "to screen", sum(len(v) for v in batches.values()),
+          "with abstract", sum(1 for v in batches.values() for r in v if r["abstract"]))
+    for q, rows in batches.items(): print(" ", q, len(rows))
+
+with open(os.path.join(DERIVED, "review-records.csv"), encoding="utf-8", newline="") as f:
+    open_rows = [r for r in csv.DictReader(f) if not r.get("decision") or r["decision"] == "undecided"]
+if open_rows:
+    main()
+```
+
+```{python}
+#| label: review-screening-merge
+#| output: false
+"""Merge the screening decisions of the 2026-10-13 literature review into the screening table.
+
+Reads every decisions-*.csv under 02.inputs/searches/review-batches/, checks that each id
+was decided exactly once and that every exclusion carries a code from the protocol, and
+writes decision, reason and note into 02.inputs/derived/review-records.csv. A record that
+already carries a decision in the table (hand-found records, records excluded by the
+document-type rule) keeps it, and a record standing undecided takes the decision of a
+later batch. Runs only while a row of the table has no decision or stands undecided.
+"""
+import csv, glob, os, sys
+
+ROOT = os.path.abspath("../..")
+TABLE = os.path.join(ROOT, "02.inputs", "derived", "review-records.csv")
+BATCHES = os.path.join(ROOT, "02.inputs", "searches", "review-batches")
+CODES = {"off-topic", "wrong-population", "wrong-concept", "not-research", "out-of-window", "not-english", "duplicate"}
+
+def main():
+    with open(TABLE, encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f))
+    fields = list(rows[0].keys())
+    if "note" not in fields: fields.append("note")
+    decided = {}
+    for p in sorted(glob.glob(os.path.join(BATCHES, "decisions-*.csv"))):
+        with open(p, encoding="utf-8", newline="") as f:
+            for d in csv.DictReader(f):
+                if d["decision"] not in {"include", "exclude", "undecided"}:
+                    sys.exit(f"bad decision {d['decision']!r} for {d['id']} in {p}")
+                if d["decision"] == "exclude" and d["reason"] not in CODES:
+                    sys.exit(f"bad reason {d['reason']!r} for {d['id']} in {p}")
+                if d["id"] in decided:
+                    # A later batch may settle a record an earlier batch left
+                    # undecided; two settled decisions for one record stop the render.
+                    if decided[d["id"]]["decision"] == "undecided":
+                        decided[d["id"]] = d
+                    elif d["decision"] != "undecided":
+                        sys.exit(f"id decided twice: {d['id']} in {p}")
+                    continue
+                decided[d["id"]] = d
+    n_set = 0
+    for r in rows:
+        r.setdefault("note", "")
+        if r.get("decision") and r["decision"] != "undecided":
+            continue
+        d = decided.get(r["id"])
+        if d and d["decision"] != "undecided":
+            r["decision"], r["reason"], r["note"] = d["decision"], d["reason"], d.get("note", ""); n_set += 1
+        elif d and not r.get("decision"):
+            r["decision"], r["reason"], r["note"] = d["decision"], d["reason"], d.get("note", ""); n_set += 1
+    missing = [r["id"] for r in rows if not r.get("decision")]
+    with open(TABLE, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)
+    from collections import Counter
+    print("decisions merged", n_set, "| undecided rows left without any decision", len(missing))
+    print("by decision", Counter(r["decision"] for r in rows).most_common())
+    print("by reason", Counter(r["reason"] for r in rows if r["decision"] == "exclude").most_common())
+    if missing: print("first missing ids", missing[:10])
+
+with open(TABLE, encoding="utf-8", newline="") as f:
+    undecided_rows = [r for r in csv.DictReader(f) if not r.get("decision") or r["decision"] == "undecided"]
+if undecided_rows:
+    main()
+```
+
+```{python}
+#| label: review-fulltext-fetch
+#| output: false
+"""Fetch full texts for the included records of the literature review.
+
+For every row of 02.inputs/derived/review-records.csv with decision include and a DOI, tries
+the routes of the review protocol in order, the publisher's DOI landing page (its
+citation_pdf_url tag), OpenAlex's best open access location, Unpaywall's best open access
+location, which covers institutional repositories, and the Internet Archive's closest
+capture of the PDF address, and saves the first PDF that answers into
+04.references/literature/review/, which is not committed. Writes one row per record to
+02.inputs/derived/review-fulltext-log.csv with the route that answered, the routes tried
+and the outcome, so the count of records whose full text could not be obtained is
+measured rather than estimated. The session's browser is the last route and is never run
+from here. Downloaded files are untrusted data and nothing is executed from that folder.
+Runs while an included record has no row in the log, or while the log predates the route
+column, and then retries every record not yet saved.
+"""
+import csv, html, json, os, re, time, urllib.parse, urllib.request
+
+ROOT = os.path.abspath("../..")
+TABLE = os.path.join(ROOT, "02.inputs", "derived", "review-records.csv")
+LOG = os.path.join(ROOT, "02.inputs", "derived", "review-fulltext-log.csv")
+OUT = os.path.join(ROOT, "04.references", "literature", "review")
+MAILTO = "seamusrobertmurphy@gmail.com"
+UA = "forest-fire-index-trends review fetch (mailto:" + MAILTO + ")"
+FIELDS = ["id", "doi", "year", "title", "url", "file", "status", "route", "routes_tried", "date"]
+
+def get(url, accept="*/*", timeout=60):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 " + UA, "Accept": accept})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read(), r.geturl()
+
+def get_json(url):
+    data, _ = get(url, "application/json")
+    return json.loads(data)
+
+def download(url, path):
+    data, _ = get(url, "application/pdf", 90)
+    if not data.startswith(b"%PDF"):
+        return "not a pdf"
+    with open(path, "wb") as f:
+        f.write(data)
+    # Some publishers answer the citation_pdf_url tag with a first page preview of one or
+    # two pages rather than the article. Such a file is removed and the next route tried.
+    try:
+        from pypdf import PdfReader
+        if len(PdfReader(path).pages) <= 2:
+            os.remove(path)
+            return "preview only"
+    except Exception:
+        pass
+    return "saved"
+
+def route_landing(doi):
+    # Publisher landing page reached through the DOI resolver, https://doi.org
+    page, final = get("https://doi.org/" + urllib.parse.quote(doi), "text/html")
+    m = re.search(rb'<meta[^>]+name="citation_pdf_url"[^>]+content="([^"]+)"', page) or \
+        re.search(rb'<meta[^>]+content="([^"]+)"[^>]+name="citation_pdf_url"', page)
+    return html.unescape(m.group(1).decode("utf-8", "replace")) if m else ""
+
+def route_openalex(doi):
+    # OpenAlex works endpoint, https://docs.openalex.org/api-entities/works
+    w = get_json("https://api.openalex.org/works/https://doi.org/" + urllib.parse.quote(doi) + "?mailto=" + MAILTO)
+    loc = w.get("best_oa_location") or {}
+    return loc.get("pdf_url") or (w.get("open_access") or {}).get("oa_url") or ""
+
+def route_unpaywall(doi):
+    # Unpaywall REST API, https://unpaywall.org/products/api
+    w = get_json("https://api.unpaywall.org/v2/" + urllib.parse.quote(doi) + "?email=" + MAILTO)
+    loc = w.get("best_oa_location") or {}
+    return loc.get("url_for_pdf") or loc.get("url") or ""
+
+def route_archive(doi, urls):
+    # Internet Archive Wayback availability API, https://archive.org/help/wayback_api.php
+    for u in [x for x in urls if x] + ["https://doi.org/" + doi]:
+        w = get_json("https://archive.org/wayback/available?url=" + urllib.parse.quote(u, safe=""))
+        snap = (w.get("archived_snapshots") or {}).get("closest") or {}
+        if snap.get("available") and snap.get("url"):
+            return snap["url"].replace("http://", "https://", 1)
+    return ""
+
+def wanted_rows():
+    # Every included record with a DOI, and every cited key the manuscript still rests
+    # on an abstract for, whose DOI is read from the bibliography.
+    with open(TABLE, encoding="utf-8", newline="") as f:
+        rows = [r for r in csv.DictReader(f) if r["decision"] == "include" and r["doi"]]
+    have = {r["doi"].lower() for r in rows}
+    bib = open(os.path.join(ROOT, "04.references", "references.bib"), encoding="utf-8").read()
+    key2doi = {}
+    for m in re.finditer(r"@\w+\{\s*([^,\s]+)\s*,", bib):
+        nxt = bib.find("\n@", m.end()); body = bib[m.end(): nxt if nxt > 0 else len(bib)]
+        d = re.search(r"doi\s*=\s*[{\"]([^}\"]+)[}\"]", body, re.I)
+        if d: key2doi[m.group(1)] = d.group(1).strip().lower()
+    with open(os.path.join(ROOT, "02.inputs", "derived", "literature-cited.csv"), encoding="utf-8", newline="") as f:
+        for c in csv.DictReader(f):
+            d = key2doi.get(c["key"])
+            if c["fulltext_read"].lower() == "false" and d and d not in have:
+                rows.append({"id": d, "doi": d, "year": "", "title": "cited key " + c["key"], "decision": "include"}); have.add(d)
+    return rows
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    rows = wanted_rows()
+    done = {}
+    if os.path.exists(LOG):
+        with open(LOG, encoding="utf-8", newline="") as f:
+            done = {r["doi"]: {k: r.get(k, "") for k in FIELDS} for r in csv.DictReader(f)}
+    for r in rows:
+        if r["doi"] in done and done[r["doi"]]["status"] == "saved":
+            continue
+        name = re.sub(r"[^A-Za-z0-9._-]", "_", r["doi"]) + ".pdf"
+        path = os.path.join(OUT, name)
+        status, url, route, tried = "", "", "", []
+        if os.path.exists(path):
+            status, route = "saved", "file present"
+        else:
+            urls = []
+            for route_name, finder in (("landing", lambda: route_landing(r["doi"])),
+                                       ("openalex", lambda: route_openalex(r["doi"])),
+                                       ("unpaywall", lambda: route_unpaywall(r["doi"])),
+                                       ("archive", lambda: route_archive(r["doi"], urls))):
+                try:
+                    url = finder()
+                except Exception as e:
+                    tried.append(route_name + " failed " + str(e)[:60]); continue
+                if not url:
+                    tried.append(route_name + " no copy"); continue
+                urls.append(url)
+                try:
+                    status = download(url, path)
+                except Exception as e:
+                    status = "download failed " + str(e)[:80]
+                tried.append(route_name + " " + status[:40])
+                if status == "saved":
+                    route = route_name; break
+                time.sleep(0.3)
+            if status != "saved":
+                status = "no copy reached" if not status else status
+        done[r["doi"]] = {"id": r["id"], "doi": r["doi"], "year": r["year"], "title": r["title"][:120], "url": url,
+                          "file": name if status == "saved" else "", "status": status, "route": route,
+                          "routes_tried": "; ".join(tried), "date": time.strftime("%Y-%m-%d")}
+        time.sleep(0.3)
+    with open(LOG, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=FIELDS); w.writeheader(); w.writerows(done.values())
+    from collections import Counter
+    print(Counter((v["status"][:20], v["route"]) for v in done.values()).most_common())
+
+def pending_includes():
+    wanted = {r["doi"] for r in wanted_rows()}
+    logged, old_format = set(), False
+    if os.path.exists(LOG):
+        with open(LOG, encoding="utf-8", newline="") as f:
+            rd = csv.DictReader(f); logged = {r["doi"] for r in rd}; old_format = "route" not in rd.fieldnames
+    return (wanted - logged) or old_format
+
+if pending_includes():
+    main()
+```
+
+```{r}
+#| label: review-counts
+#| output: false
+records <- readr::read_csv("../../02.inputs/derived/review-records.csv", show_col_types = FALSE)
+search_log <- readr::read_csv("../../02.inputs/derived/review-search-log.csv", show_col_types = FALSE)
+review_counts <- tibble::tibble(
+  Stage = c("Records retrieved", "Unique after removing duplicates", "Excluded on title and abstract", "Read in full", "Retained"),
+  Records = c(sum(search_log$retrieved, na.rm = TRUE), nrow(records), sum(records$decision == "exclude" & !(records$full_text %in% "yes")), sum(records$full_text == "yes", na.rm = TRUE), sum(records$decision == "include", na.rm = TRUE))
+)
+review_reasons <- records |>
+  dplyr::filter(decision == "exclude") |>
+  dplyr::count(reason, name = "Records", sort = TRUE)
+# Exclusions after reading in full, and the exclusion reasons in words, so the
+# paragraph below carries every count the screening table holds.
+n_excl_full <- sum(records$decision == "exclude" & records$full_text %in% "yes")
+reason_words <- c("not-research" = "not research", "wrong-concept" = "wrong concept",
+                  "wrong-population" = "wrong population", "off-topic" = "off topic",
+                  "duplicate" = "duplicates", "not-english" = "not in English",
+                  "out-of-window" = "published outside the search period")
+stopifnot(all(review_reasons$reason %in% names(reason_words)))
+reasons_prose <- paste(n_fmt(review_reasons$Records), reason_words[review_reasons$reason])
+reasons_prose <- paste(c(paste(head(reasons_prose, -1), collapse = ", "), tail(reasons_prose, 1)), collapse = " and ")
+```
+
+The literature behind the expectations in the Introduction was gathered under a written protocol frozen on 13 and extended on 14 October 2026. The protocol was run on the author's reference store, OpenAlex, the NASA Astrophysics Data System (ADS), Semantic Scholar and Consensus, with citation chasing through OpenAlex. Hand searches covered the publication stores of the Canadian Forest Service, BC Wildfire Service and Natural Resources Canada. The searches retrieved `r n_fmt(review_counts$Records[1])` records, `r n_fmt(review_counts$Records[2])` of them unique. Of those, `r n_fmt(review_counts$Records[3])` were excluded on title and abstract, `r n_excl_full` after reading in full, and `r review_counts$Records[5]` were retained. The `r n_fmt(sum(review_reasons$Records))` exclusions were `r reasons_prose`. In all, `r review_counts$Records[4]` records were read in full by one reader. ADS treated trend as a stopword, a word its search ignores, so that strand was under-searched for the first question. For the novelty question every reading note was searched on 19 October 2026 for the names of the 2025 update. Neither of the two works OpenAlex listed as citing the 2025 report compared it with the 1987 System on an observed record.

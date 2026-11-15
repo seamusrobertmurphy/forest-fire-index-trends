@@ -1,1 +1,1 @@
-Fuel moisture code, spread index and hourly weather revisions in the 2025 Canadian Forest Fire Weather Index System tested against 31 seasons of fire danger trends in the Okanagan basin
+Updates to fuel moisture code, spread index and hourly weather variables in the 2025 Canadian Forest Fire Danger Rating System tested across 31 seasons of fire danger trends in the Okanagan basin

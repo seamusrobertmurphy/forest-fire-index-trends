@@ -1,20 +1,20 @@
-The 2025 revision of the Canadian Forest Fire Weather Index System, within the
-Canadian Forest Fire Danger Rating System, recalculated its three fuel moisture
-codes hourly with faster litter drying and per-event rain thresholds, capped the
-Initial Spread Index wind effect above 40 kilometres per hour, and changed its
-weather input from one daily observation to hourly. No study had separated the
-two changes or tested trends across both. This study computed three series from
-one hourly record at five Okanagan basin stations, British Columbia (104
-station-seasons, 31 seasons, 1991 to 2025), the 1987 version on the 13:00
-observation and the 2025 version on that observation and on hourly weather, and
-twelve metrics over every component. Trends were estimated by Theil-Sen slope and
-Mann-Kendall test with the Hamed and Rao autocorrelation correction, slope
+The 2025 update to the Canadian Forest Fire Danger Rating System recalculated
+its three fuel moisture codes hourly, with faster litter drying and per-event
+rain thresholds. It also limited the Initial Spread Index wind effect above 40
+kilometres per hour. The weather input changed from daily to hourly. No study
+had separated the two changes or tested trends across both. This study
+computed three series from one hourly record of 104 station-seasons at five
+Okanagan basin stations, British Columbia, 1991 to 2025. The 1984 version used the
+13:00 observation, the 2025 version that observation and hourly weather, and
+twelve metrics covered every component. Trends were estimated by Theil-Sen slope
+and Mann-Kendall test with the Hamed and Rao autocorrelation correction, slope
 differences by moving-block bootstrap, and lightning ignitions by negative
-binomial regression. Levels moved and trends did not, in that at fixed input the 2025 equations raised the mean Duff Moisture Code by 5.8 units and the peak Drought Code by 60, the dry side the report predicted. Across
-both changes a Fine Fuel Moisture Code of 91 fell from percentile 65.1 to 62.5 and
-selected 62 rather than 57 days per season. None of 12 slope differences under
-fixed thresholds or 12 under percentile thresholds excluded zero, down to 16.8
-days over the record, and lightning ignition skill differed by 0.0005. Trends
-should be reported as days above a percentile threshold, with the version
-stated.
+binomial regression. Of 144 trends, 140 were positive and 35 passed the test,
+33 at one station. Between versions, levels moved and trends did not. At fixed input, the 2025 equations raised the mean Duff Moisture Code by 5.8 and the peak Drought Code by 60, towards drier fuel.
+Across both changes a Fine Fuel Moisture Code of 91 fell from percentile 65.1 to
+62.5, so 62 rather than 57 days per season exceeded it. None of 24 slope
+differences under fixed or percentile thresholds excluded zero, at a
+resolution of 16.8 days, and lightning ignition skill differed by 0.0005 in log
+likelihood. Trends should be reported as days above a percentile threshold,
+with the version stated.
 

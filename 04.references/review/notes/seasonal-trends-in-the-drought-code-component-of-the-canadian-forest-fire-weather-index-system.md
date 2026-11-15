@@ -1,0 +1,91 @@
+---
+kind: source
+id: seasonal trends in the drought code component of the canadian forest fire weather index system
+title: Seasonal trends in the Drought Code component of the Canadian Forest Fire Weather Index System
+authors: R.S. McAlpine
+year: 1990
+series: Information Report PI-X-97E/F, Petawawa National Forestry Institute, Forestry Canada; Catalogue No. Fo46-11/97-1990, ISBN 0-662-57669-1, ISSN 0714-3354; bilingual English and French, iv and 36 printed pages
+domain: [fire-danger]
+place: [canada, british-columbia]
+role: [method, mechanism]
+text_route: pdf scan with no text layer, read through page-marked OCR and checked against 200 dpi page images, from which every quotation and number was copied; English text, figures and appendices read in full, French text skipped; PDF p. 6 is printed p. iv, PDF p. 7 carries no printed number and the contents give it as p. 1, and from PDF p. 7 the printed page equals the PDF page less 6
+verified: 2026-11-15
+---
+Subject. A national climatology of the Drought Code's course through the fire season, at 35 Atmospheric Environment Service stations over 1953 to 1987, for fire managers to judge current values.
+
+Establishes. The report computed the Drought Code for every day from 1 April to 30 September at 35 Atmospheric Environment Service stations across Canada over 1953 to 1987. Every season started at 15 with no overwinter carryover, because 15 was the normal assumption and the data to adjust for overwinter drought were insufficient. For each station it plotted the daily mean, the mean plus and minus one standard deviation, and a maximum line, against date. It tested no change across years, so its "seasonal trends" and "annual trend" meant the rise of the code within one season. Its "long term trend", against which a current value was to be judged, meant the 35 year mean curve. The mean rose slowly, peaked in mid to late August and then fell or held level. At a few stations it kept rising at a reduced rate, which the author put down to shorter days rather than to rain. Victoria had the highest values, and low summer rain gave the British Columbia interior comparatively high ones. The five British Columbia stations, none in the Okanagan, were Victoria, Smithers, Fort Nelson, Williams Lake and Kimberley-Cranbrook. The last joined Kimberley for 1953 to 1969 with Cranbrook for 1970 to 1987. On the graphs, the mean at Williams Lake and Cranbrook was level or still rising through September. At Victoria and Smithers it fell after a peak near 1 September. An overwintered start would put spring values above the plotted maxima and hold them high until heavy rain. At Dauphin, Manitoba, in 1989, 95.1 mm of rain over 9 days brought such a value back to the average range at the beginning of June. The author held that the seasonal course ruled out fixed danger classes for the code, although a given value meant the same for fire behaviour on any date.
+
+Quotations
+
+"The Drought Code has definite seasonal trends, which can make interpretation of the current daily value difficult without a good frame of reference." (PDF p. 6, printed p. iv)
+
+"Thirty five years of weather data from 35 selected weather stations across Canada were used to develop mean daily Drought Code average values for each weather station throughout the fire season." (PDF p. 6, printed p. iv)
+
+"The graphs produced provide fire managers with daily mean Drought Code values and historical maximum values throughout the fire season, for comparison with observed daily Drought Code values." (PDF p. 6, printed p. iv)
+
+"While the other moisture codes of the FWI System address fuels influenced by more recent past weather (timelags¹ of 2/3 of a day for the Fine Fuel Moisture Code (FFMC) and 12 days for the Duff Moisture Code (DMC)) (Van Wagner 1987), only the DC, with a timelag of 52 days is an indicator of potential long term drought." (PDF p. 7, printed p. 1)
+
+"Nikleva (1973) explored the DC climatology for Prince George, B.C. thoroughly by providing a 10-year average seasonal DC graph with the driest and wettest years for the period. In fact, Nikleva (1973) examined seasonal trends for all codes and indexes of the FWI System. However, only the DC showed a consistent seasonal trend, a steady rise in DC values over the fire season peaking in August with a slight decline in September." (PDF p. 7, printed p. 1)
+
+"Over the course of a fire season all fire weather stations in Canada experience comparable trends in DC values (Harrington et al. 1983, Nikleva 1973). The actual DC value on any particular date can vary greatly from station to station across the country due to differences in annual precipitation and temperature. This seasonal trend, however, regardless of actual DC values, is representative for most, if not all, Canadian fire weather stations." (PDF p. 7, printed p. 1)
+
+"The present report documents the annual trend in DC values for selected fire weather stations in Canada and gives information on the variability of the DC values from year to year." (PDF p. 7, printed p. 1)
+
+"Total precipitation in the equations for the DC is reduced by 2.8 mm per 24 h period to allow for canopy and surface fuel interception (Turner 1966, 1972). Evaporation and transpiration losses are first estimated as a maximum potential evapotranspiration based on temperature (to establish evapotranspiration rate) and date (to allow for day length influence)." (PDF p. 7, printed p. 1)
+
+"Finally, a standardized overwinter adjustment methodology, to allow for the carry over of drought conditions from year to year, was adopted (Turner and Lawson 1978, Van Wagner 1987)." (PDF p. 7, printed p. 1)
+
+"Fire weather data from 35 Atmospheric Environment Service (AES) weather stations (Figure 1 and Appendix A) for the period 1953-1980 were available from a past study (Harrington et al. 1983). These data were augmented with recent weather data to cover the period 1953-1987 (35 years)." (PDF pp. 7 to 8, printed pp. 1 to 2)
+
+"For each station DC values were computed for each day throughout the fire season² for all 35 years. The resulting DC values were analyzed to derive the daily mean and standard deviation." (PDF p. 8, printed p. 2)
+
+"For the purpose of this report, the fire season was assumed to start on April 1 and end on September 30. While specific years or locations might require different start and end dates, the dates used cover the average fire season for most parts of Canada." (PDF p. 8, printed p. 2)
+
+"Generally, weather stations in Canada receive enough overwinter precipitation to start the DC at the normal spring starting value of 15 (Turner and Lawson 1978, Alexander 1982). Because it is normal to assume a DC starting value of 15 and because there was insufficient data to adjust the DC starting value for overwinter drought, no overwinter carryover of drought conditions were made for the daily DC calculations." (PDF p. 8, printed p. 2)
+
+"Appendix B shows the mean daily DC values over the course of the fire season for the selected weather stations. The general trend seen in each case is a slowly rising DC value, peaking in mid- to late August and then either declining or maintaining the same value. In a few cases the DC values continued to rise in the latter part of the fire season, but these values increased at a reduced rate. This reduced rate of increase in the late season is due to the reduced daylength affecting the DC drying phase and is not a function of seasonal precipitation. While there are variations in precipitation amounts for specific locations on a monthly basis, rainfall amount in September generally does not exceed that of August." (PDF p. 8, printed p. 2)
+
+"The Victoria weather station exhibits the highest DC values throughout the season. The interior of British Columbia, in general, has comparatively high DC values followed by a drop in these values on the lee side of the continental divide." (PDF p. 8, printed p. 2)
+
+"Thus, consistently low summer rainfall in southeast Vancouver Island and in the interior of British Columbia results in high DC values." (PDF p. 8, printed p. 2)
+
+"The local similarity of mean DC values allows fire weather stations not referred to in this report to use the graphs of an available nearby weather station to characterize the local DC seasonal trend. Sufficient accuracy can be obtained by using a station within the region to indicate how the current DC value compares with the long term trend." (PDF p. 8, printed p. 2)
+
+"The two dotted lines on plots in Appendix B illustrate the mean DC plus and minus one standard deviation. These lines indicate the variability of calculated DC values over the 35-year period." (PDF p. 8, printed p. 2)
+
+"Also plotted on the graphs in Appendix B are the maximum computed DC values for the weather stations observed during the 35-year period. These lines should give fire managers a further benchmark from which to gauge current values." (PDF p. 8, printed p. 2)
+
+"Overwinter adjustment of the DC starting value would cause observed springtime DC values to exceed the maximum values calculated in this paper. This high DC value will be carried forward until a heavy precipitation event brings about more normal values. This is in fact a true representation of field conditions in the spring. Figure 2 documents an example of an overwinter adjusted DC which falls back into more seasonable values at the beginning of June when sufficient rainfall (in this case 95.1 mm over 9 days) depresses the DC." (PDF p. 8, printed p. 2)
+
+"Strong seasonal trends in the DC preclude the use of a categorization scheme (Stocks 1974) to define low, medium, high, etc. categories. For example, a DC value of 275 on May 7 should be interpreted very differently from the same value on August 29, while the category rating would remain unchanged." (PDF p. 8, printed p. 2)
+
+"Interpretation of specific DC values for fire behavior use is not dependent on the particular date. Thus an observed DC value of 200 in June is interpreted, from a fire behavior standpoint, similarly to a DC of 200 in August." (PDF p. 9, printed p. 3)
+
+"Overwinter adjustment of the DC (Turner and Lawson 1978, Alexander 1982), which brings forward a high springtime DC value, will show up on the graphs as unseasonably dry, and this is a true representation of field conditions." (PDF p. 9, printed p. 3)
+
+"Figure 2. Dauphin, Manitoba, 1989. The overwinter adjusted DC value received sufficient precipitation to depress it into the average range, but unseasonably hot dry weather throughout July raised the DC well above average by early August." (PDF p. 15, printed p. 9)
+
+"Kimberley-Cranbrook (1953-69 from/de Kimberley, 1970-87 from/de Cranbrook)" (PDF p. 16, printed p. 10)
+
+Bears on
+
+- Introduction, "The one provincial trend analysis of the Fire Weather Index fitted generalised extreme value distributions with linear time trends to monthly maxima at 861 stations over 1970 to 2018 [@hubnerova2020fire]." (qmd L2190). Does not bear. The report described how the Drought Code rose within a season and tested no change across years. It said it "documents the annual trend in DC values for selected fire weather stations in Canada and gives information on the variability of the DC values from year to year" (PDF p. 7, printed p. 1). Its daily values "were analyzed to derive the daily mean and standard deviation" (PDF p. 8, printed p. 2). It was also national, covered the Drought Code alone, and held five British Columbia stations, none in the Okanagan (PDF p. 16, printed p. 10). The British Columbia study it cited, Nikleva (1973), gave "a 10-year average seasonal DC graph with the driest and wettest years for the period" (PDF p. 7, printed p. 1). This text did not contradict the manuscript's claim, although the report's title could lead a reader to count it as a trend study.
+- Methods, "The window was fixed by calendar in every season, 1 May to 30 September, 153 days, with the calculation started on 1 April." (qmd L2552). Adds to it. The report ran its national Drought Code record over the same calendar span as the manuscript's calculation, 1 April to 30 September. It stated "For the purpose of this report, the fire season was assumed to start on April 1 and end on September 30." (PDF p. 8, printed p. 2). It judged those dates to cover the average season in most of Canada.
+- Methods, "Each station-season started from a Fine Fuel Moisture Code of 85, a Duff Moisture Code of 6 and a Drought Code of 15, the start-up values of both versions [@lawson2008weather, p. 14; @cffdg2025fwi2025, p. 50]." (qmd L2558). Adds to it. The report started every season at the same Drought Code and called it the normal spring value. "Generally, weather stations in Canada receive enough overwinter precipitation to start the DC at the normal spring starting value of 15 (Turner and Lawson 1978, Alexander 1982)." (PDF p. 8, printed p. 2).
+- Methods, "The Drought Code was not overwintered, that is carried over the winter into the next spring, because the stations reported no winter weather." (qmd L2558). Adds to it. The report made the same choice for a similar want of data, over 1953 to 1987 at 35 stations. "Because it is normal to assume a DC starting value of 15 and because there was insufficient data to adjust the DC starting value for overwinter drought, no overwinter carryover of drought conditions were made for the daily DC calculations." (PDF p. 8, printed p. 2).
+- Methods, "Six were levels, mean Fire Weather Index, seasonal severity rating, peak Buildup Index, mean Initial Spread Index, mean Duff Moisture Code and peak Drought Code." (qmd L2570). Adds to it. In the report the peak of the mean curve usually fell well inside a 1 May to 30 September window. "The general trend seen in each case is a slowly rising DC value, peaking in mid- to late August and then either declining or maintaining the same value. In a few cases the DC values continued to rise in the latter part of the fire season, but these values increased at a reduced rate." (PDF p. 8, printed p. 2). On the graphs, the mean at Williams Lake and Cranbrook was level or still rising through September, and the Cranbrook maximum line rose to the end of September (PDF pp. 21 to 22, printed pp. 15 to 16). In the British Columbia interior, a season's peak could therefore fall near the window's close on 30 September. The report gave no peak for any single season. Its maximum line was plotted date by date over the 35 seasons as a benchmark.
+- Introduction, "Their rain thresholds of 1.5 mm and 2.8 mm were applied to rain accumulated within a rain event and reset after six rain free hours." (qmd L2188). Adds to it. The report described the 2.8 mm figure of the daily code as an allowance for interception in each 24 hour period. "Total precipitation in the equations for the DC is reduced by 2.8 mm per 24 h period to allow for canopy and surface fuel interception (Turner 1966, 1972)." (PDF p. 7, printed p. 1).
+- Introduction, "Sunrise and sunset were estimated from "the latitude, longitude of the weather observation location measured in decimal degrees and date" [@cffdg2025fwi2025, p. 6], in place of the monthly day length factors of FWI1987 [@vanwagner1987fwi, pp. 12, 14]." (qmd L2188). Adds to it. In the code the report computed, day length entered through the date and slowed the late season rise, which shaped when the seasonal peak formed. Potential evapotranspiration was based on "date (to allow for day length influence)" (PDF p. 7, printed p. 1). "This reduced rate of increase in the late season is due to the reduced daylength affecting the DC drying phase and is not a function of seasonal precipitation." (PDF p. 8, printed p. 2).
+- Appendix A.2, "The difference was one of convention, in the known direction that a restarted Drought Code is lower than an overwintered one." (qmd L3714). Qualifies it. The report supported the direction, since "Overwinter adjustment of the DC starting value would cause observed springtime DC values to exceed the maximum values calculated in this paper." (PDF p. 8, printed p. 2). It did not treat the two starts as equal conventions, because it called the carried high value "in fact a true representation of field conditions in the spring" (PDF p. 8, printed p. 2). After a dry winter, a restart at 15 therefore understated the spring Drought Code, and the overwintered value held "until a heavy precipitation event brings about more normal values" (PDF p. 8, printed p. 2).
+
+Cited works to chase
+
+- Nikleva, S. 1973. Fire Weather Index climatology for Prince George, B.C. Environ. Can., Atmos. Environ. Serv., Pacific Reg., Vancouver, B.C.
+- Harrington, J.B.; Flannigan M.D.; Van Wagner, C.E. 1983. Study of the relation of components of the Fire Weather Index to monthly provincial area burned by wildfire in Canada, 1953-80. Environ. Can., Can. For. Serv., Petawawa Natl. For. Inst., Ont. Inf. Rep. PI-X-25.
+- Turner, J.A.; Lawson, B.D. 1978. Weather in the Canadian Forest Fire Danger Rating system: a user guide to national standards and practices. Environ. Can., Can. For. Serv., Pacific For. Res. Centre, Victoria, B.C. Inf. Rep. BC-X-177.
+- Alexander, M.E. 1982. Calculating spring Drought Code starting values in the prairie provinces and Northwest Territories. Environ. Can., Can. For. Serv., Northern For. Res. Centre, Edmonton, Alta. Forest Manage. Note No. 12.
+- Alexander, M.E. 1983. Tables for determining spring Drought Code starting values in west-central and northern Canada. Environ. Can., Can. For. Serv., Northern For. Res. Centre, Edmonton, Alta. Forest Manage. Note No. 19.
+- Turner, J.A. 1966. The stored moisture index / A guide to slash burning. British Columbia Forest Serv., Protection Div.
+- Turner, J.A. 1972. The Drought Code component of the Canadian Forest Fire Behavior System. Environ. Can., Can. For. Serv., Ottawa, Ont. Publ. No. 1316.
+- Muraro, S.J.; Lawson, B.D. 1970. Prediction of duff moisture distribution for prescribed burning. Can. Dep. Fish. and For., Can. For. Serv., Pacific For. Res. Centre, Victoria, B.C. Inf. Rep. BC-X-46.
+- Stocks, B.J. 1974. Wildfires and the Fire Weather Index System in Ontario. Environ. Can., Can. For. Serv., Great Lakes Forest Res. Centre, Sault Ste. Marie, Ontario. Inf. Rep. 0-X-213.
