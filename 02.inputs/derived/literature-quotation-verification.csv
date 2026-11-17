@@ -4,8 +4,6 @@ vanwagner1987hindsight,the weakest link in the present chain,pdf,True
 vanwagner1987hindsight,"four elements read once daily at noon, one instantaneous sample of a 24-hr continuum",pdf,True
 cffdg2025fwi2025,"eliminate the differences that arise in the values of the daily FFMC, the hourly FFMC and the diurnally adjusted FFMC",2025 report pdf,True
 lawson2008weather,for each hour around the clock without the need for hourly weather data,pdf,True
-beck2002diurnal,depart dramatically from the assumed diurnal trend,pdf,True
-beck2002diurnal,coupled with the hourly version of the FFMC model,pdf,True
 cffdg2025fwi2025,"to better match field observations of litter moisture content variation throughout the day, the time lag function used in the FWI2025 for the FFMC has been cut in half",2025 report pdf,True
 beck2004diurnal,appeared to lose and gain moisture more quickly than was currently reflected by the hourly model,saved text,True
 cffdg2025fwi2025,may be more granular than necessary,2025 report pdf,True
@@ -41,8 +39,7 @@ cffdg2025fwi2025,primarily relevant for extreme fire conditions,2025 report pdf,
 girardin2009summer,recorded a trend toward decreasing dryness,abstract,True
 cffdg2025fwi2025,will err to the dry side of fuel moisture,2025 report pdf,True
 cffdg2025fwi2025,days where two rainfall events are spaced apart by more than six hours,2025 report pdf,True
-heyerdahl2012mixed,a mean plot-composite fire scar interval of 21 years (1700–1900),pdf,True
-heyerdahl2012mixed,"was mixed severity over the past several centuries, with low-severity fires most common",pdf,True
+gayton2013documenting,there was a fire of sufficient intensity to scar a tree on average every 16 years,pdf,True
 chavardes2021drought,"After 1945, decreased fire occurrence and synchrony reflects fire exclusion, suppression and climatic variation",abstract,True
 cffdg2025fwi2025,a generalized pine forest (similar to C-3),2025 report pdf,True
 cffdg2025fwi2025,a better approximation of the diurnal change in moisture associated with the actual day,2025 report pdf,True
