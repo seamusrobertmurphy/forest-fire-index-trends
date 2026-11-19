@@ -4,18 +4,10 @@ vanwagner1987hindsight,the weakest link in the present chain,pdf,True
 vanwagner1987hindsight,"four elements read once daily at noon, one instantaneous sample of a 24-hr continuum",pdf,True
 cffdg2025fwi2025,"eliminate the differences that arise in the values of the daily FFMC, the hourly FFMC and the diurnally adjusted FFMC",2025 report pdf,True
 lawson2008weather,for each hour around the clock without the need for hourly weather data,pdf,True
-cffdg2025fwi2025,"to better match field observations of litter moisture content variation throughout the day, the time lag function used in the FWI2025 for the FFMC has been cut in half",2025 report pdf,True
-beck2004diurnal,appeared to lose and gain moisture more quickly than was currently reflected by the hourly model,saved text,True
-cffdg2025fwi2025,may be more granular than necessary,2025 report pdf,True
-cffdg2025fwi2025,ensures consistency across all System components,2025 report pdf,True
-cffdg2025fwi2025,will err to the dry side of fuel moisture,2025 report pdf,True
 cffdg2025fwi2025,"the latitude, longitude of the weather observation location measured in decimal degrees and date",2025 report pdf,True
 lawson2008weather,any past calibrations between fire danger ratings and fire activity,pdf,True
 lawson2008weather,rendered invalid,pdf,True
-cffdg2025fwi2025,the original ISI formula in the FWI System can lead to excessively high values at extreme wind speeds,2025 report pdf,True
-cffdg2025fwi2025,"limits the impact of high wind speeds on the ISI at wind speeds over 40km/h, ensuring a more realistic representation of fire behaviour",2025 report pdf,True
 cffdg2025fwi2025,will remain unchanged,2025 report pdf,True
-hanes2019regime,whereas human-caused fires are either stable or declining throughout the country,abstract,True
 jain2017seasonlength,potential fire spread days and the 99th percentile of FWI,pdf,True
 jain2017seasonlength,although the trends of largest magnitude and statistical significance were mostly positive,pdf,True
 parisien2023abrupt,due to rapid warming and increased evaporative demand,pdf,True
@@ -26,7 +18,6 @@ jolly2024nfdrs,"was accepted for operational, nationwide use in March 2023",pdf,
 jolly2024nfdrs,across six US National Forests was very similar,pdf,True
 jolly2024nfdrs,produce fire danger ratings on different absolute scales,pdf,True
 jolly2024nfdrs,was as good or better than V2 at predicting fire days in 92% of the cases tested,pdf,True
-hollis2024afdrs,"was implemented in 2022, the most significant change to fire danger forecasting in Australia in more than 50 years",abstract,True
 andrews2003evaluation,evaluating proposed changes to a fire danger rating system,abstract,True
 beverly2007flaming,were as effective as models developed with site variables at predicting the probability of short-duration sustained flaming in most fuel categories,abstract,True
 cffdg2025fwi2025,to ensure compatibility with a wider range of input data while maintaining the consistency of output values,2025 report pdf,True
@@ -43,12 +34,16 @@ gayton2013documenting,there was a fire of sufficient intensity to scar a tree on
 chavardes2021drought,"After 1945, decreased fire occurrence and synchrony reflects fire exclusion, suppression and climatic variation",abstract,True
 cffdg2025fwi2025,a generalized pine forest (similar to C-3),2025 report pdf,True
 cffdg2025fwi2025,a better approximation of the diurnal change in moisture associated with the actual day,2025 report pdf,True
+cffdg2025fwi2025,to better match field observations of litter moisture content variation throughout the day,2025 report pdf,True
 cffdg2025fwi2025,under the right temperature and relative humidity conditions,2025 report pdf,True
 cffdg2025fwi2025,a six-hour time constant is introduced to account for canopy drying,2025 report pdf,True
 cffdg2025fwi2025,a simple approximation of drying,2025 report pdf,True
+cffdg2025fwi2025,the original ISI formula in the FWI System can lead to excessively high values at extreme wind speeds,2025 report pdf,True
 cffdg2025fwi2025,primarily relevant for extreme fire conditions,2025 report pdf,True
 cffdg2025fwi2025,not significantly impact fire agency classification thresholds,2025 report pdf,True
 cffdg2025fwi2025,using a modification of the original drying rate functions,2025 report pdf,True
+cffdg2025fwi2025,may be more granular than necessary,2025 report pdf,True
+cffdg2025fwi2025,ensures consistency across all System components,2025 report pdf,True
 cffdg2025fwi2025,to modify the original methods such that they provided reasonable and consistent outputs in an hourly calculation,2025 report pdf,True
 cffdg2025fwi2025,gain and lose moisture much more quickly than the litter layer,2025 report pdf,True
 cffdg2025fwi2025,may be the only daily observation available for historical analysis,2025 report pdf,True
@@ -98,5 +93,9 @@ hanes2021classes,would still be warranted as the values no longer reflect the or
 quilcaille2023fire,by about −33 % (June) above 20° N,pdf,True
 quilcaille2023fire,"roughly identical during the fire seasons across the planet, be it over 1994–2014 or 2081–2100",pdf,True
 mortelmans2024peatland,matched the temporal cumulative density functions (CDFs) of the PEATCLSM output variables,pdf,True
+jakeman2024normalizing,ongoing decision making or operational processes,pdf,True
+jakeman2024normalizing,"ensuring that plans and mechanisms are in place for appropriately monitoring, maintaining and updating the model",pdf,True
+jakeman2024normalizing,"tend to focus on the model set up (phase 3), whereas the other phases are at least equally important",pdf,True
+jakeman2024normalizing,"more thorough justification of decisions, wherever possible stating the comparative effect of decision options on the outcomes of the modeling",pdf,True
 vanwijngaarden2005examination,produced a decreasing step in relative humidity at a number of stations,pdf,True
 bcws2026datamart,will be reaching the end of it's lifespan by January 2027,saved page,True
