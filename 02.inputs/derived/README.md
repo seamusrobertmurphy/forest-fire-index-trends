@@ -162,7 +162,8 @@ Written by `05.scripts/compute_fwi_series.py` on first run, from the `stations` 
 `02.inputs/spatial/study-area.gpkg`. The five station codes, names, coordinates and
 elevations. It is cached so the weather computation does not need a spatial library, and
 the station code is written as a string because reading it back as an integer once broke
-the join to the weather record silently.
+the join to the weather record silently. It is not committed, because the BC Data Catalogue
+licenses the station data "Access Only".
 
 ### timezone-verification.csv
 
@@ -210,7 +211,8 @@ the specification's own daily summary module and have no FWI1987 counterpart.
 
 Written by `05.scripts/compute_fwi_series.py`. One station-season, Penticton RS 2003, of
 hourly output under S2 and S3 kept whole, so that the mechanism figure draws real output
-rather than an illustration.
+rather than an illustration. It is not committed, because its weather columns copy the
+hourly record, which the BC Data Catalogue licenses "Access Only".
 
 ### seasonal-metrics.csv
 

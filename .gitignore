@@ -83,6 +83,13 @@ dev_key
 # taken from it.
 02.inputs/weather/
 
+# Two derived tables copy data that the BC Data Catalogue licenses "Access Only",
+# which may not be redistributed without the Province's written permission. They
+# are the station coordinates and one season of hourly weather. The manuscript's
+# chunks write both on the drive, so neither is committed. Added 2026-11-19.
+02.inputs/derived/station-metadata.csv
+02.inputs/derived/example-season-hourly.csv
+
 # Vendored third-party source. 05.scripts/vendor/cffdrs-ng is the Canadian
 # Forest Service reference implementation of FWI2025, kept in the tree so that
 # the analysis runs from one place and the exact code that produced the results
