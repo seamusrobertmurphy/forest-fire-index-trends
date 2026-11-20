@@ -1,0 +1,24 @@
+---
+format:
+  docx:
+    reference-doc: ../04.references/style-letter.docx
+engine: knitr
+---
+
+`r format(Sys.Date(), "%d %B %Y")`
+
+The Editors, Ecological Modelling
+
+Dear Editors,
+
+I submit "Updates to fuel moisture code, spread index and hourly weather variables in the 2025 Canadian Forest Fire Danger Rating System tested across 31 seasons of fire danger trends in the Okanagan basin" as an original research paper.
+
+The 2025 update to the Canadian Forest Fire Danger Rating System recalculated its three fuel moisture codes hourly, and its weather input changed from daily to hourly. No study had separated the two changes or tested trends across both. This study computed three fire danger series from one hourly record at five stations in the Okanagan basin of British Columbia over 1991 to 2025. Between versions, levels moved and trends did not. Trends should be reported as days above a percentile threshold, with the version stated.
+
+The journal welcomes "innovative applications of existing models", and this study applies two versions of one existing model to the same record. Ecological Modelling also co-published the joint special issue on good modelling practice (Jakeman et al., 2024, p. 2), which the Discussion draws on.
+
+The manuscript has five figures and seven tables, with one supplementary file. It is original, unpublished and not under consideration elsewhere. I am the sole author, have no competing interests and received no funding. The data and code are deposited at Zenodo, https://doi.org/10.5281/zenodo.24208026.
+
+Yours sincerely,
+
+Seamus Murphy, MSc, PhD

@@ -1,0 +1,17 @@
+---
+title: ""
+format:
+  docx:
+    reference-doc: ../04.references/style-formal.docx
+engine: knitr
+---
+
+**Updates to fuel moisture code, spread index and hourly weather variables in the 2025 Canadian Forest Fire Danger Rating System tested across 31 seasons of fire danger trends in the Okanagan basin**
+
+Seamus Robert Murphy^a,\*^
+
+^a^ TÜV SÜD, 2187 Comox Avenue, Comox, British Columbia V9M 1P5, Canada
+
+\* Corresponding author. Email seamusrobertmurphy@gmail.com. ORCID 0000-0002-1792-0351.
+
+Original research paper submitted to Ecological Modelling, `r format(Sys.Date(), "%d %B %Y")`.

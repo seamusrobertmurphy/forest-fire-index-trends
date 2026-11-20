@@ -19,7 +19,7 @@
 % fall one or two pages earlier.
 @techreport{cffdg2025fwi2025,
   author      = {{Canadian Forest Service Fire Danger Group}},
-  title       = {The 2025 Update to the {FWI} System: Structure, Changes and
+  title       = {The 2025 Update to the {FWI System}: Structure, Changes and
                  Interpretation},
   institution = {Natural Resources Canada, Canadian Forest Service,
                  Great Lakes Forestry Centre},
@@ -214,7 +214,7 @@
 
 @article{flannigan2009implications,
   title   = {Implications of changing climate for global wildland fire},
-  author  = {Flannigan, Mike D. and Krawchuk, Meg A. and de Groot, William J.
+  author  = {Flannigan, Mike D. and Krawchuk, Meg A. and {de Groot}, William J.
              and Wotton, B. Mike and Gowman, Lynn M.},
   journal = {International Journal of Wildland Fire},
   volume  = {18}, number = {5}, pages = {483--507}, year = {2009},
@@ -226,7 +226,7 @@
   title   = {Fuel moisture sensitivity to temperature and precipitation:
              climate change implications},
   author  = {Flannigan, M. D. and Wotton, B. M. and Marshall, G. A. and
-             de Groot, W. J. and Johnston, J. and Jurko, N. and Cantin, A. S.},
+             {de Groot}, W. J. and Johnston, J. and Jurko, N. and Cantin, A. S.},
   journal = {Climatic Change},
   volume  = {134}, number = {1-2}, pages = {59--71}, year = {2016},
   doi     = {10.1007/s10584-015-1521-0}
@@ -389,35 +389,38 @@
 % System's open-source code repository. Cloned 2026-08-15 at commit
 % ed143d739c9ab4bda896efcb47a84ff1d5c21e39, dated 2026-08-13, and vendored to
 % 05.scripts/vendor/cffdrs-ng under its Mozilla Public License 2.0.
-@misc{nrcan2026cffdrsng,
+@software{nrcan2026cffdrsng,
   author       = {{Canadian Forest Service Fire Danger Group}},
-  title        = {cffdrs-ng: Revisions to the {Canadian Forest Fire Danger
+  title        = {{cffdrs-ng}: Revisions to the {Canadian Forest Fire Danger
                   Rating System}},
   howpublished = {Software repository, Natural Resources Canada},
   year         = {2026},
   url          = {https://github.com/nrcan-cfs-fire/cffdrs-ng},
+  urldate      = {2026-08-15},
   note         = {Code at commit ed143d7, 2026-08-13, retrieved 2026-08-15; README section February 2026 Notice read 2026-10-13}
 }
 
 % The weather record. Public directory published by the BC Ministry of Forests.
-@misc{bcws2026datamart,
+@dataset{bcws2026datamart,
   author       = {{BC Wildfire Service}},
-  title        = {{BCWS} Weather Data Mart: hourly fire weather station
+  title        = {{BCWS Weather Data Mart}: hourly fire weather station
                   observations},
   howpublished = {BC Ministry of Forests public file directory},
   year         = {2026},
   url          = {https://www.for.gov.bc.ca/ftp/HPR/external/!publish/BCWS_DATA_MART/},
+  urldate      = {2026-08-15},
   note         = {Retrieved 2026-08-15 by 05.scripts/fetch_fire_weather.py; the Service's Predictive Services page, https://www2.gov.bc.ca/gov/content/safety/wildfire-status/prepare/predictive-services, read 2026-10-13}
 }
 
 % The ignition record.
-@misc{bcws2026incidents,
+@dataset{bcws2026incidents,
   author       = {{BC Wildfire Service}},
   title        = {Fire Incident Locations, Historical
                   ({WHSE\_LAND\_AND\_NATURAL\_RESOURCE.PROT\_HISTORICAL\_INCIDENTS\_SP})},
   howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-fire-incident-locations-historical},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14 by 05.scripts/fetch\_study\_area.R}
 }
 
@@ -428,61 +431,67 @@
 % not check them and they are entered by hand.
 % ---------------------------------------------------------------------------
 
-@misc{geobc2026fwagroups,
+@dataset{geobc2026fwagroups,
   author       = {{GeoBC Branch}},
   title        = {{Freshwater Atlas} -- {Watershed Groups}
                   ({WHSE\_BASEMAPPING.FWA\_WATERSHED\_GROUPS\_POLY})},
   howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-watershed-groups},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{geobc2026fwalakes,
+@dataset{geobc2026fwalakes,
   author       = {{GeoBC Branch}},
   title        = {{Freshwater Atlas} -- {Lakes} ({WHSE\_BASEMAPPING.FWA\_LAKES\_POLY})},
   howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{geobc2026fwastreams,
+@dataset{geobc2026fwastreams,
   author       = {{GeoBC Branch}},
   title        = {{Freshwater Atlas} -- {Stream Network}
                   ({WHSE\_BASEMAPPING.FWA\_STREAM\_NETWORKS\_SP})},
   howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-stream-network},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{geobc2026majorwatersheds,
+@dataset{geobc2026majorwatersheds,
   author       = {{GeoBC Branch}},
   title        = {{BC Major Watersheds} ({WHSE\_BASEMAPPING.BC\_MAJOR\_WATERSHEDS})},
   howpublished = {BC Data Catalogue, Open Government Licence -- Canada},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/bc-major-watersheds},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{wsc2026subsubdrainage,
+@dataset{wsc2026subsubdrainage,
   author       = {{Environmental Monitoring and Analysis Branch}},
   title        = {{Water Survey of Canada} {Sub-Sub-Drainage Areas}
                   ({WHSE\_IMAGERY\_AND\_BASE\_MAPS.DRP\_SUB\_SUB\_DRAINAGES\_1M\_SP})},
   howpublished = {BC Data Catalogue, Open Government Licence -- Canada},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/water-survey-of-canada-sub-sub-drainage-areas},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{bc2026municipalities,
+@dataset{bc2026municipalities,
   author       = {{Governance and Structure Branch}},
   title        = {Municipalities -- {Legally Defined Administrative Areas of BC}
                   ({WHSE\_LEGAL\_ADMIN\_BOUNDARIES.ABMS\_MUNICIPALITIES\_SP})},
   howpublished = {BC Data Catalogue, Open Government Licence -- British Columbia},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/municipalities-legally-defined-administrative-areas-of-bc},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
@@ -496,23 +505,25 @@
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{bcws2026stations,
+@dataset{bcws2026stations,
   author       = {{BC Wildfire Service}},
   title        = {{BC Wildfire Active Weather Stations and Data}
                   ({WHSE\_LAND\_AND\_NATURAL\_RESOURCE.PROT\_WEATHER\_STATIONS\_SP})},
   howpublished = {BC Data Catalogue, access only},
   year         = {2026},
   url          = {https://catalogue.data.gov.bc.ca/dataset/bc-wildfire-active-weather-stations},
+  urldate      = {2026-08-14},
   note         = {Retrieved 2026-08-14}
 }
 
-@misc{aws2026terraintiles,
+@dataset{aws2026terraintiles,
   author       = {{Amazon Web Services}},
   title        = {{Terrain Tiles}},
   howpublished = {Registry of Open Data on AWS, public domain tiles derived from
                   {SRTM} and national elevation datasets},
   year         = {2026},
   url          = {https://registry.opendata.aws/terrain-tiles/},
+  urldate      = {2026-08-14},
   note         = {Zoom level 9, retrieved 2026-08-14 through the elevatr R package}
 }
 
@@ -675,7 +686,7 @@
 @article{dunn2022reference, title={On the effect of reference periods on trends in percentile-based extreme temperature indices}, volume={17}, ISSN={1748-9326}, url={http://dx.doi.org/10.1088/1748-9326/ac52c8}, DOI={10.1088/1748-9326/ac52c8}, number={3}, journal={Environmental Research Letters}, publisher={IOP Publishing}, author={Dunn, Robert J H and Morice, Colin P}, year={2022}, pages={034026} }
 
 % verified against Crossref 2026-09-12; DOI 10.5194/nhess-15-1407-2015; title: Development of a Global Fire Weather Database
-@article{field2015gfwed, title={Development of a {Global Fire Weather Database}}, volume={15}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-15-1407-2015}, DOI={10.5194/nhess-15-1407-2015}, number={6}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Field, R. D. and Spessa, A. C. and Aziz, N. A. and Camia, A. and Cantin, A. and Carr, R. and de Groot, W. J. and Dowdy, A. J. and Flannigan, M. D. and Manomaiphiboon, K. and Pappenberger, F. and Tanpipat, V. and Wang, X.}, year={2015}, pages={1407–1423} }
+@article{field2015gfwed, title={Development of a {Global Fire Weather Database}}, volume={15}, ISSN={1684-9981}, url={http://dx.doi.org/10.5194/nhess-15-1407-2015}, DOI={10.5194/nhess-15-1407-2015}, number={6}, journal={Natural Hazards and Earth System Sciences}, publisher={Copernicus GmbH}, author={Field, R. D. and Spessa, A. C. and Aziz, N. A. and Camia, A. and Cantin, A. and Carr, R. and {de Groot}, W. J. and Dowdy, A. J. and Flannigan, M. D. and Manomaiphiboon, K. and Pappenberger, F. and Tanpipat, V. and Wang, X.}, year={2015}, pages={1407–1423} }
 
 % verified against Crossref 2026-09-12; DOI 10.1071/wf05021; title: Science, technology, and human factors in fire danger rating: the Canadian experience.
 @article{taylor2006science, title={Science, technology, and human factors in fire danger rating: the {Canadian} experience.}, volume={15}, ISSN={1448-5516}, url={http://dx.doi.org/10.1071/wf05021}, DOI={10.1071/wf05021}, number={1}, journal={International Journal of Wildland Fire}, publisher={CSIRO Publishing}, author={Taylor, Stephen W. and Alexander, Martin E.}, year={2006}, pages={121–135} }
@@ -735,7 +746,7 @@
 @article{nitschke2008okanagan, title={Climatic change and fire potential in South‐Central {British Columbia}, {Canada}}, volume={14}, ISSN={1365-2486}, url={http://dx.doi.org/10.1111/j.1365-2486.2007.01517.x}, DOI={10.1111/j.1365-2486.2007.01517.x}, number={4}, journal={Global Change Biology}, publisher={Wiley}, author={Nitschke, Craig R. and Innes, John L.}, year={2008}, pages={841–855} }
 
 % verified against Crossref 2026-09-12; DOI 10.1038/s43247-024-01346-2; title: Record-breaking fire weather in North America in 2021 was initiated by the Pacific northwest heat dome
-@article{jain2024heatdome, title={Record-breaking fire weather in {North America} in 2021 was initiated by the Pacific northwest heat dome}, volume={5}, ISSN={2662-4435}, url={http://dx.doi.org/10.1038/s43247-024-01346-2}, DOI={10.1038/s43247-024-01346-2}, number={1}, journal={Communications Earth &amp; Environment}, publisher={Springer Science and Business Media LLC}, author={Jain, Piyush and Sharma, Aseem Raj and Acuna, Dante Castellanos and Abatzoglou, John T. and Flannigan, Mike}, year={2024} }
+@article{jain2024heatdome, title={Record-breaking fire weather in {North America} in 2021 was initiated by the Pacific northwest heat dome}, volume={5}, ISSN={2662-4435}, url={http://dx.doi.org/10.1038/s43247-024-01346-2}, DOI={10.1038/s43247-024-01346-2}, number={1}, journal={Communications Earth \& Environment}, publisher={Springer Science and Business Media LLC}, author={Jain, Piyush and Sharma, Aseem Raj and Acuna, Dante Castellanos and Abatzoglou, John T. and Flannigan, Mike}, year={2024} }
 
 % verified against Crossref 2026-09-12; DOI 10.1139/cjfr-2021-0353; title: Identifying and analyzing spatial and temporal patterns of lightning-ignited wildfires in Western Canada from 1981 to 2018
 @article{aftergood2022lightning, title={Identifying and analyzing spatial and temporal patterns of lightning-ignited wildfires in {Western Canada} from 1981 to 2018}, volume={52}, ISSN={1208-6037}, url={http://dx.doi.org/10.1139/cjfr-2021-0353}, DOI={10.1139/cjfr-2021-0353}, number={11}, journal={Canadian Journal of Forest Research}, publisher={Canadian Science Publishing}, author={Aftergood, Olivia S.R. and Flannigan, Mike D.}, year={2022}, pages={1399–1411} }
@@ -795,7 +806,7 @@
 @article{vitolo2020era5, title={{ERA5}-based global meteorological wildfire danger maps}, volume={7}, ISSN={2052-4463}, url={http://dx.doi.org/10.1038/s41597-020-0554-z}, DOI={10.1038/s41597-020-0554-z}, number={1}, journal={Scientific Data}, publisher={Springer Science and Business Media LLC}, author={Vitolo, Claudia and Di Giuseppe, Francesca and Barnard, Christopher and Coughlan, Ruth and San-Miguel-Ayanz, Jesus and Libertá, Giorgio and Krzeminski, Blazej}, year={2020} }
 
 % verified against Crossref 2026-09-12; DOI 10.1002/met.170; title: Index sensitivity analysis applied to the Canadian Forest Fire Weather Index and the McArthur Forest Fire Danger Index
-@article{dowdy2010sensitivity, title={Index sensitivity analysis applied to the {Canadian Forest Fire Weather Index} and the {McArthur Forest Fire Danger Index}: INDEX SENSITIVITY ANALYSIS APPLIED TO THE CANADIAN}, volume={17}, ISSN={1350-4827}, url={http://dx.doi.org/10.1002/met.170}, DOI={10.1002/met.170}, number={3}, journal={Meteorological Applications}, publisher={Wiley}, author={Dowdy, Andrew J. and Mills, Graham A. and Finkele, Klara and de Groot, William}, year={2009}, pages={298–312} }
+@article{dowdy2010sensitivity, title={Index sensitivity analysis applied to the {Canadian Forest Fire Weather Index} and the {McArthur Forest Fire Danger Index}: INDEX SENSITIVITY ANALYSIS APPLIED TO THE CANADIAN}, volume={17}, ISSN={1350-4827}, url={http://dx.doi.org/10.1002/met.170}, DOI={10.1002/met.170}, number={3}, journal={Meteorological Applications}, publisher={Wiley}, author={Dowdy, Andrew J. and Mills, Graham A. and Finkele, Klara and {de Groot}, William}, year={2009}, pages={298–312} }
 
 % verified against Crossref 2026-09-12; DOI 10.22499/2.5801.005; title: A comparison of fire danger rating systems for use in forests
 @article{matthews2009comparison, title={A comparison of fire danger rating systems for use in forests}, volume={58}, ISSN={1836-716X}, url={http://dx.doi.org/10.22499/2.5801.005}, DOI={10.22499/2.5801.005}, number={01}, journal={Australian Meteorological and Oceanographic Journal}, publisher={CSIRO Publishing}, author={Matthews, S}, year={2009}, pages={41–48} }
@@ -973,21 +984,23 @@
 % Added 2026-11-04. Two Government of Canada web pages, no DOI, hand-entered;
 % the captures and their provenance are in 04.references/reports/eccc-lightning/.
 % The year is each page's dcterms.modified date as served on 2026-11-04.
-@misc{eccc2016cldn,
+@online{eccc2016cldn,
   author       = {{Environment and Climate Change Canada}},
-  title        = {Canadian Lightning Detection Network},
+  title        = {{Canadian Lightning Detection Network}},
   howpublished = {Government of Canada web page},
   year         = {2016},
   url          = {https://www.canada.ca/en/environment-climate-change/services/lightning/canadian-detection-network.html},
+  urldate      = {2026-11-04},
   note         = {Page modified 2016-06-21, read 2026-11-04; capture in 04.references/reports/eccc-lightning/}
 }
 
-@misc{eccc2018lightningfaq,
+@online{eccc2018lightningfaq,
   author       = {{Environment and Climate Change Canada}},
   title        = {Lightning in {Canada}: frequently asked questions},
   howpublished = {Government of Canada web page},
   year         = {2018},
   url          = {https://www.canada.ca/en/environment-climate-change/services/lightning/frequently-asked-questions.html},
+  urldate      = {2026-11-04},
   note         = {Page modified 2018-08-13, read 2026-11-04; capture in 04.references/reports/eccc-lightning/}
 }
 
@@ -1082,7 +1095,7 @@
   author    = {Beck, J. A. and Armitage, O. B.},
   title     = {Diurnal fine fuel moisture characteristics at a northern latitude},
   booktitle = {Proceedings of the 22nd {Tall Timbers} Fire Ecology Conference: Fire in Temperate, Boreal, and Montane Ecosystems},
-  editor    = {Engstrom, R. T. and Galley, K. E. M. and de Groot, W. J.},
+  editor    = {Engstrom, R. T. and Galley, K. E. M. and {de Groot}, W. J.},
   publisher = {{Tall Timbers Research Station}},
   address   = {Tallahassee, Florida},
   pages     = {211--221},
@@ -1094,3 +1107,15 @@
 
 % verified against Crossref 2026-11-18; DOI 10.18174/sesmo.18755; title: Towards normalizing good practice across the whole modeling cycle: its instrumentation and future research topics; month stripped; pages field is the article number 18755
 @article{jakeman2024normalizing, title={Towards normalizing good practice across the whole modeling cycle: its instrumentation and future research topics}, volume={6}, ISSN={2663-3027}, url={http://dx.doi.org/10.18174/sesmo.18755}, DOI={10.18174/sesmo.18755}, journal={Socio-Environmental Systems Modelling}, publisher={Wageningen University and Research}, author={Jakeman, Anthony J. and Elsawah, Sondoss and Wang, Hsiao-Hsuan and Hamilton, Serena H. and Melsen, Lieke and Grimm, Volker}, year={2024}, pages={18755} }
+
+% Hand-entered 2026-11-19. Zenodo reserved this DOI for the study's deposit, and DataCite
+% registers it only when the record is published, so no registry record existed to take
+% the entry from. Title, creator and version as entered in the Zenodo draft that day.
+@dataset{murphy2026zenodo,
+  author    = {Murphy, Seamus Robert},
+  title     = {Updates to fuel moisture code, spread index and hourly weather variables in the 2025 {Canadian Forest Fire Danger Rating System} tested across 31 seasons of fire danger trends in the {Okanagan} basin},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {1.0.0},
+  doi       = {10.5281/zenodo.24208026}
+}

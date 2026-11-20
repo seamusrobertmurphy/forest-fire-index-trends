@@ -93,16 +93,15 @@
       <if variable="DOI">
         <text variable="DOI" prefix="https://doi.org/"/>
       </if>
-      <else-if type="webpage post-weblog" match="any">
+      <else-if type="webpage post-weblog dataset software" match="any">
         <group delimiter=" ">
-          <text value="URL"/>
           <text variable="URL"/>
-          <group prefix="(" suffix=").">
+          <group prefix="(" suffix=")">
             <text term="accessed" suffix=" "/>
             <date variable="accessed">
-              <date-part name="month" form="numeric" suffix="."/>
-              <date-part name="day" suffix="."/>
-              <date-part name="year" form="short"/>
+              <date-part name="day" suffix=" "/>
+              <date-part name="month" suffix=" "/>
+              <date-part name="year"/>
             </date>
           </group>
         </group>
@@ -122,9 +121,13 @@
         <text variable="title"/>
         <text macro="edition" prefix=", "/>
       </else-if>
-      <else-if type="webpage">
+      <else-if type="dataset">
         <text variable="title"/>
-        <text value="WWW Document" prefix=" [" suffix="]"/>
+        <text value="dataset" prefix=" [" suffix="]"/>
+      </else-if>
+      <else-if type="software">
+        <text variable="title"/>
+        <text value="software" prefix=" [" suffix="]"/>
       </else-if>
       <else>
         <text variable="title"/>
@@ -198,6 +201,12 @@
       </else-if>
       <else-if type="patent">
         <text variable="number" prefix=". "/>
+      </else-if>
+      <else-if type="dataset software webpage" match="any">
+        <group delimiter=", " prefix=". ">
+          <text variable="publisher"/>
+          <text variable="version" prefix="v"/>
+        </group>
       </else-if>
     </choose>
   </macro>
