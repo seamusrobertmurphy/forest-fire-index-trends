@@ -57,9 +57,9 @@ caps <- regmatches(html, gregexpr(cap_pat, html, perl = TRUE))[[1]]
 floats <- lapply(caps, function(m) {
   parts <- regmatches(m, regexec(cap_pat, m, perl = TRUE))[[1]]
   txt <- plain(parts[4])
-  num <- sub("^(Figure|Table) ([0-9A-Z.]+):.*$", "\\2", txt)
+  num <- sub("^(Figure|Table) ([0-9A-Z]+)[:.] .*$", "\\2", txt)
   list(label = parts[2], kind = parts[3], number = num,
-       caption = sub("^(Figure|Table) [0-9A-Z.]+:\\s*", "", txt))
+       caption = sub("^(Figure|Table) [0-9A-Z]+[:.]\\s*", "", txt))
 })
 
 ## A GFM pipe table from the rendered <table> that follows a float's id. Cells

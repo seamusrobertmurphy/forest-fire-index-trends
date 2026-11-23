@@ -1,20 +1,18 @@
-The 2025 update to the Canadian Forest Fire Danger Rating System recalculated
+The 2025 revision of the Canadian Forest Fire Weather Index System recalculated
 its three fuel moisture codes hourly, with faster litter drying and per-event
-rain thresholds. It also limited the Initial Spread Index wind effect above 40
-kilometres per hour. The weather input changed from daily to hourly. No study
-had separated the two changes or tested trends across both. This study
+rain thresholds. The revision also limited the Initial Spread Index wind effect
+above 40 kilometres per hour. The weather input changed from daily to hourly.
+No study had separated the two changes or tested trends across both. This study
 computed three series from one hourly record of 104 station-seasons at five
 Okanagan basin stations, British Columbia, 1991 to 2025. The 1984 version used the
-13:00 observation, the 2025 version that observation and hourly weather, and
-twelve metrics covered every component. Trends were estimated by Theil-Sen slope
-and Mann-Kendall test with the Hamed and Rao autocorrelation correction, slope
-differences by moving-block bootstrap, and lightning ignitions by negative
-binomial regression. Of 144 trends, 140 were positive and 35 passed the test,
-33 at one station. Between versions, levels moved and trends did not. At fixed input, the 2025 equations raised the mean Duff Moisture Code by 5.8 and the peak Drought Code by 60, towards drier fuel.
-Across both changes a Fine Fuel Moisture Code of 91 fell from percentile 65.1 to
-62.5, so 62 rather than 57 days per season exceeded it. None of 24 slope
-differences under fixed or percentile thresholds excluded zero, at a
-resolution of 16.8 days, and lightning ignition skill differed by 0.0005 in log
-likelihood. Trends should be reported as days above a percentile threshold,
+13:00 observation, the 2025 version that observation and, separately, hourly
+weather, and twelve metrics covered every component. Trends were estimated by
+Theil-Sen slope and Mann-Kendall test with the Hamed and Rao autocorrelation correction, slope
+differences by moving-block bootstrap, and daily ignitions by negative binomial
+regression. Of 144 trends at four stations, 140 were positive and 35 passed false
+discovery rate correction, 33 at one station. Between versions, levels moved and no trend difference was detected. At fixed input, the version change raised the mean Duff Moisture Code by 5.8 and the peak Drought Code by 60, towards drier fuel. Across both changes, 62 rather than 57 days per season
+exceeded a Fine Fuel Moisture Code of 91. No slope difference between series excluded zero, with median interval half widths
+of 10.1 to 16.8 days. Lightning ignition skill differed by 0.0005 log likelihood
+units per day. Trends should be reported as days above a percentile threshold,
 with the version stated.
 

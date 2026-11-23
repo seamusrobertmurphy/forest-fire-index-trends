@@ -2,9 +2,9 @@
 "Lightning, no size limit","S1: FWI1987, 13:00 observation",0.0161,"0.0052 to 0.0269",1.17,-0.4201
 "Lightning, no size limit","S2: FWI2025, 13:00 observation",0.011,"-0.0005 to 0.0225",1.12,-0.4206
 "Lightning, no size limit","S3: FWI2025, hourly observation",0.0099,"-0.0003 to 0.0200",1.1,-0.4206
-"Person, no size limit","S1: FWI1987, 13:00 observation",0.048,"0.0421 to 0.0539",1.62,NA
-"Person, no size limit","S2: FWI2025, 13:00 observation",0.0489,"0.0428 to 0.0550",1.63,NA
-"Person, no size limit","S3: FWI2025, hourly observation",0.0412,"0.0360 to 0.0465",1.51,NA
+"Person-caused, no size limit","S1: FWI1987, 13:00 observation",0.048,"0.0421 to 0.0539",1.62,NA
+"Person-caused, no size limit","S2: FWI2025, 13:00 observation",0.0489,"0.0428 to 0.0550",1.63,NA
+"Person-caused, no size limit","S3: FWI2025, hourly observation",0.0412,"0.0360 to 0.0465",1.51,NA
 "All causes, no size limit","S1: FWI1987, 13:00 observation",0.0332,"0.0289 to 0.0375",1.39,-1.1637
 "All causes, no size limit","S2: FWI2025, 13:00 observation",0.0329,"0.0283 to 0.0374",1.39,-1.1664
 "All causes, no size limit","S3: FWI2025, hourly observation",0.0287,"0.0247 to 0.0327",1.33,-1.1672

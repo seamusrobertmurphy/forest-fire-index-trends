@@ -1,0 +1,17 @@
+---
+title: ""
+format:
+  docx:
+    reference-doc: ../04.references/style-formal.docx
+engine: knitr
+---
+
+**Evaluating the 2025 revision of the Canadian Forest Fire Weather Index System against 31 seasons of fire danger trends and ignitions in the Okanagan basin**
+
+Seamus Murphy^a,\*^
+
+^a^ TÜV SÜD, 2187 Comox Avenue, Comox, British Columbia V9M 1P5, Canada
+
+\* Corresponding author. Email seamusrobertmurphy@gmail.com. ORCID 0000-0002-1792-0351.
+
+Original research paper submitted to Ecological Modelling, `r format(Sys.Date(), "%d %B %Y")`.

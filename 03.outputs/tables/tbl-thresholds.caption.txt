@@ -1,1 +1,1 @@
-Where each absolute threshold falls in each series' own 1991 to 2020 reference distribution.
+Where each absolute threshold fell in each series' own 1991 to 2020 reference distribution.
