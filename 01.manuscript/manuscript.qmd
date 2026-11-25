@@ -2236,11 +2236,6 @@ A danger rating system was judged on whether its outputs tracked fire occurrence
 
 The report's section 4.1 nonetheless claimed continuity, stating that its adjustments were made "to ensure compatibility with a wider range of input data while maintaining the consistency of output values" [@cffdg2025fwi2025, p. 17]. This meant that "an FFMC of 91 in FWI1987 should correspond to an FFMC of approximately 91 in FWI2025" [@cffdg2025fwi2025, p. 17]. Deviations "should reflect meaningful differences in fuel moisture content, as FWI2025 more accurately models diurnal drying and wetting processes" [@cffdg2025fwi2025, p. 17]. The report compared the Fine Fuel Moisture Code of each version with field samples on four days of June 1999 in the Northwest Territories [@cffdg2025fwi2025, p. 19]. No published study had compared the two versions over a longer observed record. FWI1987 on its 13:00 observation against FWI2025 on hourly weather would confound the version change with the input change. This study separated the two by computing three danger series from one hourly weather record for one basin. @tbl-expectations set out what the literature above led the study to expect for each metric family.
 
-<!-- Word build. Ends the portrait section so the next table prints on a landscape page. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
-```
-
 | Metric family | Expected direction | Basis |
 |:----------------|:------------------|:---------------------------------------------------------------|
 | Mean Fire Weather Index and seasonal severity rating, the Daily Severity Rating summed over the season | Positive trend in all three series; small difference in level between versions | Moisture deficit rising since breakpoints in 1999 in summer and 2011 in spring [@parisien2023abrupt, p. 3]; rising May to October mean Fire Weather Index over western North America 1951 to 2021 in ERA5, the fifth reanalysis of the European Centre for Medium-Range Weather Forecasts, with "ERA5 FWI values decreasing into the 1980s before increasing into the current decade, making a linear trend analysis sensitive to endpoint selection" [@queen2025fingerprint, p. 2]; comparability of levels claimed in section 4.1 of @cffdg2025fwi2025 |
@@ -2251,11 +2246,6 @@ The report's section 4.1 nonetheless claimed continuity, stating that its adjust
 | Daily lightning, person-caused and all-cause ignitions | Positive association with daily danger; weaker for lightning without strike data | Daily fire occurrence in British Columbia [@magnussen2012bc]; strike data in lightning occurrence models [@wotton2005lightning, pp. 1392, 1396]; percentile analysis and logistic regression of fire days on an index [@andrews2003evaluation] |
 
 : Expected direction of each metric family and the literature it rested on. {#tbl-expectations tbl-align="left"}
-
-<!-- Word build. Ends the landscape section and returns to portrait. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
-```
 
 The Okanagan basin, a populated and fire-prone valley in the southern interior of British Columbia, had a long instrumented fire weather record. It lay where the largest increases in fire weather indices were expected [@haughian2012climate]. The basin's terrain was steep enough that a station record was preferable to a reanalysis. Reanalysis fire danger biases were largest in mountainous areas [@vitolo2020era5]. The only station trend test published for the basin covered Penticton Airport and Upper Penticton Creek over 1984 to 2016 [@spittlehouse2022interaction]. It found no trend at p below 0.2 in seasonal temperature or precipitation.
 
@@ -3067,11 +3057,6 @@ trends$q <- ave(trends$p_corrected,
 write.csv(trends, file.path(outputs, "trend-estimates.csv"), row.names = FALSE)
 ```
 
-<!-- Word build. Ends the portrait section so the next table prints on a landscape page. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
-```
-
 ```{r}
 #| label: tbl-trends
 #| tbl-cap: "Theil-Sen slopes per season for each seasonal metric under each series, pooled across stations as the median station slope, with the range across stations. Significance was tested by Mann-Kendall with the Hamed and Rao variance correction. The count was of stations at which the false discovery rate adjusted p value fell below 0.05 within that station's twelve-metric family. The minimum detectable trend was the slope this record could resolve at 90 per cent power."
@@ -3093,11 +3078,6 @@ tr <- do.call(rbind, lapply(split(trends, list(trends$series, trends$metric),
 tr <- tr[order(match(tr$Metric, METRICS$label), tr$Series), ]
 rownames(tr) <- NULL
 fmt_tbl(tr, size = 8, numeric = "center")
-```
-
-<!-- Word build. Ends the landscape section and returns to portrait. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
 ```
 
 ```{r}
@@ -3299,11 +3279,6 @@ sdiff$q <- ave(sdiff$p_two_sided, paste(sdiff$contrast, sdiff$station), FUN = fd
 write.csv(sdiff, file.path(outputs, "slope-differences.csv"), row.names = FALSE)
 ```
 
-<!-- Word build. Ends the portrait section so the next table prints on a landscape page. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
-```
-
 ```{r}
 #| label: tbl-slopediff
 #| tbl-cap: "Difference in Theil-Sen slope between series, by metric and contrast, pooled across stations as the median. Intervals were paired moving-block bootstrap percentile intervals over 4,000 resamples of blocks of consecutive seasons. The resampling preserved both the dependence between series that shared a weather record and the serial correlation within each. Stations excluding zero counted the stations whose own interval did not contain zero. The last column applied the Benjamini and Hochberg correction within each station's twelve-metric family for that contrast."
@@ -3323,11 +3298,6 @@ sd_tab <- sd_tab[order(match(sd_tab$Contrast, vapply(CONTRASTS, `[`, "", 3)),
                        match(sd_tab$Metric, METRICS$label)), ]
 rownames(sd_tab) <- NULL
 fmt_tbl(sd_tab, size = 8)
-```
-
-<!-- Word build. Ends the landscape section and returns to portrait. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
 ```
 
 ```{r}
@@ -3493,11 +3463,6 @@ ign_res <- do.call(rbind, ign_rows)
 write.csv(ign_res, file.path(outputs, "ignition-models.csv"), row.names = FALSE)
 ```
 
-<!-- Word build. Ends the portrait section so the next table prints on a landscape page. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
-```
-
 ```{r}
 #| label: tbl-ignition
 #| tbl-cap: "Negative binomial models of daily ignition counts on daily basin Fire Weather Index (FWI), over the 1 May to 30 September window. Each model also included season as a fixed effect, two annual harmonics in day of year and the number of contributing stations. The coefficient was the log change in expected count per unit of Fire Weather Index, identified from within-season variation only. Held-out log likelihood was the mean per day under leave-one-season-out refitting. A larger value was better, and the comparison between series, not the absolute value, was the quantity of interest. The held-out log likelihood was computed for the lightning and all-cause responses with no size limit."
@@ -3512,11 +3477,6 @@ it <- data.frame(
 it <- it[order(match(it$Response, unname(RESPONSES)), it$Series), ]
 rownames(it) <- NULL
 fmt_tbl(it)
-```
-
-<!-- Word build. Ends the landscape section and returns to portrait. -->
-```{=openxml}
-<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:rPr><w:sz w:val="2"/></w:rPr><w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:lnNumType w:countBy="1" w:restart="continuous"/><w:cols w:space="720"/><w:docGrid w:linePitch="299"/></w:sectPr></w:pPr></w:p>
 ```
 
 ```{r}
