@@ -11,7 +11,7 @@ The Editors, Ecological Modelling
 
 Dear Editors,
 
-I submit "Evaluating the 2025 revision of the Canadian Forest Fire Weather Index System against 31 seasons of fire danger trends and ignitions in the Okanagan basin" as an original research paper.
+I submit "Fire weather index trends in the Okanagan basin under the 2025 Canadian Forest Fire Danger Rating System" as an original research paper.
 
 The 2025 revision of the Canadian Forest Fire Weather Index System recalculated its three fuel moisture codes hourly, and its weather input changed from daily to hourly. No study had separated the two changes or tested trends across both. This study computed three fire danger series from one hourly record at five stations in the Okanagan basin of British Columbia over 1991 to 2025. Between versions, levels moved and no trend difference was detected. Trends should be reported as days above a percentile threshold, with the version stated.
 

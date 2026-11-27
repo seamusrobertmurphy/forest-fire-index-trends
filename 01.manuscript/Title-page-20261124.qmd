@@ -6,7 +6,7 @@ format:
 engine: knitr
 ---
 
-**Evaluating the 2025 revision of the Canadian Forest Fire Weather Index System against 31 seasons of fire danger trends and ignitions in the Okanagan basin**
+**Fire weather index trends in the Okanagan basin under the 2025 Canadian Forest Fire Danger Rating System**
 
 Seamus Murphy^a,\*^
 

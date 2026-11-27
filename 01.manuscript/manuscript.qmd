@@ -1,5 +1,5 @@
 ---
-title: "Evaluating the 2025 revision of the Canadian Forest Fire Weather Index System against 31 seasons of fire danger trends and ignitions in the Okanagan basin"
+title: "Fire weather index trends in the Okanagan basin under the 2025 Canadian Forest Fire Danger Rating System"
 date: today
 keywords:
   - Forest Fire Weather Index System
@@ -59,9 +59,9 @@ derived <- file.path(inputs, "derived")
 easypackages::packages("elevatr", "flextable", "ggplot2", "ggrepel", "ggspatial",
                        "knitr", "MASS", "modifiedmk", "patchwork", "reticulate",
                        "rmarkdown", "sf", "terra", "tools", prompt = FALSE)
-# The Python chunks run through reticulate on the MacPorts interpreter the
-# retrieval and computation were written for.
-reticulate::use_python("/opt/local/bin/python3", required = TRUE)
+# The Python chunks run through reticulate on the system interpreter of the
+# Ubuntu machine that renders the manuscript.
+reticulate::use_python("/usr/bin/python3", required = TRUE)
 
 # Write figures into the committed outputs folder rather than the render
 # sidecar. With embed-resources the sidecar is deleted once its contents are
@@ -3927,15 +3927,21 @@ abs_p <- vapply(c("S1", "S2", "S3"), function(s)
   pull(abs_ffmc, s, "Percentile of threshold"), numeric(1))
 abs_d <- vapply(c("S1", "S2", "S3"), function(s)
   pull(abs_ffmc, s, "Days per season above"), numeric(1))
+# Days per season above a Fire Weather Index of 19, the second fixed value the
+# abstract reports.
+abs_fwi <- subset(tp, Component == "FWI" & Threshold == 19)
+abs_f <- vapply(c("S1", "S2", "S3"), function(s)
+  pull(abs_fwi, s, "Days per season above"), numeric(1))
+# The verb for a count under the 2025 version beside the 1984 count, at the
+# whole-day precision the abstract prints, so no direction is typed.
+moved <- function(to, from = abs_f[["S1"]]) if (round(to) == round(from)) "stayed at" else
+  if (to > from) "rose to" else "fell to"
+# The sentence joins the two inputs with "but", so the render stops if the two
+# no longer differ in direction.
+if (moved(abs_f[["S3"]]) == moved(abs_f[["S2"]]))
+  stop("The abstract contrasts hourly weather with the 13:00 observation at a Fire Weather Index of 19, and the two no longer differ in direction.")
 
-# The migration contrast, absolute against relative thresholding.
-mig_rows <- sdiff[sdiff$contrast == mig_label, ]
-abs_mig <- mig_rows[mig_rows$scheme == "absolute", ]
-rel_mig <- mig_rows[mig_rows$scheme == "relative", ]
-n_abs_sig <- sum(abs_mig$lower > 0 | abs_mig$upper < 0, na.rm = TRUE)
-n_rel_sig <- sum(rel_mig$lower > 0 | rel_mig$upper < 0, na.rm = TRUE)
-
-# Ignition skill, on the lightning series.
+# Ignition skill on the lightning series, which the highlights report.
 lig <- ign_res[ign_res$response == "n_lightning_all", ]
 lig <- lig[order(-lig$loso_loglik), ]
 
@@ -3943,47 +3949,36 @@ lig <- lig[order(-lig$loso_loglik), ]
 num_word <- function(n) if (n >= 1 && n <= 12)
   c("one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     "ten", "eleven", "twelve")[n] else as.character(n)
-slow_clause <- if (all(shift$version[4:5] > 0)) {
-  sprintf("raised the mean Duff Moisture Code by %.1f and the peak Drought Code by %.0f, towards drier fuel",
-          shift$version[4], shift$version[5])
-} else {
-  sprintf("moved the mean Duff Moisture Code by %+.1f and the peak Drought Code by %+.0f, not both towards drier fuel",
-          shift$version[4], shift$version[5])
-}
-n_sig <- n_abs_sig + n_rel_sig
-trend_open <- if (n_sig == 0) "Between versions, levels moved and no trend difference was detected" else
-  "Between versions, levels moved and so did some trends"
-# Slope differences excluding zero over every station, metric and contrast, the
-# set the two median half widths pool.
+seasons_per_station <- range(table(kept$station_name))
 n_any_excl <- sum(sdiff$lower > 0 | sdiff$upper < 0, na.rm = TRUE)
-diff_open <- if (n_any_excl == 0) "No slope difference between series excluded zero" else
+diff_open <- if (n_any_excl == 0) "No slope difference between series excluded zero, so the revision changed no trend detectably" else
   sprintf("%d of %d slope differences between series excluded zero", n_any_excl, nrow(sdiff))
 
 abstract_text <- sprintf(
-"The 2025 revision of the Canadian Forest Fire Weather Index System recalculated
-its three fuel moisture codes hourly, with faster litter drying and per-event
-rain thresholds. The revision also limited the Initial Spread Index wind effect
-above 40 kilometres per hour. The weather input changed from daily to hourly.
-No study had separated the two changes or tested trends across both. This study
-computed three series from one hourly record of %s station-seasons at %s
-Okanagan basin stations, British Columbia, %d to %d. The 1984 version used the
-13:00 observation, the 2025 version that observation and, separately, hourly
-weather, and %s metrics covered every component. Trends were estimated by
-Theil-Sen slope and Mann-Kendall test with the Hamed and Rao autocorrelation correction, slope
-differences by moving-block bootstrap, and daily ignitions by negative binomial
-regression. Of %d trends at %s stations, %d were positive and %d passed false
-discovery rate correction, %d at one station. %s. At fixed input, the version change %s. Across both changes, %.0f rather than %.0f days per season
-exceeded a Fine Fuel Moisture Code of 91. %s, with median interval half widths
-of %.1f to %.1f days. Lightning ignition skill differed by %.4f log likelihood
-units per day. Trends should be reported as days above a percentile threshold,
-with the version stated.\n",
-  format(n_kept, big.mark = ","), num_word(n_stations_kept), yr_first, yr_last,
-  num_word(nrow(METRICS)),
-  tr_n, num_word(length(unique(trends$station))), tr_up, tr_sig, sig_station[[1]],
-  trend_open, slow_clause,
-  abs_d[["S3"]], abs_d[["S1"]],
-  diff_open, min(res_abs, res_rel) * (yr_last - yr_first), max(res_abs, res_rel) * (yr_last - yr_first),
-  diff(range(lig$loso_loglik))
+"In 2025, Canada revised the equations and weather input of its Fire Weather
+Index System. Published fire danger trends had been computed under earlier
+versions, as had the fixed index values at which agencies rated danger high or
+extreme. No study had tested whether these revisions changed those trends. This
+study used hourly records from %s stations in the Okanagan basin, British
+Columbia, each holding %d to %d complete fire seasons between %d and %d. Daily
+indices were computed under both versions from the 13:00 local time observation
+and under the 2025 version from hourly weather, giving three series. Trends in
+%s metrics were estimated by Theil-Sen slope and Mann-Kendall test with Hamed
+and Rao's autocorrelation correction, and slope differences by moving-block
+bootstrap. Of %d trends, %d were positive and %d passed false discovery rate
+correction, %d of them at one station. %s. Instead, days per season above a Fine
+Fuel Moisture Code of 91 %s from %.0f to %.0f when the 2025 version ran on hourly
+weather. Combining the two versions in one record would thus %s %.1f days caused
+by the revision rather than the weather. Under the 2025 version, days above a
+Fire Weather Index of 19 %s %.0f on hourly weather but %s %.0f on the 13:00
+observation. Fire danger trends could therefore be compared between the two
+versions, but counts of days above a fixed index value could not.\n",
+  num_word(n_stations_kept), seasons_per_station[1], seasons_per_station[2],
+  yr_first, yr_last, num_word(nrow(METRICS)),
+  tr_n, tr_up, tr_sig, sig_station[[1]], diff_open,
+  up_down(shift$migration[1], "rose", "fell"), abs_d[["S1"]], abs_d[["S3"]],
+  up_down(shift$migration[1], "add", "remove"), abs(shift$migration[1]),
+  moved(abs_f[["S3"]]), abs_f[["S3"]], moved(abs_f[["S2"]]), abs_f[["S2"]]
 )
 # The front matter reads this file, so the abstract prints at the head of the
 # document. When the composed text changes, the file is rewritten and the render

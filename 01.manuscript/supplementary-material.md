@@ -1,6 +1,6 @@
 ---
 title: "Supplementary Material"
-subtitle: "Evaluating the 2025 revision of the Canadian Forest Fire Weather Index System against 31 seasons of fire danger trends and ignitions in the Okanagan basin"
+subtitle: "Fire weather index trends in the Okanagan basin under the 2025 Canadian Forest Fire Danger Rating System"
 ---
 
 Checks of the FWI1987 implementation against the R package cffdrs and the BC Wildfire Service's operational codes, and the effect of the daily summary hour on FWI2025 counts.
