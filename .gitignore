@@ -96,3 +96,9 @@ dev_key
 # is on the record. It IS committed, under its Mozilla Public License 2.0, with
 # the upstream commit recorded in COMMIT.txt.
 !05.scripts/vendor/
+
+# Working folders kept off GitHub
+05.scripts/
+05.tasks/
+scripts/
+tasks/
